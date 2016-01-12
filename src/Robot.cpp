@@ -1,6 +1,5 @@
 #include "WPILib.h"
 #include "Commands/Command.h"
-#include "Commands/ExampleCommand.h"
 #include "CommandBase.h"
 //2016 Stronghold code
 class Robot: public IterativeRobot
@@ -12,7 +11,7 @@ private:
 	void RobotInit()
 	{
 		CommandBase::init();
-		autonomousCommand = new ExampleCommand();
+//		autonomousCommand = new ExampleCommand();
 		lw = LiveWindow::GetInstance();
 	}
 	

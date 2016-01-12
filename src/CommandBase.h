@@ -3,9 +3,10 @@
 
 #include <string>
 #include "Commands/Command.h"
-#include "Subsystems/ExampleSubsystem.h"
 #include "OI.h"
 #include "WPILib.h"
+
+#include "Subsystems/Drivebase.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -19,8 +20,13 @@ public:
 	CommandBase();
 	static void init();
 	// Create a single static instance of all of your subsystems
-	static ExampleSubsystem *examplesubsystem;
+//	static ExampleSubsystem *examplesubsystem;
 	static OI *oi;
+
+	//Creates statics. I don't really understand it, but statics are like the virtual robot parts
+	//Statics are manipulated to affect the physical robot
+	//A static is necessary for each subsystem
+	static Drivebase *drivebase;
 };
 
 #endif

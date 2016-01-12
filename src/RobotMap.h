@@ -20,4 +20,30 @@
 //const int RANGE_FINDER_PORT = 1;
 //const int RANGE_FINDER_MODULE = 1;
 
+/*******************
+ * Global Variables
+ *******************/
+double MinSensitivityThreshold = 0.1;//Sensitivity is used in driving, so that there is a speed limit
+double MaxSensitivityThreshold = 0.9;//for highest speed and lowest speed
+/***********************
+ * End Global Variables
+ ***********************/
+
+/****************
+ * Controllers
+ **************/
+const int XboxController_Channel	= 1;//Controller for drivebase
+/****************
+ * End Controllers
+ **************/
+
+/****************
+ * Drive Motors
+ **************/
+//Motor location may change
+const int LeftMotor		= 0;//Locations of Motors, check under DIO of roboRIO
+const int RightMotor 	= 1;//and the wires connecting the roboRIO to motors
+/*******************
+ * End Drive Motors
+ *******************/
 #endif

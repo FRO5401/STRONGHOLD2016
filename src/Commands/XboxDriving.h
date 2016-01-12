@@ -1,13 +1,13 @@
-#ifndef EXAMPLE_COMMAND_H
-#define EXAMPLE_COMMAND_H
+#ifndef XboxDriving_H
+#define XboxDriving_H
 
 #include "../CommandBase.h"
 #include "WPILib.h"
 
-class ExampleCommand: public CommandBase
+class XboxDriving: public CommandBase
 {
 public:
-	ExampleCommand();
+	XboxDriving();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
