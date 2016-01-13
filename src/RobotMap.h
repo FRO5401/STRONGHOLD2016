@@ -23,8 +23,8 @@
 /*******************
  * Global Variables
  *******************/
-double MinSensitivityThreshold = 0.1;//Sensitivity is used in driving, so that there is a speed limit
-double MaxSensitivityThreshold = 0.9;//for highest speed and lowest speed
+const double MinSensitivityThreshold = 0.1;//Sensitivity is used in driving, so that there is a speed limit
+const double MaxSensitivityThreshold = 0.9;//for highest speed and lowest speed
 /***********************
  * End Global Variables
  ***********************/
