@@ -18,18 +18,22 @@ void XboxDriving::Execute()
 	//Equal signs will be replaced by greater and less thans later
 	double LeftMove = oi -> ReadXboxLeftAxisY();
 	double RightMove = oi -> ReadXboxRightAxisY();
-	if(LeftMove == -1 && RightMove == -1)
+	if(LeftMove < 0 && RightMove < 0)
 	{
 		//Move Forward
-	}else if(LeftMove == 1 && RightMove == 1)
+		drivebase -> Drive(LeftMove, RightMove, MinSensitivityThreshold, MaxSensitivityThreshold);
+	}else if(LeftMove > 0 && RightMove > 0)
 	{
 		//Move Backward
-	}else if(LeftMove == -1 && RightMove == 1)
+		drivebase -> Drive(LeftMove, RightMove, MinSensitivityThreshold, MaxSensitivityThreshold);
+	}else if(LeftMove < 0 && RightMove > 0)
 	{
 		//Turn Right
-	}else if(LeftMove == 1 && RightMove == -1)
+		drivebase -> Drive(LeftMove, RightMove, MinSensitivityThreshold, MaxSensitivityThreshold);
+	}else if(LeftMove > 0 && RightMove < 0)
 	{
 		//Turn Left
+		drivebase -> Drive(LeftMove, RightMove, MinSensitivityThreshold, MaxSensitivityThreshold);
 	}
 
 }
