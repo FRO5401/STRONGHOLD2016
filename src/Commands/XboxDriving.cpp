@@ -15,7 +15,9 @@ void XboxDriving::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void XboxDriving::Execute()
 {	//Movements will currently be in comments, actual code will come later after finalizing logic
+	//Logic has been finalized
 	//Equal signs will be replaced by greater and less thans later
+	//Equal signs has been replaced
 	double LeftMove = oi -> ReadXboxLeftAxisY();
 	double RightMove = oi -> ReadXboxRightAxisY();
 	if(LeftMove < 0 && RightMove < 0)
