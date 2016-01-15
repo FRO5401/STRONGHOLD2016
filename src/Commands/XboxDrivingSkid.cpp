@@ -1,23 +1,20 @@
-#include "XboxDriving.h"
+#include "XboxDrivingSkid.h"
 
-XboxDriving::XboxDriving()
+XboxDrivingSkid::XboxDrivingSkid()
 {
 	// Use Requires() here to declare subsystem dependencies
 	Requires(drivebase);
 }
 
 // Called just before this Command runs the first time
-void XboxDriving::Initialize()
+void XboxDrivingSkid::Initialize()
 {
 
 }
 
 // Called repeatedly when this Command is scheduled to run
-void XboxDriving::Execute()
-{	//Movements will currently be in comments, actual code will come later after finalizing logic
-	//Logic has been finalized
-	//Equal signs will be replaced by greater and less thans later
-	//Equal signs has been replaced
+void XboxDrivingSkid::Execute()
+{
 	double LeftMove = oi -> ReadXboxLeftAxisY();
 	double RightMove = oi -> ReadXboxRightAxisY();
 	if(LeftMove < 0 && RightMove < 0)
@@ -37,24 +34,23 @@ void XboxDriving::Execute()
 		//Turn Left
 		drivebase -> Drive(LeftMove, RightMove, MinSensitivityThreshold, MaxSensitivityThreshold);
 	}
-
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool XboxDriving::IsFinished()
+bool XboxDrivingSkid::IsFinished()
 {
 	return false;
 }
 
 // Called once after isFinished returns true
-void XboxDriving::End()
+void XboxDrivingSkid::End()
 {
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void XboxDriving::Interrupted()
+void XboxDrivingSkid::Interrupted()
 {
 
 }

@@ -1,13 +1,13 @@
-#ifndef XboxDriving_H
-#define XboxDriving_H
+#ifndef StopDrive_H
+#define StopDrive_H
 
 #include "../CommandBase.h"
 #include "WPILib.h"
 
-class XboxDriving: public CommandBase
+class StopDrive: public CommandBase
 {
 public:
-	XboxDriving();
+	StopDrive();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
