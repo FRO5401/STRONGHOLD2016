@@ -1,13 +1,13 @@
-#ifndef StopDrive_H
-#define StopDrive_H
+#ifndef StopDriveForAutonomous_H
+#define StopDriveForAutonomous_H
 
 #include "../CommandBase.h"
 #include "WPILib.h"
 
-class StopDrive: public CommandBase
+class StopDriveForAutonomous: public CommandBase
 {
 public:
-	StopDrive();
+	StopDriveForAutonomous();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
