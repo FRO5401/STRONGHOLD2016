@@ -53,6 +53,7 @@ bool OI::GetBrake()
 {
 	return XboxController	->	GetRawButton(LBumper_ID);
 }
+
 double OI::GetUpOrDownValueInfeeder(){
 	double UpOrDownValue = XboxController -> GetRawAxis(5);
 	return UpOrDownValue;
