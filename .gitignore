@@ -78,3 +78,6 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 /Debug/
+
+src/Subsystems/Drivebase.h
+src/Subsystems/Drivebase.h
