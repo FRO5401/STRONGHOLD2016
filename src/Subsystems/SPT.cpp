@@ -16,10 +16,15 @@ void SPT::InitDefaultCommand()
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 void UpAndDown(double ShoulderChangeValue){
-	SPTShoulderMotor -> Set(-1 * ShoulderChangeValue);
+	SPTShoulderMotor -> Set(-.5 * ShoulderChangeValue);
 }
 
-
+//This function sets the shoulder motor to a certain speed
+//The waits a while and stops the motor at the correct angle
+//The wait amount is guess and checked.
 void MoveToDeliveryPosition(){
+	SPTShoulderMotor -> Set(.5);//Speed set may change
+	Wait(1);					//Wait amount may change
+	SPTShoulderMotor -> Set(0);
 
 }
