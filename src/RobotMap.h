@@ -25,6 +25,10 @@
  *******************/
 const double MinSensitivityThreshold = 0.1;//Sensitivity is used in driving, so that there is a speed limit
 const double MaxSensitivityThreshold = 0.9;//for highest speed and lowest speed
+const double Drive_Sensitivity_Default	=	1;
+const double Drive_Sensitivity_Precise	=	0.2;
+
+
 /***********************
  * End Global Variables
  ***********************/
@@ -33,6 +37,10 @@ const double MaxSensitivityThreshold = 0.9;//for highest speed and lowest speed
  * Controllers
  **************/
 const int XboxController_Channel	= 1;//Controller for drivebase
+
+const int LBumper_ID	=	6; //Button channels
+const int RBumper_ID	=	7;
+
 /****************
  * End Controllers
  **************/

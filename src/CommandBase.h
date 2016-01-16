@@ -1,12 +1,12 @@
 #ifndef COMMAND_BASE_H
 #define COMMAND_BASE_H
 
+#include <Subsystems/DriveBase.h>
 #include <string>
 #include "Commands/Command.h"
 #include "OI.h"
 #include "WPILib.h"
 
-#include "Subsystems/Drivebase.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -26,7 +26,7 @@ public:
 	//Creates statics. I don't really understand it, but statics are like the virtual robot parts
 	//Statics are manipulated to affect the physical robot
 	//A static is necessary for each subsystem
-	static Drivebase *drivebase;
+	static DriveBase *drivebase;
 };
 
 #endif

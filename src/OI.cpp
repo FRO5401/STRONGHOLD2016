@@ -1,5 +1,6 @@
 #include "OI.h"
 #include "RobotMap.h"
+#include "Commands/XboxMove.h"
 
 OI::OI()
 {
@@ -11,7 +12,7 @@ OI::OI()
 
 	//Gives the declared buttons a value that uses the joystick(controller) name and the port number determined
 	//by drive station
-	JoystickButton * 	Unused;
+	JoystickButton * 	//Unused;
 						XboxA				= new JoystickButton(XboxController, 1);
 						XboxB				= new JoystickButton(XboxController, 2);
 						XboxX				= new JoystickButton(XboxController, 3);
@@ -25,14 +26,31 @@ OI::OI()
 }
 
 //Defines the functions for the axis's declared in the h file
-double OI::ReadXboxLeftAxisY()
+double OI::ReadXboxLeftStickX()
 {
-	double LeftForward = XboxController -> GetRawAxis(1);
-	return LeftForward;
+	double Slew =	XboxController	-> GetRawAxis(0);
+	return Slew;
 }
 
-double OI::ReadXboxRightAxisY()
+double OI::GetLeftTrigger()
 {
-	double RightForward = XboxController -> GetRawAxis(5);
-	return RightForward;
+	double Throttle = XboxController	->	GetRawAxis(2);
+	return Throttle;
 }
+
+double OI::GetRightTrigger()
+{
+	double Throttle = XboxController	->	GetRawAxis(3);
+	return Throttle;
+}
+
+bool OI::GetPrecision()
+{
+	return XboxController	->	GetRawButton(RBumper_ID);
+}
+
+bool OI::GetBrake()
+{
+	return XboxController	->	GetRawButton(LBumper_ID);
+}
+

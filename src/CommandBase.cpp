@@ -4,7 +4,7 @@
 // Initialize a single static instance of all of your subsystems to NULL
 //ExampleSubsystem* CommandBase::examplesubsystem = NULL;
 OI* CommandBase::oi 				= NULL;
-Drivebase *CommandBase::drivebase 	= NULL;//Makes the static null, or makes the static a clean slate, so nothing is moving yet
+DriveBase *CommandBase::drivebase 	= NULL;//Makes the static null, or makes the static a clean slate, so nothing is moving yet
 
 CommandBase::CommandBase(char const *name) :
 		Command(name)
@@ -24,5 +24,5 @@ void CommandBase::init()
 //	examplesubsystem = new ExampleSubsystem();
 
 	oi = new OI();
-	drivebase = new Drivebase();//Connects the static to the subsystem
+	drivebase = new DriveBase();//Connects the static to the subsystem
 }

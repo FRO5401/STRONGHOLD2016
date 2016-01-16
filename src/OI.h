@@ -3,7 +3,7 @@
 
 #include "WPILib.h"
 //Includes all commands because this is where the commands will be activated to occur
-#include "Commands/XboxDrivingSkid.h"
+#include "Commands/XboxMove.h"
 
 class OI
 {
@@ -30,9 +30,11 @@ public:
 	OI();
 	//Functions to read axes, which cannot be listed like buttons
 	//Only declares
-	double ReadXboxLeftAxisY();
-
-	double ReadXboxRightAxisY();
+	double ReadXboxLeftStickX();
+	double GetLeftTrigger();
+	double GetRightTrigger();
+	bool GetPrecision();
+	bool GetBrake();
 };
 
 #endif
