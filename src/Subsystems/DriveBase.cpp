@@ -7,11 +7,13 @@ DriveBase::DriveBase() :
 {
 	LeftDrive 	= new Victor(LeftMotor);
 	RightDrive	= new Victor(RightMotor);
+	LeftShift = new DoubleSolenoid(pnuOff, Shift_LeftFwd, Shift_LeftRev);
+	RightShift = new DoubleSolenoid(pnuOff, Shift_RightFwd, Shift_RightRev);
 }
 
 void DriveBase::InitDefaultCommand()
 {
-	SetDefaultCommand(new XboxMove());
+//	SetDefaultCommand(new XboxMove());
 }
 
 void DriveBase::Drive(double LeftDriveDesired, double RightDriveDesired) //axes of joystick
@@ -21,6 +23,18 @@ void DriveBase::Drive(double LeftDriveDesired, double RightDriveDesired) //axes 
   RightDrive 	-> Set(RightDriveDesired);
 
   }
+
+void DriveBase::ShiftLow()
+{
+	LeftShift  ->	Set(DoubleSolenoid::Value::kForward);
+	RightShift ->	Set(DoubleSolenoid::Value::kForward);
+}
+
+void DriveBase::ShiftHigh()
+{
+	LeftShift  ->	Set(DoubleSolenoid::Value::kReverse);
+	RightShift ->	Set(DoubleSolenoid::Value::kReverse);
+}
 
   void DriveBase::Stop()
   {

@@ -2,14 +2,14 @@
 #include "Commands/Command.h"
 #include "CommandBase.h"
 #include "Commands/AutonomousLowBar.h"
-#include "Commands/Portcullis.h"
-#include "Commands/ChevalDeFrise.h"
-#include "Commands/Ramparts.h"
-#include "Commands/Moat.h"
-#include "Commands/Drawbridge.h"
-#include "Commands/SallyPort.h"
-#include "Commands/RockWall.h"
-#include "Commands/RoughTerrain.h"
+#include "Commands/AutonomousPortcullis.h"
+#include "Commands/AutonomousChevalDeFrise.h"
+#include "Commands/AutonomousRamparts.h"
+#include "Commands/AutonomousMoat.h"
+#include "Commands/AutonomousDrawbridge.h"
+#include "Commands/AutonomousSallyPort.h"
+#include "Commands/AutonomousRockWall.h"
+#include "Commands/AutonomousRoughTerrain.h"
 
 //2016 Stronghold code
 class Robot: public IterativeRobot
@@ -37,6 +37,8 @@ private:
 		autoMode->AddObject("Rough Terrain", new AutonomousRoughTerrain());
 //		autoMode->AddObject("SpyBot", new AutonomousSpyBot()); //Restore when command is written, plus need one for each position
 		SmartDashboard::PutData("Autonomous Mode", autoMode);
+		CameraServer::GetInstance() -> SetQuality(50);
+		CameraServer::GetInstance() -> StartAutomaticCapture("cam0");
 
 	}
 	

@@ -40,11 +40,24 @@ const int XboxController_Channel	= 1;//Controller for drivebase
 
 const int LBumper_ID	=	6; //Button channels
 const int RBumper_ID	=	7;
+const int Start_ID      =   8
+
 
 /****************
  * End Controllers
  **************/
 
+/****************
+ * Pnuematics
+ **************/
+const int pnuOff 			= 0;
+const int Shift_LeftFwd		= 0;
+const int Shift_LeftRev		= 1;
+const int Shift_RightFwd	= 2;
+const int Shift_RightRev	= 3;
+/****************
+ * End Pnuematics
+ **************/
 /****************
  * Drive Motors
  **************/

@@ -53,6 +53,7 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
+					<fileInfo id="cdt.managedbuild.config.gnu.cross.exe.debug.1104744751.1471478024" name="XboxMove.h" rcbsApplicability="disable" resourcePath="src/Commands/XboxMove.h" toolsToInvoke=""/>
 					<sourceEntries>
 						<entry excluding="src/Commands/XboxDrivingSkid.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
@@ -152,4 +153,5 @@
 			<resource resourceType="PROJECT" workspacePath="/StrongHold2016a"/>
 		</configuration>
 	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 </cproject>

@@ -8,6 +8,8 @@
 #include <Commands/XboxMove.h>
 #include "RobotMap.h"
 #include "SmartDashboard/SmartDashboard.h"
+#include "DriveBase.h"
+#include "WPIlib.h"
 
 XboxMove::XboxMove()
 {
@@ -26,7 +28,7 @@ void XboxMove::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void XboxMove::Execute()
 {
-	double 	Slew       =	oi	->	ReadXboxLeftStickX();
+	double 	Slew        =	oi	->	ReadXboxLeftStickX();
 	double 	Throttle 	=	oi	->	GetRightTrigger();
 	double 	Reverse 	=	oi	->	GetLeftTrigger();
 	bool 	Precision	=	oi	->	GetPrecision();
