@@ -3,7 +3,7 @@
 //Need to check Drive() function, doesn't know which motors need to go reverse so both goes forward
 //Funny stuff happening
 DriveBase::DriveBase() :
-		Subsystem("ExampleSubsystem")
+		Subsystem("DriveBase")
 {
 	LeftDrive 	= new Victor(LeftMotor);
 	RightDrive	= new Victor(RightMotor);

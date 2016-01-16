@@ -21,7 +21,7 @@ public:
 	static void init();
 	// Create a single static instance of all of your subsystems
 //	static ExampleSubsystem *examplesubsystem;
-	static OI *oi;
+	static OI* oi;
 
 	//Creates statics. I don't really understand it, but statics are like the virtual robot parts
 	//Statics are manipulated to affect the physical robot
