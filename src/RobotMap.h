@@ -40,10 +40,21 @@ const int XboxController_Channel	= 1;//Controller for drivebase
 /****************
  * Drive Motors
  **************/
-//Motor location may change
+				//Motor location may change
 const int LeftMotor		= 0;//Locations of Motors, check under DIO of roboRIO
 const int RightMotor 	= 1;//and the wires connecting the roboRIO to motors
 /*******************
  * End Drive Motors
  *******************/
+/***********
+ * Encoders
+ **********/
+				//Encoder location may change
+const int RightEncoder_A	= 0;
+const int RightEncoder_B	= 1;
+const int LeftEncoder_A		= 2;
+const int LeftEncoder_B		= 3;
+/************
+ * End Encoders
+ *************/
 #endif

@@ -6,6 +6,8 @@ Drivebase::Drivebase() :
 {
 	LeftDrive 	= new Victor(LeftMotor);
 	RightDrive	= new Victor(RightMotor);
+	RightEncoder	= new Encoder(RightEncoder_A, RightEncoder_B, false, Encoder::k1X);
+	LeftEncoder		= new Encoder(LeftEncoder_A, LeftEncoder_B, true, Encoder::k1X);
 }
 
 void Drivebase::InitDefaultCommand()
@@ -20,6 +22,10 @@ void Drivebase::InitDefaultCommand()
 //Desired speeds of left and right motors will pass through in commands
 void Drivebase::Drive(double LeftDesired, double RightDesired, double MinSensitivity, double MaxSensitivity)
 {
+	SmartDashboard::PutNumber("Left Drive Count", LeftEncoder 		-> Get());
+	SmartDashboard::PutNumber("Right Drive Count", RightEncoder 	-> Get());
+	SmartDashboard::PutNumber("Left Drive Distance", LeftEncoder 	-> GetDistance());
+	SmartDashboard::PutNumber("Right Drive Distance", RightEncoder 	-> GetDistance());
 
 	//Logic for Left Motors
 	//Makes the left motor runs only if the joystick is pushed forward enough
@@ -49,8 +55,19 @@ void Drivebase::Drive(double LeftDesired, double RightDesired, double MinSensiti
 	}
 }
 
+//Function used in command when you want the robot to stop
 void Drivebase::Stop()
 {
 	LeftDrive	->Set(0);
 	RightDrive	->Set(0);
+}
+
+//Program to reset the Drivebase parts such that the robot is still, and encoders reset
+void Drivebase::Reset()
+{
+	LeftEncoder ->Reset();
+	RightEncoder ->Reset();
+	LeftDrive	-> Set(0);
+	RightDrive	-> Set(0);
+
 }

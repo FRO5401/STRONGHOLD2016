@@ -9,7 +9,7 @@ XboxDrivingSkid::XboxDrivingSkid()
 // Called just before this Command runs the first time
 void XboxDrivingSkid::Initialize()
 {
-
+	drivebase	-> Reset();
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -17,6 +17,15 @@ void XboxDrivingSkid::Execute()
 {
 	double LeftMove = oi -> ReadXboxLeftAxisY();
 	double RightMove = oi -> ReadXboxRightAxisY();
+
+	//The SmartDashboard class allows the programmer to tinker with the SmartDashboard on the driver station
+	//The PutNumber function has the parameters (string, number)
+	//The string will be permanently displayed
+	//Number will also be displayed but may change over time
+	SmartDashboard::PutNumber("Left Motor", LeftMove);
+	SmartDashboard::PutNumber("Right Motor", RightMove);
+
+
 	if(LeftMove < 0 && RightMove < 0)
 	{
 		//Move Forward
