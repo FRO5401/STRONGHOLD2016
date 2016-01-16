@@ -15,6 +15,7 @@ void SPT::InitDefaultCommand()
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
+//This function sets the shoulder motor of SPT to a certain direction between up and down
 void UpAndDown(double ShoulderChangeValue){
 	SPTShoulderMotor -> Set(-.5 * ShoulderChangeValue);
 }
