@@ -79,5 +79,3 @@ $RECYCLE.BIN/
 *.lnk
 /Debug/
 
-src/Subsystems/Drivebase.h
-src/Subsystems/Drivebase.h
