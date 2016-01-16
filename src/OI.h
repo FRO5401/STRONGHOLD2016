@@ -3,7 +3,7 @@
 
 #include "WPILib.h"
 //Includes all commands because this is where the commands will be activated to occur
-#include "Commands/XboxDriving.h"
+#include "Commands/XboxDrivingSkid.h"
 
 class OI
 {
@@ -28,7 +28,7 @@ public:
 	Button *RightStickButton;
 
 	OI();
-	//Functions to read axises, which cannot be listed like buttons
+	//Functions to read axes, which cannot be listed like buttons
 	//Only declares
 	double ReadXboxLeftAxisY();
 
