@@ -29,3 +29,9 @@ void MoveToDeliveryPosition(){
 	SPTShoulderMotor -> Set(0);
 
 }
+
+void MoveToInfeederPosition(){
+	SPTShoulderMotor -> Set(.5);
+	Wait(1);
+	SPTShoulderMotor -> Set(0);
+}

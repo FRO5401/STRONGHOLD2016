@@ -16,6 +16,7 @@ public:
 	void InitDefaultCommand();
 	void UpAndDown(double);
 	void MoveToDeliveryPosition();
+	void MoveToInfeederPosition();
 };
 
 #endif
