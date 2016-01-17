@@ -35,6 +35,7 @@ public:
 	double GetRightTrigger();
 	bool GetPrecision();
 	bool GetBrake();
+	double GetUpOrDownValueInfeeder();
 };
 
 #endif
