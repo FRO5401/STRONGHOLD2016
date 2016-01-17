@@ -5,8 +5,8 @@
  *      Author: FROGramming Team
  */
 
-#ifndef SRC_COMMANDS_XBOXMOVE_H_
-#define SRC_COMMANDS_XBOXMOVE_H_
+//#ifndef SRC_COMMANDS_XBOXMOVE_H_
+//#define SRC_COMMANDS_XBOXMOVE_H_
 
 #ifndef XboxMove_H
 #define XboxMove_H
@@ -29,4 +29,4 @@ public:
 
 
 
-#endif /* SRC_COMMANDS_XBOXMOVE_H_ */
+//#endif /* SRC_COMMANDS_XBOXMOVE_H_ */

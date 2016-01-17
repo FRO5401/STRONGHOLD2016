@@ -12,7 +12,7 @@ OI::OI()
 
 	//Gives the declared buttons a value that uses the joystick(controller) name and the port number determined
 	//by drive station
-	JoystickButton * 	//Unused;
+	JoystickButton * 	Unused;
 						XboxA				= new JoystickButton(XboxController, 1);
 						XboxB				= new JoystickButton(XboxController, 2);
 						XboxX				= new JoystickButton(XboxController, 3);
@@ -54,3 +54,12 @@ bool OI::GetBrake()
 	return XboxController	->	GetRawButton(LBumper_ID);
 }
 
+double OI::GetUpOrDownValueInfeeder(){
+	double UpOrDownValue = XboxController -> GetRawAxis(5);
+	return UpOrDownValue;
+}
+
+//bool OI::GetStart()
+//{
+	//return XboxController -> GetRawButton();
+//}
