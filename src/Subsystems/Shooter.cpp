@@ -6,12 +6,14 @@
 
 #include "Shooter.h"
 #include "../RobotMap.h"
+#include "PIDController.h"
 
 Shooter::Shooter() :
 		Subsystem("Shooter")
 {
 	ShooterMotor	= new Victor(ShooterMotor_Channel);
 	ShooterEncoder	= new Encoder(Enc_Channel_A,Enc_Channel_B,true,Encoder::k1X);
+	ShooterPID		= new PIDController(Kp, Ki, Kd, ShooterEncoder, output);
 
 }
 
@@ -22,7 +24,9 @@ void Shooter::InitDefaultCommand()
 
 void Shooter::Shoot() //Shoots the ball
   {
+	while () {
 
+	}
 	/*
  * Loop
  * Check encoder is at its initial set point (cocked - constant)
