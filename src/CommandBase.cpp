@@ -5,6 +5,7 @@
 //ExampleSubsystem* CommandBase::examplesubsystem = NULL;
 OI* CommandBase::oi 				= NULL;
 DriveBase *CommandBase::drivebase 	= NULL;//Makes the static null, or makes the static a clean slate, so nothing is moving yet
+Shooter *CommandBase::shooter		= NULL;
 
 CommandBase::CommandBase(char const *name) :
 		Command(name)
@@ -25,4 +26,5 @@ void CommandBase::init()
 
 	oi = new OI();
 	drivebase = new DriveBase();//Connects the static to the subsystem
+	shooter = new Shooter();
 }
