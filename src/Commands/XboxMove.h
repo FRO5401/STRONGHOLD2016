@@ -1,17 +1,15 @@
 /*
- * XboxMove.h
- *
- *  Created on: Jan 13, 2016
- *      Author: FROGramming Team
+
+ * Drive command for 2016 FRC Stronghold game
+ * Team 5401 Fightin' Robotic Owls
+ * FROGramming team
  */
 
-//#ifndef SRC_COMMANDS_XBOXMOVE_H_
-//#define SRC_COMMANDS_XBOXMOVE_H_
-
-#ifndef XboxMove_H
-#define XboxMove_H
+#ifndef XBOXMOVE_H
+#define XBOXMOVE_H
 
 #include "../CommandBase.h"
+//#include "CommandBase.h"
 #include "WPILib.h"
 
 class XboxMove: public CommandBase
@@ -25,8 +23,4 @@ public:
 	void Interrupted();
 };
 
-#endif
-
-
-
-//#endif /* SRC_COMMANDS_XBOXMOVE_H_ */
+#endif //XBOXMOVE_H

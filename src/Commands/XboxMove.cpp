@@ -1,11 +1,10 @@
 /*
- * MOH-GTADrive.cpp
- *
- *  Created on: Jan 13, 2016
- *      Author: AFRO
+ * Drive command header for 2016 FRC Stronghold game
+ * Team 5401 Fightin' Robotic Owls
+ * FROGramming team
  */
 
-#include <Commands/XboxMove.h>
+#include "Commands/XboxMove.h"
 #include "RobotMap.h"
 #include "SmartDashboard/SmartDashboard.h"
 

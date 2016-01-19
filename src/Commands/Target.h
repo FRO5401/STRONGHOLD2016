@@ -21,6 +21,6 @@ public:
 	void End();
 	void Interrupted();
 };
-#endif
+//#endif
 
 #endif /* SRC_COMMANDS_TARGET_H_ */

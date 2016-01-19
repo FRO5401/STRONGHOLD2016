@@ -22,7 +22,3 @@ public:
 };
 #endif
 
-
-
-
-#endif /* SRC_COMMANDS_LAUNCH_H_ */
