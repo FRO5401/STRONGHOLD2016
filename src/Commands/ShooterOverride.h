@@ -21,7 +21,6 @@ public:
 	void End();
 	void Interrupted();
 };
-#endif
 
 
 #endif /* SRC_COMMANDS_SHOOTEROVERRIDE_H_ */
