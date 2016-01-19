@@ -5,6 +5,14 @@ SPT::SPT() :
 		Subsystem("SPT")
 {
 	SPTShoulderMotor = new Victor(SPTShoulderMotor_Channel);
+													//vv Multiplier to get meaningful value. A number can be put here
+	SPTPot = new AnalogPotentiometer(SPTPot_Channel, SPT_Range, SPT_Offset);
+							//		 ^^Channel in RobotMap       ^^Quote "offset added to the scaled value to control the 0 value
+
+	//Format for declaring PIDControllers (Kp value, Ki value, Kd value, the input source, the output source)
+	//Kp is proportional, Ki is intergral, and Kd is derivative, all are constants
+	//Read Control Theory from http://www.chiefdelphi.com/media/papers/1823
+	SPTPotPID = new PIDController(SPT_Kp, SPT_Ki, SPT_Kd, SPTPot, SPTShoulderMotor);
 }
 
 void SPT::InitDefaultCommand()

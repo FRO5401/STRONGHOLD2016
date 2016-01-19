@@ -39,7 +39,7 @@ private:
 		SmartDashboard::PutData("Autonomous Mode", autoMode);
 
 		CameraServer::GetInstance() -> SetQuality(50);
-		CameraServer::GetInstance() -> StartAutomaticCapture("cam0")
+		CameraServer::GetInstance() -> StartAutomaticCapture("cam0");
 
 	}
 	
