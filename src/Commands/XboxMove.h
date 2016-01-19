@@ -1,17 +1,15 @@
 /*
  * XboxMove.h
  *
- *  Created on: Jan 13, 2016
- *      Author: FROGramming Team
+ *  Created on: Jan 18, 2016
+ *      Author: AFRO
  */
 
-//#ifndef SRC_COMMANDS_XBOXMOVE_H_
-//#define SRC_COMMANDS_XBOXMOVE_H_
-
-#ifndef XboxMove_H
-#define XboxMove_H
+#ifndef SRC_COMMANDS_XBOXMOVE_H_
+#define SRC_COMMANDS_XBOXMOVE_H_
 
 #include "../CommandBase.h"
+//#include "CommandBase.h"
 #include "WPILib.h"
 
 class XboxMove: public CommandBase
@@ -25,8 +23,5 @@ public:
 	void Interrupted();
 };
 
-#endif
 
-
-
-//#endif /* SRC_COMMANDS_XBOXMOVE_H_ */
+#endif /* SRC_COMMANDS_XBOXMOVE_H_ */
