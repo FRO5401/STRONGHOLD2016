@@ -9,12 +9,7 @@
 #define SRC_COMMANDS_XBOXMOVE_H_
 
 #include "../CommandBase.h"
-<<<<<<< HEAD
-//#include "WPILib.h"
-=======
-//#include "CommandBase.h"
 #include "WPILib.h"
->>>>>>> origin/NewMaster
 
 class XboxMove: public CommandBase
 {
