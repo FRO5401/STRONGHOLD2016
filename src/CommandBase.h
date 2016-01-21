@@ -30,6 +30,7 @@ public:
 	//A static is necessary for each subsystem
 	static DriveBase *drivebase;
 	static Shooter *shooter;
+	static SPT *spt;
 };
 
 #endif

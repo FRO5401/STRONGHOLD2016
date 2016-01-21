@@ -24,8 +24,8 @@ void Shooter::InitDefaultCommand()
 
 void Shooter::Shoot() //Shoots the ball
   {
-	while () {
-
+	while (true/*place holder*/) {
+		int placeHolder;
 	}
 	/*
  * Loop

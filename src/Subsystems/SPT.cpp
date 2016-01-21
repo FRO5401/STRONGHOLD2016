@@ -1,5 +1,6 @@
 #include "SPT.h"
 #include "../RobotMap.h"
+#include "WPILib.h"
 
 SPT::SPT() :
 		Subsystem("ExampleSubsystem")

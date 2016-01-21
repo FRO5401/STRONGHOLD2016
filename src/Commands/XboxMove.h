@@ -12,7 +12,7 @@
 #define XboxMove_H
 
 #include "../CommandBase.h"
-#include "WPILib.h"
+//#include "WPILib.h"
 
 class XboxMove: public CommandBase
 {

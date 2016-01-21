@@ -36,6 +36,7 @@ public:
 	bool GetPrecision();
 	bool GetBrake();
 	double GetUpOrDownValueInfeeder();
+	bool DummyButtonReadFunction();
 };
 
 #endif

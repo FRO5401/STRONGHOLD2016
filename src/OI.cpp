@@ -59,6 +59,9 @@ double OI::GetUpOrDownValueInfeeder(){
 	return UpOrDownValue;
 }
 
+bool OI::DummyButtonReadFunction(){
+	return true;
+}
 //bool OI::GetStart()
 //{
 	//return XboxController -> GetRawButton();
