@@ -59,9 +59,16 @@ double OI::GetUpOrDownValueInfeeder(){
 	return UpOrDownValue;
 }
 
+<<<<<<< HEAD
 bool OI::DummyButtonReadFunction(){
 	return true;
 }
+=======
+double OI::DummyJoystickReadFunction(){}//Define function once we figure out controller
+bool OI::DummyButtonReadFunction(){}//Define function once we figure out controller
+
+
+>>>>>>> origin/NewMaster
 //bool OI::GetStart()
 //{
 	//return XboxController -> GetRawButton();

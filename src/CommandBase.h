@@ -1,8 +1,10 @@
 #ifndef COMMAND_BASE_H
 #define COMMAND_BASE_H
 
+//Include headers for all subsystems
 #include "Subsystems/DriveBase.h"
 #include "Subsystems/Shooter.h"
+#include "Subsystems/SPT.h"
 #include <string>
 #include "Commands/Command.h"
 #include "OI.h"
@@ -22,7 +24,6 @@ public:
 	CommandBase();
 	static void init();
 	// Create a single static instance of all of your subsystems
-//	static ExampleSubsystem *examplesubsystem;
 	static OI *oi;
 
 	//Creates statics. I don't really understand it, but statics are like the virtual robot parts

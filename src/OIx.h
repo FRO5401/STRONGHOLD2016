@@ -3,7 +3,7 @@
 
 #include "WPILib.h"
 //Includes all commands because this is where the commands will be activated to occur
-#include "Commands/XboxMove.h"
+//#include "Commands/XboxMove.h"
 
 class OI
 {
@@ -36,7 +36,13 @@ public:
 	bool GetPrecision();
 	bool GetBrake();
 	double GetUpOrDownValueInfeeder();
+<<<<<<< HEAD
 	bool DummyButtonReadFunction();
+=======
+	double DummyJoystickReadFunction();//Define function once we figure out controller
+	bool DummyButtonReadFunction();//Define function once we figure out controller
+
+>>>>>>> origin/NewMaster
 };
 
 #endif

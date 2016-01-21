@@ -9,8 +9,9 @@ class SPT: public Subsystem
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
-public:
 	Victor *SPTShoulderMotor;
+
+public:
 
 	SPT();
 	void InitDefaultCommand();

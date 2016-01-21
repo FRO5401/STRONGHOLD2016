@@ -28,7 +28,7 @@ Target::Target()
 }
 
 	void Target::End(){
-		new Launch();
-	};
+//		new Launch();
+	}
 
 	void Target::Interrupted(){};

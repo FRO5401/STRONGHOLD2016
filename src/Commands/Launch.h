@@ -1,4 +1,3 @@
-/*
  /*
  * Catapult launch command header for 2016 FRC Stronghold game
  * Team 5401 Fightin' Robotic Owls
@@ -22,7 +21,3 @@ public:
 };
 #endif
 
-
-
-
-#endif /* SRC_COMMANDS_LAUNCH_H_ */
