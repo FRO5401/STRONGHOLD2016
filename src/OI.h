@@ -36,13 +36,9 @@ public:
 	bool GetPrecision();
 	bool GetBrake();
 	double GetUpOrDownValueInfeeder();
-<<<<<<< HEAD
-	bool DummyButtonReadFunction();
-=======
 	double DummyJoystickReadFunction();//Define function once we figure out controller
 	bool DummyButtonReadFunction();//Define function once we figure out controller
 
->>>>>>> origin/NewMaster
 };
 
 #endif
