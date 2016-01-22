@@ -2,14 +2,15 @@
  * Targeting subsystem header for 2016 FRC Stronghold game
  * Team 5401 Fightin' Robotic Owls
  * FROGramming team
+ * Come and see the violence inherent in the system. Help! Help! I'm being repressed!
  */
 
-#ifndef SRC_SUBSYSTEMS_TARGETING_H_
-#define SRC_SUBSYSTEMS_TARGETING_H_
+#ifndef SRC_SUBSYSTEMS_WATERYTART_H_
+#define SRC_SUBSYSTEMS_WATERYTART_H_
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 
-class Targeting: public Subsystem
+class WateryTart: public Subsystem
 {
 private:
 	// It's desirable that everything possible under private except
@@ -18,7 +19,7 @@ private:
 public:
 	//Declares the parts of the robot necessary for this subsystem
 
-	Targeting();
+	WateryTart();
 	void Search();
 	void Manual();
 	void Stop();
