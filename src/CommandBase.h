@@ -5,7 +5,7 @@
 #include "Subsystems/DriveBase.h"
 #include "Subsystems/Shooter.h"
 #include "Subsystems/SPT.h"
-#include "Subsystems/Targeting.h"
+#include "Subsystems/WateryTart.h"
 #include <string>
 #include "Commands/Command.h"
 #include "OI.h"
@@ -33,7 +33,7 @@ public:
 	static DriveBase 	*drivebase;
 	static Shooter 		*shooter;
 	static SPT 			*spt;
-	static Targeting 	*targeting;
+	static WateryTart 	*waterytart;
 };
 
 #endif
