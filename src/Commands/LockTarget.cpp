@@ -4,7 +4,7 @@
  * FROGramming team
  */
 
-#include "Target.h"
+#include <Commands/LockTarget.h>
 #include "RobotMap.h"
 bool Lock;
 

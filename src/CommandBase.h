@@ -5,6 +5,7 @@
 #include "Subsystems/DriveBase.h"
 #include "Subsystems/Shooter.h"
 #include "Subsystems/SPT.h"
+#include "Subsystems/Targeting.h"
 #include <string>
 #include "Commands/Command.h"
 #include "OI.h"
@@ -29,9 +30,10 @@ public:
 	//Creates statics. I don't really understand it, but statics are like the virtual robot parts
 	//Statics are manipulated to affect the physical robot
 	//A static is necessary for each subsystem
-	static DriveBase *drivebase;
-	static Shooter *shooter;
-	static SPT *spt;
+	static DriveBase 	*drivebase;
+	static Shooter 		*shooter;
+	static SPT 			*spt;
+	static Targeting 	*targeting;
 };
 
 #endif
