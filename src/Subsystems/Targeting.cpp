@@ -1,11 +1,12 @@
 /*
- * Targeting subsystem for 2016 FRC Stronghold game
+ * Watery Tart subsystem for 2016 FRC Stronghold game
  * Team 5401 Fightin' Robotic Owls
  * FROGramming team
  * Based off 2015 Vision Retro Sample
+ * You can't expect to wield supreme executive power just because some watery tart threw a sword at you.
  */
 
-#include "Targeting.h"
+#include "WateryTart.h"
 #include "../RobotMap.h"
 #include "Commands/LockTarget.h"
 #include "SmartDashboard/SmartDashboard.h"
@@ -50,19 +51,19 @@
 	Scores scores;
 
 
-Targeting::Targeting() :
-		Subsystem("Targeting")
+WateryTart::WateryTart() :
+		Subsystem("WateryTart")
 {
 //Motor and sensor declarations here
 
 }
 
-void DriveBase::InitDefaultCommand()
+void WateryTart::InitDefaultCommand()
 {
 //	SetDefaultCommand(new LockTarget());
 }
 
-void Targeting::Search()
+void WateryTart::Search()
   {
 	/* INTENT:
 	 * Upon the press of a button, a command will invoke this function to check the image for the scoring U, and evaluate whether we have a shooting vector
@@ -150,7 +151,7 @@ void Targeting::Search()
 			}
   }
 
-void Targeting::Manual()
+void WateryTart::Manual()
   {
 /*
  * While a button is pressed, this will show a display with a crosshair that will allow manual aiming
@@ -158,7 +159,7 @@ void Targeting::Manual()
 
   }
 
- void Targeting::Stop()
+ void WateryTart::Stop()
   {
 /*
  * Not sure this will be needed but reserving a space for it so that we can clear image, or reinitialize variables, or anything associated with stopping
@@ -166,7 +167,7 @@ void Targeting::Manual()
 
   }
 
-  void Targeting::Reset()
+  void WateryTart::Reset()
   {
 
 /*
