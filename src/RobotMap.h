@@ -73,6 +73,10 @@ const int RightMotor 	= 1;//and the wires connecting the roboRIO to motors
 const int SPTShoulderMotor_Channel	= 2;	//MUST BE UPDATED
 const int ShooterMotor_Channel		= 2;	//MUST BE UPDATED
 
+//Feeder Motors the outer and inner one
+const int FeederOuterFasterMotor_Channel	= 0;//MUST BE UPDATED
+const int FeederInnerSlower_Channel			= 0;//MUST BE UPDATED
+
 
 /************
  * End Other Motors
@@ -81,8 +85,8 @@ const int ShooterMotor_Channel		= 2;	//MUST BE UPDATED
 /************
  * Sensor Channels
  ***********/
-const int ShooterPot_Channel = 0;			//MUST BE UPDATED
-
+const int ShooterPot_Channel 	= 0;			//MUST BE UPDATED
+const int SPTPot_Channel 		= 0;//MUST BE UPDATED SPT potentiometer channel
 
 /************
  * End Sensor Channels
