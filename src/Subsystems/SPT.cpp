@@ -1,16 +1,33 @@
 #include "SPT.h"
 #include "../RobotMap.h"
+#include "PIDController.h"
+
+//Parameters for Potentiometer and the its PIDcontroller. Easier to edit if you put it here
+
+//Multiplier to get meaningful value. A number can be put here
+const int SPT_Range 	= 0;
+//Quote "offset added to the scaled value to control the 0 value
+const int SPT_Offset 	= 0;
+
+const int SPT_Kp 		= 0;//Proportional
+const int SPT_Ki		= 0 ;//Intergral
+const int SPT_Kd		= 0;//Derivative
+
+const int SPTMotorMin	= -1;//Min Motor speed
+const int SPTMotorMax	= 1;// Max motor speed
+
+const int SPTDeliveryPosition 	= 0;//Position has NOT been decided
+const int SPTFeederPosition		= 0;//Position has NOT been decided
 
 SPT::SPT() :
 		Subsystem("SPT")
 {
 	SPTShoulderMotor = new Victor(SPTShoulderMotor_Channel);
-													//vv Multiplier to get meaningful value. A number can be put here
+
 	SPTPot = new AnalogPotentiometer(SPTPot_Channel, SPT_Range, SPT_Offset);
-							//		 ^^Channel in RobotMap       ^^Quote "offset added to the scaled value to control the 0 value
+							//		 ^^Channel in RobotMap
 
 	//Format for declaring PIDControllers (Kp value, Ki value, Kd value, the input source, the output source)
-	//Kp is proportional, Ki is intergral, and Kd is derivative, all are constants
 	//Read Control Theory from http://www.chiefdelphi.com/media/papers/1823
 	SPTPotPID = new PIDController(SPT_Kp, SPT_Ki, SPT_Kd, SPTPot, SPTShoulderMotor);
 }
@@ -23,6 +40,8 @@ void SPT::InitDefaultCommand()
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
+
+
 //This function sets the shoulder motor of SPT to a certain direction between up and down
 void SPT::UpAndDown(double ShoulderChangeValue){
 	SPTShoulderMotor -> Set(-.5 * ShoulderChangeValue);
@@ -32,14 +51,14 @@ void SPT::UpAndDown(double ShoulderChangeValue){
 //The waits a while and stops the motor at the correct angle
 //The wait amount is guess and checked.
 void SPT::MoveToDeliveryPosition(){
-	SPTShoulderMotor -> Set(.5);//Speed set may change
-	Wait(1);					//Wait amount may change
-	SPTShoulderMotor -> Set(0);
-
+	//Sets the min and max speed the motor of that the SPT has
+	SPTPot -> SetOutputRange(SPTMotorMin, SPTMotorMax);
+	SPTPot -> SetSetpoint(SPTDeliveryPosition);
+	SPTPot -> Enable();
 }
 
 void SPT::MoveToInfeederPosition(){
-	SPTShoulderMotor -> Set(.5);
-	Wait(1);
-	SPTShoulderMotor -> Set(0);
+	SPTPot -> SetOutputRange(SPTMotorMin, SPTMotorMax);
+	SPTPot -> SetSetpoint(SPTFeederPosition);
+	SPTPot -> Enable();
 }
