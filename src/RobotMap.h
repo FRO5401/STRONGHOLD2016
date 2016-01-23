@@ -81,9 +81,9 @@ const int ShooterMotor_Channel		= 2;	//MUST BE UPDATED
 /************
  * Sensor Channels
  ***********/
-const int ShooterPot_Channel = 0;			//MUST BE UPDATED
+const int ShooterPot_Channel	= 0;			//MUST BE UPDATED
 
-
+const int SPTPot_Channel 		= 0;//MUST BE UPDATED SPT potentiometer channel
 /************
  * End Sensor Channels
  ***********/
