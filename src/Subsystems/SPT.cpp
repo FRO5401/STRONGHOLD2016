@@ -1,3 +1,15 @@
+/*
+ * Infeeder head subsystem - "Sharp Pointy Teeth" - for 2016 FRC Stronghold game
+ * Team 5401 Fightin' Robotic Owls
+ * FROGramming team
+ * Follow only if ye be men of valor! For the entrance to this subsystem is guarded by a creature so foul,
+ * so cruel, that no programmer yet has fought with it... and lived! BONES of full fifty men lie *strewn*
+ * about its lair! So! Brave knights! If you do doubt your courage or your strength, come no further,
+ * for death awaits you all with nasty, big, pointy teeth...
+ *
+ * */
+
+
 #include "SPT.h"
 #include "../RobotMap.h"
 #include "PIDController.h"

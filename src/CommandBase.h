@@ -2,12 +2,18 @@
 #define COMMAND_BASE_H
 
 //Include headers for all subsystems
+#include "OI.h"
 #include "Subsystems/DriveBase.h"
+#include "Subsystems/Feeder.h"
+#include "Subsystems/HookShoulder.h"
+#include "Subsystems/OffboardCompressor.h"
+#include "Subsystems/Scale.h"
+#include "Subsystems/Scimitar.h"
 #include "Subsystems/Shooter.h"
+#include "Subsystems/ShortHook.h"
 #include "Subsystems/SPT.h"
 #include <string>
 #include "Commands/Command.h"
-#include "OI.h"
 #include "WPILib.h"
 
 
@@ -29,9 +35,15 @@ public:
 	//Creates statics. I don't really understand it, but statics are like the virtual robot parts
 	//Statics are manipulated to affect the physical robot
 	//A static is necessary for each subsystem
-	static DriveBase *drivebase;
-	static Shooter *shooter;
-	static SPT *spt;
+	static DriveBase 		*drivebase;
+	static Feeder 			*feeder;
+	static HookShoulder 	*hookshoulder;
+	static OffboardCompressor *offboardcompressor;
+	static Scale 			*scale;
+	static Scimitar 		*scimitar;
+	static Shooter 			*shooter;
+	static ShortHook 		*shorthook;
+	static SPT 				*spt;
 };
 
 #endif
