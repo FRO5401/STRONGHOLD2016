@@ -11,6 +11,9 @@ private:
 	// for methods that implement subsystem capabilities
 	Victor *SPTShoulderMotor;
 
+	PIDController *SPTPotPID;//
+	Potentiometer *SPTPot;//Pot refers to potentiometers
+
 public:
 
 	SPT();
