@@ -23,10 +23,6 @@ const int HookShoulder_Kd		= 0;//Derivative
 const int HookShoulderMotorMin	= -1;//Min Motor speed
 const int HookShoulderMotorMax	= 1;// Max motor speed
 
-const int BumperPosition	 	= 0;//Position has NOT been calibrated
-const int ScimitarPosition		= 0;//Position has NOT been calibrated
-
-
 HookShoulder::HookShoulder() :
 		Subsystem("HookShoulder")
 {
@@ -53,18 +49,19 @@ void HookShoulder::UpAndDown(double HookShoulderChangeValue){
  * This is to keep it from going above a certain angle for rules and below a certain angle so it doesn't
  * keep running once it gets into the robot
  */
-	HookShoulderMotor -> Set(-.5 * HookShoulderChangeValue); //Why -0.5?? KJM
+	HookShoulderMotor -> Set(-.5 * HookShoulderChangeValue); //Why -0.5?? carried from SPT KJM
 }
 
-void HookShoulder::MoveToScalePosition(){
+void HookShoulder::MoveToPosition(double DesiredPosition){
 	//Sets the min and max speed the motor of that the SPT has
 	HookShoulderPID -> SetOutputRange(HookShoulderMotorMin, HookShoulderMotorMax);
-	HookShoulderPID -> SetSetpoint(ScimitarPosition);
+	HookShoulderPID -> SetSetpoint(DesiredPosition);
 	HookShoulderPID -> Enable();
 }
-
+/*
 void HookShoulder::MoveToBumperPosition(){
 	HookShoulderPID -> SetOutputRange(HookShoulderMotorMin, HookShoulderMotorMax);
 	HookShoulderPID -> SetSetpoint(BumperPosition);
 	HookShoulderPID -> Enable();
+*/
 }
