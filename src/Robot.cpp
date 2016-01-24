@@ -76,15 +76,15 @@
 #include "WPILib.h"
 #include "Commands/Command.h"
 #include "CommandBase.h"
-#include "Commands/AutonomousLowBar.h"
-#include "Commands/AutonomousPortcullis.h"
-#include "Commands/AutonomousChevalDeFrise.h"
-#include "Commands/AutonomousRamparts.h"
-#include "Commands/AutonomousMoat.h"
-#include "Commands/AutonomousDrawbridge.h"
-#include "Commands/AutonomousSallyPort.h"
-#include "Commands/AutonomousRockWall.h"
-#include "Commands/AutonomousRoughTerrain.h"
+#include "Autonomous/AutonomousLowBar.h"
+#include "Autonomous/AutonomousPortcullis.h"
+#include "Autonomous/AutonomousChevalDeFrise.h"
+#include "Autonomous/AutonomousRamparts.h"
+#include "Autonomous/AutonomousMoat.h"
+#include "Autonomous/AutonomousDrawbridge.h"
+#include "Autonomous/AutonomousSallyPort.h"
+#include "Autonomous/AutonomousRockWall.h"
+#include "Autonomous/AutonomousRoughTerrain.h"
 
 //2016 Stronghold code
 class Robot: public IterativeRobot
@@ -125,8 +125,8 @@ private:
 
 	void AutonomousInit()
 	{
-		if (autonomousCommand != NULL)
-			autonomousCommand->Start();
+		autonomousCommand = (Command *) autoMode->GetSelected(); //Dashboard selection command
+		autonomousCommand->Start();
 	}
 
 	void AutonomousPeriodic()
@@ -152,6 +152,7 @@ private:
 	void TestPeriodic()
 	{
 		lw->Run();
+		//I'd like to add a command to run the off board compressor here
 	}
 };
 
