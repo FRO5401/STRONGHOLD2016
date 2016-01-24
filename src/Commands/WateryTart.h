@@ -4,8 +4,8 @@
  * FROGramming team
  */
 
-#ifndef SRC_COMMANDS_TARGET_H_
-#define SRC_COMMANDS_TARGET_H_
+#ifndef SRC_COMMANDS_WATERYTART_H_
+#define SRC_COMMANDS_WATERYTART_H_
 
 
 #include "../CommandBase.h"
@@ -23,4 +23,4 @@ public:
 };
 //#endif
 
-#endif /* SRC_COMMANDS_TARGET_H_ */
+#endif /* SRC_COMMANDS_WATERYTART_H_ */

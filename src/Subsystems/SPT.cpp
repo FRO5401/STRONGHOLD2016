@@ -1,3 +1,15 @@
+/*
+ * Infeeder head subsystem - "Sharp Pointy Teeth" - for 2016 FRC Stronghold game
+ * Team 5401 Fightin' Robotic Owls
+ * FROGramming team
+ * Follow only if ye be men of valor! For the entrance to this subsystem is guarded by a creature so foul,
+ * so cruel, that no programmer yet has fought with it... and lived! BONES of full fifty men lie *strewn*
+ * about its lair! So! Brave knights! If you do doubt your courage or your strength, come no further,
+ * for death awaits you all with nasty, big, pointy teeth...
+ *
+ * */
+
+
 #include "SPT.h"
 #include "../RobotMap.h"
 #include "PIDController.h"
@@ -44,7 +56,7 @@ void SPT::InitDefaultCommand()
 
 //This function sets the shoulder motor of SPT to a certain direction between up and down
 void SPT::UpAndDown(double ShoulderChangeValue){
-	SPTShoulderMotor -> Set(-.5 * ShoulderChangeValue);
+	SPTShoulderMotor -> Set(-.5 * ShoulderChangeValue); //Why -0.5?? KJM
 }
 
 //This function sets the shoulder motor to a certain speed
@@ -52,13 +64,13 @@ void SPT::UpAndDown(double ShoulderChangeValue){
 //The wait amount is guess and checked.
 void SPT::MoveToDeliveryPosition(){
 	//Sets the min and max speed the motor of that the SPT has
-	SPTPot -> SetOutputRange(SPTMotorMin, SPTMotorMax);
-	SPTPot -> SetSetpoint(SPTDeliveryPosition);
-	SPTPot -> Enable();
+	SPTPotPID -> SetOutputRange(SPTMotorMin, SPTMotorMax);
+	SPTPotPID -> SetSetpoint(SPTDeliveryPosition);
+	SPTPotPID -> Enable();
 }
 
 void SPT::MoveToInfeederPosition(){
-	SPTPot -> SetOutputRange(SPTMotorMin, SPTMotorMax);
-	SPTPot -> SetSetpoint(SPTFeederPosition);
-	SPTPot -> Enable();
+	SPTPotPID -> SetOutputRange(SPTMotorMin, SPTMotorMax);
+	SPTPotPID -> SetSetpoint(SPTFeederPosition);
+	SPTPotPID -> Enable();
 }

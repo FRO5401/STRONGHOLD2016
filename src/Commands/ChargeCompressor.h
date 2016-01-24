@@ -1,13 +1,13 @@
-#ifndef XboxDrivingSkid_H
-#define XboxDrivingSkid_H
+#ifndef ChargeCompressor_H
+#define ChargeCompressor_H
 
 #include "../CommandBase.h"
 #include "WPILib.h"
 
-class XboxDrivingSkid: public CommandBase
+class ChargeCompressor: public CommandBase
 {
 public:
-	XboxDrivingSkid();
+	ChargeCompressor();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

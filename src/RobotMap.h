@@ -49,11 +49,25 @@ const int RBumper_ID	=	7;
 /****************
 * Pnuematics
 **************/
-const int pnuOff 			= 0;
+//ID of solenoid control
+const int SolenoidCAN_ID	= 0;
+
+//Drive gear shift
 const int Shift_LeftFwd		= 0;
 const int Shift_LeftRev		= 1;
 const int Shift_RightFwd	= 2;
 const int Shift_RightRev	= 3;
+
+//PTO clutch
+const int ScaleEngageFwd_Channel	=	0;	//MUST BE CHANGED
+const int ScaleEngageRev_Channel	=	0;	//MUST BE CHANGED
+const int DriveDisengageFwd_Channel	=	0;	//MUST BE CHANGED
+const int DriveDisengageRev_Channel	=	0;	//MUST BE CHANGED
+
+//Short hook extender
+const int ShortHookFwd_Channel		=	0;	//MUST BE CHANGED
+const int ShortHookRev_Channel		=	0;	//MUST BE CHANGED
+
 /****************
  * End Pnuematics
  **************/
@@ -67,16 +81,21 @@ const int RightMotor 	= 1;//and the wires connecting the roboRIO to motors
 /*******************
  * End Drive Motors
  *******************/
+
 /************
  * Other Motors
  ***********/
-const int SPTShoulderMotor_Channel	= 2;	//MUST BE UPDATED
-const int ShooterMotor_Channel		= 2;	//MUST BE UPDATED
+const int SPTShoulderMotor_Channel	= 0;	//MUST BE UPDATED
 
 //Feeder Motors the outer and inner one
 const int FeederOuterFasterMotor_Channel	= 0;//MUST BE UPDATED
 const int FeederInnerSlower_Channel			= 0;//MUST BE UPDATED
 
+const int HookShoulderMotor_Channel			= 0;	//MUST BE UPDATED
+
+const int ShooterMotor_Channel		= 0;	//MUST BE UPDATED
+
+const int Lobber_Channel			= 0;	//MUST BE UPDATED
 
 /************
  * End Other Motors
@@ -87,11 +106,9 @@ const int FeederInnerSlower_Channel			= 0;//MUST BE UPDATED
  ***********/
 const int ShooterPot_Channel 	= 0;			//MUST BE UPDATED
 const int SPTPot_Channel 		= 0;//MUST BE UPDATED SPT potentiometer channel
-
+const int HookShoulderPot_Channel	= 0;	//MUST BE UPDATED
 /************
  * End Sensor Channels
  ***********/
-
-
 
 #endif

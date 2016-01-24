@@ -1,3 +1,10 @@
+/*
+ * Drive Base subsystem for 2016 FRC Stronghold game
+ * Team 5401 Fightin' Robotic Owls
+ * FROGramming team
+ * Subsystem's got two empty halves of coconut and is bangin' 'em together.
+ */
+
 #include "DriveBase.h"
 #include "../RobotMap.h"
 #include <Commands/XboxMove.h>
@@ -8,8 +15,8 @@ DriveBase::DriveBase() :
 {
 	LeftDrive 	= new Victor(LeftMotor);
 	RightDrive	= new Victor(RightMotor);
-	LeftShift = new DoubleSolenoid(pnuOff, Shift_LeftFwd, Shift_LeftRev);
-	RightShift = new DoubleSolenoid(pnuOff, Shift_RightFwd, Shift_RightRev);
+	LeftShift = new DoubleSolenoid(SolenoidCAN_ID, Shift_LeftFwd, Shift_LeftRev);
+	RightShift = new DoubleSolenoid(SolenoidCAN_ID, Shift_RightFwd, Shift_RightRev);
 }
 
 void DriveBase::InitDefaultCommand()

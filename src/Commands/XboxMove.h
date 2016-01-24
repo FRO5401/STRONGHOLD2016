@@ -1,8 +1,7 @@
 /*
- * XboxMove.h
- *
- *  Created on: Jan 18, 2016
- *      Author: AFRO
+ * Drive command header for 2016 FRC Stronghold game
+ * Team 5401 Fightin' Robotic Owls
+ * FROGramming team
  */
 
 #ifndef SRC_COMMANDS_XBOXMOVE_H_

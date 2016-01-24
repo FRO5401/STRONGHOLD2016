@@ -1,13 +1,13 @@
 /*
- * Drive command header for 2016 FRC Stronghold game
+ * Drive command for 2016 FRC Stronghold game
  * Team 5401 Fightin' Robotic Owls
  * FROGramming team
+ * Vi = Ao * (sqrt(5 * (((Qc/Po)+1)^(2/7)-1)))
  */
 
 #include "Commands/XboxMove.h"
-//#include "XboxMove.h"
 #include "RobotMap.h"
-#include "SmartDashboard/SmartDashboard.h"
+//#include "SmartDashboard/SmartDashboard.h"
 
 XboxMove::XboxMove()
 {

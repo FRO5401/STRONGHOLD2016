@@ -2,6 +2,7 @@
  * Catapult shooter subsystem for 2016 FRC Stronghold game
  * Team 5401 Fightin' Robotic Owls
  * FROGramming team
+ * This subsystem farts in your general direction!
  */
 
 #include "Shooter.h"
@@ -36,7 +37,7 @@ void Shooter::InitDefaultCommand()
 //	SetDefaultCommand(); //Not sure what/if the default command should be, but we may want a check/reset
 }
 
-bool Shooter::Shoot() //Shoots the ball
+bool Shooter::Shoot() //Shoots the ball, made a bool for the potential for error handling
   {
 	ShooterPID	-> SetContinuous(); //This should tell the PID max and min are the same point
 	ShooterPID	->	SetOutputRange(PIDMotorMIN, PIDMotorMAX);
@@ -44,7 +45,7 @@ bool Shooter::Shoot() //Shoots the ball
 	ShooterPID	->	Enable();
 	Wait(ShooterResetDwell);
 	ShooterPID	->	SetSetpoint(ShooterResetSetpoint);
-	return TRUE;
+	return true;
 /* Original design - may remove the loop
  * Loop
  * Check encoder is at its initial set point (cocked - constant)
