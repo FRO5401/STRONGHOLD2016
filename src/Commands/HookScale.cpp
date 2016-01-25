@@ -1,5 +1,5 @@
 /*
- * Drive command for 2016 FRC Stronghold game
+ * Scaling command for 2016 FRC Stronghold game
  * Team 5401 Fightin' Robotic Owls
  * FROGramming team
  * And Saint Attila raised the hand grenade up on high, saying,
