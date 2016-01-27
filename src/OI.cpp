@@ -66,10 +66,20 @@ OI::OI()
 						MOHHomeButton			= new JoystickButton(MedalOfHonorController, 13);
 
 
+	//SPT Buttons
 
+	//Feeder Buttons
+	MOHRightTrigger	-> WhenPressed(new FeedInFromOuter());
+	MOHRightTrigger	-> WhenReleased(new FeederStop());
 
+	MOHLeftTrigger 	-> WhenPressed(new FeedOutFromOuter());
+	MOHLeftTrigger 	-> WhenReleased(new FeederStop());
 
+	MOHButtonSquare	-> WhenPressed(new FeedInFromInner());
+	MOHButtonSquare	-> WhenReleased(new FeederStop());
 
+	MOHButtonCircle	-> WhenPressed(new FeedOutFromInner());
+	MOHButtonCircle -> WhenReleased(new FeederStop());
 }
 
 //Defines the functions for the axis's declared in the h file
