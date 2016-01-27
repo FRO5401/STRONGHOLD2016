@@ -1,6 +1,30 @@
 #include "OI.h"
 #include "RobotMap.h"
+//Include all commands h files, because they will used to tell what to do when a button is pressed
+//MORE MAY BE ADD, SOME MAY BE DELETED
+//Updated as of 1/27/16
 #include "Commands/XboxMove.h"
+#include "Commands/AbortReach.h"
+#include "Commands/ChargeCompressor.h"
+#include "Commands/DeployHook.h"
+#include "Commands/FeederStop.h"
+#include "Commands/FeedInFromInner.h"
+#include "Commands/FeedInFromOuter.h"
+#include "Commands/FeedOutFromInner.h"
+#include "Commands/FeedOutFromOuter.h"
+#include "Commands/HookBumper.h"
+#include "Commands/HookScale.h"
+#include "Commands/InfeederLiftIntoDelivery.h"
+#include "Commands/InfeederLiftIntoInfeederPosition.h"
+#include "Commands/Launch.h"
+#include "Commands/PrepareToScale.h"
+#include "Commands/ReachForBar.h"
+#include "Commands/RetractHook.h"
+#include "Commands/ShiftScaleToDrive.h"
+#include "Commands/ShooterOverride.h"
+#include "Commands/StopDriveForAutonomous.h"
+#include "Commands/UpAndDownInfeeder.h"
+#include "Commands/WateryTart.h"
 
 OI::OI()
 {
@@ -40,6 +64,8 @@ OI::OI()
 						MOHLeftStickButton		= new JoystickButton(MedalOfHonorController, 11);
 						MOHRightStickButton		= new JoystickButton(MedalOfHonorController, 12);
 						MOHHomeButton			= new JoystickButton(MedalOfHonorController, 13);
+
+
 
 
 
