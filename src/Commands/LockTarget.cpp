@@ -10,9 +10,10 @@ bool Lock;
 
 Target::Target()
 {
-  Requires(drivebase);
+  Requires(waterytart);
 }
-	void Target::Initialize() { };
+	void Target::Initialize() {
+	};
 
 	void Target::Execute(){
 /*
@@ -20,11 +21,14 @@ Target::Target()
  * Then it will set a bool flag Lock to indicate target lock
  * When finished, it will kick off the launch command
  */
+		waterytart	->	Search();
+
 	};
 
 	bool Target::IsFinished()
 {
-	return Lock;
+//	return Lock;
+		return false;
 }
 
 	void Target::End(){

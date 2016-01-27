@@ -9,15 +9,17 @@
 #include "WateryTart.h"
 #include "../RobotMap.h"
 #include "Commands/LockTarget.h"
-#include "SmartDashboard/SmartDashboard.h"
-#include "LiveWindow/LiveWindow.h"
+//#include "SmartDashboard/SmartDashboard.h"
+//#include "LiveWindow/LiveWindow.h"
 
 //#include <opencv2/opencv.hpp>
 #include <math.h>
-#include <ctime>
+//#include <ctime>
+#include <vector>
 
-	//A structure to hold measurements of a particle
-	struct ParticleReport {
+/*
+//A structure to hold measurements of a particle
+	struct ParticleReportX {
 		double PercentAreaToImageArea;
 		double Area;
 		double BoundingRectLeft;
@@ -25,7 +27,7 @@
 		double BoundingRectRight;
 		double BoundingRectBottom;
 	};
-
+*/
 	//Structure to represent the scores for the various tests used for target identification
 	struct Scores {
 		double Area;
@@ -50,7 +52,6 @@
 	ParticleFilterOptions2 filterOptions = {0,0,1,1};
 	Scores scores;
 
-
 WateryTart::WateryTart() :
 		Subsystem("WateryTart")
 {
@@ -60,7 +61,7 @@ WateryTart::WateryTart() :
 
 void WateryTart::InitDefaultCommand()
 {
-//	SetDefaultCommand(new LockTarget());
+	//SetDefaultCommand(new LockTarget());
 }
 
 void WateryTart::Search()
@@ -70,85 +71,86 @@ void WateryTart::Search()
 	 * It will return a rumble to the controller and splash a green box on the dashboard
 	 * Ideally, this will take place on an on board raspberry pi or arduino board, but that is version 2.0
 	 */
+
     // create images
 	frame = imaqCreateImage(IMAQ_IMAGE_RGB, 0);
 	binaryFrame = imaqCreateImage(IMAQ_IMAGE_U8, 0);
 
 	//Put default values to SmartDashboard so fields will appear
-	SmartDashboard::PutNumber("Target hue min", RING_HUE_RANGE.minValue);
-	SmartDashboard::PutNumber("Target hue max", RING_HUE_RANGE.maxValue);
-	SmartDashboard::PutNumber("Target sat min", RING_SAT_RANGE.minValue);
-	SmartDashboard::PutNumber("Target sat max", RING_SAT_RANGE.maxValue);
-	SmartDashboard::PutNumber("Target val min", RING_VAL_RANGE.minValue);
-	SmartDashboard::PutNumber("Target val max", RING_VAL_RANGE.maxValue);
+	SmartDashboard::PutNumber("Tote hue min", RING_HUE_RANGE.minValue);
+	SmartDashboard::PutNumber("Tote hue max", RING_HUE_RANGE.maxValue);
+	SmartDashboard::PutNumber("Tote sat min", RING_SAT_RANGE.minValue);
+	SmartDashboard::PutNumber("Tote sat max", RING_SAT_RANGE.maxValue);
+	SmartDashboard::PutNumber("Tote val min", RING_VAL_RANGE.minValue);
+	SmartDashboard::PutNumber("Tote val max", RING_VAL_RANGE.maxValue);
 	SmartDashboard::PutNumber("Area min %", AREA_MINIMUM);
 
-	{
-				//read file in from disk. For this example to run you need to copy image.jpg from the SampleImages folder to the
-				//directory shown below using FTP or SFTP: http://wpilib.screenstepslive.com/s/4485/m/24166/l/282299-roborio-ftp
-				imaqError = imaqReadFile(frame, "//home//lvuser//SampleImages//Toteimage.jpg", NULL, NULL);
-/* We're not that smart with the smartdash yet, so I'm leaving these out and worrying about them later.
-				//Update threshold values from SmartDashboard. For performance reasons it is recommended to remove this after calibration is finished.
-				RING_HUE_RANGE.minValue = SmartDashboard::GetNumber("Target hue min", RING_HUE_RANGE.minValue);
-				RING_HUE_RANGE.maxValue = SmartDashboard::GetNumber("Target hue max", RING_HUE_RANGE.maxValue);
-				RING_SAT_RANGE.minValue = SmartDashboard::GetNumber("Target sat min", RING_SAT_RANGE.minValue);
-				RING_SAT_RANGE.maxValue = SmartDashboard::GetNumber("Target sat max", RING_SAT_RANGE.maxValue);
-				RING_VAL_RANGE.minValue = SmartDashboard::GetNumber("Target val min", RING_VAL_RANGE.minValue);
-				RING_VAL_RANGE.maxValue = SmartDashboard::GetNumber("Target val max", RING_VAL_RANGE.maxValue);
-*/
-				//Threshold the image looking for ring light color
-				imaqError = imaqColorThreshold(binaryFrame, frame, 255, IMAQ_HSV, &RING_HUE_RANGE, &RING_SAT_RANGE, &RING_VAL_RANGE);
+	//read file in from disk. For this example to run you need to copy image.jpg from the SampleImages folder to the
+	//directory shown below using FTP or SFTP: http://wpilib.screenstepslive.com/s/4485/m/24166/l/282299-roborio-ftp
+	imaqError = imaqReadFile(frame, "//home//lvuser//SampleImages//Goalimage20.png", NULL, NULL);
+//			imaqError = imaqReadFile(frame, "//home//lvuser//SampleImages//Toteimage20.jpg", NULL, NULL);
 
-				//Send particle count to dashboard
-				int numParticles = 0;
-				imaqError = imaqCountParticles(binaryFrame, 1, &numParticles);
-				SmartDashboard::PutNumber("Masked particles", numParticles);
+	//Update threshold values from SmartDashboard. For performance reasons it is recommended to remove this after calibration is finished.
+	RING_HUE_RANGE.minValue = SmartDashboard::GetNumber("Tote hue min", RING_HUE_RANGE.minValue);
+	RING_HUE_RANGE.maxValue = SmartDashboard::GetNumber("Tote hue max", RING_HUE_RANGE.maxValue);
+	RING_SAT_RANGE.minValue = SmartDashboard::GetNumber("Tote sat min", RING_SAT_RANGE.minValue);
+	RING_SAT_RANGE.maxValue = SmartDashboard::GetNumber("Tote sat max", RING_SAT_RANGE.maxValue);
+	RING_VAL_RANGE.minValue = SmartDashboard::GetNumber("Tote val min", RING_VAL_RANGE.minValue);
+	RING_VAL_RANGE.maxValue = SmartDashboard::GetNumber("Tote val max", RING_VAL_RANGE.maxValue);
 
-				//Send masked image to dashboard to assist in tweaking mask.
-				SendToDashboard(binaryFrame, imaqError);
+	//Threshold the image looking for ring light color
+	imaqError = imaqColorThreshold(binaryFrame, frame, 255, IMAQ_HSV, &RING_HUE_RANGE, &RING_SAT_RANGE, &RING_VAL_RANGE);
 
-				//filter out small particles
-				float areaMin = SmartDashboard::GetNumber("Area min %", AREA_MINIMUM);
-				criteria[0] = {IMAQ_MT_AREA_BY_IMAGE_AREA, areaMin, 100, false, false};
-				imaqError = imaqParticleFilter4(binaryFrame, binaryFrame, criteria, 1, &filterOptions, NULL, NULL);
+	//Send particle count to dashboard
+	int numParticles = 0;
+	imaqError = imaqCountParticles(binaryFrame, 1, &numParticles);
+	SmartDashboard::PutNumber("Masked particles", numParticles);
 
-				//Send particle count after filtering to dashboard
-				imaqError = imaqCountParticles(binaryFrame, 1, &numParticles);
-				SmartDashboard::PutNumber("Filtered particles", numParticles);
+	//Send masked image to dashboard to assist in tweaking mask.
+	SendToDashboard(binaryFrame, imaqError);
 
-				if(numParticles > 0) {
-					//Measure particles and sort by particle size
-					std::vector<ParticleReport> particles;
-					for(int particleIndex = 0; particleIndex < numParticles; particleIndex++)
-					{
-						ParticleReport par;
-						imaqMeasureParticle(binaryFrame, particleIndex, 0, IMAQ_MT_AREA_BY_IMAGE_AREA, &(par.PercentAreaToImageArea));
-						imaqMeasureParticle(binaryFrame, particleIndex, 0, IMAQ_MT_AREA, &(par.Area));
-						imaqMeasureParticle(binaryFrame, particleIndex, 0, IMAQ_MT_BOUNDING_RECT_TOP, &(par.BoundingRectTop));
-						imaqMeasureParticle(binaryFrame, particleIndex, 0, IMAQ_MT_BOUNDING_RECT_LEFT, &(par.BoundingRectLeft));
-						imaqMeasureParticle(binaryFrame, particleIndex, 0, IMAQ_MT_BOUNDING_RECT_BOTTOM, &(par.BoundingRectBottom));
-						imaqMeasureParticle(binaryFrame, particleIndex, 0, IMAQ_MT_BOUNDING_RECT_RIGHT, &(par.BoundingRectRight));
-						particles.push_back(par);
-					}
-					sort(particles.begin(), particles.end(), CompareParticleSizes);
+	//filter out small particles
+	float areaMin = SmartDashboard::GetNumber("Area min %", AREA_MINIMUM);
+	criteria[0] = {IMAQ_MT_AREA_BY_IMAGE_AREA, areaMin, 100, false, false};
+	imaqError = imaqParticleFilter4(binaryFrame, binaryFrame, criteria, 1, &filterOptions, NULL, NULL);
 
-					//This example only scores the largest particle. Extending to score all particles and choosing the desired one is left as an exercise
-					//for the reader. Note that this scores and reports information about a single particle (single L shaped target). To get accurate information
-					//about the location of the tote (not just the distance) you will need to correlate two adjacent targets in order to find the true center of the tote.
-					scores.Aspect = AspectScore(particles.at(0));
-					SmartDashboard::PutNumber("Aspect", scores.Aspect);
-					scores.Area = AreaScore(particles.at(0));
-					SmartDashboard::PutNumber("Area", scores.Area);
-					bool isTarget = scores.Area > SCORE_MIN && scores.Aspect > SCORE_MIN;
+	//Send particle count after filtering to dashboard
+	imaqError = imaqCountParticles(binaryFrame, 1, &numParticles);
+	SmartDashboard::PutNumber("Filtered particles", numParticles);
 
-					//Send distance and tote status to dashboard. The bounding rect, particularly the horizontal center (left - right) may be useful for rotating/driving towards a tote
-					SmartDashboard::PutBoolean("IsTarget", isTarget);
-					SmartDashboard::PutNumber("Distance", computeDistance(binaryFrame, particles.at(0)));
-				} else {
-					SmartDashboard::PutBoolean("IsTarget", false);
-				}
+	if(numParticles > 0) {
+		//Measure particles and sort by particle size
+		std::vector<ParticleReport> particles;
+		for(int particleIndex = 0; particleIndex < numParticles; particleIndex++)
+		{
+			ParticleReport par;
+			imaqMeasureParticle(binaryFrame, particleIndex, 0, IMAQ_MT_AREA_BY_IMAGE_AREA, &(par.PercentAreaToImageArea));
+			imaqMeasureParticle(binaryFrame, particleIndex, 0, IMAQ_MT_AREA, &(par.Area));
+			imaqMeasureParticle(binaryFrame, particleIndex, 0, IMAQ_MT_BOUNDING_RECT_TOP, &(par.BoundingRectTop));
+			imaqMeasureParticle(binaryFrame, particleIndex, 0, IMAQ_MT_BOUNDING_RECT_LEFT, &(par.BoundingRectLeft));
+			imaqMeasureParticle(binaryFrame, particleIndex, 0, IMAQ_MT_BOUNDING_RECT_BOTTOM, &(par.BoundingRectBottom));
+			imaqMeasureParticle(binaryFrame, particleIndex, 0, IMAQ_MT_BOUNDING_RECT_RIGHT, &(par.BoundingRectRight));
+			particles.push_back(par);
+		}
+		sort(particles.begin(), particles.end(), CompareParticleSizes);
 
-			}
+		//This example only scores the largest particle. Extending to score all particles and choosing the desired one is left as an exercise
+		//for the reader. Note that this scores and reports information about a single particle (single L shaped target). To get accurate information
+		//about the location of the tote (not just the distance) you will need to correlate two adjacent targets in order to find the true center of the tote.
+		scores.Aspect = AspectScore(particles.at(0));
+		SmartDashboard::PutNumber("Aspect", scores.Aspect);
+		scores.Area = AreaScore(particles.at(0));
+		SmartDashboard::PutNumber("Area", scores.Area);
+		bool isTarget = scores.Area > SCORE_MIN && scores.Aspect > SCORE_MIN;
+
+		//Send distance and tote status to dashboard. The bounding rect, particularly the horizontal center (left - right) may be useful for rotating/driving towards a tote
+		SmartDashboard::PutBoolean("IsTarget", isTarget);
+		SmartDashboard::PutNumber("Distance", computeDistance(binaryFrame, particles.at(0)));
+	} else {
+		SmartDashboard::PutBoolean("IsTarget", false);
+	}
+
+
   }
 
 void WateryTart::Manual()
@@ -176,8 +178,6 @@ void WateryTart::Manual()
 
   }
 
-  //Functions called from within main functions above
-  //Send image to dashboard if IMAQ has not thrown an error
 	void SendToDashboard(Image *image, int error)
 	{
 		if(error < ERR_SUCCESS) {
@@ -239,3 +239,4 @@ void WateryTart::Manual()
 
 		return  targetWidth/(normalizedWidth*12*tan(VIEW_ANGLE*M_PI/(180*2)));
 	}
+//};
