@@ -13,6 +13,7 @@ public:
 	//Declares controller
 	//The class joystick is misleading, it's just another term for controller
 	Joystick *XboxController;
+	Joystick *MedalOfHonorController;
 
 	//All the buttons that are possible that the drive station can be read from the controller
 	//Only declares the buttons
@@ -20,12 +21,26 @@ public:
 	Button *XboxB;
 	Button *XboxX;
 	Button *XboxY;
-	Button *UpperLeftTrig;
-	Button *UpperRightTrig;
+	Button *XboxUpperLeftTrig;
+	Button *XboxUpperRightTrig;
 	Button *XboxBack;
 	Button *XboxStart;
-	Button *LeftStickButton;
-	Button *RightStickButton;
+	Button *XboxLeftStickButton;
+	Button *XboxRightStickButton;
+
+	Button *MOHButtonSquare;
+	Button *MOHButtonX;
+	Button *MOHButtonCircle;
+	Button *MOHButtonTriangle;
+	Button *MOHLeftBumper;
+	Button *MOHRightBumper;
+	Button *MOHLeftTrigger;
+	Button *MOHRightTrigger;
+	Button *MOHSelectButton;
+	Button *MOHStartButton;
+	Button *MOHLeftStickButton;
+	Button *MOHRightStickButton;
+	Button *MOHHomeButton;
 
 	OI();
 	//Functions to read axes, which cannot be listed like buttons
