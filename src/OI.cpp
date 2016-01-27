@@ -76,7 +76,7 @@ bool OI::GetBrake()
 }
 
 double OI::GetUpOrDownValueInfeeder(){
-	double UpOrDownValue = XboxController -> GetRawAxis(5);
+	double UpOrDownValue = XboxController -> GetRawAxis(1);
 	return UpOrDownValue;
 }
 
