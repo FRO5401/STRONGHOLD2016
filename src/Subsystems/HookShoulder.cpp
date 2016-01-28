@@ -27,9 +27,6 @@ const int HookShoulderMotorMax	= 1;// Max motor speed
 const int MaxPosition			= 0;//The maximum position for the hook shoulder
 const int MinPosition			= 0;//the minimum position for the hook shoulder
 
-const int ScalePositionForHook 	= 0;//Position of hook shoulder to begin scale
-const int BumperPositionFromHook= 0;//Position of hook shoulder at bumper
-
 HookShoulder::HookShoulder() :
 		Subsystem("HookShoulder")
 {
