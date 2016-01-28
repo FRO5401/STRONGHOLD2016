@@ -23,6 +23,13 @@ const int HookShoulder_Kd		= 0;//Derivative
 const int HookShoulderMotorMin	= -1;//Min Motor speed
 const int HookShoulderMotorMax	= 1;// Max motor speed
 
+//The following WILL CHANGEs
+const int MaxPosition			= 0;//The maximum position for the hook shoulder
+const int MinPosition			= 0;//the minimum position for the hook shoulder
+
+const int ScalePositionForHook 	= 0;//Position of hook shoulder to begin scale
+const int BumperPositionFromHook= 0;//Position of hook shoulder at bumper
+
 HookShoulder::HookShoulder() :
 		Subsystem("HookShoulder")
 {
@@ -49,7 +56,15 @@ void HookShoulder::UpAndDown(double HookShoulderChangeValue){
  * This is to keep it from going above a certain angle for rules and below a certain angle so it doesn't
  * keep running once it gets into the robot
  */
-	HookShoulderMotor -> Set(-.5 * HookShoulderChangeValue); //Why -0.5?? carried from SPT KJM
+	double Position = HookShoulderMotor -> Get();
+	if(Position <= MaxPosition && Position >= MinPosition)
+	{
+		HookShoulderMotor -> Set(-.5 * HookShoulderChangeValue); //Why -0.5?? carried from SPT KJM
+	}
+	else
+	{
+		HookShoulderMotor -> Set(0);
+	}
 }
 
 void HookShoulder::MoveToPosition(double DesiredPosition){
