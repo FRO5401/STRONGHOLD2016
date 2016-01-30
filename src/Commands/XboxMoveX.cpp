@@ -32,8 +32,13 @@ void XboxMove::Execute()
 	bool 	Precision	=	oi	->	GetPrecision();
 	bool 	Brake		=	oi	->	GetBrake();
 	double Right,Left, Sensitivity;
-//	bool turn			=	oi	->	GetButtonB();
-
+	bool turn			=	oi	->	GetButtonB();
+	//Jason's SmartDashboard Experiments
+	/*Right = 0;
+	Left = 0;
+	Sensitivity;
+	SmartDashboard::PutNumber("Left", Left);
+	SmartDashboard::PutNumber("Right", Right);*/
 	if (Precision) { //Sets drive precision based on RobotMap and Precision Mode
 		Sensitivity	=	Drive_Sensitivity_Precise;
 	} else {
@@ -43,18 +48,16 @@ void XboxMove::Execute()
 	if (Brake) {
 		Right = 0;
 		Left = 0;
-//	} else if (turn) {
-//		Left = 1 * (Sensitivity * Slew);
-//		Right = -1 * (Sensitivity * Slew);
-	} else if (Slew > 0){									//Positive X axis means right turn
-		Left = (Throttle-Reverse) * (1) * Sensitivity;
-		Right = (Throttle - Reverse) * (1 - Slew) * Sensitivity;
-	} else {
-		Left = (Throttle-Reverse) * (1 + Slew) * Sensitivity;
-		Right = (Throttle-Reverse) * (1) * Sensitivity;
-	}
-
-
+	} else if (turn && Slew) {//turn in place
+			Left = -1 * (Sensitivity * Slew);			//idea: remove slew and check whether positive or negative and do a fixed value for the turn
+			Right = 1 * (Sensitivity * Slew);
+			} else if (Slew > 0){									//Positive X axis means right turn
+				Left = (Throttle-Reverse) * (1) * Sensitivity;
+				Right = (Throttle - Reverse) * (1 - Slew) * Sensitivity;
+				} else if (Slew < 0 ){
+					Left = (Throttle-Reverse) * (1 - Slew) * Sensitivity;
+					Right = (Throttle-Reverse) * (1) * Sensitivity;
+				}
 
 	drivebase        -> Drive(Left, Right);
 }

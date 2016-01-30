@@ -73,7 +73,7 @@ double OI::DummyJoystickReadFunction(){
 	//return XboxController -> GetRawButton();
 //}
 
-/*bool OI::GetButtonB(){
+bool OI::GetButtonB(){
 	bool ButtonReader = XboxController -> GetRawAxis(XboxBButton);
 	return ButtonReader;
-}*/
+}

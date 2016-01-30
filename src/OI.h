@@ -38,7 +38,7 @@ public:
 	double GetUpOrDownValueInfeeder();
 	double DummyJoystickReadFunction();//Define function once we figure out controller
 	bool DummyButtonReadFunction();//Define function once we figure out controller
-//	bool GetButtonB();
+	bool GetButtonB();
 
 };
 
