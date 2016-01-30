@@ -32,7 +32,7 @@ void XboxMove::Execute()
 	bool 	Precision	=	oi	->	GetPrecision();
 	bool 	Brake		=	oi	->	GetBrake();
 	double Right,Left, Sensitivity;
-//	bool turn			=	oi	->	GetButtonB();
+	bool turn			=	oi	->	GetButtonB();
 
 	if (Precision) { //Sets drive precision based on RobotMap and Precision Mode
 		Sensitivity	=	Drive_Sensitivity_Precise;
@@ -46,13 +46,13 @@ void XboxMove::Execute()
 //	} else if (turn) {
 //		Left = 1 * (Sensitivity * Slew);
 //		Right = -1 * (Sensitivity * Slew);
-	} else if (Slew > 0){									//Positive X axis means right turn
-		Left = (Throttle-Reverse) * (1) * Sensitivity;
-		Right = (Throttle - Reverse) * (1 - Slew) * Sensitivity;
-	} else {
-		Left = (Throttle-Reverse) * (1 + Slew) * Sensitivity;
-		Right = (Throttle-Reverse) * (1) * Sensitivity;
-	}
+		} else if (Slew > 0){									//Positive X axis means right turn
+			Left = (Throttle-Reverse) * (1) * Sensitivity;
+			Right = (Throttle - Reverse) * (1 - Slew) * Sensitivity;
+			} else {
+				Left = (Throttle-Reverse) * (1 + Slew) * Sensitivity;
+				Right = (Throttle-Reverse) * (1) * Sensitivity;
+				}
 
 
 
