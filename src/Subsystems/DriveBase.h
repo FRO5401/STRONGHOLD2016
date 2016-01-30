@@ -9,11 +9,15 @@ class DriveBase: public Subsystem
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
+	Victor *LeftDrive1;//Variable for left set of motors, this set contains 3 motors
+	Victor *LeftDrive2;//Variable for left set of motors, this set contains 3 motors
+	Victor *LeftDrive3;//Variable for left set of motors, this set contains 3 motors
+	Victor *RightDrive1;//Variable for right set of motors, this set contains 3 motors
+	Victor *RightDrive2;//Variable for right set of motors, this set contains 3 motors
+	Victor *RightDrive3;//Variable for right set of motors, this set contains 3 motors
 
 public:
 	//Declares the parts of the robot necessary for this subsystem
-	Victor *LeftDrive;//Variable for left set of motors, this set contains 3 motors
-	Victor *RightDrive;//Variable for right set of motors, this set contains 3 motors
 	DoubleSolenoid* LeftShift;
 	DoubleSolenoid* RightShift;
 

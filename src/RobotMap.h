@@ -38,9 +38,10 @@ const double Drive_Sensitivity_Precise	=	0.2;
  **************/
 const int XboxController_Channel	= 1;//Controller for drivebase
 
-const int LBumper_ID	=	6; //Button channels
-const int RBumper_ID	=	7;
+const int LBumper_ID	=	5; //Button channels
+const int RBumper_ID	=	6;
 //const int Start_ID	=	8;
+//const int XboxBButton	=	2;
 
 /****************
  * End Controllers
@@ -62,20 +63,24 @@ const int Shift_RightRev	= 3;
  * Drive Motors
  **************/
 //Motor location may change
-const int LeftMotor		= 0;//Locations of Motors, check under DIO of roboRIO
-const int RightMotor 	= 1;//and the wires connecting the roboRIO to motors
+const int LeftMotor1		= 3;//Locations of Motors, check under DIO of roboRIO
+const int LeftMotor2		= 4;//Locations of Motors, check under DIO of roboRIO
+const int LeftMotor3		= 5;//Locations of Motors, check under DIO of roboRIO
+const int RightMotor1 	= 0;//and the wires connecting the roboRIO to motors
+const int RightMotor2 	= 1;//and the wires connecting the roboRIO to motors
+const int RightMotor3 	= 2;//and the wires connecting the roboRIO to motors
 /*******************
  * End Drive Motors
  *******************/
 /************
  * Other Motors
  ***********/
-const int SPTShoulderMotor_Channel	= 2;	//MUST BE UPDATED
-const int ShooterMotor_Channel		= 2;	//MUST BE UPDATED
+const int SPTShoulderMotor_Channel	= NULL;	//MUST BE UPDATED
+const int ShooterMotor_Channel		= NULL;	//MUST BE UPDATED
 
 //Feeder Motors the outer and inner one
-const int FeederOuterFasterMotor_Channel	= 0;//MUST BE UPDATED
-const int FeederInnerSlower_Channel			= 0;//MUST BE UPDATED
+const int FeederOuterFasterMotor_Channel	= NULL;//MUST BE UPDATED
+const int FeederInnerSlower_Channel			= NULL;//MUST BE UPDATED
 
 
 /************

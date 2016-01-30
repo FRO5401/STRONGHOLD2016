@@ -50,6 +50,7 @@ void SPT::UpAndDown(double ShoulderChangeValue){
 //This function sets the shoulder motor to a certain speed
 //The waits a while and stops the motor at the correct angle
 //The wait amount is guess and checked.
+/*
 void SPT::MoveToDeliveryPosition(){
 	//Sets the min and max speed the motor of that the SPT has
 	SPTPot -> SetOutputRange(SPTMotorMin, SPTMotorMax);
@@ -62,3 +63,4 @@ void SPT::MoveToInfeederPosition(){
 	SPTPot -> SetSetpoint(SPTFeederPosition);
 	SPTPot -> Enable();
 }
+*/

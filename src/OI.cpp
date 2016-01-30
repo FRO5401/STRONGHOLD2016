@@ -46,12 +46,12 @@ double OI::GetRightTrigger()
 
 bool OI::GetPrecision()
 {
-	return XboxController	->	GetRawButton(RBumper_ID);
+	return XboxController	->	GetRawButton(LBumper_ID);
 }
 
 bool OI::GetBrake()
 {
-	return XboxController	->	GetRawButton(LBumper_ID);
+	return XboxController	->	GetRawButton(RBumper_ID);
 }
 
 double OI::GetUpOrDownValueInfeeder(){
@@ -72,3 +72,8 @@ double OI::DummyJoystickReadFunction(){
 //{
 	//return XboxController -> GetRawButton();
 //}
+
+/*bool OI::GetButtonB(){
+	bool ButtonReader = XboxController -> GetRawAxis(XboxBButton);
+	return ButtonReader;
+}*/

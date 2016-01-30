@@ -9,7 +9,7 @@ InfeederLiftIntoDelivery::InfeederLiftIntoDelivery()
 // Called just before this Command runs the first time
 void InfeederLiftIntoDelivery::Initialize()
 {
-	spt -> MoveToDeliveryPosition();
+//	spt -> MoveToDeliveryPosition();
 }
 
 // Called repeatedly when this Command is scheduled to run

@@ -9,7 +9,7 @@ InfeederLiftIntoInfeederPosition::InfeederLiftIntoInfeederPosition()
 // Called just before this Command runs the first time
 void InfeederLiftIntoInfeederPosition::Initialize()
 {
-	spt -> MoveToInfeederPosition();
+//	spt -> MoveToInfeederPosition();
 }
 
 // Called repeatedly when this Command is scheduled to run

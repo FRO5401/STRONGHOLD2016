@@ -6,8 +6,12 @@
 DriveBase::DriveBase() :
 		Subsystem("DriveBase")
 {
-	LeftDrive 	= new Victor(LeftMotor);
-	RightDrive	= new Victor(RightMotor);
+	LeftDrive1 	= new Victor(LeftMotor1);
+	LeftDrive2 	= new Victor(LeftMotor2);
+	LeftDrive3 	= new Victor(LeftMotor3);
+	RightDrive1	= new Victor(RightMotor1);
+	RightDrive2	= new Victor(RightMotor2);
+	RightDrive3	= new Victor(RightMotor3);
 	LeftShift = new DoubleSolenoid(pnuOff, Shift_LeftFwd, Shift_LeftRev);
 	RightShift = new DoubleSolenoid(pnuOff, Shift_RightFwd, Shift_RightRev);
 }
@@ -20,8 +24,12 @@ void DriveBase::InitDefaultCommand()
 void DriveBase::Drive(double LeftDriveDesired, double RightDriveDesired) //axes of joystick
   {
 
-  LeftDrive 	-> Set(LeftDriveDesired); //passes desired state to speed controllers
-  RightDrive 	-> Set(RightDriveDesired);
+  LeftDrive1 	-> Set(LeftDriveDesired); //passes desired state to speed controllers
+  LeftDrive2 	-> Set(LeftDriveDesired); //passes desired state to speed controllers
+  LeftDrive3 	-> Set(LeftDriveDesired); //passes desired state to speed controllers
+  RightDrive1 	-> Set(-1 * RightDriveDesired);
+  RightDrive2 	-> Set(-1 * RightDriveDesired);
+  RightDrive3 	-> Set(-1 * RightDriveDesired);
 
   }
 void DriveBase::ShiftLow()
@@ -39,11 +47,15 @@ void DriveBase::ShiftHigh()
  void DriveBase::Stop()
   {
 
-  LeftDrive		-> Set(0);
-  RightDrive	-> Set(0);
+	  LeftDrive1 	-> Set(0); //passes desired state to speed controllers
+	  LeftDrive2 	-> Set(0); //passes desired state to speed controllers
+	  LeftDrive3 	-> Set(0); //passes desired state to speed controllers
+	  RightDrive1 	-> Set(0);
+	  RightDrive2 	-> Set(0);
+	  RightDrive3 	-> Set(0);
 
   }
-
+/*
   void DriveBase::Reset()
   {
 //  	LeftEnc ->Reset();
@@ -52,3 +64,4 @@ void DriveBase::ShiftHigh()
   	RightDrive	-> Set(0);
 
   }
+*/
