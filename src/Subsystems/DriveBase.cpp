@@ -25,7 +25,7 @@ void DriveBase::InitDefaultCommand()
 {
 	SetDefaultCommand(new XboxMove());
 	LeftEnc		-> Reset();
-	RightEnc 	-> Reset():
+	RightEnc 	-> Reset();
 }
 
 void DriveBase::Drive(double LeftDriveDesired, double RightDriveDesired, double DistancePerPulseValue) //axes of joystick
@@ -35,14 +35,15 @@ void DriveBase::Drive(double LeftDriveDesired, double RightDriveDesired, double 
   LeftDrive 	-> Set(LeftDriveDesired); //passes desired state to speed controllers
   RightDrive 	-> Set(RightDriveDesired);
 
+  //Sets the ratio for pulses to inches
   LeftEnc 	-> SetDistancePerPulse(DistancePerPulseValue);
   RightEnc 	-> SetDistancePerPulse(DistancePerPulseValue);
 
-  SmartDashboard::PutNumber("Left Encoder Raw Count Value", LeftEnc -> Get());
-  SmartDashboard::PutNumber("Right Encoder Raw Count Value", RightEnc -> Get());
-  SmartDashboard::PutNumber("Left Encoder Distance Traveled", LeftEnc -> GetDistance());
-  SmartDashboard::PutNumber("Right Encoder Distance Traveled", RightEnc -> GetDistance());
-
+  //Displays certain values in the encoder onto the SmartDashboard
+  SmartDashboard::PutNumber("Left Encoder Raw Count Value", 	LeftEnc 	-> Get());
+  SmartDashboard::PutNumber("Right Encoder Raw Count Value", 	RightEnc 	-> Get());
+  SmartDashboard::PutNumber("Left Encoder Distance Traveled", 	LeftEnc 	-> GetDistance());
+  SmartDashboard::PutNumber("Right Encoder Distance Traveled", 	RightEnc 	-> GetDistance());
   }
 void DriveBase::ShiftLow()
 {

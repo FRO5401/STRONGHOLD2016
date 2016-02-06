@@ -41,6 +41,7 @@ const int MedalOfHonorController_Channel = 2;//Controller for operator
 
 const int LBumper_ID	=	6; //Button channels
 const int RBumper_ID	=	7;
+const int XboxB_ID		=	2;
 //const int Start_ID	=	8;
 
 /****************
@@ -109,10 +110,11 @@ const int ShooterPot_Channel 	= 0;			//MUST BE UPDATED
 const int SPTPot_Channel 		= 0;//MUST BE UPDATED SPT potentiometer channel
 const int HookShoulderPot_Channel	= 0;	//MUST BE UPDATED
 
-const int Enc_Left_A;
-const int Enc_Left_B;
-const int Enc_Right_A;
-const int Enc_Right_B;
+//Encoder DIO Channels
+const int Enc_Left_A 	= 0;
+const int Enc_Left_B 	= 0;
+const int Enc_Right_A 	= 0;
+const int Enc_Right_B 	= 0;
 
 /************
  * End Sensor Channels

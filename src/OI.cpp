@@ -14,7 +14,7 @@ OI::OI()
 	//Gives the declared buttons a value that uses the joystick(controller) name and the port number determined
 	//by drive station
 	//Xbox buttons
-	JoystickButton * 	Unused;
+	JoystickButton * 	Unused1;
 						XboxA					= new JoystickButton(XboxController, 1);
 						XboxB					= new JoystickButton(XboxController, 2);
 						XboxX					= new JoystickButton(XboxController, 3);
@@ -26,7 +26,7 @@ OI::OI()
 						XboxLeftStickButton		= new JoystickButton(XboxController, 9);
 						XboxRightStickButton 	= new JoystickButton(XboxController, 10);
 	//Medal Of Honor Controller (MOH) buttons
-	JoystickButton*		Unused;
+	JoystickButton*		Unused2;
 						MOHButtonSquare			= new JoystickButton(MedalOfHonorController, 1);
 						MOHButtonX				= new JoystickButton(MedalOfHonorController, 2);
 						MOHButtonCircle			= new JoystickButton(MedalOfHonorController, 3);
@@ -88,6 +88,9 @@ double OI::DummyJoystickReadFunction(){
 	return 0;
 }//Define function once we figure out controller
 
+bool OI::GetButtonEncoderDrive(){
+	return XboxController	->	GetRawButton(XboxB_ID);
+}
 
 //bool OI::GetStart()
 //{
