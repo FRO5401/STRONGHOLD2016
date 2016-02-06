@@ -11,10 +11,10 @@
 #include "../CommandBase.h"
 #include "WPILib.h"
 
-class Target: public CommandBase
+class LockTarget: public CommandBase
 {
 public:
-	Target();
+	LockTarget();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

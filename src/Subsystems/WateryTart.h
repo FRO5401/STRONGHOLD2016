@@ -15,17 +15,17 @@ class WateryTart: public Subsystem
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
-
+//	USBCamera *MainCam;
 public:
 	//Declares the parts of the robot necessary for this subsystem
 
 	WateryTart();
 	void InitDefaultCommand();
-	void Search();
+	void Search(Range, Range, Range, int);
 	void Manual();
 	void Stop();
 	void Reset();
-	void SendToDashboard(Image, int);
+	void SendToDashboard(Image*, int);
 	static bool CompareParticleSizes(ParticleReport, ParticleReport);
 	double ratioToScore(double);
 	double AreaScore(ParticleReport);
