@@ -9,7 +9,7 @@ FeederStop::FeederStop()
 // Called just before this Command runs the first time
 void FeederStop::Initialize()
 {
-	feeder -> StopFeed();
+	/*Cody is a*/feeder -> StopFeed();
 }
 
 // Called repeatedly when this Command is scheduled to run
