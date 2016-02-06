@@ -24,6 +24,8 @@ DriveBase::DriveBase() :
 void DriveBase::InitDefaultCommand()
 {
 	SetDefaultCommand(new XboxMove());
+	LeftEnc		-> Reset();
+	RightEnc 	-> Reset():
 }
 
 void DriveBase::Drive(double LeftDriveDesired, double RightDriveDesired, double DistancePerPulseValue) //axes of joystick
