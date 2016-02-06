@@ -15,13 +15,29 @@ void DrivingWithEncoderInput::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void DrivingWithEncoderInput::Execute()
 {
-
+	//Put it in the DriveBase Subsystem
+	//My logic
+	//First line will get the Distance that the driver wants to drive from the SmartDashboard
+	SmartDashboard::GetNumber("Distance for Encoder Drive", DistanceForEncoderDrive);
+	//SEcond line zeros the encoder, so the start position is 0
+	drivebase -> EncoderReset();
+	//This while loop will make
+	while(DistanceForEncoderDrive != (LeftEnc -> GetDistance()))
+		{
+			drivebase -> EncoderDrive(double(DistanceForEncoderDrive - LeftEnc -> GetDistance()));
+		}
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool DrivingWithEncoderInput::IsFinished()
 {
-	return false;
+	//New stuff
+	if(oi -> GetButtonForEncoderDrive())
+	{
+		return false;
+	}else{
+		return true;
+	}
 }
 
 // Called once after isFinished returns true

@@ -43,6 +43,9 @@ OI::OI()
 
 
 
+	//New stuff
+	XboxB = WhileHeld(new DrivingWithEncoderInput());
+	XboxB = WhenReleased(new XboxMove());
 
 }
 
@@ -88,7 +91,8 @@ double OI::DummyJoystickReadFunction(){
 	return 0;
 }//Define function once we figure out controller
 
-bool OI::GetButtonEncoderDrive(){
+//New stuff
+bool OI::GetButtonForEncoderDrive(){
 	return XboxController	->	GetRawButton(XboxB_ID);
 }
 

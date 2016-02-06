@@ -17,16 +17,21 @@ public:
 	DoubleSolenoid* LeftShift;
 	DoubleSolenoid* RightShift;
 
+	//New Stuff
 	Encoder *LeftEnc;
 	Encoder *RightEnc;
 
 	DriveBase();
 	void InitDefaultCommand();
+	//Drive has changed
 	void Drive(double, double, double);//Function used to drive
 	void ShiftLow();
 	void ShiftHigh();
 	void Stop();//Function used to stop the robot, no parameters necessary
 	void Reset();
+	//New stuff
+	void EncoderDrive(double);
+	void EncoderReset();
 };
 
 #endif

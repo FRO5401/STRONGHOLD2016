@@ -10,6 +10,8 @@
 #include <Commands/XboxMove.h>
 //Need to check Drive() function, doesn't know which motors need to go reverse so both goes forward
 //Funny stuff happening
+
+double DistanceForEncoderDrive = 0;
 DriveBase::DriveBase() :
 		Subsystem("DriveBase")
 {
@@ -17,6 +19,8 @@ DriveBase::DriveBase() :
 	RightDrive	= new Victor(RightMotor);
 	LeftShift 	= new DoubleSolenoid(SolenoidCAN_ID, Shift_LeftFwd, Shift_LeftRev);
 	RightShift 	= new DoubleSolenoid(SolenoidCAN_ID, Shift_RightFwd, Shift_RightRev);
+
+	//New stuff
 	LeftEnc		= new Encoder(Enc_Left_A,Enc_Left_B, true, Encoder::k1X);
 	RightEnc	= new Encoder(Enc_Right_A,Enc_Right_B,true,Encoder::k1X);
 }
@@ -35,6 +39,7 @@ void DriveBase::Drive(double LeftDriveDesired, double RightDriveDesired, double 
   LeftDrive 	-> Set(LeftDriveDesired); //passes desired state to speed controllers
   RightDrive 	-> Set(RightDriveDesired);
 
+  //New stuff
   //Sets the ratio for pulses to inches
   LeftEnc 	-> SetDistancePerPulse(DistancePerPulseValue);
   RightEnc 	-> SetDistancePerPulse(DistancePerPulseValue);
@@ -73,3 +78,22 @@ void DriveBase::ShiftHigh()
   	RightDrive	-> Set(0);
 
   }
+  //New stuff
+  //A function to use the encoders in driving, the robot will drive in a certain direction depending on the distance left to travel
+  void DriveBase::EncoderDrive(double DistanceLeft){
+	  if(DistanceLeft < 0)
+	  {
+		  LeftDrive -> Set(1);
+		  RightDrive -> Set(-1);
+	  }
+	  else if(DistanceLeft > 0)
+	  {
+		  LeftDrive -> Set(-1);
+		  RightDrive -> Set(1);
+	  }
+  }
+  void DriveBase::EncoderReset(){
+	  LeftEnc -> Reset();
+	  RightEnc -> Reset();
+  }
+
