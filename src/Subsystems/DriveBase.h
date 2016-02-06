@@ -17,6 +17,9 @@ public:
 	DoubleSolenoid* LeftShift;
 	DoubleSolenoid* RightShift;
 
+	Encoder *LeftEnc;
+	Encoder *RightEnc;
+
 	DriveBase();
 	void InitDefaultCommand();
 	void Drive(double, double);//Function used to drive

@@ -15,8 +15,10 @@ DriveBase::DriveBase() :
 {
 	LeftDrive 	= new Victor(LeftMotor);
 	RightDrive	= new Victor(RightMotor);
-	LeftShift = new DoubleSolenoid(SolenoidCAN_ID, Shift_LeftFwd, Shift_LeftRev);
-	RightShift = new DoubleSolenoid(SolenoidCAN_ID, Shift_RightFwd, Shift_RightRev);
+	LeftShift 	= new DoubleSolenoid(SolenoidCAN_ID, Shift_LeftFwd, Shift_LeftRev);
+	RightShift 	= new DoubleSolenoid(SolenoidCAN_ID, Shift_RightFwd, Shift_RightRev);
+	LeftEnc		= new Encoder(Enc_Left_A,Enc_Left_B, true, Encoder::k1X);
+	RightEnc	= new Encoder(Enc_Right_A,Enc_Right_B,true,Encoder::k1X);
 }
 
 void DriveBase::InitDefaultCommand()

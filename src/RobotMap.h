@@ -108,6 +108,12 @@ const int Lobber_Channel			= 0;	//MUST BE UPDATED
 const int ShooterPot_Channel 	= 0;			//MUST BE UPDATED
 const int SPTPot_Channel 		= 0;//MUST BE UPDATED SPT potentiometer channel
 const int HookShoulderPot_Channel	= 0;	//MUST BE UPDATED
+
+const int Enc_Left_A;
+const int Enc_Left_B;
+const int Enc_Right_A;
+const int Enc_Right_B;
+
 /************
  * End Sensor Channels
  ***********/
