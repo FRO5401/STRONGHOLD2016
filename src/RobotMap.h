@@ -28,7 +28,7 @@ const double MaxSensitivityThreshold = 0.9;//for highest speed and lowest speed
 const double Drive_Sensitivity_Default	=	1;
 const double Drive_Sensitivity_Precise	=	0.2;
 
-
+const double Encoder_Conversion_To_Inches_Constant = 1;
 /***********************
  * End Global Variables
  ***********************/

@@ -22,7 +22,7 @@ public:
 
 	DriveBase();
 	void InitDefaultCommand();
-	void Drive(double, double);//Function used to drive
+	void Drive(double, double, double);//Function used to drive
 	void ShiftLow();
 	void ShiftHigh();
 	void Stop();//Function used to stop the robot, no parameters necessary

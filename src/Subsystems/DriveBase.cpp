@@ -26,11 +26,20 @@ void DriveBase::InitDefaultCommand()
 	SetDefaultCommand(new XboxMove());
 }
 
-void DriveBase::Drive(double LeftDriveDesired, double RightDriveDesired) //axes of joystick
-  {
+void DriveBase::Drive(double LeftDriveDesired, double RightDriveDesired, double DistancePerPulseValue) //axes of joystick
+  {										//									^^ This parameter will be the Encoder Conversion to Inches
+										//										global variable, in RobotMap, when called
 
   LeftDrive 	-> Set(LeftDriveDesired); //passes desired state to speed controllers
   RightDrive 	-> Set(RightDriveDesired);
+
+  LeftEnc 	-> SetDistancePerPulse(DistancePerPulseValue);
+  RightEnc 	-> SetDistancePerPulse(DistancePerPulseValue);
+
+  SmartDashboard::PutNumber("Left Encoder Raw Count Value", LeftEnc -> Get());
+  SmartDashboard::PutNumber("Right Encoder Raw Count Value", RightEnc -> Get());
+  SmartDashboard::PutNumber("Left Encoder Distance Traveled", LeftEnc -> GetDistance());
+  SmartDashboard::PutNumber("Right Encoder Distance Traveled", RightEnc -> GetDistance());
 
   }
 void DriveBase::ShiftLow()
