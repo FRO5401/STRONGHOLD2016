@@ -8,8 +8,8 @@ DriveBase::DriveBase() :
 {
 	LeftDrive 	= new Victor(LeftMotor);
 	RightDrive	= new Victor(RightMotor);
-	LeftShift = new DoubleSolenoid(pnuOff, Shift_LeftFwd, Shift_LeftRev);
-	RightShift = new DoubleSolenoid(pnuOff, Shift_RightFwd, Shift_RightRev);
+//	LeftShift = new DoubleSolenoid(pnuOff, Shift_LeftFwd, Shift_LeftRev);
+//	RightShift = new DoubleSolenoid(pnuOff, Shift_RightFwd, Shift_RightRev);
 }
 
 void DriveBase::InitDefaultCommand()
@@ -24,6 +24,7 @@ void DriveBase::Drive(double LeftDriveDesired, double RightDriveDesired) //axes 
   RightDrive 	-> Set(RightDriveDesired);
 
   }
+/*
 void DriveBase::ShiftLow()
 {
 	LeftShift  ->	Set(DoubleSolenoid::Value::kForward);
@@ -35,7 +36,7 @@ void DriveBase::ShiftHigh()
 	LeftShift  ->	Set(DoubleSolenoid::Value::kReverse);
 	RightShift ->	Set(DoubleSolenoid::Value::kReverse);
 }
-
+*/
  void DriveBase::Stop()
   {
 

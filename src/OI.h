@@ -13,6 +13,7 @@ public:
 	//Declares controller
 	//The class joystick is misleading, it's just another term for controller
 	Joystick *XboxController;
+	Joystick *PSController;
 
 	//All the buttons that are possible that the drive station can be read from the controller
 	//Only declares the buttons
@@ -26,6 +27,7 @@ public:
 	Button *XboxStart;
 	Button *LeftStickButton;
 	Button *RightStickButton;
+	Button *One;
 
 	OI();
 	//Functions to read axes, which cannot be listed like buttons
@@ -38,6 +40,7 @@ public:
 	double GetUpOrDownValueInfeeder();
 	double DummyJoystickReadFunction();//Define function once we figure out controller
 	bool DummyButtonReadFunction();//Define function once we figure out controller
+	bool GetPSButtonTwo();
 
 };
 

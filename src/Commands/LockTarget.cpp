@@ -7,19 +7,24 @@
 #include <Commands/LockTarget.h>
 #include "RobotMap.h"
 bool Lock;
-Range RING_HUE_RANGE = {0	, 32};	//Default hue range for ring light
-Range RING_SAT_RANGE = {96	, 255};	//Default saturation range for ring light
-Range RING_VAL_RANGE = {0	, 255};	//Default value range for ring light
+Range RING_HUE_RANGE;// = {0	, 96};	//Default hue range for ring light R
+Range RING_SAT_RANGE;// = {110	, 255};	//Default saturation range for ring light G
+Range RING_VAL_RANGE;// = {110	, 255};	//Default value range for ring light B
 int Particle_No = 0;
+double ImgLatency;
 
 LockTarget::LockTarget()
 {
   Requires(waterytart);
 }
 	void LockTarget::Initialize() {
+		Range RING_HUE_RANGE = {0	, 96};	//Default hue range for ring light R
+		Range RING_SAT_RANGE = {110	, 255};	//Default saturation range for ring light G
+		Range RING_VAL_RANGE = {110	, 255};	//Default value range for ring light B
 //		Range RING_HUE_RANGE = {101, 64};	//Default hue range for ring light
 //		Range RING_SAT_RANGE = {88, 255};	//Default saturation range for ring light
 //		Range RING_VAL_RANGE = {134, 255};	//Default value range for ring light
+		ImgLatency = 2;
 	};
 
 	void LockTarget::Execute(){
@@ -35,9 +40,11 @@ LockTarget::LockTarget()
 		RING_SAT_RANGE.maxValue = SmartDashboard::GetNumber("Tote sat max", RING_SAT_RANGE.maxValue);
 		RING_VAL_RANGE.minValue = SmartDashboard::GetNumber("Tote val min", RING_VAL_RANGE.minValue);
 		RING_VAL_RANGE.maxValue = SmartDashboard::GetNumber("Tote val max", RING_VAL_RANGE.maxValue);
+		ImgLatency = SmartDashboard::GetNumber("PicWaitTime", ImgLatency);
+
 		Particle_No = SmartDashboard::GetNumber("Particle No", Particle_No);
 
-		waterytart	->	Search(RING_HUE_RANGE, RING_SAT_RANGE, RING_VAL_RANGE, Particle_No);
+		waterytart	->	Search(RING_HUE_RANGE, RING_SAT_RANGE, RING_VAL_RANGE, Particle_No, ImgLatency);
 
 	};
 

@@ -37,6 +37,7 @@ const double Drive_Sensitivity_Precise	=	0.2;
  * Controllers
  **************/
 const int XboxController_Channel	= 1;//Controller for drivebase
+const int PSController_Channel	= 0;//Controller for drivebase
 
 const int LBumper_ID	=	6; //Button channels
 const int RBumper_ID	=	7;

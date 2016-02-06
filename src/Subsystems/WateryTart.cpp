@@ -48,6 +48,7 @@
 	//Images
 	Image* frame;
 	Image* binaryFrame;
+	Image* TargetFrame;
 	int imaqError;
 	IMAQdxSession session;
 	//Constants
@@ -86,20 +87,22 @@ void WateryTart::InitDefaultCommand()
  * It will return a rumble to the controller and splash a green box on the dashboard
  * Ideally, this will take place on an on board raspberry pi or arduino board, but that is version 2.0
  */
-void WateryTart::Search(Range Red, Range Green, Range Blue, int ParticleNumber)
+void WateryTart::Search(Range Hue, Range Sat, Range Val, int ParticleNumber, double WaitTime)
   {
-
+//WaitTime = 2;
     // create images
 	frame = imaqCreateImage(IMAQ_IMAGE_RGB, 0);
 	binaryFrame = imaqCreateImage(IMAQ_IMAGE_U8, 0);
+	TargetFrame = imaqCreateImage(IMAQ_IMAGE_U8,0);
 	//Put default values to SmartDashboard so fields will appear
-	SmartDashboard::PutNumber("Tote hue min", Red.minValue);
-	SmartDashboard::PutNumber("Tote hue max", Red.maxValue);
-	SmartDashboard::PutNumber("Tote sat min", Green.minValue);
-	SmartDashboard::PutNumber("Tote sat max", Green.maxValue);
-	SmartDashboard::PutNumber("Tote val min", Blue.minValue);
-	SmartDashboard::PutNumber("Tote val max", Blue.maxValue);
+	SmartDashboard::PutNumber("Tote hue min", Hue.minValue);
+	SmartDashboard::PutNumber("Tote hue max", Hue.maxValue);
+	SmartDashboard::PutNumber("Tote sat min", Sat.minValue);
+	SmartDashboard::PutNumber("Tote sat max", Sat.maxValue);
+	SmartDashboard::PutNumber("Tote val min", Val.minValue);
+	SmartDashboard::PutNumber("Tote val max", Val.maxValue);
 	SmartDashboard::PutNumber("Area min %", AREA_MINIMUM);
+	SmartDashboard::PutNumber("Cycle Time", WaitTime);
 
 	//read file in from disk. For this example to run you need to copy image.jpg from the SampleImages folder to the
 	//directory shown below using FTP or SFTP: http://wpilib.screenstepslive.com/s/4485/m/24166/l/282299-roborio-ftp
@@ -116,23 +119,27 @@ void WateryTart::Search(Range Red, Range Green, Range Blue, int ParticleNumber)
 	}
 */
 	//Threshold the image looking for ring light color
-	imaqError = imaqColorThreshold(binaryFrame, frame, 255, IMAQ_RGB, &Red, &Green, &Blue);
+	imaqError = imaqColorThreshold(binaryFrame, frame, 255, IMAQ_RGB, &Hue, &Sat, &Val);
 
+	CameraServer::GetInstance()->SetImage(frame);  //Send original image to dashboard to assist in tweaking mask.
+	Wait(WaitTime); //Part of test code to cycle between the filtered image and the color image
 
 	//Send particle count to dashboard
 	int numParticles = 0;
 	imaqError = imaqCountParticles(binaryFrame, 1, &numParticles);
 	SmartDashboard::PutNumber("Masked particles", numParticles);
 
+	//Replaces the SendtoDashboard function without error handling
+	CameraServer::GetInstance()->SetImage(binaryFrame); //Send masked image to dashboard to assist in tweaking mask.
+
 	//filter out small particles
 	float areaMin = SmartDashboard::GetNumber("Area min %", AREA_MINIMUM);
 	criteria[0] = {IMAQ_MT_AREA_BY_IMAGE_AREA, areaMin, 100, false, false};
 	imaqError = imaqParticleFilter4(binaryFrame, binaryFrame, criteria, 1, &filterOptions, NULL, NULL);
 
-	//Send particle count after filtering to dashboard
 
 
-	if(numParticles > 0) {
+//	if(numParticles > 0) {
 		/*COMMENT EVERYTHING
 		//Measure particles and sort by particle size  //Here's the thing, ParticleReport is a defined thing in imaq
 		std::vector<ParticleReport> particles;
@@ -157,36 +164,39 @@ void WateryTart::Search(Range Red, Range Green, Range Blue, int ParticleNumber)
 		scores.Area = AreaScore(particles.at(0));
 		SmartDashboard::PutNumber("Area", scores.Area);
 		bool isTarget = scores.Area > SCORE_MIN && scores.Aspect > SCORE_MIN;
-
-		//Send distance and tote status to dashboard. The bounding rect, particularly the horizontal center (left - right) may be useful for rotating/driving towards a tote
-		SmartDashboard::PutBoolean("IsTarget", isTarget);
-		SmartDashboard::PutNumber("Distance", computeDistance(binaryFrame, particles.at(0)));
 */
+
+	//Send particle count after filtering to dashboard
 		imaqError = imaqCountParticles(binaryFrame, 1, &numParticles);
 		SmartDashboard::PutNumber("Filtered particles", numParticles);
-		double XFirstPixel, YFirstPixel, XUpLeftCorner, YUpLeftCorner, XDownRightCorner, YDownRightCorner;
+		double XFirstPixel, YFirstPixel, XUpLeftCorner, YUpLeftCorner, XDownRightCorner, YDownRightCorner, RectHeight, RectWidth;
 		imaqMeasureParticle(binaryFrame, ParticleNumber, false, IMAQ_MT_FIRST_PIXEL_X, &XFirstPixel);
 		imaqMeasureParticle(binaryFrame, ParticleNumber, false, IMAQ_MT_FIRST_PIXEL_Y, &YFirstPixel);
-		imaqMeasureParticle(binaryFrame, ParticleNumber, false, IMAQ_MT_FIRST_PIXEL_Y, &XUpLeftCorner);
-		imaqMeasureParticle(binaryFrame, ParticleNumber, false, IMAQ_MT_FIRST_PIXEL_Y, &YUpLeftCorner);
-		imaqMeasureParticle(binaryFrame, ParticleNumber, false, IMAQ_MT_FIRST_PIXEL_Y, &XDownRightCorner);
-		imaqMeasureParticle(binaryFrame, ParticleNumber, false, IMAQ_MT_FIRST_PIXEL_Y, &YDownRightCorner);
+		imaqMeasureParticle(binaryFrame, ParticleNumber, false, IMAQ_MT_BOUNDING_RECT_LEFT, &XUpLeftCorner);
+		imaqMeasureParticle(binaryFrame, ParticleNumber, false, IMAQ_MT_BOUNDING_RECT_TOP, &YUpLeftCorner);
+		imaqMeasureParticle(binaryFrame, ParticleNumber, false, IMAQ_MT_BOUNDING_RECT_RIGHT, &XDownRightCorner);
+		imaqMeasureParticle(binaryFrame, ParticleNumber, false, IMAQ_MT_BOUNDING_RECT_BOTTOM, &YDownRightCorner);
+		imaqMeasureParticle(binaryFrame, ParticleNumber, false, IMAQ_MT_BOUNDING_RECT_WIDTH, &RectHeight);
+		imaqMeasureParticle(binaryFrame, ParticleNumber, false, IMAQ_MT_BOUNDING_RECT_HEIGHT, &RectWidth);
 		SmartDashboard::PutNumber("First Pixel - X", XFirstPixel);
 		SmartDashboard::PutNumber("First Pixel - Y", YFirstPixel);
-		SmartDashboard::PutNumber("LeftRectTop - X", XUpLeftCorner);
-		SmartDashboard::PutNumber("LeftRectTop - Y", YUpLeftCorner);
-		SmartDashboard::PutNumber("RightRectDown - Y", XDownRightCorner);
+		SmartDashboard::PutNumber("LeftRectTop-X", XUpLeftCorner);
+		SmartDashboard::PutNumber("LeftRectTop-Y", YUpLeftCorner);
+		SmartDashboard::PutNumber("RightRectDown-X", XDownRightCorner);
 		SmartDashboard::PutNumber("RightRectDown - Y", YDownRightCorner);
+		SmartDashboard::PutNumber("Rectangle Height", RectHeight);
+		SmartDashboard::PutNumber("Rectangle Width", RectWidth);
+//		SmartDashboard::PutNumber("Cycle Time", WaitTime);
 
-		imaqError = imaqDrawShapeOnImage(binaryFrame, binaryFrame, {YUpLeftCorner, XUpLeftCorner, (YDownRightCorner-YUpLeftCorner), (XDownRightCorner-XUpLeftCorner)}, DrawMode::IMAQ_DRAW_INVERT, ShapeMode::IMAQ_SHAPE_RECT, 0.0f);
 
-		CameraServer::GetInstance()->SetImage(frame);  //Send original image to dashboard to assist in tweaking mask.
-		Wait(2); //Part of test code to cycle between the filtered image and the color image
-		//Replaces the SendtoDashboard function without error handling
-		CameraServer::GetInstance()->SetImage(binaryFrame); //Send masked image to dashboard to assist in tweaking mask.
 //		SmartDashboard::PutBoolean("IsTarget", isTarget);
 //		double WateryTart::computeDistance (Image *image, ParticleReport report) {
-			double normalizedWidth, targetWidth;
+
+		Wait(WaitTime);
+		imaqError = imaqDrawShapeOnImage(TargetFrame, binaryFrame, {YUpLeftCorner, XUpLeftCorner, RectWidth, RectHeight}, DrawMode::IMAQ_DRAW_INVERT, ShapeMode::IMAQ_SHAPE_RECT, 0.0f);
+		CameraServer::GetInstance()->SetImage(TargetFrame); //Send masked image to dashboard to assist in tweaking mask.
+
+		double normalizedWidth, targetWidth;
 			int xRes, yRes;
 
 			imaqGetImageSize(binaryFrame, &xRes, &yRes);
@@ -198,10 +208,10 @@ void WateryTart::Search(Range Red, Range Green, Range Blue, int ParticleNumber)
 			double distance =  targetWidth/(normalizedWidth*12*tan(VIEW_ANGLE*M_PI/(180*2)));
 			SmartDashboard::PutNumber("Distance", distance);
 //		}
-	} else {
-		SmartDashboard::PutBoolean("IsTarget", false);
-	}
-
+//	} else {
+//		SmartDashboard::PutBoolean("IsTarget", false);
+//	}
+/*
 */
   }
 

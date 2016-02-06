@@ -1,6 +1,7 @@
 #include "OI.h"
 #include "RobotMap.h"
 #include "Commands/XboxMove.h"
+#include "Commands/LockTarget.h"
 
 OI::OI()
 {
@@ -9,9 +10,10 @@ OI::OI()
 	//AKA physical locations of buttons too
 
 	XboxController	= new Joystick(XboxController_Channel);
-
+	PSController	= new Joystick(PSController_Channel);
 	//Gives the declared buttons a value that uses the joystick(controller) name and the port number determined
 	//by drive station
+	One										= new JoystickButton(PSController, 1);
 	JoystickButton * 	Unused;
 						XboxA				= new JoystickButton(XboxController, 1);
 						XboxB				= new JoystickButton(XboxController, 2);
@@ -23,7 +25,10 @@ OI::OI()
 						XboxStart			= new JoystickButton(XboxController, 8);
 						LeftStickButton		= new JoystickButton(XboxController, 9);
 						RightStickButton 	= new JoystickButton(XboxController, 10);
+
+						One	->	WhenPressed(new LockTarget());
 }
+
 
 //Defines the functions for the axis's declared in the h file
 double OI::ReadXboxLeftStickX()
