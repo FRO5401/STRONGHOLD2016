@@ -30,7 +30,7 @@ public:
 	void Stop();//Function used to stop the robot, no parameters necessary
 	void Reset();
 	//New stuff
-	void EncoderDrive(double);
+	void EncoderDrive();
 	void EncoderReset();
 };
 
