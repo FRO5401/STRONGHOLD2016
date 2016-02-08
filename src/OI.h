@@ -28,6 +28,7 @@ public:
 	Button *LeftStickButton;
 	Button *RightStickButton;
 	Button *One;
+	Button *Two;
 
 	OI();
 	//Functions to read axes, which cannot be listed like buttons

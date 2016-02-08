@@ -14,6 +14,7 @@ OI::OI()
 	//Gives the declared buttons a value that uses the joystick(controller) name and the port number determined
 	//by drive station
 	One										= new JoystickButton(PSController, 1);
+	Two										= new JoystickButton(PSController, 2);
 	JoystickButton * 	Unused;
 						XboxA				= new JoystickButton(XboxController, 1);
 						XboxB				= new JoystickButton(XboxController, 2);
@@ -72,6 +73,9 @@ double OI::DummyJoystickReadFunction(){
 	return 0;
 }//Define function once we figure out controller
 
+bool OI::GetPSButtonTwo(){
+	return (PSController	->	GetRawButton(2));
+}
 
 //bool OI::GetStart()
 //{

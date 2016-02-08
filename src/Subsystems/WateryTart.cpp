@@ -12,38 +12,15 @@
 //#include "SmartDashboard/SmartDashboard.h"
 //#include "LiveWindow/LiveWindow.h"
 
-//#include <opencv2/opencv.hpp>
-#include <math.h>
-//#include <ctime>
-#include <vector>
+//#include <math.h>
+//#include <vector>
 
-#include "WateryTart.h"
-#include "../RobotMap.h"
-#include "Commands/LockTarget.h"
-#include "SmartDashboard/SmartDashboard.h"
-//#include "LiveWindow/LiveWindow.h"
-
-//#include <opencv2/opencv.hpp>
-#include <math.h>
-//#include <ctime>
-#include <vector>
-
-/*
-//A structure to hold measurements of a particle
-	struct ParticleReportX {
-		double PercentAreaToImageArea;
-		double Area;
-		double BoundingRectLeft;
-		double BoundingRectTop;
-		double BoundingRectRight;
-		double BoundingRectBottom;
-	};
-*/
 	//Structure to represent the scores for the various tests used for target identification
 	struct Scores {
 		double Area;
 		double Aspect;
 	};
+	double XFirstPixel, YFirstPixel, XUpLeftCorner, YUpLeftCorner, XDownRightCorner, YDownRightCorner, RectHeight, RectWidth, Aspect;
 
 	//Images
 	Image* frame;
@@ -56,7 +33,8 @@
 	double LONG_RATIO = 2.22; //Tote long side = 26.9 / Tote height = 12.1 = 2.22
 	double SHORT_RATIO = 1.4; //Tote short side = 16.9 / Tote height = 12.1 = 1.4
 	double SCORE_MIN = 75.0;  //Minimum score to be considered a tote
-	double VIEW_ANGLE = 49.4; //View angle fo camera, set to Axis m1011 by default, 64 for m1013, 51.7 for 206, 52 for HD3000 square, 60 for HD3000 640x480
+	double VIEW_ANGLE = 60; //View angle fo camera, set to Axis m1011 by default, 64 for m1013, 51.7 for 206, 52 for HD3000 square, 60 for HD3000 640x480
+	double ASPECT_GOAL	= 1;  //Aspect Ratio of the target in our targeting range
 	ParticleFilterCriteria2 criteria[1];
 	ParticleFilterOptions2 filterOptions = {0,0,1,1};
 	Scores scores;
@@ -87,9 +65,11 @@ void WateryTart::InitDefaultCommand()
  * It will return a rumble to the controller and splash a green box on the dashboard
  * Ideally, this will take place on an on board raspberry pi or arduino board, but that is version 2.0
  */
-void WateryTart::Search(Range Hue, Range Sat, Range Val, int ParticleNumber, double WaitTime)
+void WateryTart::Search(Range Hue, Range Sat, Range Val)
   {
-//WaitTime = 2;
+double WaitTime = 3;
+int Particle_No = 0;
+
     // create images
 	frame = imaqCreateImage(IMAQ_IMAGE_RGB, 0);
 	binaryFrame = imaqCreateImage(IMAQ_IMAGE_U8, 0);
@@ -107,17 +87,16 @@ void WateryTart::Search(Range Hue, Range Sat, Range Val, int ParticleNumber, dou
 	//read file in from disk. For this example to run you need to copy image.jpg from the SampleImages folder to the
 	//directory shown below using FTP or SFTP: http://wpilib.screenstepslive.com/s/4485/m/24166/l/282299-roborio-ftp
 	//Two different pictures here, just referring to one or the other based on commented line, leave commented and uncomment section below to use camera
-	imaqError = imaqReadFile(frame, "//home//lvuser//SampleImages//Goalimage20.png", NULL, NULL);
-//	imaqError = imaqReadFile(frame, "//home//lvuser//SampleImages//Toteimage20.jpg", NULL, NULL);
+//	imaqError = imaqReadFile(frame, "//home//lvuser//SampleImages//Goalimage20.png", NULL, NULL);
 // This starts acquisition from the camera, uncomment once calibrated with the files above.
-/*	IMAQdxStartAcquisition(session);
+	IMAQdxStartAcquisition(session);
 
 	IMAQdxGrab(session, frame, true, NULL); //Takes the image from "session" and stores it in "frame"
 	if(imaqError != IMAQdxErrorSuccess) {
 		DriverStation::ReportError("IMAQdxGrab error: " + std::to_string((long)imaqError) + "\n");
 		SmartDashboard::PutNumber("Error Code", imaqError);
 	}
-*/
+
 	//Threshold the image looking for ring light color
 	imaqError = imaqColorThreshold(binaryFrame, frame, 255, IMAQ_RGB, &Hue, &Sat, &Val);
 
@@ -139,7 +118,7 @@ void WateryTart::Search(Range Hue, Range Sat, Range Val, int ParticleNumber, dou
 
 
 
-//	if(numParticles > 0) {
+	if(numParticles > 0) {
 		/*COMMENT EVERYTHING
 		//Measure particles and sort by particle size  //Here's the thing, ParticleReport is a defined thing in imaq
 		std::vector<ParticleReport> particles;
@@ -169,15 +148,14 @@ void WateryTart::Search(Range Hue, Range Sat, Range Val, int ParticleNumber, dou
 	//Send particle count after filtering to dashboard
 		imaqError = imaqCountParticles(binaryFrame, 1, &numParticles);
 		SmartDashboard::PutNumber("Filtered particles", numParticles);
-		double XFirstPixel, YFirstPixel, XUpLeftCorner, YUpLeftCorner, XDownRightCorner, YDownRightCorner, RectHeight, RectWidth;
-		imaqMeasureParticle(binaryFrame, ParticleNumber, false, IMAQ_MT_FIRST_PIXEL_X, &XFirstPixel);
-		imaqMeasureParticle(binaryFrame, ParticleNumber, false, IMAQ_MT_FIRST_PIXEL_Y, &YFirstPixel);
-		imaqMeasureParticle(binaryFrame, ParticleNumber, false, IMAQ_MT_BOUNDING_RECT_LEFT, &XUpLeftCorner);
-		imaqMeasureParticle(binaryFrame, ParticleNumber, false, IMAQ_MT_BOUNDING_RECT_TOP, &YUpLeftCorner);
-		imaqMeasureParticle(binaryFrame, ParticleNumber, false, IMAQ_MT_BOUNDING_RECT_RIGHT, &XDownRightCorner);
-		imaqMeasureParticle(binaryFrame, ParticleNumber, false, IMAQ_MT_BOUNDING_RECT_BOTTOM, &YDownRightCorner);
-		imaqMeasureParticle(binaryFrame, ParticleNumber, false, IMAQ_MT_BOUNDING_RECT_WIDTH, &RectHeight);
-		imaqMeasureParticle(binaryFrame, ParticleNumber, false, IMAQ_MT_BOUNDING_RECT_HEIGHT, &RectWidth);
+		imaqMeasureParticle(binaryFrame, Particle_No, false, IMAQ_MT_FIRST_PIXEL_X, &XFirstPixel);
+		imaqMeasureParticle(binaryFrame, Particle_No, false, IMAQ_MT_FIRST_PIXEL_Y, &YFirstPixel);
+		imaqMeasureParticle(binaryFrame, Particle_No, false, IMAQ_MT_BOUNDING_RECT_LEFT, &XUpLeftCorner);
+		imaqMeasureParticle(binaryFrame, Particle_No, false, IMAQ_MT_BOUNDING_RECT_TOP, &YUpLeftCorner);
+		imaqMeasureParticle(binaryFrame, Particle_No, false, IMAQ_MT_BOUNDING_RECT_RIGHT, &XDownRightCorner);
+		imaqMeasureParticle(binaryFrame, Particle_No, false, IMAQ_MT_BOUNDING_RECT_BOTTOM, &YDownRightCorner);
+		imaqMeasureParticle(binaryFrame, Particle_No, false, IMAQ_MT_BOUNDING_RECT_WIDTH, &RectHeight);
+		imaqMeasureParticle(binaryFrame, Particle_No, false, IMAQ_MT_BOUNDING_RECT_HEIGHT, &RectWidth);
 		SmartDashboard::PutNumber("First Pixel - X", XFirstPixel);
 		SmartDashboard::PutNumber("First Pixel - Y", YFirstPixel);
 		SmartDashboard::PutNumber("LeftRectTop-X", XUpLeftCorner);
@@ -186,8 +164,9 @@ void WateryTart::Search(Range Hue, Range Sat, Range Val, int ParticleNumber, dou
 		SmartDashboard::PutNumber("RightRectDown - Y", YDownRightCorner);
 		SmartDashboard::PutNumber("Rectangle Height", RectHeight);
 		SmartDashboard::PutNumber("Rectangle Width", RectWidth);
-//		SmartDashboard::PutNumber("Cycle Time", WaitTime);
-
+		SmartDashboard::PutNumber("Aspect Ratio", Aspect);
+		Aspect = (RectWidth / RectHeight);
+		scores.Aspect = (Aspect / ASPECT_GOAL);
 
 //		SmartDashboard::PutBoolean("IsTarget", isTarget);
 //		double WateryTart::computeDistance (Image *image, ParticleReport report) {
@@ -197,17 +176,17 @@ void WateryTart::Search(Range Hue, Range Sat, Range Val, int ParticleNumber, dou
 		CameraServer::GetInstance()->SetImage(TargetFrame); //Send masked image to dashboard to assist in tweaking mask.
 
 		double normalizedWidth, targetWidth;
-			int xRes, yRes;
+		int xRes, yRes;
 
-			imaqGetImageSize(binaryFrame, &xRes, &yRes);
-			normalizedWidth = 2*(XDownRightCorner - XUpLeftCorner)/xRes;
-			//imaqMeasureParticle();
-			SmartDashboard::PutNumber("Width", normalizedWidth);
-			targetWidth = 7;
+		imaqGetImageSize(binaryFrame, &xRes, &yRes);
+		normalizedWidth = 2*(XDownRightCorner - XUpLeftCorner)/xRes;
+		//imaqMeasureParticle();
+		SmartDashboard::PutNumber("Width", normalizedWidth);
+		targetWidth = 7;
 
-			double distance =  targetWidth/(normalizedWidth*12*tan(VIEW_ANGLE*M_PI/(180*2)));
-			SmartDashboard::PutNumber("Distance", distance);
-//		}
+		double distance =  targetWidth/(normalizedWidth*12*tan(VIEW_ANGLE*M_PI/(180*2)));
+		SmartDashboard::PutNumber("Distance", distance);
+		}
 //	} else {
 //		SmartDashboard::PutBoolean("IsTarget", false);
 //	}
