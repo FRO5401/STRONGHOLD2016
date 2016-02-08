@@ -23,6 +23,9 @@ DriveBase::DriveBase() :
 	//New stuff
 	LeftEnc		= new Encoder(Enc_Left_A,Enc_Left_B, true, Encoder::k1X);
 	RightEnc	= new Encoder(Enc_Right_A,Enc_Right_B,true,Encoder::k1X);
+	//Displays the Distance for Encoder Drive for user input
+	SmartDashboard::PutNumber("Distance for Encoder Drive", DistanceForEncoderDrive);
+	//End New Stuff
 }
 
 void DriveBase::InitDefaultCommand()
