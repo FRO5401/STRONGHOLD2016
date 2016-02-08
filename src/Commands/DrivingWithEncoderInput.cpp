@@ -15,6 +15,7 @@ void DrivingWithEncoderInput::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void DrivingWithEncoderInput::Execute()
 {
+/*
 	//Put it in the DriveBase Subsystem
 	//My logic
 	//First line will get the Distance that the driver wants to drive from the SmartDashboard
@@ -26,6 +27,7 @@ void DrivingWithEncoderInput::Execute()
 		{
 			drivebase -> EncoderDrive(double(DistanceForEncoderDrive - LeftEnc -> GetDistance()));
 		}
+*/
 }
 
 // Make this return true when this Command no longer needs to run execute()
