@@ -9,7 +9,7 @@ DrivingWithEncoderInput::DrivingWithEncoderInput()
 // Called just before this Command runs the first time
 void DrivingWithEncoderInput::Initialize()
 {
-
+	drivebase -> EncoderDrive();
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -34,12 +34,7 @@ void DrivingWithEncoderInput::Execute()
 bool DrivingWithEncoderInput::IsFinished()
 {
 	//New stuff
-	if(oi -> GetButtonForEncoderDrive())
-	{
-		return false;
-	}else{
-		return true;
-	}
+	return true;
 }
 
 // Called once after isFinished returns true
