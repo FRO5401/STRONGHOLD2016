@@ -120,4 +120,12 @@ const int Enc_Right_B 	= 0;
  * End Sensor Channels
  ***********/
 
+/************
+ * Gyro
+ ***********/
+const int gyroChannel = 1;
+
+/************
+ * End Gyro
+ ***********/
 #endif

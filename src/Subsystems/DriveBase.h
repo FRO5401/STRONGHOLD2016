@@ -21,6 +21,9 @@ public:
 	Encoder *LeftEnc;
 	Encoder *RightEnc;
 
+	Gyro *gyro;
+	RobotDrive *gyroRobot;
+
 	DriveBase();
 	void InitDefaultCommand();
 	//Drive has changed
@@ -32,6 +35,7 @@ public:
 	//New stuff
 	void EncoderDrive();
 	void EncoderReset();
+	void gyroFunction();
 };
 
 #endif

@@ -26,6 +26,9 @@ DriveBase::DriveBase() :
 	//Displays the Distance for Encoder Drive for user input
 	SmartDashboard::PutNumber("Distance for Encoder Drive", DistanceForEncoderDrive);
 	//End New Stuff
+
+	gyro        = new AnalogGyro(gyroChannel);
+	gyroRobot   = new RobotDrive(0, 1);
 }
 
 void DriveBase::InitDefaultCommand()
@@ -33,6 +36,7 @@ void DriveBase::InitDefaultCommand()
 	SetDefaultCommand(new XboxMove());
 	LeftEnc		-> Reset();
 	RightEnc 	-> Reset();
+	gyro        -> Calibrate();
 }
 
 void DriveBase::Drive(double LeftDriveDesired, double RightDriveDesired, double DistancePerPulseValue) //axes of joystick
@@ -104,3 +108,11 @@ void DriveBase::ShiftHigh()
 	  RightEnc -> Reset();
   }
 
+  void DriveBase::gyroFunction () {
+	  while (IsEnabled()) {
+			float angle = gyro->GetAngle(); //Get direction robot is facing based drift from calibration position
+			float Kp = 0; //proportional scaling constant
+			gyroRobot->Drive(-1.0, -angle * Kp); //Changes to correct heading
+			Wait(0.003);
+		}
+  }

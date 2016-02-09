@@ -1,7 +1,8 @@
 #include "OI.h"
 #include "RobotMap.h"
 #include "Commands/XboxMove.h"
-
+#include "Commands/DrivingWithEncoderInput.h"
+#include "WPILib.h"
 OI::OI()
 {
 	// Process operator interface input here.
@@ -44,7 +45,7 @@ OI::OI()
 
 
 	//New stuff
-	XboxB = WhileHeld(new DrivingWithEncoderInput());
+	XboxB = WhenPressed(new DrivingWithEncoderInput());
 	XboxB = WhenReleased(new XboxMove());
 
 }
