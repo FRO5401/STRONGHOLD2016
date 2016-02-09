@@ -45,8 +45,8 @@ OI::OI()
 
 
 	//New stuff
-	XboxB = WhenPressed(new DrivingWithEncoderInput());
-	XboxB = WhenReleased(new XboxMove());
+	XboxB -> WhenPressed(new DrivingWithEncoderInput());
+	XboxB -> WhenReleased(new XboxMove());
 
 }
 

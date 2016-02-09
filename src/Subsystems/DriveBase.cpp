@@ -11,7 +11,12 @@
 //Need to check Drive() function, doesn't know which motors need to go reverse so both goes forward
 //Funny stuff happening
 
+//Encoder Variables
 double DistanceForEncoderDrive = 0;
+//Gyro Variables
+double GyroAngle = 0;
+double GyroKp = 0;
+
 DriveBase::DriveBase() :
 		Subsystem("DriveBase")
 {
@@ -29,6 +34,7 @@ DriveBase::DriveBase() :
 
 	gyro        = new AnalogGyro(gyroChannel);
 	gyroRobot   = new RobotDrive(0, 1);
+	DS_ForDriveBase -> GetInstance();
 }
 
 void DriveBase::InitDefaultCommand()
@@ -109,10 +115,12 @@ void DriveBase::ShiftHigh()
   }
 
   void DriveBase::gyroFunction () {
-	  while (IsEnabled()) {
-			float angle = gyro->GetAngle(); //Get direction robot is facing based drift from calibration position
-			float Kp = 0; //proportional scaling constant
-			gyroRobot->Drive(-1.0, -angle * Kp); //Changes to correct heading
+	  //while (DS_ForDriveBase -> IsEnabled()) {
+			GyroAngle = gyro->GetAngle(); //Get direction robot is facing based drift from calibration position
+			GyroKp = 0; //proportional scaling constant
+			gyroRobot->Drive(-1.0, -GyroAngle * GyroKp); //Changes to correct heading
 			Wait(0.003);
-		}
+		//}
+		SmartDashboard::PutNumber("Gyro Angle", GyroAngle);
+		SmartDashboard::PutNumber("Kp Value", GyroKp);
   }

@@ -24,6 +24,7 @@ public:
 	Gyro *gyro;
 	RobotDrive *gyroRobot;
 
+	DriverStation *DS_ForDriveBase;
 	DriveBase();
 	void InitDefaultCommand();
 	//Drive has changed
