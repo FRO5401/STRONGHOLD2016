@@ -23,11 +23,13 @@
 	double XFirstPixel, YFirstPixel, XUpLeftCorner, YUpLeftCorner, XDownRightCorner, YDownRightCorner, RectHeight, RectWidth, Aspect;
 
 	//Images
-	Image* frame;
-	Image* binaryFrame;
-	Image* TargetFrame;
-	int imaqError;
+//	Image* frame;
+//	Image* binaryFrame;
+//	Image* TargetFrame;
 	IMAQdxSession session;
+	IMAQdxError imaqErrorEnum;
+
+	int imaqError;
 	//Constants
 	double AREA_MINIMUM = 0.5; //Default Area minimum for particle as a percentage of total image area
 	double LONG_RATIO = 2.22; //Tote long side = 26.9 / Tote height = 12.1 = 2.22
@@ -43,14 +45,17 @@ WateryTart::WateryTart() :
 		Subsystem("WateryTart")
 {
 //Motor and sensor declarations here
-//	MainCam	=	new USBCamera("cam0");
-//	MainCam	-> CameraServer::GetInstance();
+	//Images
+	frame 		= imaqCreateImage(IMAQ_IMAGE_RGB, 0);
+	binaryFrame = imaqCreateImage(IMAQ_IMAGE_U8, 0);
+	TargetFrame = imaqCreateImage(IMAQ_IMAGE_U8,0);
+
 	imaqError = IMAQdxOpenCamera("cam0", IMAQdxCameraControlModeController, &session);
-	if(imaqError != IMAQdxErrorSuccess) {
+	if(imaqErrorEnum != IMAQdxErrorSuccess) {
 		DriverStation::ReportError("IMAQdxOpenCamera error: " + std::to_string((long)imaqError) + "\n");
 	}
 	imaqError = IMAQdxConfigureGrab(session);
-	if(imaqError != IMAQdxErrorSuccess) {
+	if(imaqErrorEnum != IMAQdxErrorSuccess) {
 		DriverStation::ReportError("IMAQdxConfigureGrab error: " + std::to_string((long)imaqError) + "\n");
 	}
 }
@@ -71,9 +76,9 @@ double WaitTime = 3;
 int Particle_No = 0;
 
     // create images
-	frame = imaqCreateImage(IMAQ_IMAGE_RGB, 0);
-	binaryFrame = imaqCreateImage(IMAQ_IMAGE_U8, 0);
-	TargetFrame = imaqCreateImage(IMAQ_IMAGE_U8,0);
+//	frame = imaqCreateImage(IMAQ_IMAGE_RGB, 0);
+//	binaryFrame = imaqCreateImage(IMAQ_IMAGE_U8, 0);
+//	TargetFrame = imaqCreateImage(IMAQ_IMAGE_U8,0);
 	//Put default values to SmartDashboard so fields will appear
 	SmartDashboard::PutNumber("Tote hue min", Hue.minValue);
 	SmartDashboard::PutNumber("Tote hue max", Hue.maxValue);
@@ -92,16 +97,17 @@ int Particle_No = 0;
 	IMAQdxStartAcquisition(session);
 
 	IMAQdxGrab(session, frame, true, NULL); //Takes the image from "session" and stores it in "frame"
-	if(imaqError != IMAQdxErrorSuccess) {
-		DriverStation::ReportError("IMAQdxGrab error: " + std::to_string((long)imaqError) + "\n");
+	if(imaqErrorEnum != IMAQdxErrorSuccess) {
 		SmartDashboard::PutNumber("Error Code", imaqError);
+		DriverStation::ReportError("IMAQdxGrab error: " + std::to_string((long)imaqError) + "\n");
 	}
+	IMAQdxStopAcquisition(session);
 
 	//Threshold the image looking for ring light color
-	imaqError = imaqColorThreshold(binaryFrame, frame, 255, IMAQ_RGB, &Hue, &Sat, &Val);
 
-	CameraServer::GetInstance()->SetImage(frame);  //Send original image to dashboard to assist in tweaking mask.
-	Wait(WaitTime); //Part of test code to cycle between the filtered image and the color image
+	LCameraServer::GetInstance()->SetImage(frame);  //Send original image to dashboard to assist in tweaking mask.
+//	Wait(WaitTime); //Part of test code to cycle between the filtered image and the color image
+	imaqError = imaqColorThreshold(binaryFrame, frame, 255, IMAQ_RGB, &Hue, &Sat, &Val);
 
 	//Send particle count to dashboard
 	int numParticles = 0;
@@ -109,7 +115,7 @@ int Particle_No = 0;
 	SmartDashboard::PutNumber("Masked particles", numParticles);
 
 	//Replaces the SendtoDashboard function without error handling
-	CameraServer::GetInstance()->SetImage(binaryFrame); //Send masked image to dashboard to assist in tweaking mask.
+//	LCameraServer::GetInstance()->SetImage(binaryFrame); //Send masked image to dashboard to assist in tweaking mask.
 
 	//filter out small particles
 	float areaMin = SmartDashboard::GetNumber("Area min %", AREA_MINIMUM);
@@ -171,9 +177,9 @@ int Particle_No = 0;
 //		SmartDashboard::PutBoolean("IsTarget", isTarget);
 //		double WateryTart::computeDistance (Image *image, ParticleReport report) {
 
-		Wait(WaitTime);
+//		Wait(WaitTime);
 		imaqError = imaqDrawShapeOnImage(TargetFrame, binaryFrame, {YUpLeftCorner, XUpLeftCorner, RectWidth, RectHeight}, DrawMode::IMAQ_DRAW_INVERT, ShapeMode::IMAQ_SHAPE_RECT, 0.0f);
-		CameraServer::GetInstance()->SetImage(TargetFrame); //Send masked image to dashboard to assist in tweaking mask.
+//		LCameraServer::GetInstance()->SetImage(TargetFrame); //Send masked image to dashboard to assist in tweaking mask.
 
 		double normalizedWidth, targetWidth;
 		int xRes, yRes;

@@ -85,6 +85,7 @@
 #include "Commands/AutonomousSallyPort.h"
 #include "Commands/AutonomousRockWall.h"
 #include "Commands/AutonomousRoughTerrain.h"
+#include "Libraries/LCameraServer.h"
 
 //2016 Stronghold code
 class Robot: public IterativeRobot

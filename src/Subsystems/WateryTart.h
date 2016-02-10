@@ -9,6 +9,8 @@
 #define SRC_SUBSYSTEMS_WATERYTARTX_H_
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
+#include "Libraries/LCameraServer.h"
+
 
 class WateryTart: public Subsystem
 {
@@ -16,6 +18,12 @@ private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 //	USBCamera *MainCam;
+	Image* frame;
+	Image* binaryFrame;
+	Image* TargetFrame;
+	IMAQdxSession session;
+
+
 public:
 	//Declares the parts of the robot necessary for this subsystem
 

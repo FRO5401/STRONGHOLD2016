@@ -19,7 +19,7 @@
 #include <tuple>
 #include <vector>
 
-class CameraServer : public ErrorBase {
+class LCameraServer : public ErrorBase {
  private:
   static constexpr uint16_t kPort = 1180;
   static constexpr uint8_t kMagicNumber[] = {0x01, 0x00, 0x00, 0x00};
@@ -30,7 +30,7 @@ class CameraServer : public ErrorBase {
   static constexpr uint32_t kMaxImageSize = 200000;
 
  protected:
-  CameraServer();
+  LCameraServer();
 
   std::shared_ptr<USBCamera> m_camera;
   std::thread m_serverThread;
@@ -57,7 +57,7 @@ class CameraServer : public ErrorBase {
   };
 
  public:
-  static CameraServer* GetInstance();
+  static LCameraServer* GetInstance();
   void SetImage(Image const* image);
 
   void StartAutomaticCapture(

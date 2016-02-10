@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "CameraServer.h"
+#include "LCameraServer.h"
 #include "WPIErrors.h"
 #include "Utility.h"
 
@@ -16,16 +16,16 @@
 #include <unistd.h>
 #include <netdb.h>
 
-constexpr uint8_t CameraServer::kMagicNumber[];
+constexpr uint8_t LCameraServer::kMagicNumber[];
 
-CameraServer* CameraServer::GetInstance() {
-  static CameraServer instance;
+LCameraServer* LCameraServer::GetInstance() {
+  static LCameraServer instance;
   return &instance;
 }
 
-CameraServer::CameraServer()
+LCameraServer::LCameraServer()
     : m_camera(),
-      m_serverThread(&CameraServer::Serve, this),
+      m_serverThread(&LCameraServer::Serve, this),
       m_captureThread(),
       m_imageMutex(),
       m_newImageVariable(),
@@ -37,7 +37,7 @@ CameraServer::CameraServer()
   for (int i = 0; i < 3; i++) m_dataPool.push_back(new uint8_t[kMaxImageSize]);
 }
 
-void CameraServer::FreeImageData(
+void LCameraServer::FreeImageData(
     std::tuple<uint8_t*, unsigned int, unsigned int, bool> imageData) {
   if (std::get<3>(imageData))
     imaqDispose(std::get<0>(imageData));
@@ -47,7 +47,7 @@ void CameraServer::FreeImageData(
   }
 }
 
-void CameraServer::SetImageData(uint8_t* data, unsigned int size,
+void LCameraServer::SetImageData(uint8_t* data, unsigned int size,
                                 unsigned int start, bool imaqData) {
   std::lock_guard<priority_recursive_mutex> lock(m_imageMutex);
   FreeImageData(m_imageData);
@@ -55,7 +55,7 @@ void CameraServer::SetImageData(uint8_t* data, unsigned int size,
   m_newImageVariable.notify_all();
 }
 
-void CameraServer::SetImage(Image const* image) {
+void LCameraServer::SetImage(Image const* image) {
   unsigned int dataSize = 0;
   uint8_t* data =
       (uint8_t*)imaqFlatten(image, IMAQ_FLATTEN_IMAGE, IMAQ_COMPRESSION_JPEG,
@@ -83,7 +83,7 @@ void CameraServer::SetImage(Image const* image) {
   SetImageData(data, dataSize, start, true);
 }
 
-void CameraServer::AutoCapture() {
+void LCameraServer::AutoCapture() {
   Image* frame = imaqCreateImage(IMAQ_IMAGE_RGB, 0);
 
   while (true) {
@@ -108,31 +108,31 @@ void CameraServer::AutoCapture() {
   }
 }
 
-void CameraServer::StartAutomaticCapture(char const* cameraName) {
+void LCameraServer::StartAutomaticCapture(char const* cameraName) {
   std::shared_ptr<USBCamera> camera =
       std::make_shared<USBCamera>(cameraName, true);
   camera->OpenCamera();
   StartAutomaticCapture(camera);
 }
 
-void CameraServer::StartAutomaticCapture(std::shared_ptr<USBCamera> camera) {
+void LCameraServer::StartAutomaticCapture(std::shared_ptr<USBCamera> camera) {
   std::lock_guard<priority_recursive_mutex> lock(m_imageMutex);
   if (m_autoCaptureStarted) return;
 
   m_camera = camera;
   m_camera->StartCapture();
 
-  m_captureThread = std::thread(&CameraServer::AutoCapture, this);
+  m_captureThread = std::thread(&LCameraServer::AutoCapture, this);
   m_captureThread.detach();
   m_autoCaptureStarted = true;
 }
 
-bool CameraServer::IsAutoCaptureStarted() {
+bool LCameraServer::IsAutoCaptureStarted() {
   std::lock_guard<priority_recursive_mutex> lock(m_imageMutex);
   return m_autoCaptureStarted;
 }
 
-void CameraServer::SetSize(unsigned int size) {
+void LCameraServer::SetSize(unsigned int size) {
   std::lock_guard<priority_recursive_mutex> lock(m_imageMutex);
   if (!m_camera) return;
   if (size == kSize160x120)
@@ -143,17 +143,17 @@ void CameraServer::SetSize(unsigned int size) {
     m_camera->SetSize(640, 480);
 }
 
-void CameraServer::SetQuality(unsigned int quality) {
+void LCameraServer::SetQuality(unsigned int quality) {
   std::lock_guard<priority_recursive_mutex> lock(m_imageMutex);
   m_quality = quality > 100 ? 100 : quality;
 }
 
-unsigned int CameraServer::GetQuality() {
+unsigned int LCameraServer::GetQuality() {
   std::lock_guard<priority_recursive_mutex> lock(m_imageMutex);
   return m_quality;
 }
 
-void CameraServer::Serve() {
+void LCameraServer::Serve() {
   int sock = socket(AF_INET, SOCK_STREAM, 0);
 
   if (sock == -1) {
@@ -244,17 +244,17 @@ void CameraServer::Serve() {
 
       if (write(conn, kMagicNumber, sizeof(kMagicNumber)) == -1) {
         wpi_setErrnoErrorWithContext(
-            "[CameraServer] Error sending magic number");
+            "[LCameraServer] Error sending magic number");
         FreeImageData(imageData);
         break;
       }
       if (write(conn, &netSize, sizeof(netSize)) == -1) {
-        wpi_setErrnoErrorWithContext("[CameraServer] Error sending image size");
+        wpi_setErrnoErrorWithContext("[LCameraServer] Error sending image size");
         FreeImageData(imageData);
         break;
       }
       if (write(conn, &data[start], sizeof(uint8_t) * size) == -1) {
-        wpi_setErrnoErrorWithContext("[CameraServer] Error sending image data");
+        wpi_setErrnoErrorWithContext("[LCameraServer] Error sending image data");
         FreeImageData(imageData);
         break;
       }
