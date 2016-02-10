@@ -113,6 +113,8 @@ private:
 //		autoMode->AddObject("SpyBot", new AutonomousSpyBot()); //Restore when command is written, plus need one for each position
 		SmartDashboard::PutData("Autonomous Mode", autoMode);
 
+
+
 		CameraServer::GetInstance() -> SetQuality(50);
 		CameraServer::GetInstance() -> StartAutomaticCapture("cam0");
 

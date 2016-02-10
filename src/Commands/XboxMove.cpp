@@ -52,13 +52,19 @@ void XboxMove::Execute()
 
 
 
-	drivebase        -> Drive(Left, Right);
+	drivebase        -> Drive(Left, Right, Encoder_Conversion_To_Inches_Constant);
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool XboxMove::IsFinished()
 {
-	return false;
+	//New stuff
+	if(oi -> GetButtonForEncoderDrive())
+	{
+			return true;
+	}else{
+		return false;
+	}
 }
 
 // Called once after isFinished returns true

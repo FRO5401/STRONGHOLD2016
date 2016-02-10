@@ -1,7 +1,8 @@
 #include "OI.h"
 #include "RobotMap.h"
 #include "Commands/XboxMove.h"
-
+#include "Commands/DrivingWithEncoderInput.h"
+#include "WPILib.h"
 OI::OI()
 {
 	// Process operator interface input here.
@@ -14,7 +15,7 @@ OI::OI()
 	//Gives the declared buttons a value that uses the joystick(controller) name and the port number determined
 	//by drive station
 	//Xbox buttons
-	JoystickButton * 	Unused;
+	JoystickButton * 	Unused1;
 						XboxA					= new JoystickButton(XboxController, 1);
 						XboxB					= new JoystickButton(XboxController, 2);
 						XboxX					= new JoystickButton(XboxController, 3);
@@ -26,7 +27,7 @@ OI::OI()
 						XboxLeftStickButton		= new JoystickButton(XboxController, 9);
 						XboxRightStickButton 	= new JoystickButton(XboxController, 10);
 	//Medal Of Honor Controller (MOH) buttons
-	JoystickButton*		Unused;
+	JoystickButton*		Unused2;
 						MOHButtonSquare			= new JoystickButton(MedalOfHonorController, 1);
 						MOHButtonX				= new JoystickButton(MedalOfHonorController, 2);
 						MOHButtonCircle			= new JoystickButton(MedalOfHonorController, 3);
@@ -43,6 +44,9 @@ OI::OI()
 
 
 
+	//New stuff
+	XboxB -> WhenPressed(new DrivingWithEncoderInput());
+	XboxB -> WhenReleased(new XboxMove());
 
 }
 
@@ -88,6 +92,10 @@ double OI::DummyJoystickReadFunction(){
 	return 0;
 }//Define function once we figure out controller
 
+//New stuff
+bool OI::GetButtonForEncoderDrive(){
+	return XboxController	->	GetRawButton(XboxB_ID);
+}
 
 //bool OI::GetStart()
 //{

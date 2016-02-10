@@ -17,13 +17,26 @@ public:
 	DoubleSolenoid* LeftShift;
 	DoubleSolenoid* RightShift;
 
+	//New Stuff
+	Encoder *LeftEnc;
+	Encoder *RightEnc;
+
+	Gyro *gyro;
+	RobotDrive *gyroRobot;
+
+	DriverStation *DS_ForDriveBase;
 	DriveBase();
 	void InitDefaultCommand();
-	void Drive(double, double);//Function used to drive
+	//Drive has changed
+	void Drive(double, double, double);//Function used to drive
 	void ShiftLow();
 	void ShiftHigh();
 	void Stop();//Function used to stop the robot, no parameters necessary
 	void Reset();
+	//New stuff
+	void EncoderDrive();
+	void EncoderReset();
+	void gyroFunction();
 };
 
 #endif
