@@ -1,8 +1,34 @@
 #include "OI.h"
 #include "RobotMap.h"
+//Include all commands h files, because they will used to tell what to do when a button is pressed
+//MORE MAY BE ADD, SOME MAY BE DELETED
+//Updated as of 1/27/16 at 5 pm
 #include "Commands/XboxMove.h"
+#include "Commands/XboxMove.h"
+#include "Commands/AbortReach.h"
+#include "Commands/ChargeCompressor.h"
+#include "Commands/DeployHook.h"
+#include "Commands/FeederStop.h"
+#include "Commands/FeedInFromInner.h"
+#include "Commands/FeedInFromOuter.h"
+#include "Commands/FeedOutFromInner.h"
+#include "Commands/FeedOutFromOuter.h"
+#include "Commands/HookBumper.h"
+#include "Commands/HookScale.h"
+#include "Commands/InfeederLiftIntoDelivery.h"
+#include "Commands/InfeederLiftIntoInfeederPosition.h"
+#include "Commands/Launch.h"
+#include "Commands/PrepareToScale.h"
+#include "Commands/ReachForBar.h"
+#include "Commands/RetractHook.h"
+#include "Commands/ShiftScaleToDrive.h"
+#include "Commands/ShooterOverride.h"
+#include "Commands/StopDriveForAutonomous.h"
+#include "Commands/UpAndDownInfeeder.h"
+#include "Commands/WateryTart.h"
 #include "Commands/DrivingWithEncoderInput.h"
 #include "WPILib.h"
+
 OI::OI()
 {
 	// Process operator interface input here.
@@ -42,7 +68,19 @@ OI::OI()
 						MOHRightStickButton		= new JoystickButton(MedalOfHonorController, 12);
 						MOHHomeButton			= new JoystickButton(MedalOfHonorController, 13);
 
+	//SPT Buttons
+	//Feeder Buttons
+	MOHRightTrigger	-> WhenPressed(new FeedInFromOuter());
+	MOHRightTrigger	-> WhenReleased(new FeederStop());
 
+	MOHLeftTrigger 	-> WhenPressed(new FeedOutFromOuter());
+	MOHLeftTrigger 	-> WhenReleased(new FeederStop());
+
+	MOHButtonSquare	-> WhenPressed(new FeedInFromInner());
+	MOHButtonSquare	-> WhenReleased(new FeederStop());
+
+	MOHButtonCircle	-> WhenPressed(new FeedOutFromInner());
+	MOHButtonCircle -> WhenReleased(new FeederStop());
 
 	//New stuff
 	XboxB -> WhenPressed(new DrivingWithEncoderInput());
@@ -80,7 +118,7 @@ bool OI::GetBrake()
 }
 
 double OI::GetUpOrDownValueInfeeder(){
-	double UpOrDownValue = XboxController -> GetRawAxis(5);
+	double UpOrDownValue = XboxController -> GetRawAxis(1);
 	return UpOrDownValue;
 }
 

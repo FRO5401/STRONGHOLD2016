@@ -57,6 +57,9 @@ void SPT::InitDefaultCommand()
 //This function sets the shoulder motor of SPT to a certain direction between up and down
 void SPT::UpAndDown(double ShoulderChangeValue){
 	SPTShoulderMotor -> Set(-.5 * ShoulderChangeValue); //Why -0.5?? KJM
+															// ^^Jason's response, just sounds like a good number
+															// It's negative because up/forward is negative on the controls
+															// but up/forward in real life is positive
 }
 
 //This function sets the shoulder motor to a certain speed
@@ -69,6 +72,7 @@ void SPT::MoveToDeliveryPosition(){
 	SPTPotPID -> Enable();
 }
 
+//Same thing as MoveToDeliveryPosition but the point where it goes to is the InfeederPosition
 void SPT::MoveToInfeederPosition(){
 	SPTPotPID -> SetOutputRange(SPTMotorMin, SPTMotorMax);
 	SPTPotPID -> SetSetpoint(SPTFeederPosition);
