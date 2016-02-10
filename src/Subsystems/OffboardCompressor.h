@@ -13,6 +13,8 @@ private:
 public:
 	OffboardCompressor();
 	void InitDefaultCommand();
+	void CompressorOn();
+	void CompressorOff();
 };
 
 #endif

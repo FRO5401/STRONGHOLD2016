@@ -23,3 +23,13 @@ void OffboardCompressor::InitDefaultCommand()
 	//SetDefaultCommand(new MySpecialCommand());
 }
 
+void OffboardCompressor::CompressorOn(){
+	MainCompressor -> Start();//Starts compressor.
+	//The SetClosedLoopControl(true) can also be used instead
+}
+
+void OffboardCompressor::CompressorOff(){
+	MainCompressor -> Stop();//Stops compressor.
+	//The SetClosedLoopControl(false) can also be used instead
+}
+

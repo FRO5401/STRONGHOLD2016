@@ -6,6 +6,9 @@
 
 class ChargeCompressor: public CommandBase
 {
+private:
+	DriverStation* DS;
+
 public:
 	ChargeCompressor();
 	void Initialize();
