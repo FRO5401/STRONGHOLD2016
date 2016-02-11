@@ -22,14 +22,9 @@
 	};
 	double XFirstPixel, YFirstPixel, XUpLeftCorner, YUpLeftCorner, XDownRightCorner, YDownRightCorner, RectHeight, RectWidth, Aspect;
 
-	//Images
-//	Image* frame;
-//	Image* binaryFrame;
-//	Image* TargetFrame;
-	IMAQdxSession session;
+//	IMAQdxSession session;
 	IMAQdxError imaqErrorEnum;
 
-	int imaqError;
 	//Constants
 	double AREA_MINIMUM = 0.5; //Default Area minimum for particle as a percentage of total image area
 	double LONG_RATIO = 2.22; //Tote long side = 26.9 / Tote height = 12.1 = 2.22
@@ -47,6 +42,7 @@ WateryTart::WateryTart() :
 //Motor and sensor declarations here
 	//Images
 	frame 		= imaqCreateImage(IMAQ_IMAGE_RGB, 0);
+	SecondFrame = imaqCreateImage(IMAQ_IMAGE_RGB, 0);
 	binaryFrame = imaqCreateImage(IMAQ_IMAGE_U8, 0);
 	TargetFrame = imaqCreateImage(IMAQ_IMAGE_U8,0);
 
@@ -58,6 +54,7 @@ WateryTart::WateryTart() :
 	if(imaqErrorEnum != IMAQdxErrorSuccess) {
 		DriverStation::ReportError("IMAQdxConfigureGrab error: " + std::to_string((long)imaqError) + "\n");
 	}
+	WaitTime = 3;
 }
 
 void WateryTart::InitDefaultCommand()
@@ -72,13 +69,8 @@ void WateryTart::InitDefaultCommand()
  */
 void WateryTart::Search(Range Hue, Range Sat, Range Val)
   {
-double WaitTime = 3;
 int Particle_No = 0;
 
-    // create images
-//	frame = imaqCreateImage(IMAQ_IMAGE_RGB, 0);
-//	binaryFrame = imaqCreateImage(IMAQ_IMAGE_U8, 0);
-//	TargetFrame = imaqCreateImage(IMAQ_IMAGE_U8,0);
 	//Put default values to SmartDashboard so fields will appear
 	SmartDashboard::PutNumber("Tote hue min", Hue.minValue);
 	SmartDashboard::PutNumber("Tote hue max", Hue.maxValue);
@@ -87,27 +79,39 @@ int Particle_No = 0;
 	SmartDashboard::PutNumber("Tote val min", Val.minValue);
 	SmartDashboard::PutNumber("Tote val max", Val.maxValue);
 	SmartDashboard::PutNumber("Area min %", AREA_MINIMUM);
-	SmartDashboard::PutNumber("Cycle Time", WaitTime);
+	SmartDashboard::PutNumber("Wait Time", WaitTime);
 
 	//read file in from disk. For this example to run you need to copy image.jpg from the SampleImages folder to the
 	//directory shown below using FTP or SFTP: http://wpilib.screenstepslive.com/s/4485/m/24166/l/282299-roborio-ftp
 	//Two different pictures here, just referring to one or the other based on commented line, leave commented and uncomment section below to use camera
 //	imaqError = imaqReadFile(frame, "//home//lvuser//SampleImages//Goalimage20.png", NULL, NULL);
+//	imaqError = imaqReadFile(frame, "//home//lvuser//SampleImages//GrailCapture.JPG", NULL, NULL);
 // This starts acquisition from the camera, uncomment once calibrated with the files above.
-	IMAQdxStartAcquisition(session);
 
-	IMAQdxGrab(session, frame, true, NULL); //Takes the image from "session" and stores it in "frame"
+	IMAQdxStartAcquisition(session);
+//	IMAQdxConfigureGrab(session);
+//	IMAQdxGrab(session, frame, true, NULL); //Takes the image from "session" and stores it in "frame"
+	IMAQdxSnap(session, frame);//Not sure the difference between snap and grab, but I'm hoping Snap takes a smaller/shorter sample?"
 	if(imaqErrorEnum != IMAQdxErrorSuccess) {
-		SmartDashboard::PutNumber("Error Code", imaqError);
 		DriverStation::ReportError("IMAQdxGrab error: " + std::to_string((long)imaqError) + "\n");
 	}
 	IMAQdxStopAcquisition(session);
 
-	//Threshold the image looking for ring light color
+//This is the box at the top
+//	imaqError = imaqDrawShapeOnImage(frame, frame, {0, 0, 135, 840}, DrawMode::IMAQ_PAINT_INVERT, ShapeMode::IMAQ_SHAPE_RECT, 0.0f);
+//This is the box along the left side
+//	imaqError = imaqDrawShapeOnImage(frame, frame, {0, 0, 600, 70}, DrawMode::IMAQ_PAINT_INVERT, ShapeMode::IMAQ_SHAPE_RECT, 0.0f);
 
 	LCameraServer::GetInstance()->SetImage(frame);  //Send original image to dashboard to assist in tweaking mask.
-//	Wait(WaitTime); //Part of test code to cycle between the filtered image and the color image
-	imaqError = imaqColorThreshold(binaryFrame, frame, 255, IMAQ_RGB, &Hue, &Sat, &Val);
+	Wait(WaitTime); //Part of test code to cycle between the filtered image and the color image
+	imaqError = imaqCopyRect(SecondFrame, frame, {135, 70, 465, 770}, {0, 0});
+	imaqError = imaqSetImageSize(SecondFrame, 840, 600);
+	LCameraServer::GetInstance()->SetImage(SecondFrame);  //Send original image to dashboard to assist in tweaking mask.
+	Wait(WaitTime); //Part of test code to cycle between the filtered image and the color image
+
+
+	//Threshold the image looking for ring light color
+	imaqError = imaqColorThreshold(binaryFrame, SecondFrame, 255, IMAQ_RGB, &Hue, &Sat, &Val);
 
 	//Send particle count to dashboard
 	int numParticles = 0;
@@ -116,6 +120,7 @@ int Particle_No = 0;
 
 	//Replaces the SendtoDashboard function without error handling
 //	LCameraServer::GetInstance()->SetImage(binaryFrame); //Send masked image to dashboard to assist in tweaking mask.
+	Wait(WaitTime); //Part of test code to cycle between the filtered image and the color image
 
 	//filter out small particles
 	float areaMin = SmartDashboard::GetNumber("Area min %", AREA_MINIMUM);
@@ -125,31 +130,6 @@ int Particle_No = 0;
 
 
 	if(numParticles > 0) {
-		/*COMMENT EVERYTHING
-		//Measure particles and sort by particle size  //Here's the thing, ParticleReport is a defined thing in imaq
-		std::vector<ParticleReport> particles;
-		for(int particleIndex = 0; particleIndex < numParticles; particleIndex++)
-		{
-			ParticleReport par;
-			imaqMeasureParticle(binaryFrame, particleIndex, 0, IMAQ_MT_AREA_BY_IMAGE_AREA, &(par.PercentAreaToImageArea));
-			imaqMeasureParticle(binaryFrame, particleIndex, 0, IMAQ_MT_AREA, &(par.Area));
-			imaqMeasureParticle(binaryFrame, particleIndex, 0, IMAQ_MT_BOUNDING_RECT_TOP, &(par.BoundingRectTop));
-			imaqMeasureParticle(binaryFrame, particleIndex, 0, IMAQ_MT_BOUNDING_RECT_LEFT, &(par.BoundingRectLeft));
-			imaqMeasureParticle(binaryFrame, particleIndex, 0, IMAQ_MT_BOUNDING_RECT_BOTTOM, &(par.BoundingRectBottom));
-			imaqMeasureParticle(binaryFrame, particleIndex, 0, IMAQ_MT_BOUNDING_RECT_RIGHT, &(par.BoundingRectRight));
-			particles.push_back(par);
-		}
-		sort(particles.begin(), particles.end(), CompareParticleSizes);
-
-		//This example only scores the largest particle. Extending to score all particles and choosing the desired one is left as an exercise
-		//for the reader. Note that this scores and reports information about a single particle (single L shaped target). To get accurate information
-		//about the location of the tote (not just the distance) you will need to correlate two adjacent targets in order to find the true center of the tote.
-		scores.Aspect = AspectScore(particles.at(0));
-		SmartDashboard::PutNumber("Aspect", scores.Aspect);
-		scores.Area = AreaScore(particles.at(0));
-		SmartDashboard::PutNumber("Area", scores.Area);
-		bool isTarget = scores.Area > SCORE_MIN && scores.Aspect > SCORE_MIN;
-*/
 
 	//Send particle count after filtering to dashboard
 		imaqError = imaqCountParticles(binaryFrame, 1, &numParticles);
@@ -177,9 +157,9 @@ int Particle_No = 0;
 //		SmartDashboard::PutBoolean("IsTarget", isTarget);
 //		double WateryTart::computeDistance (Image *image, ParticleReport report) {
 
-//		Wait(WaitTime);
 		imaqError = imaqDrawShapeOnImage(TargetFrame, binaryFrame, {YUpLeftCorner, XUpLeftCorner, RectWidth, RectHeight}, DrawMode::IMAQ_DRAW_INVERT, ShapeMode::IMAQ_SHAPE_RECT, 0.0f);
 //		LCameraServer::GetInstance()->SetImage(TargetFrame); //Send masked image to dashboard to assist in tweaking mask.
+		Wait(WaitTime); //Part of test code to cycle between the filtered image and the color image
 
 		double normalizedWidth, targetWidth;
 		int xRes, yRes;
