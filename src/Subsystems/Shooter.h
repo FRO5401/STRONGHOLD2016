@@ -17,14 +17,14 @@ class Shooter: public Subsystem
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 	Victor *ShooterMotor;
-	Potentiometer *ShooterPot;
-	PIDController *ShooterPID;
+	DigitalInput *ShooterSwitch;
+	Encoder *ShooterEnc;
 
 public:
 
 	Shooter();
 	void InitDefaultCommand();
-	bool Shoot();
+	void Shoot();
 	void Override(double);
 };
 

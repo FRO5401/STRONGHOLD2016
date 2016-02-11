@@ -10,26 +10,27 @@
 #include "PIDController.h"
 
 //Sensor parameters
-	const float ShooterPotScale		=	0;
-	const float ShooterPotOffset	=	0;
-
-	const float PIDMotorMIN			=	0; //MAY BE UPDATED - Made 0-1 so motor can only turn forward
-	const float PIDMotorMAX 		=	1;
-	const float ShooterKp			=	0; //MUST BE UPDATED - Gains will be tuned
-	const float ShooterKi			=	0; //MUST BE UPDATED - Gains will be tuned
-	const float ShooterKd			=	0; //MUST BE UPDATED - Gains will be tuned
-
-	const float ShooterResetDwell	=	0;
-	const float ShooterFiredSetpoint=	0;
-	const float ShooterResetSetpoint=	0;
+const double FwdSpeed 			= 0.5;
+const double ShooterResetDwell	= 0.01;
+//Encoder Constant
+//Variable to convert pulse to degrees
+double ShooterDistancePerPulseValue = 0;
+//The degrees from starting position for the angle to shoot
+double ShooterFiredPosition = 0;
+double ShooterCockedPosition = 0;
 
 Shooter::Shooter() :
 		Subsystem("Shooter")
 {
 
 	ShooterMotor	= new Victor(ShooterMotor_Channel);
-	ShooterPot		= new AnalogPotentiometer(ShooterPot_Channel,ShooterPotScale, ShooterPotOffset);
-	ShooterPID		= new PIDController(ShooterKp, ShooterKi, ShooterKd, ShooterPot, ShooterMotor);
+	ShooterSwitch	= new DigitalInput(ShooterSwitch_Channel);
+	//New Stuff 020816
+	ShooterEnc		= new Encoder(Enc_Shooter_A, Enc_Shooter_B, true, Encoder::k1X);
+	SmartDashboard::PutNumber("Distance Per Pulse Value in Degrees for Shooter", ShooterDistancePerPulseValue);
+	SmartDashboard::PutNumber("Position of Shooter After Being Fired", ShooterFiredPosition);
+	SmartDashboard::PutNumber("Position of Shooter Being Cocked", ShooterCockedPosition);
+	ShooterEnc -> SetDistancePerPulse(ShooterDistancePerPulseValue);
 }
 
 void Shooter::InitDefaultCommand()
@@ -37,15 +38,36 @@ void Shooter::InitDefaultCommand()
 //	SetDefaultCommand(); //Not sure what/if the default command should be, but we may want a check/reset
 }
 
-bool Shooter::Shoot() //Shoots the ball, made a bool for the potential for error handling
-  {
-	ShooterPID	-> SetContinuous(); //This should tell the PID max and min are the same point
-	ShooterPID	->	SetOutputRange(PIDMotorMIN, PIDMotorMAX);
-	ShooterPID	->	SetSetpoint(ShooterFiredSetpoint);
-	ShooterPID	->	Enable();
-	Wait(ShooterResetDwell);
-	ShooterPID	->	SetSetpoint(ShooterResetSetpoint);
-	return true;
+void Shooter::Shoot() //Shoots the ball
+{
+	while((ShooterEnc -> GetDistance()) != ShooterCockedPosition)
+	{
+		//Automatically moves the motor when function is called
+		ShooterMotor	->	Set(FwdSpeed);
+		//When the limit switch is hit the encoder resets and starts to run forward
+		if(ShooterSwitch -> Get())
+		{
+			ShooterEnc -> Reset();
+			while((ShooterEnc -> GetDistance()) != ShooterCockedPosition)
+			{
+				if((ShooterEnc -> GetDistance()) < ShooterCockedPosition)
+				{
+					ShooterMotor -> Set(FwdSpeed);
+				}
+				if((ShooterEnc -> GetDistance()) > ShooterCockedPosition)
+				{
+					ShooterMotor -> Set(-FwdSpeed);
+				}
+			}
+		}
+//	Wait(ShooterResetDwell);  //Inserting a small dwell, just to make sure that it moves forward before terminating
+	}
+	while((ShooterEnc -> GetDistance()) != ShooterFiredPosition)
+	{
+		ShooterMotor -> Set(FwdSpeed);
+		Wait(ShooterResetDwell);
+		ShooterMotor -> Set(0);
+	}
 /* Original design - may remove the loop
  * Loop
  * Check encoder is at its initial set point (cocked - constant)
@@ -53,16 +75,15 @@ bool Shooter::Shoot() //Shoots the ball, made a bool for the potential for error
  * else move to next set point (fired - constant), wait (wait time constant), and BREAK out of loop
  * forward to cocked set point
  * end
+ * Update 020716 Pot not correct for shooter.  must move forward cyclically.  Going forward on command until a limit switch is tripped.
  */
+}
 
-  }
-
-  void Shooter::Override(double Input)
-  {
+void Shooter::Override(double Input)
+{
 /*
  * Forward and reverse based on controller input - for jams or other unforeseen situations
  */
-	  ShooterMotor	->	Set(Input);
-
-  }
+	ShooterMotor	->	Set(Input);
+}
 

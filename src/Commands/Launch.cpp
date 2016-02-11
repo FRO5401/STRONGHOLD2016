@@ -12,20 +12,20 @@ Launch::Launch()
 {
   Requires(shooter);
 }
-	void Launch::Initialize()
+void Launch::Initialize()
 {
 	shooter	->	Shoot();
 }
 
-	void Launch::Execute(){};
+void Launch::Execute(){};
 
-	bool Launch::IsFinished()
+bool Launch::IsFinished()
 {
 	return true;
 }
 
-	void Launch::End(){};
-	void Launch::Interrupted(){};
+void Launch::End(){};
+void Launch::Interrupted(){};
 
 
 
