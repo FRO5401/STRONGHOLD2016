@@ -117,17 +117,6 @@ private:
 
 		CameraServer::GetInstance() -> SetQuality(50);
 		CameraServer::GetInstance() -> StartAutomaticCapture("cam0");
-
-		//Sets up the SPT gains on the SmartDashboard
-		SmartDashboard::PutNumber("SPT Range", SPT_Range);
-		SmartDashboard::PutNumber("SPT Offset", SPT_Offset);
-		SmartDashboard::PutNumber("SPT Kp", SPT_Kp);
-		SmartDashboard::PutNumber("SPT Ki", SPT_Ki);
-		SmartDashboard::PutNumber("SPT Kd", SPT_Kd);
-		SmartDashboard::PutNumber("SPTMotorMin", SPTMotorMin);
-		SmartDashboard::PutNumber("SPTMotorMax", SPTMotorMax);
-		SmartDashboard::PutNumber("SPTDeliveryPosition", SPTDeliveryPosition);
-		SmartDashboard::PutNumber("SPTFeederPosition", SPTFeederPosition);
 	}
 	
 	void DisabledPeriodic()

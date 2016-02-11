@@ -45,21 +45,22 @@ SPT::SPT() :
 
 //Makes the SPT subsystem constantly get the values of the global variables off the SmartDashboard
 //Thus if operater makes change to values, the code will automatically input that value.
-	SmartDashboard::GetNumber("SPT Range", SPT_Range);
-	SmartDashboard::GetNumber("SPT Offset", SPT_Offset);
-	SmartDashboard::GetNumber("SPT Kp", SPT_Kp);
-	SmartDashboard::GetNumber("SPT Ki", SPT_Ki);
-	SmartDashboard::GetNumber("SPT Kd", SPT_Kd);
-	SmartDashboard::GetNumber("SPTMotorMin", SPTMotorMin);
-	SmartDashboard::GetNumber("SPTMotorMax", SPTMotorMax);
-	SmartDashboard::GetNumber("SPTDeliveryPosition", SPTDeliveryPosition);
-	SmartDashboard::GetNumber("SPTFeederPosition", SPTFeederPosition);
+	SmartDashboard::PutNumber("SPT Range", SPT_Range);
+	SmartDashboard::PutNumber("SPT Offset", SPT_Offset);
+	SmartDashboard::PutNumber("SPT Kp", SPT_Kp);
+	SmartDashboard::PutNumber("SPT Ki", SPT_Ki);
+	SmartDashboard::PutNumber("SPT Kd", SPT_Kd);
+	SmartDashboard::PutNumber("SPTMotorMin", SPTMotorMin);
+	SmartDashboard::PutNumber("SPTMotorMax", SPTMotorMax);
+	SmartDashboard::PutNumber("SPTDeliveryPosition", SPTDeliveryPosition);
+	SmartDashboard::PutNumber("SPTFeederPosition", SPTFeederPosition);
 }
 
 void SPT::InitDefaultCommand()
 {
 	// Set the default command for a subsystem here.
 	//SetDefaultCommand(new MySpecialCommand());
+	//Sets up the SPT gains on the SmartDashboard
 }
 
 // Put methods for controlling this subsystem
