@@ -20,8 +20,10 @@ double GyroKp = 0;
 DriveBase::DriveBase() :
 		Subsystem("DriveBase")
 {
-	LeftDrive 	= new Victor(LeftMotor);
-	RightDrive	= new Victor(RightMotor);
+	LeftDrive1 	= new Victor(LeftMotor1);
+	LeftDrive2	= new Victor(LeftMotor2);
+	RightDrive1	= new Victor(RightMotor1);
+	RightDrive2	= new Victor(RightMotor2);
 	LeftShift 	= new DoubleSolenoid(SolenoidCAN_ID, Shift_LeftFwd, Shift_LeftRev);
 	RightShift 	= new DoubleSolenoid(SolenoidCAN_ID, Shift_RightFwd, Shift_RightRev);
 
@@ -49,8 +51,10 @@ void DriveBase::Drive(double LeftDriveDesired, double RightDriveDesired, double 
   {										//									^^ This parameter will be the Encoder Conversion to Inches
 										//										global variable, in RobotMap, when called
 
-  LeftDrive 	-> Set(LeftDriveDesired); //passes desired state to speed controllers
-  RightDrive 	-> Set(RightDriveDesired);
+  LeftDrive1 	-> Set(LeftDriveDesired); //passes desired state to speed controllers
+  LeftDrive2	-> Set(LeftDriveDesired);
+  RightDrive1 	-> Set(RightDriveDesired);
+  RightDrive2	-> Set(RightDriveDesired);
 
   //New stuff
   //Sets the ratio for pulses to inches
@@ -78,8 +82,10 @@ void DriveBase::ShiftHigh()
  void DriveBase::Stop()
   {
 
-  LeftDrive		-> Set(0);
-  RightDrive	-> Set(0);
+  LeftDrive1		-> Set(0);
+  LeftDrive2	-> Set(0);
+  RightDrive1	-> Set(0);
+  RightDrive2	-> Set(0);
 
   }
 
@@ -87,8 +93,10 @@ void DriveBase::ShiftHigh()
   {
 //  	LeftEnc ->Reset();
 //  	RightEnc ->Reset();
-  	LeftDrive		-> Set(0);
-  	RightDrive	-> Set(0);
+  	LeftDrive1	-> Set(0);
+  	LeftDrive2	-> Set(0);
+  	RightDrive1	-> Set(0);
+  	RightDrive2	-> Set(0);
 
   }
   //New stuff
@@ -100,13 +108,17 @@ void DriveBase::ShiftHigh()
 	  while(DistanceForEncoderDrive != (LeftEnc -> GetDistance()))
 		  if((DistanceForEncoderDrive - (LeftEnc -> GetDistance())) < 0)
 		  {
-			  LeftDrive -> Set(1);
-			  RightDrive -> Set(-1);
+			  LeftDrive1 -> Set(1);
+			  LeftDrive2 -> Set(1);
+			  RightDrive1 -> Set(-1);
+			  RightDrive2 -> Set(-1);
 		  }
 		  else if((DistanceForEncoderDrive - (LeftEnc -> GetDistance())) > 0)
 		  {
-			  LeftDrive -> Set(-1);
-			  RightDrive -> Set(1);
+			  LeftDrive1 -> Set(-1);
+			  LeftDrive2 -> Set(-1);
+			  RightDrive1 -> Set(1);
+			  RightDrive2 -> Set(1);
 		  }
   }
   void DriveBase::EncoderReset(){

@@ -12,8 +12,10 @@ private:
 
 public:
 	//Declares the parts of the robot necessary for this subsystem
-	Victor *LeftDrive;//Variable for left set of motors, this set contains 3 motors
-	Victor *RightDrive;//Variable for right set of motors, this set contains 3 motors
+	Victor *LeftDrive1;//Variable for left set of motors, this set contains 3 motors
+	Victor *LeftDrive2;
+	Victor *RightDrive1;//Variable for right set of motors, this set contains 3 motors
+	Victor *RightDrive2;
 	DoubleSolenoid* LeftShift;
 	DoubleSolenoid* RightShift;
 

@@ -78,8 +78,10 @@ const int ShortHookRev_Channel		=	0;	//MUST BE CHANGED
  * Drive Motors
  **************/
 //Motor location may change
-const int LeftMotor		= 0;//Locations of Motors, check under DIO of roboRIO
-const int RightMotor 	= 1;//and the wires connecting the roboRIO to motors
+const int LeftMotor1	= 0;//Locations of Motors, check under DIO of roboRIO
+const int LeftMotor2	= 0;
+const int RightMotor1	= 1;//and the wires connecting the roboRIO to motors
+const int RightMotor2	= 3;
 /*******************
  * End Drive Motors
  *******************/
@@ -87,15 +89,15 @@ const int RightMotor 	= 1;//and the wires connecting the roboRIO to motors
 /************
  * Other Motors
  ***********/
-const int SPTShoulderMotor_Channel	= 0;	//MUST BE UPDATED
+const int SPTShoulderMotor_Channel			= 4;	//MUST BE UPDATED
 
 //Feeder Motors the outer and inner one
 const int FeederOuterFasterMotor_Channel	= 0;//MUST BE UPDATED
 const int FeederInnerSlower_Channel			= 0;//MUST BE UPDATED
 
-const int HookShoulderMotor_Channel			= 0;	//MUST BE UPDATED
+const int HookShoulderMotor_Channel			= 5;	//MUST BE UPDATED
 
-const int ShooterMotor_Channel		= 0;	//MUST BE UPDATED
+const int ShooterMotor_Channel				= 6;	//MUST BE UPDATED
 
 const int Lobber_Channel			= 0;	//MUST BE UPDATED
 
