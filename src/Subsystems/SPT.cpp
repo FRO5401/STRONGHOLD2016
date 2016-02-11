@@ -17,19 +17,19 @@
 //Parameters for Potentiometer and the its PIDcontroller. Easier to edit if you put it here
 
 //Multiplier to get meaningful value. A number can be put here
-const int SPT_Range 	= 0;
+double SPT_Range 	= 0;
 //Quote "offset added to the scaled value to control the 0 value
-const int SPT_Offset 	= 0;
+double SPT_Offset 	= 0;
 
-const int SPT_Kp 		= 0;//Proportional
-const int SPT_Ki		= 0 ;//Intergral
-const int SPT_Kd		= 0;//Derivative
+double SPT_Kp 		= 0;//Proportional
+double SPT_Ki		= 0 ;//Intergral
+double SPT_Kd		= 0;//Derivative
 
-const int SPTMotorMin	= -1;//Min Motor speed
-const int SPTMotorMax	= 1;// Max motor speed
+double SPTMotorMin	= -1;//Min Motor speed
+double SPTMotorMax	= 1;// Max motor speed
 
-const int SPTDeliveryPosition 	= 0;//Position has NOT been decided
-const int SPTFeederPosition		= 0;//Position has NOT been decided
+double SPTDeliveryPosition 	= 0;//Position has NOT been decided
+double SPTFeederPosition		= 0;//Position has NOT been decided
 
 SPT::SPT() :
 		Subsystem("SPT")
@@ -42,6 +42,18 @@ SPT::SPT() :
 	//Format for declaring PIDControllers (Kp value, Ki value, Kd value, the input source, the output source)
 	//Read Control Theory from http://www.chiefdelphi.com/media/papers/1823
 	SPTPotPID = new PIDController(SPT_Kp, SPT_Ki, SPT_Kd, SPTPot, SPTShoulderMotor);
+
+//Makes the SPT subsystem constantly get the values of the global variables off the SmartDashboard
+//Thus if operater makes change to values, the code will automatically input that value.
+	SmartDashboard::GetNumber("SPT Range", SPT_Range);
+	SmartDashboard::GetNumber("SPT Offset", SPT_Offset);
+	SmartDashboard::GetNumber("SPT Kp", SPT_Kp);
+	SmartDashboard::GetNumber("SPT Ki", SPT_Ki);
+	SmartDashboard::GetNumber("SPT Kd", SPT_Kd);
+	SmartDashboard::GetNumber("SPTMotorMin", SPTMotorMin);
+	SmartDashboard::GetNumber("SPTMotorMax", SPTMotorMax);
+	SmartDashboard::GetNumber("SPTDeliveryPosition", SPTDeliveryPosition);
+	SmartDashboard::GetNumber("SPTFeederPosition", SPTFeederPosition);
 }
 
 void SPT::InitDefaultCommand()
