@@ -22,10 +22,12 @@ void ShortHook::InitDefaultCommand()
 	// Set the default command for a subsystem here.
 	//SetDefaultCommand(new MySpecialCommand());
 }
-
+//code here should determine if the parameter is forward to extend forward, or false to retract
 void ShortHook::Extend(bool Fwd)
 {
-/*
- * code here should determine if the parameter is forward to extend forward, or false to retract
- */
+	if (Fwd) {
+		ShortHookExtend 	-> Set(DoubleSolenoid::Value::kForward);
+	} else {
+		ShortHookExtend 	-> Set(DoubleSolenoid::Value::kReverse);
+	}
 }
