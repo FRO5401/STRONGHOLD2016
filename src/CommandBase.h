@@ -6,6 +6,7 @@
 #include "Subsystems/Shooter.h"
 #include "Subsystems/SPT.h"
 #include "Subsystems/WateryTart.h"
+#include "Subsystems/RelaySys.h"
 #include <string>
 #include "Commands/Command.h"
 #include "OI.h"
@@ -34,6 +35,7 @@ public:
 	static Shooter 		*shooter;
 	static SPT 			*spt;
 	static WateryTart 	*waterytart;
+	static RelaySys 	*relaysys;
 };
 
 #endif

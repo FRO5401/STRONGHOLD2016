@@ -15,6 +15,7 @@ double ImgLatency;
 LockTarget::LockTarget()
 {
   Requires(waterytart);
+  Requires(relaysys);
 }
 	void LockTarget::Initialize() {
 		Range RING_HUE_RANGE = {0	, 96};	//Default hue range for ring light R
@@ -39,7 +40,7 @@ LockTarget::LockTarget()
 		RING_SAT_RANGE.maxValue = SmartDashboard::GetNumber("Tote sat max", RING_SAT_RANGE.maxValue);
 		RING_VAL_RANGE.minValue = SmartDashboard::GetNumber("Tote val min", RING_VAL_RANGE.minValue);
 		RING_VAL_RANGE.maxValue = SmartDashboard::GetNumber("Tote val max", RING_VAL_RANGE.maxValue);
-
+		relaysys	->TurnOn();
 		waterytart	->	Search(RING_HUE_RANGE, RING_SAT_RANGE, RING_VAL_RANGE);
 
 	};
@@ -53,7 +54,7 @@ LockTarget::LockTarget()
 }
 
 	void LockTarget::End(){
-
+		relaysys	->TurnOff();
 		waterytart	->	Stop();
 
 	}

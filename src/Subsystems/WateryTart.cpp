@@ -54,7 +54,7 @@ WateryTart::WateryTart() :
 	if(imaqErrorEnum != IMAQdxErrorSuccess) {
 		DriverStation::ReportError("IMAQdxConfigureGrab error: " + std::to_string((long)imaqError) + "\n");
 	}
-	WaitTime = 3;
+	WaitTime = 1.5;
 }
 
 void WateryTart::InitDefaultCommand()
@@ -119,7 +119,7 @@ int Particle_No = 0;
 	SmartDashboard::PutNumber("Masked particles", numParticles);
 
 	//Replaces the SendtoDashboard function without error handling
-//	LCameraServer::GetInstance()->SetImage(binaryFrame); //Send masked image to dashboard to assist in tweaking mask.
+	LCameraServer::GetInstance()->SetImage(binaryFrame); //Send masked image to dashboard to assist in tweaking mask.
 	Wait(WaitTime); //Part of test code to cycle between the filtered image and the color image
 
 	//filter out small particles
@@ -158,7 +158,7 @@ int Particle_No = 0;
 //		double WateryTart::computeDistance (Image *image, ParticleReport report) {
 
 		imaqError = imaqDrawShapeOnImage(TargetFrame, binaryFrame, {YUpLeftCorner, XUpLeftCorner, RectWidth, RectHeight}, DrawMode::IMAQ_DRAW_INVERT, ShapeMode::IMAQ_SHAPE_RECT, 0.0f);
-//		LCameraServer::GetInstance()->SetImage(TargetFrame); //Send masked image to dashboard to assist in tweaking mask.
+		LCameraServer::GetInstance()->SetImage(TargetFrame); //Send masked image to dashboard to assist in tweaking mask.
 		Wait(WaitTime); //Part of test code to cycle between the filtered image and the color image
 
 		double normalizedWidth, targetWidth;

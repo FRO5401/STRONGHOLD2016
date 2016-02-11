@@ -8,6 +8,7 @@ DriveBase* 	CommandBase::drivebase 		= NULL;//Makes the static null, or makes th
 Shooter* 	CommandBase::shooter		= NULL;
 SPT*		CommandBase::spt		= NULL;
 WateryTart*	CommandBase::waterytart		= NULL;
+RelaySys*	CommandBase::relaysys		= NULL;
 
 CommandBase::CommandBase(char const *name) :
 		Command(name)
@@ -30,4 +31,5 @@ void CommandBase::init()
 	shooter 	= new Shooter();
 	spt			= new SPT();
 	waterytart	= new WateryTart();
+	relaysys	= new RelaySys();
 }

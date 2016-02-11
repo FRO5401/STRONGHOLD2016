@@ -73,7 +73,7 @@ const int RightMotor 	= 1;//and the wires connecting the roboRIO to motors
  ***********/
 const int SPTShoulderMotor_Channel	= 2;	//MUST BE UPDATED
 const int ShooterMotor_Channel		= 2;	//MUST BE UPDATED
-
+const int LightRing_Channel			= 1;
 
 /************
  * End Other Motors

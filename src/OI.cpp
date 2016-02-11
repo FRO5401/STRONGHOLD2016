@@ -2,6 +2,7 @@
 #include "RobotMap.h"
 #include "Commands/XboxMove.h"
 #include "Commands/LockTarget.h"
+#include "Commands/RelayOn.h"
 
 OI::OI()
 {
@@ -14,7 +15,7 @@ OI::OI()
 	//Gives the declared buttons a value that uses the joystick(controller) name and the port number determined
 	//by drive station
 	One										= new JoystickButton(PSController, 1);
-	Two										= new JoystickButton(PSController, 2);
+	Three										= new JoystickButton(PSController, 3);
 	JoystickButton * 	Unused;
 						XboxA				= new JoystickButton(XboxController, 1);
 						XboxB				= new JoystickButton(XboxController, 2);
@@ -28,6 +29,8 @@ OI::OI()
 						RightStickButton 	= new JoystickButton(XboxController, 10);
 
 						One	->	WhenPressed(new LockTarget());
+						Three		-> WhenPressed(new RelayOn());
+//						Three		-> WhenPressed(new CheckGyro());
 }
 
 
