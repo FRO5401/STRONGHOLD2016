@@ -12,6 +12,7 @@
 #include "Subsystems/Shooter.h"
 #include "Subsystems/ShortHook.h"
 #include "Subsystems/SPT.h"
+#include "Subsystems/WateryTart.h"
 #include <string>
 #include "Commands/Command.h"
 #include "WPILib.h"
@@ -44,6 +45,7 @@ public:
 	static Shooter 			*shooter;
 	static ShortHook 		*shorthook;
 	static SPT 				*spt;
+	static WateryTart 	*waterytart;
 };
 
 #endif
