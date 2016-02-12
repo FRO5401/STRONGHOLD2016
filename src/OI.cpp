@@ -25,7 +25,7 @@
 #include "Commands/ShooterOverride.h"
 #include "Commands/StopDriveForAutonomous.h"
 #include "Commands/UpAndDownInfeeder.h"
-#include "Commands/WateryTart.h"
+#include "Commands/LockTarget.h"
 #include "Commands/DrivingWithEncoderInput.h"
 #include "WPILib.h"
 
