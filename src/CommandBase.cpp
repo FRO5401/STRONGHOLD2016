@@ -12,7 +12,8 @@ Scale*		CommandBase::scale			= NULL;
 Scimitar*	CommandBase::scimitar		= NULL;
 Shooter* 	CommandBase::shooter		= NULL;
 ShortHook*	CommandBase::shorthook		= NULL;
-SPT*		CommandBase::spt			= NULL;
+SPT*		CommandBase::spt		= NULL;
+WateryTart*	CommandBase::waterytart		= NULL;
 
 
 CommandBase::CommandBase(char const *name) :
@@ -41,4 +42,5 @@ void CommandBase::init()
 	shooter 	= new Shooter();
 	shorthook	= new ShortHook();
 	spt			= new SPT();
+	waterytart	= new WateryTart();
 }
