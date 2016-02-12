@@ -54,6 +54,8 @@ public:
 	double DummyJoystickReadFunction();//Define function once we figure out controller
 	bool DummyButtonReadFunction();//Define function once we figure out controller
 	bool GetButtonForEncoderDrive();
+//	void SendXboxRumble();
+//	void SendMOHRumble();
 };
 
 #endif
