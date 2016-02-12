@@ -2,6 +2,8 @@
 
 AutonomousDrawbridge::AutonomousDrawbridge()
 {
+	//WON'T BE USED
+
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());

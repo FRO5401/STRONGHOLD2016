@@ -8,6 +8,7 @@ class AutonomousDrawbridge: public CommandGroup
 {
 public:
 	AutonomousDrawbridge();
+	//WON'T BE USED
 };
 
 #endif
