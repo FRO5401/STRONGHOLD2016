@@ -15,8 +15,10 @@ DriveBase::DriveBase() :
 {
 	LeftDrive 	= new Victor(LeftMotor);
 	RightDrive	= new Victor(RightMotor);
-	LeftShift = new DoubleSolenoid(SolenoidCAN_ID, Shift_LeftFwd, Shift_LeftRev);
-	RightShift = new DoubleSolenoid(SolenoidCAN_ID, Shift_RightFwd, Shift_RightRev);
+	LeftShift 	= new DoubleSolenoid(SolenoidCAN_ID, Shift_LeftFwd, Shift_LeftRev);
+	RightShift 	= new DoubleSolenoid(SolenoidCAN_ID, Shift_RightFwd, Shift_RightRev);
+	MainGyro	= new ADXRS450_Gyro();
+	GyroScalar	= 1;
 }
 
 void DriveBase::InitDefaultCommand()
@@ -58,4 +60,11 @@ void DriveBase::ShiftHigh()
   	LeftDrive		-> Set(0);
   	RightDrive	-> Set(0);
 
+  }
+
+ float DriveBase::ReportGyro()
+  {
+  	float Angle = (GyroScalar * MainGyro	->	GetAngle());
+  	SmartDashboard::PutNumber("Gyro Angle", Angle);
+  	return Angle;
   }
