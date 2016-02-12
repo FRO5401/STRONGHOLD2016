@@ -32,15 +32,15 @@ void CommandBase::init()
 	// Create a single static instance of all of your subsystems. The following
 	// line should be repeated for each subsystem in the project.
 
-	oi 			= new OI();
-	drivebase 	= new DriveBase();//Connects the static to the subsystem
-	feeder		= new Feeder();
-	hookshoulder = new HookShoulder();
-	offboardcompressor = new OffboardCompressor();
-	scale		= new Scale();
-	scimitar	= new Scimitar();
-	shooter 	= new Shooter();
-	shorthook	= new ShortHook();
-	spt			= new SPT();
-	waterytart	= new WateryTart();
+	oi 					= new OI();
+	drivebase 			= new DriveBase();//Connects the static to the subsystem
+	feeder				= new Feeder();
+	hookshoulder 		= new HookShoulder();
+	offboardcompressor 	= new OffboardCompressor();
+	scale				= new Scale();
+	scimitar			= new Scimitar();
+	shooter 			= new Shooter();
+	shorthook			= new ShortHook();
+	spt					= new SPT();
+	waterytart			= new WateryTart();
 }

@@ -45,7 +45,7 @@ public:
 	static Shooter 			*shooter;
 	static ShortHook 		*shorthook;
 	static SPT 				*spt;
-	static WateryTart 	*waterytart;
+	static WateryTart 		*waterytart;
 };
 
 #endif
