@@ -106,8 +106,8 @@ private:
 		autoMode->AddObject("Cheval de Frise", new AutonomousChevalDeFrise());
 		autoMode->AddObject("Ramparts", new AutonomousRamparts());
 		autoMode->AddObject("Moat", new AutonomousMoat());
-		autoMode->AddObject("Drawbridge", new AutonomousDrawbridge());
-		autoMode->AddObject("Sally Port", new AutonomousSallyPort());
+//		autoMode->AddObject("Drawbridge", new AutonomousDrawbridge());
+//		autoMode->AddObject("Sally Port", new AutonomousSallyPort());
 		autoMode->AddObject("Rock Wall", new AutonomousRockWall());
 		autoMode->AddObject("Rough Terrain", new AutonomousRoughTerrain());
 //		autoMode->AddObject("SpyBot", new AutonomousSpyBot()); //Restore when command is written, plus need one for each position
