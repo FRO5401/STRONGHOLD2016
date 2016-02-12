@@ -141,3 +141,8 @@ bool OI::GetButtonForEncoderDrive(){
 //{
 	//return XboxController -> GetRawButton();
 //}
+/* INCOMPLETE
+void OI::SendXboxRumble(){
+	XboxController	->	SetRumble();
+}
+*/
