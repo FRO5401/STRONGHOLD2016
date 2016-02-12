@@ -41,7 +41,7 @@ OI::OI()
 	//Gives the declared buttons a value that uses the joystick(controller) name and the port number determined
 	//by drive station
 	//Xbox buttons
-	JoystickButton * 	Unused1;
+//	JoystickButton * 	Unused1;  Commenting this out, I think this is a relic of the SimpleRobot Architecture and not needed.
 						XboxA					= new JoystickButton(XboxController, 1);
 						XboxB					= new JoystickButton(XboxController, 2);
 						XboxX					= new JoystickButton(XboxController, 3);
@@ -53,7 +53,7 @@ OI::OI()
 						XboxLeftStickButton		= new JoystickButton(XboxController, 9);
 						XboxRightStickButton 	= new JoystickButton(XboxController, 10);
 	//Medal Of Honor Controller (MOH) buttons
-	JoystickButton*		Unused2;
+//	JoystickButton*		Unused2; Commenting this out, I think this is a relic of the SimpleRobot Architecture and not needed.
 						MOHButtonSquare			= new JoystickButton(MedalOfHonorController, 1);
 						MOHButtonX				= new JoystickButton(MedalOfHonorController, 2);
 						MOHButtonCircle			= new JoystickButton(MedalOfHonorController, 3);
@@ -81,6 +81,8 @@ OI::OI()
 
 	MOHButtonCircle	-> WhenPressed(new FeedOutFromInner());
 	MOHButtonCircle -> WhenReleased(new FeederStop());
+	
+	//TODO Add buttons for targeting and shooting
 
 	//New stuff
 	XboxB -> WhenPressed(new DrivingWithEncoderInput());
