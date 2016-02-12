@@ -143,6 +143,32 @@ bool OI::GetButtonForEncoderDrive(){
 //}
 /* INCOMPLETE
 void OI::SendXboxRumble(){
-	XboxController	->	SetRumble();
-}
+	XboxController	->	SetRumble(kLeftRumble, 1);
+	XboxController	->	SetRumble(kRightRumble, 1);
+	Wait(0.5);
+	XboxController	->	SetRumble(kLeftRumble, 0);
+	XboxController	->	SetRumble(kRightRumble, 0);
+	Wait(0.5);
+	XboxController	->	SetRumble(kLeftRumble, 1);
+	XboxController	->	SetRumble(kRightRumble, 1);
+	Wait(0.5);
+	XboxController	->	SetRumble(kLeftRumble, 0);
+	XboxController	->	SetRumble(kRightRumble, 0);
+	}
+*/
+
+/* INCOMPLETE
+void OI::SendMOHRumble(){
+	MOHController	->	SetRumble(kLeftRumble, 1);
+	MOHController	->	SetRumble(kRightRumble, 1);
+	Wait(0.5);
+	MOHController	->	SetRumble(kLeftRumble, 0);
+	MOHController	->	SetRumble(kRightRumble, 0);
+	Wait(0.5);
+	MOHController	->	SetRumble(kLeftRumble, 1);
+	MOHController	->	SetRumble(kRightRumble, 1);
+	Wait(0.5);
+	MOHController	->	SetRumble(kLeftRumble, 0);
+	MOHController	->	SetRumble(kRightRumble, 0);
+	}
 */
