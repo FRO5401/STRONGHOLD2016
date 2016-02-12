@@ -8,6 +8,7 @@
 #include "Commands/AbortReach.h"
 #include "Commands/ChargeCompressor.h"
 #include "Commands/DeployHook.h"
+#include "Commands/DrivingWithEncoderInput.h"
 #include "Commands/FeederStop.h"
 #include "Commands/FeedInFromInner.h"
 #include "Commands/FeedInFromOuter.h"
@@ -18,6 +19,7 @@
 #include "Commands/InfeederLiftIntoDelivery.h"
 #include "Commands/InfeederLiftIntoInfeederPosition.h"
 #include "Commands/Launch.h"
+#include "Commands/LockTarget.h"
 #include "Commands/PrepareToScale.h"
 #include "Commands/ReachForBar.h"
 #include "Commands/RetractHook.h"
@@ -25,8 +27,6 @@
 #include "Commands/ShooterOverride.h"
 #include "Commands/StopDriveForAutonomous.h"
 #include "Commands/UpAndDownInfeeder.h"
-#include "Commands/LockTarget.h"
-#include "Commands/DrivingWithEncoderInput.h"
 #include "WPILib.h"
 
 OI::OI()
