@@ -1,6 +1,6 @@
 #include "Autonomous/AutonomousSallyPort.h"
 
-AutonomousSallyPort::AutonomousSallyPort(char HighGoalPosition, int DefensePosition)
+AutonomousSallyPort::AutonomousSallyPort(int HighGoalPosition, int DefensePosition)
 {
 	//WON'T BE USED
 

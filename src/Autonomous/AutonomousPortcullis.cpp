@@ -1,6 +1,6 @@
 #include "Autonomous/AutonomousPortcullis.h"
 
-AutonomousPortcullis::AutonomousPortcullis(char HighGoalPosition, int DefensePosition)
+AutonomousPortcullis::AutonomousPortcullis(int HighGoalPosition, int DefensePosition)
 {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());

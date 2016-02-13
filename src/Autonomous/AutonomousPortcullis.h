@@ -7,7 +7,7 @@
 class AutonomousPortcullis: public CommandGroup
 {
 public:
-	AutonomousPortcullis(char, int);
+	AutonomousPortcullis(int, int);
 };
 
 #endif
