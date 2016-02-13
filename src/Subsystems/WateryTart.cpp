@@ -20,7 +20,7 @@
 		double Area;
 		double Aspect;
 	};
-	double XFirstPixel, YFirstPixel, XUpLeftCorner, YUpLeftCorner, XDownRightCorner, YDownRightCorner, RectHeight, RectWidth, Aspect;
+	float PixelAngleScale = 10;	//Pixels per degree angle, measured and subject to adjustment
 
 //	IMAQdxSession session;
 	IMAQdxError imaqErrorEnum;
@@ -36,12 +36,15 @@
 	ParticleFilterOptions2 filterOptions = {0,0,1,1};
 	Scores scores;
 
+	double BullsEyeLeftX	= 249;  //Leftmost X pixel of desired target range, started at 249 based on initial measurements, median of RectLeftX facing the goal at various arcs
+	double BullsEyeTopY		= 147;  //Topmost Y pixel of desired target range, started at 249 based on initial measurements, median of RectLeftX facing the goal at various arcs
+
 WateryTart::WateryTart() :
 		Subsystem("WateryTart")
 {
 //Motor and sensor declarations here
 	//Images
-	frame 		= imaqCreateImage(IMAQ_IMAGE_RGB, 0);
+	frame 		= imaqCreateImage(IMAQ_IMAGE_RGB, 0);  //TODO Try these in the search function along with a destroy to possibly save memory
 	SecondFrame = imaqCreateImage(IMAQ_IMAGE_RGB, 0);
 	binaryFrame = imaqCreateImage(IMAQ_IMAGE_U8, 0);
 	TargetFrame = imaqCreateImage(IMAQ_IMAGE_U8,0);
@@ -54,7 +57,6 @@ WateryTart::WateryTart() :
 	if(imaqErrorEnum != IMAQdxErrorSuccess) {
 		DriverStation::ReportError("IMAQdxConfigureGrab error: " + std::to_string((long)imaqError) + "\n");
 	}
-//	WaitTime = 1.5;
 }
 
 void WateryTart::InitDefaultCommand()
@@ -67,9 +69,11 @@ void WateryTart::InitDefaultCommand()
  * It will return a rumble to the controller and splash a green box on the dashboard
  * Ideally, this will take place on an on board raspberry pi or arduino board, but that is version 2.0
  */
-void WateryTart::Search(Range Hue, Range Sat, Range Val, float AreaIn, float AspectIn, double WaitTime)
+float WateryTart::Search(Range Hue, Range Sat, Range Val, float AreaIn, float AspectIn, double WaitTime)
   {
-int Particle_No = 0;
+	double XFirstPixel, YFirstPixel, XUpLeftCorner, YUpLeftCorner, XDownRightCorner, YDownRightCorner, RectHeight, RectWidth, Aspect = 0;
+	double Angle = -180;
+	int Particle_No = 0;
 
 	//Put default values to SmartDashboard so fields will appear
 	SmartDashboard::PutNumber("Tote hue min", Hue.minValue);
@@ -81,6 +85,8 @@ int Particle_No = 0;
 	SmartDashboard::PutNumber("Target Area min %", AreaIn);
 	SmartDashboard::PutNumber("Target Aspect %", AspectIn);
 	SmartDashboard::PutNumber("Wait Time", WaitTime);
+	SmartDashboard::PutNumber("BullsEye Left", BullsEyeLeftX);
+	SmartDashboard::PutNumber("BullsEye Top", BullsEyeTopY);
 
 	//read file in from disk. For this example to run you need to copy image.jpg from the SampleImages folder to the
 	//directory shown below using FTP or SFTP: http://wpilib.screenstepslive.com/s/4485/m/24166/l/282299-roborio-ftp
@@ -107,6 +113,7 @@ int Particle_No = 0;
 	Wait(WaitTime); //Part of test code to cycle between the filtered image and the color image
 	imaqError = imaqCopyRect(SecondFrame, frame, {135, 70, 465, 770}, {0, 0});
 	imaqError = imaqSetImageSize(SecondFrame, 840, 600);
+	imaqError = imaqDrawShapeOnImage(SecondFrame, SecondFrame, {BullsEyeTopY, BullsEyeLeftX, RectWidth, RectHeight}, DrawMode::IMAQ_DRAW_INVERT, ShapeMode::IMAQ_SHAPE_RECT, 0.0f);
 	LCameraServer::GetInstance()->SetImage(SecondFrame);  //Send original image to dashboard to assist in tweaking mask.
 	Wait(WaitTime); //Part of test code to cycle between the filtered image and the color image
 
@@ -132,6 +139,7 @@ int Particle_No = 0;
 
 
 	if(numParticles > 0) {
+		SmartDashboard::PutBoolean("IsTarget", true);
 
 	//Send particle count after filtering to dashboard
 		imaqError = imaqCountParticles(binaryFrame, 1, &numParticles);
@@ -162,7 +170,7 @@ int Particle_No = 0;
 		imaqError = imaqDrawShapeOnImage(TargetFrame, binaryFrame, {YUpLeftCorner, XUpLeftCorner, RectWidth, RectHeight}, DrawMode::IMAQ_DRAW_INVERT, ShapeMode::IMAQ_SHAPE_RECT, 0.0f);
 		LCameraServer::GetInstance()->SetImage(TargetFrame); //Send masked image to dashboard to assist in tweaking mask.
 		Wait(WaitTime); //Part of test code to cycle between the filtered image and the color image
-
+//Distance calcs, prob move to its own fujction
 		double normalizedWidth, targetWidth;
 		int xRes, yRes;
 
@@ -173,13 +181,14 @@ int Particle_No = 0;
 		targetWidth = 7;
 
 		double distance =  targetWidth/(normalizedWidth*12*tan(VIEW_ANGLE*M_PI/(180*2)));
+//End distance calcs
 		SmartDashboard::PutNumber("Distance", distance);
+		Angle = (XUpLeftCorner - BullsEyeLeftX)/PixelAngleScale;
 		}
-//	} else {
-//		SmartDashboard::PutBoolean("IsTarget", false);
-//	}
-/*
-*/
+	else {
+		SmartDashboard::PutBoolean("IsTarget", false);
+	}
+	return Angle;
   }
 
 

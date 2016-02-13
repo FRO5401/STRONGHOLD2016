@@ -30,7 +30,7 @@ public:
 
 	WateryTart();
 	void InitDefaultCommand();
-	void Search(Range, Range, Range, float, float, double);
+	float Search(Range, Range, Range, float, float, double);
 	void Manual();
 	void Stop();
 	void Reset();

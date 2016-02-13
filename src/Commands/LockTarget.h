@@ -14,6 +14,10 @@
 class LockTarget: public CommandBase
 {
 private:
+	Range RING_HUE_RANGE;
+	Range RING_SAT_RANGE;
+	Range RING_VAL_RANGE;
+
 	float Area;
 	float Aspect;
 	float ImgLatency;

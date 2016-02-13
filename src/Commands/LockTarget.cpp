@@ -7,26 +7,26 @@
 #include <Commands/LockTarget.h>
 #include "RobotMap.h"
 bool Lock;
-Range RING_HUE_RANGE;// = {0	, 96};	//Default hue range for ring light R
-Range RING_SAT_RANGE;// = {110	, 255};	//Default saturation range for ring light G
-Range RING_VAL_RANGE;// = {110	, 255};	//Default value range for ring light B
-double ImgLatency;
+//Range RING_HUE_RANGE;// = {0	, 96};	//Default hue range for ring light R
+//Range RING_SAT_RANGE;// = {110	, 255};	//Default saturation range for ring light G
+//Range RING_VAL_RANGE;// = {110	, 255};	//Default value range for ring light B
+//double ImgLatency;
 
 LockTarget::LockTarget()
 {
   Requires(waterytart);
   Requires(relaysys);
-}
-	void LockTarget::Initialize() {
-		Range RING_HUE_RANGE = {0	, 96};	//Default hue range for ring light R
-		Range RING_SAT_RANGE = {110	, 255};	//Default saturation range for ring light G
-		Range RING_VAL_RANGE = {110	, 255};	//Default value range for ring light B
+	RING_HUE_RANGE = {0	, 96};	//Default hue range for ring light R
+	RING_SAT_RANGE = {110	, 255};	//Default saturation range for ring light G
+	RING_VAL_RANGE = {110	, 255};	//Default value range for ring light B
 //		Range RING_HUE_RANGE = {101, 64};	//Default hue range for ring light
 //		Range RING_SAT_RANGE = {88, 255};	//Default saturation range for ring light
 //		Range RING_VAL_RANGE = {134, 255};	//Default value range for ring light
-		ImgLatency = 2;
-//		Area = 0.5;
-//		Aspect = 0.5;
+	ImgLatency = 2;
+	Area = 0.5;
+	Aspect = 0.5;
+}
+	void LockTarget::Initialize() {
 
 	};
 
@@ -43,10 +43,10 @@ LockTarget::LockTarget()
 		RING_SAT_RANGE.maxValue = SmartDashboard::GetNumber("Tote sat max", RING_SAT_RANGE.maxValue);
 		RING_VAL_RANGE.minValue = SmartDashboard::GetNumber("Tote val min", RING_VAL_RANGE.minValue);
 		RING_VAL_RANGE.maxValue = SmartDashboard::GetNumber("Tote val max", RING_VAL_RANGE.maxValue);
-		Area					 = SmartDashboard::GetNumber("Area min %", Area);
-//		Aspect					 = SmartDashboard::GetNumber("Aspect Ratio", Aspect);
+		Area					 = SmartDashboard::GetNumber("Desired Area min %", Area);
+		Aspect					 = SmartDashboard::GetNumber("Desired Aspect Ratio", Aspect); //Unused right now
 		relaysys	->TurnOn();
-		waterytart	->	Search(RING_HUE_RANGE, RING_SAT_RANGE, RING_VAL_RANGE, Area, Aspect, ImgLatency);
+		float Angle = waterytart	->	Search(RING_HUE_RANGE, RING_SAT_RANGE, RING_VAL_RANGE, Area, Aspect, ImgLatency);
 
 	};
 

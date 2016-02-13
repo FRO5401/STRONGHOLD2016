@@ -28,6 +28,7 @@
 #include "Commands/StopDriveForAutonomous.h"
 #include "Commands/UpAndDownInfeeder.h"
 #include "WPILib.h"
+#include "Joystick.h"
 
 OI::OI()
 {
@@ -141,34 +142,34 @@ bool OI::GetButtonForEncoderDrive(){
 //{
 	//return XboxController -> GetRawButton();
 //}
-/* INCOMPLETE
+
 void OI::SendXboxRumble(){
-	XboxController	->	SetRumble(kLeftRumble, 1);
-	XboxController	->	SetRumble(kRightRumble, 1);
+	XboxController	->	SetRumble(Joystick::kLeftRumble, 1);
+	XboxController	->	SetRumble(Joystick::kRightRumble, 1);
 	Wait(0.5);
-	XboxController	->	SetRumble(kLeftRumble, 0);
-	XboxController	->	SetRumble(kRightRumble, 0);
+	XboxController	->	SetRumble(Joystick::kLeftRumble, 0);
+	XboxController	->	SetRumble(Joystick::kRightRumble, 0);
 	Wait(0.5);
-	XboxController	->	SetRumble(kLeftRumble, 1);
-	XboxController	->	SetRumble(kRightRumble, 1);
+	XboxController	->	SetRumble(Joystick::kLeftRumble, 1);
+	XboxController	->	SetRumble(Joystick::kRightRumble, 1);
 	Wait(0.5);
-	XboxController	->	SetRumble(kLeftRumble, 0);
-	XboxController	->	SetRumble(kRightRumble, 0);
+	XboxController	->	SetRumble(Joystick::kLeftRumble, 0);
+	XboxController	->	SetRumble(Joystick::kRightRumble, 0);
+
 	}
-*/
 
 /* INCOMPLETE
 void OI::SendMOHRumble(){
-	MOHController	->	SetRumble(kLeftRumble, 1);
-	MOHController	->	SetRumble(kRightRumble, 1);
+	MOHController	->	SetRumble(Joystick::kLeftRumble, 1);
+	MOHController	->	SetRumble(Joystick::kRightRumble, 1);
 	Wait(0.5);
-	MOHController	->	SetRumble(kLeftRumble, 0);
-	MOHController	->	SetRumble(kRightRumble, 0);
+	MOHController	->	SetRumble(Joystick::kLeftRumble, 0);
+	MOHController	->	SetRumble(Joystick::kRightRumble, 0);
 	Wait(0.5);
-	MOHController	->	SetRumble(kLeftRumble, 1);
-	MOHController	->	SetRumble(kRightRumble, 1);
+	MOHController	->	SetRumble(Joystick::kLeftRumble, 1);
+	MOHController	->	SetRumble(Joystick::kRightRumble, 1);
 	Wait(0.5);
-	MOHController	->	SetRumble(kLeftRumble, 0);
-	MOHController	->	SetRumble(kRightRumble, 0);
+	MOHController	->	SetRumble(Joystick::kLeftRumble, 0);
+	MOHController	->	SetRumble(Joystick::kRightRumble, 0);
 	}
 */
