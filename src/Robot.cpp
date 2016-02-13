@@ -138,16 +138,16 @@ private:
 		SmartDashboard::GetNumber("Position of the High Goal", PositionForGoal);
 		SmartDashboard::GetNumber("Position of the Defense", 	PositionForDefense);
 		autoMode = new SendableChooser();
-		//Low Bar CommandGroup is constant because it'll always be in defense position 1 and go in left goal
-		autoMode->AddDefault("Default-Low Bar", new AutonomousLowBar(1,1));
-		autoMode->AddObject("Portcullis", new AutonomousPortcullis(PositionForGoal, PositionForDefense));
-		autoMode->AddObject("Cheval de Frise", new AutonomousChevalDeFrise(PositionForGoal, PositionForDefense));
-		autoMode->AddObject("Ramparts", new AutonomousRamparts(PositionForGoal, PositionForDefense));
-		autoMode->AddObject("Moat", new AutonomousMoat(PositionForGoal, PositionForDefense));
-//		autoMode->AddObject("Drawbridge", new AutonomousDrawbridge(PositionForGoal, PositionForDefense));
-//		autoMode->AddObject("Sally Port", new AutonomousSallyPort(PositionForGoal, PositionForDefense));
-		autoMode->AddObject("Rock Wall", new AutonomousRockWall(PositionForGoal, PositionForDefense));
-		autoMode->AddObject("Rough Terrain", new AutonomousRoughTerrain(PositionForGoal, PositionForDefense));
+		//Low Bar CommandGroup is constant because it'll always be in defense position 1 and go in left high goal
+		autoMode->AddDefault("Default-Low Bar", new AutonomousLowBar(1,1,2));
+		autoMode->AddObject("Portcullis", new AutonomousPortcullis(PositionForDefense, PositionForGoal, LowOrHighGoal));
+		autoMode->AddObject("Cheval de Frise", new AutonomousChevalDeFrise(PositionForDefense, PositionForGoal, LowOrHighGoal));
+		autoMode->AddObject("Ramparts", new AutonomousRamparts(PositionForDefense, PositionForGoal, LowOrHighGoal));
+		autoMode->AddObject("Moat", new AutonomousMoat(PositionForDefense, PositionForGoal, LowOrHighGoal));
+//		autoMode->AddObject("Drawbridge", new AutonomousDrawbridge(PositionForDefense, PositionForGoal, LowOrHighGoal));
+//		autoMode->AddObject("Sally Port", new AutonomousSallyPort(PositionForDefense, PositionForGoal, LowOrHighGoal));
+		autoMode->AddObject("Rock Wall", new AutonomousRockWall(PositionForDefense, PositionForGoal, LowOrHighGoal));
+		autoMode->AddObject("Rough Terrain", new AutonomousRoughTerrain(PositionForDefense, PositionForGoal, LowOrHighGoal));
 //		autoMode->AddObject("SpyBot", new AutonomousSpyBot()); //Restore when command is written, plus need one for each position
 		SmartDashboard::PutData("Autonomous Mode", autoMode);
 		Scheduler::GetInstance()->Run();
