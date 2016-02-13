@@ -14,6 +14,7 @@ Shooter* 	CommandBase::shooter		= NULL;
 ShortHook*	CommandBase::shorthook		= NULL;
 SPT*		CommandBase::spt		= NULL;
 WateryTart*	CommandBase::waterytart		= NULL;
+RelaySys*	CommandBase::relaysys		= NULL;
 
 
 CommandBase::CommandBase(char const *name) :
@@ -43,4 +44,5 @@ void CommandBase::init()
 	shorthook			= new ShortHook();
 	spt					= new SPT();
 	waterytart			= new WateryTart();
+	relaysys	= new RelaySys();
 }
