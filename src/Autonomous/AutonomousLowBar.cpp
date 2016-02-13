@@ -2,6 +2,11 @@
 
 AutonomousLowBar::AutonomousLowBar()
 {
+	AddSequential(new DrivingWithEncoderInput());
+	//Adjust Angle COMMAND NOT CREATED YET
+	AddSequential(new LockTarget());//LockTarget needs it to be edited to find if it is within range
+
+	AddSequential(new Launch());
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
