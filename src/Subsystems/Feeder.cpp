@@ -11,8 +11,8 @@
 Feeder::Feeder() :
 		Subsystem("ExampleSubsystem")
 {
-	Victor *FeederOuterFasterMotor = new Victor(FeederOuterFasterMotor_Channel);
-	Victor *FeederInnerSlowerMotor = new Victor(FeederInnerSlower_Channel);
+	FeederOuterFasterMotor = new Victor(FeederOuterFasterMotor_Channel);
+	FeederInnerSlowerMotor = new Victor(FeederInnerSlower_Channel);
 }
 
 void Feeder::InitDefaultCommand()

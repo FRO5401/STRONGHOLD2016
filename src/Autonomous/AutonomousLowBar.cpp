@@ -1,4 +1,8 @@
 #include "Autonomous/AutonomousLowBar.h"
+#include "Commands/DrivingWithEncoderInput.h"
+#include "Commands/LockTarget.h"
+#include "Commands/Launch.h"
+//Includes are for commands that are used in this command group
 
 AutonomousLowBar::AutonomousLowBar(int DefensePosition, int GoalPosition, int LowOrHigh)
 {
