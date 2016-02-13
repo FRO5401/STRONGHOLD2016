@@ -101,6 +101,8 @@ const int ShooterMotor_Channel				= 6;	//MUST BE UPDATED
 
 const int Lobber_Channel			= 0;	//MUST BE UPDATED
 
+const int LightRing_Channel			= 0;
+
 /************
  * End Other Motors
  ***********/
