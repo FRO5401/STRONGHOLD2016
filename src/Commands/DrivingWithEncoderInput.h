@@ -8,7 +8,7 @@ class DrivingWithEncoderInput: public CommandBase
 {
 public:
 	DrivingWithEncoderInput();
-	void Initialize();
+	void Initialize(double);
 	void Execute();
 	bool IsFinished();
 	void End();

@@ -7,9 +7,9 @@ DrivingWithEncoderInput::DrivingWithEncoderInput()
 }
 
 // Called just before this Command runs the first time
-void DrivingWithEncoderInput::Initialize()
+void DrivingWithEncoderInput::Initialize(double DriveDistance)
 {
-	drivebase -> EncoderDrive();
+	drivebase -> EncoderDrive(DriveDistance);
 }
 
 // Called repeatedly when this Command is scheduled to run

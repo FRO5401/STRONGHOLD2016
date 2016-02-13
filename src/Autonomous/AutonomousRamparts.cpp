@@ -13,12 +13,35 @@ AutonomousRamparts::AutonomousRamparts(int DefensePosition, int GoalPosition, in
 	 * 				switch(GoalPosition)
 	 * 				{
 	 *					case 1:
-	 *					//Turn Left 90 degrees.
-	 *					//Drive
+	 *						//Turn Left 90 degrees.
+	 *						//EncoderDrive(some inches)
+	 *						//Adjust angle
+	 *						//Turn Right 90 deg
+	 *						//EncoderDrive(some inches)
+	 *						//Adjust angle
+	 *						//Turn 45 Right
+	 *						//LockTarget
+	 *						//Launch
 	 *						break;
 	 *					case 2:
+	 *						//Turn right 90 degrees
+	 *						//EncoderDrive(some inches)
+	 *						//Adjust angle
+	 *						//Turn Left 90 degrees
+	 *						//EncoderDrive(some inches)
+	 *						//AutoTarget
+	 *						//Launch
 	 *						break;
 	 *					case 3:
+	 *						////Turn right 90 degrees
+	 *						//EncoderDrive(some inches)
+	 *						//Adjust angle
+	 *						//Turn Left 90 degrees
+	 *						//EncoderDrive(some inches)
+	 *						//Adjust angle
+	 *						//Turn left by 45 degrees
+	 *						//AutoTarget
+	 *						//Launch
 	 *						break;
 	 * 				}
 	 * 				break;

@@ -12,7 +12,7 @@
 //Funny stuff happening
 
 //Encoder Variables
-double DistanceForEncoderDrive = 0;
+//double DistanceForEncoderDrive = 0;
 //Gyro Variables
 double GyroAngle = 0;
 double GyroKp = 0;
@@ -27,12 +27,12 @@ DriveBase::DriveBase() :
 	LeftShift 	= new DoubleSolenoid(SolenoidCAN_ID, Shift_LeftFwd, Shift_LeftRev);
 	RightShift 	= new DoubleSolenoid(SolenoidCAN_ID, Shift_RightFwd, Shift_RightRev);
 
-	//New stuff
+
 	LeftEnc		= new Encoder(Enc_Left_A,Enc_Left_B, true, Encoder::k1X);
 	RightEnc	= new Encoder(Enc_Right_A,Enc_Right_B,true,Encoder::k1X);
 	//Displays the Distance for Encoder Drive for user input
-	SmartDashboard::PutNumber("Distance for Encoder Drive", DistanceForEncoderDrive);
-	//End New Stuff
+//	SmartDashboard::PutNumber("Distance for Encoder Drive", DistanceForEncoderDrive);
+
 
 	gyro        = new AnalogGyro(gyroChannel);
 	gyroRobot   = new RobotDrive(0, 1);
@@ -102,7 +102,7 @@ void DriveBase::ShiftHigh()
   //New stuff
   //A function to use the encoders in driving, the robot will drive in a certain direction depending on the distance left to travel
   void DriveBase::EncoderDrive(double EncoderDriveDistance){
-	  SmartDashboard::GetNumber("Distance for Encoder Drive", EncoderDriveDistance);
+	 // SmartDashboard::GetNumber("Distance for Encoder Drive", EncoderDriveDistance);
 	  LeftEnc -> Reset();
 	  RightEnc -> Reset();
 	  while(EncoderDriveDistance != (LeftEnc -> GetDistance()))
