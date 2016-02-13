@@ -54,7 +54,7 @@ WateryTart::WateryTart() :
 	if(imaqErrorEnum != IMAQdxErrorSuccess) {
 		DriverStation::ReportError("IMAQdxConfigureGrab error: " + std::to_string((long)imaqError) + "\n");
 	}
-	WaitTime = 3;
+//	WaitTime = 1.5;
 }
 
 void WateryTart::InitDefaultCommand()
@@ -67,7 +67,7 @@ void WateryTart::InitDefaultCommand()
  * It will return a rumble to the controller and splash a green box on the dashboard
  * Ideally, this will take place on an on board raspberry pi or arduino board, but that is version 2.0
  */
-void WateryTart::Search(Range Hue, Range Sat, Range Val)
+void WateryTart::Search(Range Hue, Range Sat, Range Val, float AreaIn, float AspectIn, double WaitTime)
   {
 int Particle_No = 0;
 
@@ -78,7 +78,8 @@ int Particle_No = 0;
 	SmartDashboard::PutNumber("Tote sat max", Sat.maxValue);
 	SmartDashboard::PutNumber("Tote val min", Val.minValue);
 	SmartDashboard::PutNumber("Tote val max", Val.maxValue);
-	SmartDashboard::PutNumber("Area min %", AREA_MINIMUM);
+	SmartDashboard::PutNumber("Target Area min %", AreaIn);
+	SmartDashboard::PutNumber("Target Aspect %", AspectIn);
 	SmartDashboard::PutNumber("Wait Time", WaitTime);
 
 	//read file in from disk. For this example to run you need to copy image.jpg from the SampleImages folder to the
@@ -119,12 +120,13 @@ int Particle_No = 0;
 	SmartDashboard::PutNumber("Masked particles", numParticles);
 
 	//Replaces the SendtoDashboard function without error handling
-//	LCameraServer::GetInstance()->SetImage(binaryFrame); //Send masked image to dashboard to assist in tweaking mask.
+	LCameraServer::GetInstance()->SetImage(binaryFrame); //Send masked image to dashboard to assist in tweaking mask.
 	Wait(WaitTime); //Part of test code to cycle between the filtered image and the color image
 
 	//filter out small particles
-	float areaMin = SmartDashboard::GetNumber("Area min %", AREA_MINIMUM);
-	criteria[0] = {IMAQ_MT_AREA_BY_IMAGE_AREA, areaMin, 100, false, false};
+//	float areaMin = SmartDashboard::GetNumber("Area min %", AREA_MINIMUM);
+//	criteria[0] = {IMAQ_MT_AREA_BY_IMAGE_AREA, areaMin, 100, false, false};
+	criteria[0] = {IMAQ_MT_AREA_BY_IMAGE_AREA, AreaIn, 100, false, false};
 	imaqError = imaqParticleFilter4(binaryFrame, binaryFrame, criteria, 1, &filterOptions, NULL, NULL);
 
 
@@ -158,7 +160,7 @@ int Particle_No = 0;
 //		double WateryTart::computeDistance (Image *image, ParticleReport report) {
 
 		imaqError = imaqDrawShapeOnImage(TargetFrame, binaryFrame, {YUpLeftCorner, XUpLeftCorner, RectWidth, RectHeight}, DrawMode::IMAQ_DRAW_INVERT, ShapeMode::IMAQ_SHAPE_RECT, 0.0f);
-//		LCameraServer::GetInstance()->SetImage(TargetFrame); //Send masked image to dashboard to assist in tweaking mask.
+		LCameraServer::GetInstance()->SetImage(TargetFrame); //Send masked image to dashboard to assist in tweaking mask.
 		Wait(WaitTime); //Part of test code to cycle between the filtered image and the color image
 
 		double normalizedWidth, targetWidth;

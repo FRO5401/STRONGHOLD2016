@@ -23,14 +23,14 @@ private:
 	Image* TargetFrame;
 	IMAQdxSession session;
 	int imaqError;
-	double WaitTime;
+//	double WaitTime;
 
 public:
 	//Declares the parts of the robot necessary for this subsystem
 
 	WateryTart();
 	void InitDefaultCommand();
-	void Search(Range, Range, Range);
+	void Search(Range, Range, Range, float, float, double);
 	void Manual();
 	void Stop();
 	void Reset();

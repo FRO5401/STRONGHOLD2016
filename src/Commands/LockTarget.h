@@ -13,6 +13,10 @@
 
 class LockTarget: public CommandBase
 {
+private:
+	float Area;
+	float Aspect;
+	float ImgLatency;
 public:
 	LockTarget();
 	void Initialize();
