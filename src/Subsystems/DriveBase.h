@@ -36,7 +36,7 @@ public:
 	void Stop();//Function used to stop the robot, no parameters necessary
 	void Reset();
 	//New stuff
-	void EncoderDrive();
+	void EncoderDrive(double);
 	void EncoderReset();
 	void gyroFunction();
 };

@@ -101,19 +101,19 @@ void DriveBase::ShiftHigh()
   }
   //New stuff
   //A function to use the encoders in driving, the robot will drive in a certain direction depending on the distance left to travel
-  void DriveBase::EncoderDrive(){
-	  SmartDashboard::GetNumber("Distance for Encoder Drive", DistanceForEncoderDrive);
+  void DriveBase::EncoderDrive(double EncoderDriveDistance){
+	  SmartDashboard::GetNumber("Distance for Encoder Drive", EncoderDriveDistance);
 	  LeftEnc -> Reset();
 	  RightEnc -> Reset();
-	  while(DistanceForEncoderDrive != (LeftEnc -> GetDistance()))
-		  if((DistanceForEncoderDrive - (LeftEnc -> GetDistance())) < 0)
+	  while(EncoderDriveDistance != (LeftEnc -> GetDistance()))
+		  if((EncoderDriveDistance - (LeftEnc -> GetDistance())) < 0)
 		  {
 			  LeftDrive1 -> Set(1);
 			  LeftDrive2 -> Set(1);
 			  RightDrive1 -> Set(-1);
 			  RightDrive2 -> Set(-1);
 		  }
-		  else if((DistanceForEncoderDrive - (LeftEnc -> GetDistance())) > 0)
+		  else if((EncoderDriveDistance - (LeftEnc -> GetDistance())) > 0)
 		  {
 			  LeftDrive1 -> Set(-1);
 			  LeftDrive2 -> Set(-1);
