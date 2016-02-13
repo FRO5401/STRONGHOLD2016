@@ -7,7 +7,7 @@
 class AutonomousDrawbridge: public CommandGroup
 {
 public:
-	AutonomousDrawbridge();
+	AutonomousDrawbridge(char, int);
 	//WON'T BE USED
 };
 

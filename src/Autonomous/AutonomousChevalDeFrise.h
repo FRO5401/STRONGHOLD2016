@@ -7,7 +7,7 @@
 class AutonomousChevalDeFrise: public CommandGroup
 {
 public:
-	AutonomousChevalDeFrise();
+	AutonomousChevalDeFrise(char, int);
 };
 
 #endif

@@ -1,6 +1,6 @@
 #include "Autonomous/AutonomousChevalDeFrise.h"
 
-AutonomousChevalDeFrise::AutonomousChevalDeFrise()
+AutonomousChevalDeFrise::AutonomousChevalDeFrise(char HighGoalPosition, int DefensePosition)
 {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());

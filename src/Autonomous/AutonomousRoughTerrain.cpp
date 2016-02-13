@@ -1,6 +1,6 @@
 #include "Autonomous/AutonomousRoughTerrain.h"
 
-AutonomousRoughTerrain::AutonomousRoughTerrain()
+AutonomousRoughTerrain::AutonomousRoughTerrain(char HighGoalPosition, int DefensePosition)
 {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());

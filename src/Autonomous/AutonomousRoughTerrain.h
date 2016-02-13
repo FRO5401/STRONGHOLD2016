@@ -7,7 +7,7 @@
 class AutonomousRoughTerrain: public CommandGroup
 {
 public:
-	AutonomousRoughTerrain();
+	AutonomousRoughTerrain(char, int);
 };
 
 #endif

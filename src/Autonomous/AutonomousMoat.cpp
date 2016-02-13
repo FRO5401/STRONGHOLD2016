@@ -1,6 +1,6 @@
 #include "Autonomous/AutonomousMoat.h"
 
-AutonomousMoat::AutonomousMoat()
+AutonomousMoat::AutonomousMoat(char HighGoalPosition, int DefensePosition)
 {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());

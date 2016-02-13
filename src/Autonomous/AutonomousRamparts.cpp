@@ -1,6 +1,6 @@
 #include "Autonomous/AutonomousRamparts.h"
 
-AutonomousRamparts::AutonomousRamparts()
+AutonomousRamparts::AutonomousRamparts(char HighGoalPosition, int DefensePosition)
 {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
