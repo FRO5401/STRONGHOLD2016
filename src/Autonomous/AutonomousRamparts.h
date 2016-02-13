@@ -7,7 +7,7 @@
 class AutonomousRamparts: public CommandGroup
 {
 public:
-	AutonomousRamparts(int, int);
+	AutonomousRamparts(int, int, int);
 };
 
 #endif

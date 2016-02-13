@@ -7,7 +7,7 @@
 class AutonomousRockWall: public CommandGroup
 {
 public:
-	AutonomousRockWall(int, int);
+	AutonomousRockWall(int, int, int);
 };
 
 #endif

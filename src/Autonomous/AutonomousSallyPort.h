@@ -7,7 +7,7 @@
 class AutonomousSallyPort: public CommandGroup
 {
 public:
-	AutonomousSallyPort(int, int);
+	AutonomousSallyPort(int, int, int);
 	//WON'T BE USED
 };
 

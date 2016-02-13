@@ -1,6 +1,6 @@
 #include "Autonomous/AutonomousLowBar.h"
 
-AutonomousLowBar::AutonomousLowBar(int HighGoalPosition, int DefensePosition)
+AutonomousLowBar::AutonomousLowBar(int DefensePosition, int GoalPosition, int LowOrHigh)
 {
 	AddSequential(new DrivingWithEncoderInput());
 	//Adjust Angle COMMAND NOT CREATED YET

@@ -1,6 +1,6 @@
 #include "Autonomous/AutonomousRockWall.h"
 
-AutonomousRockWall::AutonomousRockWall(int HighGoalPosition, int DefensePosition)
+AutonomousRockWall::AutonomousRockWall(int DefensePosition, int GoalPosition, int LowOrHigh)
 {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
