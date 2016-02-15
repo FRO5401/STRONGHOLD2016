@@ -25,8 +25,8 @@ LockTarget::LockTarget()
 //		Range RING_SAT_RANGE = {88, 255};	//Default saturation range for ring light
 //		Range RING_VAL_RANGE = {134, 255};	//Default value range for ring light
 		ImgLatency = 2;
-//		Area = 0.5;
-//		Aspect = 0.5;
+		Area = 0.5;
+		Aspect = 0.5;
 
 	};
 

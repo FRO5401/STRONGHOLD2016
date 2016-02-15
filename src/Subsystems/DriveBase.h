@@ -9,7 +9,7 @@ class DriveBase: public Subsystem
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
-
+	float GyroScalar;
 public:
 	//Declares the parts of the robot necessary for this subsystem
 	Victor *LeftDrive1;//Variable for left set of motors, this set contains 3 motors
@@ -18,13 +18,11 @@ public:
 	Victor *RightDrive2;
 	DoubleSolenoid* LeftShift;
 	DoubleSolenoid* RightShift;
+	ADXRS450_Gyro*	MainGyro;
 
 	//New Stuff
 	Encoder *LeftEnc;
 	Encoder *RightEnc;
-
-	Gyro *gyro;
-	RobotDrive *gyroRobot;
 
 	DriverStation *DS_ForDriveBase;
 	DriveBase();
@@ -38,7 +36,7 @@ public:
 	//New stuff
 	void EncoderDrive();
 	void EncoderReset();
-	void gyroFunction();
+	float ReportGyro();
 };
 
 #endif

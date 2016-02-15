@@ -61,14 +61,14 @@ const int Shift_RightFwd	= 2;
 const int Shift_RightRev	= 3;
 
 //PTO clutch
-const int ScaleEngageFwd_Channel	=	0;	//MUST BE CHANGED
-const int ScaleEngageRev_Channel	=	0;	//MUST BE CHANGED
-const int DriveDisengageFwd_Channel	=	0;	//MUST BE CHANGED
-const int DriveDisengageRev_Channel	=	0;	//MUST BE CHANGED
+const int ScaleEngageFwd_Channel  =	4;
+const int ScaleEngageRev_Channel	 =	5;
+const int DriveDisengageFwd_Channel	=	6;
+const int DriveDisengageRev_Channel	=	7;
 
 //Short hook extender
-const int ShortHookFwd_Channel		=	0;	//MUST BE CHANGED
-const int ShortHookRev_Channel		=	0;	//MUST BE CHANGED
+const int ShortHookFwd_Channel		=	11;
+const int ShortHookRev_Channel		=	12;
 
 /****************
  * End Pnuematics
@@ -78,10 +78,10 @@ const int ShortHookRev_Channel		=	0;	//MUST BE CHANGED
  * Drive Motors
  **************/
 //Motor location may change
-const int LeftMotor1	= 0;//Locations of Motors, check under DIO of roboRIO
-const int LeftMotor2	= 0;
-const int RightMotor1	= 1;//and the wires connecting the roboRIO to motors
-const int RightMotor2	= 3;
+const int LeftMotor1	= 2;//Locations of Motors, check under PWM of roboRIO
+const int LeftMotor2	= 3;
+const int RightMotor1	= 0;//and the wires connecting the roboRIO to motors
+const int RightMotor2	= 1;
 /*******************
  * End Drive Motors
  *******************/
@@ -89,22 +89,27 @@ const int RightMotor2	= 3;
 /************
  * Other Motors
  ***********/
-const int SPTShoulderMotor_Channel			= 4;	//MUST BE UPDATED
+const int SPTShoulderMotor_Channel			= 6;
 
 //Feeder Motors the outer and inner one
-const int FeederOuterFasterMotor_Channel	= 0;//MUST BE UPDATED
-const int FeederInnerSlower_Channel			= 0;//MUST BE UPDATED
+const int FeederOuterFasterMotor_Channel	= 7;
+const int FeederInnerSlower_Channel			= 8;
 
-const int HookShoulderMotor_Channel			= 5;	//MUST BE UPDATED
+const int HookShoulderMotor_Channel			= 4;
 
-const int ShooterMotor_Channel				= 6;	//MUST BE UPDATED
+const int ShooterMotor_Channel				= 9;
 
-const int Lobber_Channel			= 0;	//MUST BE UPDATED
-
-const int LightRing_Channel			= 0;
-
+const int Lobber_Channel			= 16;
 /************
  * End Other Motors
+ ***********/
+ 
+/************
+ * Other Stuff
+ ***********/
+const int LightRing_Channel			= 0;
+/************
+ * End Other Stuff
  ***********/
 
 /************

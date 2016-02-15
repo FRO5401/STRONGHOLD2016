@@ -70,6 +70,7 @@ OI::OI()
 
 	//SPT Buttons
 	//Feeder Buttons
+	//TODO These things cause the robot to crash. We should cut that out.
 	MOHRightTrigger	-> WhenPressed(new FeedInFromOuter());
 	MOHRightTrigger	-> WhenReleased(new FeederStop());
 
@@ -85,8 +86,8 @@ OI::OI()
 	//TODO Add buttons for targeting and shooting
 
 	//New stuff
-	XboxB -> WhenPressed(new DrivingWithEncoderInput());
-	XboxB -> WhenReleased(new XboxMove());
+//	XboxB -> WhenPressed(new DrivingWithEncoderInput());
+//	XboxB -> WhenReleased(new XboxMove());
 
 }
 
@@ -120,7 +121,7 @@ bool OI::GetBrake()
 }
 
 double OI::GetUpOrDownValueInfeeder(){
-	double UpOrDownValue = XboxController -> GetRawAxis(1);
+	double UpOrDownValue = MedalOfHonorController -> GetRawAxis(1);
 	return UpOrDownValue;
 }
 
@@ -133,7 +134,7 @@ double OI::DummyJoystickReadFunction(){
 }//Define function once we figure out controller
 
 //New stuff
-bool OI::GetButtonForEncoderDrive(){
+bool OI::GetButtonB(){
 	return XboxController	->	GetRawButton(XboxB_ID);
 }
 

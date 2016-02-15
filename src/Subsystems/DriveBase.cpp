@@ -14,8 +14,6 @@
 //Encoder Variables
 double DistanceForEncoderDrive = 0;
 //Gyro Variables
-double GyroAngle = 0;
-double GyroKp = 0;
 
 DriveBase::DriveBase() :
 		Subsystem("DriveBase")
@@ -34,9 +32,10 @@ DriveBase::DriveBase() :
 	SmartDashboard::PutNumber("Distance for Encoder Drive", DistanceForEncoderDrive);
 	//End New Stuff
 
-	gyro        = new AnalogGyro(gyroChannel);
-	gyroRobot   = new RobotDrive(0, 1);
-	DS_ForDriveBase -> GetInstance();
+	MainGyro	= new ADXRS450_Gyro();
+	GyroScalar	= 1;
+ 	DS_ForDriveBase -> GetInstance();
+ 	
 }
 
 void DriveBase::InitDefaultCommand()
@@ -126,13 +125,9 @@ void DriveBase::ShiftHigh()
 	  RightEnc -> Reset();
   }
 
-  void DriveBase::gyroFunction () {
-	  //while (DS_ForDriveBase -> IsEnabled()) {
-			GyroAngle = gyro->GetAngle(); //Get direction robot is facing based drift from calibration position
-			GyroKp = 0; //proportional scaling constant
-			gyroRobot->Drive(-1.0, -GyroAngle * GyroKp); //Changes to correct heading
-			Wait(0.003);
-		//}
-		SmartDashboard::PutNumber("Gyro Angle", GyroAngle);
-		SmartDashboard::PutNumber("Kp Value", GyroKp);
-  }
+float DriveBase::ReportGyro()
+{
+	float Angle = (GyroScalar * MainGyro	->	GetAngle());
+ 	SmartDashboard::PutNumber("Gyro Angle", Angle);
+	return Angle;
+}
