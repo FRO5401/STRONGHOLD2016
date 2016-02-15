@@ -13,6 +13,7 @@
 #include "SPT.h"
 #include "../RobotMap.h"
 #include "PIDController.h"
+#include "Commands/UpAndDownInfeeder.h"
 
 //Parameters for Potentiometer and the its PIDcontroller. Easier to edit if you put it here
 
@@ -28,8 +29,10 @@ double SPT_Kd		= 0;//Derivative
 double SPTMotorMin	= -1;//Min Motor speed
 double SPTMotorMax	= 1;// Max motor speed
 
-double SPTDeliveryPosition 	= 0;//Position has NOT been decided
-double SPTFeederPosition		= 0;//Position has NOT been decided
+double SPTDeliveryPosition 	= 0;//Position has NOT been determined
+double SPTFeederPosition		= 0;//Position has NOT been determined
+
+double SPTPrecision = 0.2; //Set precision very high while PID and stop points are not defined
 
 SPT::SPT() :
 		Subsystem("SPT")
@@ -59,8 +62,7 @@ SPT::SPT() :
 void SPT::InitDefaultCommand()
 {
 	// Set the default command for a subsystem here.
-	//SetDefaultCommand(new MySpecialCommand());
-	//Sets up the SPT gains on the SmartDashboard
+	SetDefaultCommand(new UpAndDownInfeeder());
 }
 
 // Put methods for controlling this subsystem
@@ -69,10 +71,9 @@ void SPT::InitDefaultCommand()
 
 //This function sets the shoulder motor of SPT to a certain direction between up and down
 void SPT::UpAndDown(double ShoulderChangeValue){
-	SPTShoulderMotor -> Set(-.5 * ShoulderChangeValue); //Why -0.5?? KJM
-															// ^^Jason's response, just sounds like a good number
-															// It's negative because up/forward is negative on the controls
-															// but up/forward in real life is positive
+	SPTShoulderMotor -> Set(SPTPrecision * ShoulderChangeValue); 
+	SmartDashboard::PutNumber("SPTUpDown", ShoulderChangeValue);
+	SmartDashboard::PutNumber("SPTPot", SPTPot ->Get());
 }
 
 //This function sets the shoulder motor to a certain speed
