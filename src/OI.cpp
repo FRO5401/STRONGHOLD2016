@@ -70,7 +70,6 @@ OI::OI()
 
 	//SPT Buttons
 	//Feeder Buttons
-	//TODO These things cause the robot to crash. We should cut that out.
 	MOHRightTrigger	-> WhenPressed(new FeedInFromOuter());
 	MOHRightTrigger	-> WhenReleased(new FeederStop());
 
@@ -85,9 +84,6 @@ OI::OI()
 	
 	//TODO Add buttons for targeting and shooting
 
-	//New stuff
-//	XboxB -> WhenPressed(new DrivingWithEncoderInput());
-//	XboxB -> WhenReleased(new XboxMove());
 
 }
 

@@ -15,7 +15,7 @@ const int ScimitarSpeed	=	0.9;
 Scimitar::Scimitar() :
 		Subsystem("Scimitar")
 {
-	Lobber 	= new Victor(Lobber_Channel);
+	ScimitarExtender 	= new Victor(Scimitar_Channel);
 
 }
 
@@ -28,6 +28,6 @@ void Scimitar::InitDefaultCommand()
 void Scimitar::Extend(bool Fwd)
 {
 	if (Fwd) {
-		  Lobber 	-> Set(ScimitarSpeed);
-	} else Lobber 	-> Set(-1 * ScimitarSpeed);
+		ScimitarExtender 	-> Set(ScimitarSpeed);
+	} else ScimitarExtender 	-> Set(-1 * ScimitarSpeed);
 }

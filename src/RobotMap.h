@@ -51,6 +51,7 @@ const int XboxB_ID		=	2;
 /****************
 * Pnuematics
 **************/
+/* Pneumatics are out of design now
 //ID of solenoid control
 const int SolenoidCAN_ID	= 0;
 
@@ -69,7 +70,7 @@ const int DriveDisengageRev_Channel	=	7;
 //Short hook extender
 const int ShortHookFwd_Channel		=	11;
 const int ShortHookRev_Channel		=	12;
-
+*/
 /****************
  * End Pnuematics
  **************/
@@ -89,17 +90,17 @@ const int RightMotor2	= 1;
 /************
  * Other Motors
  ***********/
-const int SPTShoulderMotor_Channel			= 6;
+const int SPTShoulderMotor_Channel			= 5;//Current as of 021616
 
 //Feeder Motors the outer and inner one
-const int FeederOuterFasterMotor_Channel	= 7;
-const int FeederInnerSlower_Channel			= 8;
+const int FeederOuterFasterMotor_Channel	= 6;//Current as of 021616
+const int FeederInnerSlower_Channel			= 7;//Current as of 021616
 
-const int HookShoulderMotor_Channel			= 4;
+const int HookShoulderMotor_Channel			= 4;//MUST BE UPDATED
 
-const int ShooterMotor_Channel				= 9;
+const int ShooterMotor_Channel				= 9;//MUST BE UPDATED
 
-const int Lobber_Channel			= 16;
+const int Scimitar_Channel			= 16;		//MUST BE UPDATED
 /************
  * End Other Motors
  ***********/
@@ -116,7 +117,7 @@ const int LightRing_Channel			= 0;
  * Sensor Channels
  ***********/
 const int ShooterSwitch_Channel 	= 0;			//MUST BE UPDATED
-const int SPTPot_Channel 		= 0;//MUST BE UPDATED SPT potentiometer channel
+const int SPTPot_Channel 		= 1;//MUST BE UPDATED SPT potentiometer channel
 const int HookShoulderPot_Channel	= 0;	//MUST BE UPDATED
 
 //Encoder DIO Channels
@@ -131,12 +132,4 @@ const int Enc_Shooter_B = 0;
  * End Sensor Channels
  ***********/
 
-/************
- * Gyro
- ***********/
-const int gyroChannel = 1;
-
-/************
- * End Gyro
- ***********/
 #endif

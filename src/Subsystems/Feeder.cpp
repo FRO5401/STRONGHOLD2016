@@ -8,9 +8,9 @@
 #include "Feeder.h"
 #include "../RobotMap.h"
 
-+const float InfeedGo	= 0.5; //Set max speed for infeed motors
-+const float InfeedOut	= 0.9; //Set max speed for infeed motor kick
-+const float DeliveryGo	= -0.5; //Set max speed for Delivery motors
+const float InfeedGo	= 0.5; //Set max speed for infeed motors
+const float InfeedOut	= 0.9; //Set max speed for infeed motor kick
+const float DeliveryGo	= -0.5; //Set max speed for Delivery motors
 
 Feeder::Feeder() :
 		Subsystem("Feeder")
@@ -39,11 +39,11 @@ void Feeder::FeedOutToField(){
 void Feeder::FeedToShooter(){
 	FeederInnerSlowerMotor -> Set(DeliveryGo);
 }
-/* KJM Not sure what this is.
+// KJM Not sure what this is.
 void Feeder::FeedOutFromShooter(){
-	FeederInnerSlowerMotor -> Set(-0.5);
+	FeederInnerSlowerMotor -> Set(DeliveryGo);
 }
-*/
+
 void Feeder::StopFeed(){
 	FeederOuterFasterMotor -> Set(0);
 	FeederInnerSlowerMotor -> Set(0);
