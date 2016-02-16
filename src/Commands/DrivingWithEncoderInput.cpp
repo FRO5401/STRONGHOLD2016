@@ -9,7 +9,7 @@ DrivingWithEncoderInput::DrivingWithEncoderInput()
 // Called just before this Command runs the first time
 void DrivingWithEncoderInput::Initialize()
 {
-	drivebase -> EncoderDrive();
+//	drivebase -> AutoDriveDistance(0); //KJM Not sure we want to call this from initialization
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -22,10 +22,10 @@ void DrivingWithEncoderInput::Execute()
 	SmartDashboard::GetNumber("Distance for Encoder Drive", DistanceForEncoderDrive);
 	//SEcond line zeros the encoder, so the start position is 0
 	drivebase -> EncoderReset();
-	//This while loop will make
+	//This while loop will make  //KJM Can remove the loop, the function within DriveBase performs this
 	while(DistanceForEncoderDrive != (LeftEnc -> GetDistance()))
 		{
-			drivebase -> EncoderDrive(double(DistanceForEncoderDrive - LeftEnc -> GetDistance()));
+			drivebase -> AutoDriveDistanceDrive(double(DistanceForEncoderDrive - LeftEnc -> GetDistance()));
 		}
 */
 }

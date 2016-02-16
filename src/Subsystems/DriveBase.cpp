@@ -8,14 +8,15 @@
 #include "DriveBase.h"
 #include "../RobotMap.h"
 #include <Commands/XboxMove.h>
-//Need to check Drive() function, doesn't know which motors need to go reverse so both goes forward
-//Funny stuff happening
 
-//Encoder Variables
-double DistanceForEncoderDrive = 0;
-//Gyro Variables
-double GyroAngle = 0;
-double GyroKp = 0;
+const double AutoDriveSpeed	= 0.5;
+const double AutoTurnSpeed	= 0.5;
+const double DPP			= 1; //TODO Must tune this
+const double AngleThreshold	= 0.1; //TODO Must tune this
+const double AutoDistThresh	= 1; //TODO Must tune this
+const float GyroScalar		= 10; //Preliminarily tuned
+const float GyroLinearAdj	= -0.696;
+const float GyroOffset		= -6.1395;
 
 DriveBase::DriveBase() :
 		Subsystem("DriveBase")
@@ -27,16 +28,21 @@ DriveBase::DriveBase() :
 	LeftShift 	= new DoubleSolenoid(SolenoidCAN_ID, Shift_LeftFwd, Shift_LeftRev);
 	RightShift 	= new DoubleSolenoid(SolenoidCAN_ID, Shift_RightFwd, Shift_RightRev);
 
-	//New stuff
+	//Sensors
 	LeftEnc		= new Encoder(Enc_Left_A,Enc_Left_B, true, Encoder::k1X);
 	RightEnc	= new Encoder(Enc_Right_A,Enc_Right_B,true,Encoder::k1X);
+	//Sets the ratio for pulses to inches
+	LeftEnc 	-> SetDistancePerPulse(DPP);
+	RightEnc 	-> SetDistancePerPulse(DPP);
 	//Displays the Distance for Encoder Drive for user input
-	SmartDashboard::PutNumber("Distance for Encoder Drive", DistanceForEncoderDrive);
-	//End New Stuff
+	double DashAutoDistance = 0;//Remove or comment this and below it, this is for calibrating the auto drive
+	SmartDashboard::PutNumber("Distance for Auto Drive", DashAutoDistance);
 
-	gyro        = new AnalogGyro(gyroChannel);
-	gyroRobot   = new RobotDrive(0, 1);
-	DS_ForDriveBase -> GetInstance();
+	MainGyro	= new ADXRS450_Gyro();
+	//End Sensors
+
+// 	DS_ForDriveBase -> GetInstance();
+ 	
 }
 
 void DriveBase::InitDefaultCommand()
@@ -44,22 +50,22 @@ void DriveBase::InitDefaultCommand()
 	SetDefaultCommand(new XboxMove());
 	LeftEnc		-> Reset();
 	RightEnc 	-> Reset();
-	gyro        -> Calibrate();
+	MainGyro	-> Calibrate();
 }
 
-void DriveBase::Drive(double LeftDriveDesired, double RightDriveDesired, double DistancePerPulseValue) //axes of joystick
-  {										//									^^ This parameter will be the Encoder Conversion to Inches
-										//										global variable, in RobotMap, when called
-
+void DriveBase::Drive(double LeftDriveDesired, double RightDriveDesired)
+  {
+//^^ This parameter will be the Encoder Conversion to Inches
+//	global variable, in RobotMap, when called
+//KJM Removed this parameter, its undesirable to upset our basic drive subsystem for this, also, if its a
+//global variable in RobotMap, it does not need to be passed as a parameter here
+//Created this as a constant at the top of the subsystem, as it will apply to all functions w/in the subsys
+//Delete this comment block once we've discussed
   LeftDrive1 	-> Set(LeftDriveDesired); //passes desired state to speed controllers
   LeftDrive2	-> Set(LeftDriveDesired);
   RightDrive1 	-> Set(RightDriveDesired);
   RightDrive2	-> Set(RightDriveDesired);
 
-  //New stuff
-  //Sets the ratio for pulses to inches
-  LeftEnc 	-> SetDistancePerPulse(DistancePerPulseValue);
-  RightEnc 	-> SetDistancePerPulse(DistancePerPulseValue);
 
   //Displays certain values in the encoder onto the SmartDashboard
   SmartDashboard::PutNumber("Left Encoder Raw Count Value", 	LeftEnc 	-> Get());
@@ -82,7 +88,7 @@ void DriveBase::ShiftHigh()
  void DriveBase::Stop()
   {
 
-  LeftDrive1		-> Set(0);
+  LeftDrive1	-> Set(0);
   LeftDrive2	-> Set(0);
   RightDrive1	-> Set(0);
   RightDrive2	-> Set(0);
@@ -99,40 +105,68 @@ void DriveBase::ShiftHigh()
   	RightDrive2	-> Set(0);
 
   }
+
   //New stuff
   //A function to use the encoders in driving, the robot will drive in a certain direction depending on the distance left to travel
-  void DriveBase::EncoderDrive(){
-	  SmartDashboard::GetNumber("Distance for Encoder Drive", DistanceForEncoderDrive);
-	  LeftEnc -> Reset();
-	  RightEnc -> Reset();
-	  while(DistanceForEncoderDrive != (LeftEnc -> GetDistance()))
-		  if((DistanceForEncoderDrive - (LeftEnc -> GetDistance())) < 0)
-		  {
-			  LeftDrive1 -> Set(1);
-			  LeftDrive2 -> Set(1);
-			  RightDrive1 -> Set(-1);
-			  RightDrive2 -> Set(-1);
+  void DriveBase::AutoDriveDistance(float DesiredDistance){
+	SmartDashboard::GetNumber("Distance for Encoder Drive", DashAutoDistance);
+	DesiredDistance = DashAutoDistance; //TODO Remove this and line above once we calibrate, this is just to do it from the dashboard for various distances without recompiling over and over
+//	LeftEnc -> Reset();
+//	RightEnc -> Reset();  //We have a function for it, using it below
+	EncoderReset();
+	float Distance = ((LeftEnc -> GetDistance() + RightEnc -> GetDistance())/2); //Average the two sensor inputs
+	while (fabs(DesiredDistance - Distance) > AutoDistThresh){
+			if (fabs(DesiredDistance - Distance) > AutoDistThresh){
+			  Drive(AutoDriveSpeed, AutoDriveSpeed);
 		  }
-		  else if((DistanceForEncoderDrive - (LeftEnc -> GetDistance())) > 0)
-		  {
-			  LeftDrive1 -> Set(-1);
-			  LeftDrive2 -> Set(-1);
-			  RightDrive1 -> Set(1);
-			  RightDrive2 -> Set(1);
+		  else if (fabs(DesiredDistance - Distance) < -AutoDistThresh){
+			  Drive(-1 * AutoDriveSpeed, -1 * AutoDriveSpeed);
 		  }
-  }
-  void DriveBase::EncoderReset(){
-	  LeftEnc -> Reset();
-	  RightEnc -> Reset();
+	Distance = ((LeftEnc -> GetDistance() + RightEnc -> GetDistance())/2);
+	}
   }
 
-  void DriveBase::gyroFunction () {
-	  //while (DS_ForDriveBase -> IsEnabled()) {
-			GyroAngle = gyro->GetAngle(); //Get direction robot is facing based drift from calibration position
-			GyroKp = 0; //proportional scaling constant
-			gyroRobot->Drive(-1.0, -GyroAngle * GyroKp); //Changes to correct heading
-			Wait(0.003);
-		//}
-		SmartDashboard::PutNumber("Gyro Angle", GyroAngle);
-		SmartDashboard::PutNumber("Kp Value", GyroKp);
+float DriveBase::AutoTurnToAngle(float DesiredAngle)//Turns to an absolute angle based on encoder calibration
+{
+	float RawErr = (DesiredAngle - ReportGyro());
+	float AbsErr = fabs(RawErr);
+	if (AbsErr > 180) {
+		AbsErr = 360 - AbsErr; //This determines the shortest distance between the angles
+	}
+
+	if ((RawErr >= 0 && RawErr <=180) || (RawErr >= -360 && RawErr <= -180)) {//Determines sign of angle difference
+		return AutoTurnAngle(AbsErr); //AutoTurnAngle returns the final angle difference, then this returns that return
+	} else {
+		return AutoTurnAngle(-AbsErr);
+	}
+}
+
+float DriveBase::AutoTurnAngle(float DesiredTurnAngle)	//Turns a number of degrees relative to current position
+{
+	float GyroAngle = ReportGyro();
+	while (fabs(DesiredTurnAngle - GyroAngle) > AngleThreshold)
+	{
+			if ((DesiredTurnAngle - GyroAngle) > AngleThreshold) {
+				Drive(AutoTurnSpeed, -AutoTurnSpeed);
+			} 	else if ((DesiredTurnAngle - GyroAngle) < AngleThreshold) {
+				Drive(-AutoTurnSpeed, AutoTurnSpeed);
+				}
+			GyroAngle = ReportGyro();
+		}
+	return (DesiredTurnAngle - GyroAngle); //return the final delta
+}
+
+
+ void DriveBase::EncoderReset(){
+	LeftEnc -> Reset();
+	RightEnc -> Reset();
   }
+
+float DriveBase::ReportGyro()
+{
+	float Angle = (GyroScalar * MainGyro	->	GetAngle());
+ 	SmartDashboard::PutNumber("Gyro Angle", Angle);
+ 	float AdjAngle = Angle - GyroLinearAdj * Timer() - GyroOffset;//Compensates for gyro creep
+ 	//TODO Fix the timer in here
+	return Angle;
+}
