@@ -142,34 +142,25 @@ bool OI::GetButtonB(){
 //{
 	//return XboxController -> GetRawButton();
 //}
-/* INCOMPLETE
-void OI::SendXboxRumble(){
-	XboxController	->	SetRumble(kLeftRumble, 1);
-	XboxController	->	SetRumble(kRightRumble, 1);
-	Wait(0.5);
-	XboxController	->	SetRumble(kLeftRumble, 0);
-	XboxController	->	SetRumble(kRightRumble, 0);
-	Wait(0.5);
-	XboxController	->	SetRumble(kLeftRumble, 1);
-	XboxController	->	SetRumble(kRightRumble, 1);
-	Wait(0.5);
-	XboxController	->	SetRumble(kLeftRumble, 0);
-	XboxController	->	SetRumble(kRightRumble, 0);
-	}
-*/
 
-/* INCOMPLETE
-void OI::SendMOHRumble(){
-	MOHController	->	SetRumble(kLeftRumble, 1);
-	MOHController	->	SetRumble(kRightRumble, 1);
-	Wait(0.5);
-	MOHController	->	SetRumble(kLeftRumble, 0);
-	MOHController	->	SetRumble(kRightRumble, 0);
-	Wait(0.5);
-	MOHController	->	SetRumble(kLeftRumble, 1);
-	MOHController	->	SetRumble(kRightRumble, 1);
-	Wait(0.5);
-	MOHController	->	SetRumble(kLeftRumble, 0);
-	MOHController	->	SetRumble(kRightRumble, 0);
+void OI::SendXboxRumble(){
+	for ( int i = 0; i < 2; i++ ) {
+		XboxController	->	SetRumble(Joystick::kLeftRumble, 1);
+		XboxController	->	SetRumble(Joystick::kRightRumble, 1);
+		Wait(0.5);
+		XboxController	->	SetRumble(Joystick::kLeftRumble, 0);
+		XboxController	->	SetRumble(Joystick::kRightRumble, 0);
+		Wait(0.5);
 	}
-*/
+}
+
+void OI::SendMOHRumble(){
+	for ( int i = 0; i < 2; i++ ) {
+		MedalOfHonorController	->	SetRumble(Joystick::kLeftRumble, 1);
+		MedalOfHonorController	->	SetRumble(Joystick::kRightRumble, 1);
+		Wait(0.5);
+		MedalOfHonorController	->	SetRumble(Joystick::kLeftRumble, 0);
+		MedalOfHonorController	->	SetRumble(Joystick::kRightRumble, 0);
+		Wait(0.5);
+	}
+}

@@ -20,7 +20,8 @@
 		double Area;
 		double Aspect;
 	};
-	double XFirstPixel, YFirstPixel, XUpLeftCorner, YUpLeftCorner, XDownRightCorner, YDownRightCorner, RectHeight, RectWidth, Aspect;
+//	double XFirstPixel, YFirstPixel, XUpLeftCorner, YUpLeftCorner, XDownRightCorner, YDownRightCorner, RectHeight, RectWidth, Aspect;
+	const float PixelAngleScale = 10;	//Pixels per degree angle, measured and subject to adjustment
 
 //	IMAQdxSession session;
 	IMAQdxError imaqErrorEnum;
@@ -41,7 +42,7 @@ WateryTart::WateryTart() :
 {
 //Motor and sensor declarations here
 	//Images
-	frame 		= imaqCreateImage(IMAQ_IMAGE_RGB, 0);
+	frame 		= imaqCreateImage(IMAQ_IMAGE_RGB, 0);   //TODO Try these in the search function along with a destroy to possibly save memory
 	SecondFrame = imaqCreateImage(IMAQ_IMAGE_RGB, 0);
 	binaryFrame = imaqCreateImage(IMAQ_IMAGE_U8, 0);
 	TargetFrame = imaqCreateImage(IMAQ_IMAGE_U8,0);
@@ -67,10 +68,11 @@ void WateryTart::InitDefaultCommand()
  * It will return a rumble to the controller and splash a green box on the dashboard
  * Ideally, this will take place on an on board raspberry pi or arduino board, but that is version 2.0
  */
-void WateryTart::Search(Range Hue, Range Sat, Range Val, float AreaIn, float AspectIn, double WaitTime)
+float WateryTart::Search(Range Hue, Range Sat, Range Val, float AreaIn, float AspectIn, double WaitTime)
   {
-int Particle_No = 0;
-
+	double XFirstPixel, YFirstPixel, XUpLeftCorner, YUpLeftCorner, XDownRightCorner, YDownRightCorner, RectHeight, RectWidth, Aspect = 0;
+	double Angle = -180;
+	int Particle_No = 0;
 	//Put default values to SmartDashboard so fields will appear
 	SmartDashboard::PutNumber("Tote hue min", Hue.minValue);
 	SmartDashboard::PutNumber("Tote hue max", Hue.maxValue);
@@ -178,8 +180,7 @@ int Particle_No = 0;
 //	} else {
 //		SmartDashboard::PutBoolean("IsTarget", false);
 //	}
-/*
-*/
+	return Angle;
   }
 
 

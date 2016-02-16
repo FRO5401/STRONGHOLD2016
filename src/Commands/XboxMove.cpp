@@ -81,7 +81,7 @@ void XboxMove::Execute()
 		SmartDashboard::PutBoolean("Precision",Precision);
 		SmartDashboard::PutBoolean("Brake",Brake);
 	*/
-	drivebase        -> Drive(Left, Right, Encoder_Conversion_To_Inches_Constant);
+	drivebase        -> Drive(Left, Right);
 }
 
 // Make this return true when this Command no longer needs to run execute()
