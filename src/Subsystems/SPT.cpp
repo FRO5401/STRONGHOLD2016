@@ -18,9 +18,9 @@
 //Parameters for Potentiometer and the its PIDcontroller. Easier to edit if you put it here
 
 //Multiplier to get meaningful value. A number can be put here
-double SPT_Range 	= 0;
+double SPT_Range 	= -1376.15;
 //Quote "offset added to the scaled value to control the 0 value
-double SPT_Offset 	= 0;
+double SPT_Offset 	= 638.073;
 
 double SPT_Kp 		= 0;//Proportional
 double SPT_Ki		= 0 ;//Intergral
