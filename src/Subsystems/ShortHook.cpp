@@ -13,8 +13,8 @@ ShortHook::ShortHook() :
 		Subsystem("ShortHook")
 {
 
-	ShortHookExtend 	=	new DoubleSolenoid(SolenoidCAN_ID, ShortHookFwd_Channel, ShortHookRev_Channel);
-
+	//ShortHookExtend 	=	new DoubleSolenoid(SolenoidCAN_ID, ShortHookFwd_Channel, ShortHookRev_Channel);
+	//Removed pneumatics
 }
 
 void ShortHook::InitDefaultCommand()

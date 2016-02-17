@@ -11,9 +11,9 @@
 Scale::Scale() :
 		Subsystem("ExampleSubsystem")
 {
-	ScaleEngage 	=	new DoubleSolenoid(SolenoidCAN_ID, ScaleEngageFwd_Channel, ScaleEngageRev_Channel);
-	DriveDisengage 	= 	new DoubleSolenoid(SolenoidCAN_ID, DriveDisengageFwd_Channel, DriveDisengageRev_Channel);
-
+	//ScaleEngage 	=	new DoubleSolenoid(SolenoidCAN_ID, ScaleEngageFwd_Channel, ScaleEngageRev_Channel);
+	//DriveDisengage 	= 	new DoubleSolenoid(SolenoidCAN_ID, DriveDisengageFwd_Channel, DriveDisengageRev_Channel);
+	//Removed pneumatics
 }
 
 void Scale::InitDefaultCommand()

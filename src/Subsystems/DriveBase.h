@@ -25,6 +25,9 @@ public:
 	Encoder *LeftEnc;
 	Encoder *RightEnc;
 
+	//Timer
+	Timer *TimeCount;
+
 	DriverStation *DS_ForDriveBase;
 	DriveBase();
 	void InitDefaultCommand();

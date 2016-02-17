@@ -38,15 +38,19 @@ DriveBase::DriveBase() :
 
 	MainGyro	= new ADXRS450_Gyro();
  	DS_ForDriveBase -> GetInstance();
+ 	TimeCount = new Timer();
+ 	TimeCount -> Reset();
+ 	MainGyro  -> Reset();
  	
 }
 
 void DriveBase::InitDefaultCommand()
 {
 	SetDefaultCommand(new XboxMove());
-	LeftEnc		-> Reset();
-	RightEnc 	-> Reset();
-	MainGyro        -> Calibrate();
+	LeftEnc	  -> Reset();
+	RightEnc  -> Reset();
+	MainGyro  -> Calibrate();
+	TimeCount -> Start();
 }
 
 void DriveBase::Drive(double LeftDriveDesired, double RightDriveDesired)
@@ -84,10 +88,11 @@ void DriveBase::ShiftHigh()
  void DriveBase::Stop()
   {
 
-  LeftDrive1		-> Set(0);
+  LeftDrive1	-> Set(0);
   LeftDrive2	-> Set(0);
   RightDrive1	-> Set(0);
   RightDrive2	-> Set(0);
+  TimeCount 	-> Stop();
 
   }
 
@@ -99,6 +104,9 @@ void DriveBase::ShiftHigh()
   	LeftDrive2	-> Set(0);
   	RightDrive1	-> Set(0);
   	RightDrive2	-> Set(0);
+
+  	TimeCount -> Reset();
+  	MainGyro  -> Reset();
 
   }
   //New stuff
@@ -156,7 +164,7 @@ float DriveBase::ReportGyro()
 {
   	float Angle = (GyroScalar * MainGyro	->	GetAngle());
    	SmartDashboard::PutNumber("Gyro Angle", Angle);
-   	float AdjAngle = Angle - (GyroLinearAdj * Timer() + GyroOffset);//Compensates for gyro creep - basically subtracts out mx+b the linear creep function
-   	//TODO Fix the timer in here
+   	double Time = TimeCount -> Get();
+   	float AdjAngle = Angle - (GyroLinearAdj * Time + GyroOffset);//Compensates for gyro creep - basically subtracts out mx+b the linear creep function
   	return Angle;
 }
