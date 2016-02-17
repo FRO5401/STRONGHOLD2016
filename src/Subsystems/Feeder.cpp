@@ -33,7 +33,7 @@ void Feeder::FeedInFromField(){
 }
 
 void Feeder::FeedOutToField(){
-	FeederOuterFasterMotor -> Set(InfeedOut);
+	FeederOuterFasterMotor -> Set(-1 * InfeedOut);
 }
 
 void Feeder::FeedToShooter(){
