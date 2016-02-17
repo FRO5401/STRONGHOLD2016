@@ -13,6 +13,7 @@ const double DPP			= 1; 		//TODO Must tune this
 const float GyroScalar		= 10; 		//Preliminarily tuned
 const float GyroLinearAdj	= -0.696; 	//Adjusts for Gyro Creep = m
 const float GyroOffset		= -6.1395;	// = b
+float initialGyro			= 0;
 
 const double AutoDriveSpeed	= 0.5;
 const double AutoTurnSpeed	= 0.5;
@@ -35,6 +36,7 @@ DriveBase::DriveBase() :
 	//Displays the Distance for Encoder Drive for user input
 	double DashAutoDistance = 0;//Remove or comment this and below it, this is for calibrating the auto drive
 	SmartDashboard::PutNumber("Distance for Encoder Drive", DashAutoDistance);
+	SmartDashboard::PutNumber("Initial Gyro Value", initialGyro);
 
 	MainGyro	= new ADXRS450_Gyro();
  	DS_ForDriveBase -> GetInstance();
@@ -70,6 +72,8 @@ void DriveBase::Drive(double LeftDriveDesired, double RightDriveDesired)
   SmartDashboard::PutNumber("Right Encoder Raw Count Value", 	RightEnc 	-> Get());
   SmartDashboard::PutNumber("Left Encoder Distance Traveled", 	LeftEnc 	-> GetDistance());
   SmartDashboard::PutNumber("Right Encoder Distance Traveled", 	RightEnc 	-> GetDistance());
+
+  SmartDashboard::GetNumber("Initial Gyro Value", initialGyro);
   }
 /*
  * Pneumatic shfting is out of design at this point
