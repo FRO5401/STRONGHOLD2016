@@ -14,10 +14,10 @@
 #include "../RobotMap.h"
 #include "PIDController.h"
 #include "Commands/UpAndDownInfeeder.h"
-
+#include <iostream>
 //Parameters for Potentiometer and the its PIDcontroller. Easier to edit if you put it here
 
-//Multiplier to get meaningful value. A number can be put here
+//Multiplier to get meaningful value. A number can be put here - 0 value is horizontal from front of robot
 double SPT_Range 	= -1376.15;
 //Quote "offset added to the scaled value to control the 0 value
 double SPT_Offset 	= 638.073;
@@ -30,8 +30,10 @@ double SPTMotorMin	= -1;//Min Motor speed
 double SPTMotorMax	= 1;// Max motor speed
 
 double SPTDeliveryPosition 	= 0;//Position has NOT been determined
-double SPTFeederPosition		= 0;//Position has NOT been determined
-
+double SPTFeederPosition	= 0;//Position has NOT been determined
+double SPTShootingPosition	= 0;//Position has NOT been determined
+double SPTMaxAngle			= 98; //Measured 100 degrees  021616
+double SPTMinAngle			= -48; //Measured -50 degrees 021616
 double SPTPrecision = 0.2; //Set precision very high while PID and stop points are not defined
 
 SPT::SPT() :
@@ -40,12 +42,11 @@ SPT::SPT() :
 	SPTShoulderMotor = new Victor(SPTShoulderMotor_Channel);
 
 	SPTPot = new AnalogPotentiometer(SPTPot_Channel, SPT_Range, SPT_Offset);
-							//		 ^^Channel in RobotMap
-
+	//								 ^^Channel in RobotMap
 	//Format for declaring PIDControllers (Kp value, Ki value, Kd value, the input source, the output source)
 	//Read Control Theory from http://www.chiefdelphi.com/media/papers/1823
 	SPTPotPID = new PIDController(SPT_Kp, SPT_Ki, SPT_Kd, SPTPot, SPTShoulderMotor);
-
+	MotorOutput = 0;
 //Makes the SPT subsystem constantly get the values of the global variables off the SmartDashboard
 //Thus if operater makes change to values, the code will automatically input that value.
 	SmartDashboard::PutNumber("SPT Range", SPT_Range);
@@ -71,9 +72,15 @@ void SPT::InitDefaultCommand()
 
 //This function sets the shoulder motor of SPT to a certain direction between up and down
 void SPT::UpAndDown(double ShoulderChangeValue){
+
+	//Zero out the change if angle is at its upper limit and trying to increase
+	ShoulderChangeValue = ((ShoulderChangeValue > 0) && (SPTPot >=SPTMaxAngle)) ? 0 : ShoulderChangeValue;
+	//Zero out the change if angle is at its lower limit and trying to decrease
+	ShoulderChangeValue = ((ShoulderChangeValue < 0) && (SPTPot <= SPTMinAngle)) ? 0 : ShoulderChangeValue;
 	SPTShoulderMotor -> Set(SPTPrecision * ShoulderChangeValue); 
-	SmartDashboard::PutNumber("SPTUpDown", ShoulderChangeValue);
-	SmartDashboard::PutNumber("SPTPot", SPTPot ->Get());
+
+//	SmartDashboard::PutNumber("SPTUpDown", ShoulderChangeValue);
+//	SmartDashboard::PutNumber("SPTPot", SPTPot ->Get());
 }
 
 //This function sets the shoulder motor to a certain speed
@@ -91,4 +98,11 @@ void SPT::MoveToInfeederPosition(){
 	SPTPotPID -> SetOutputRange(SPTMotorMin, SPTMotorMax);
 	SPTPotPID -> SetSetpoint(SPTFeederPosition);
 	SPTPotPID -> Enable();
+}
+
+void SPT::ClearShooterPathPosition(){
+	SPTPotPID -> SetOutputRange(SPTMotorMin, SPTMotorMax);
+	SPTPotPID -> SetSetpoint(SPTShootingPosition);
+	SPTPotPID -> Enable();
+
 }

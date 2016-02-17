@@ -10,10 +10,9 @@ private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 	Victor *SPTShoulderMotor;
-
 	PIDController *SPTPotPID;//
 	Potentiometer *SPTPot;//Pot refers to potentiometers
-
+	double MotorOutput;
 public:
 
 	SPT();
@@ -21,6 +20,7 @@ public:
 	void UpAndDown(double);
 	void MoveToDeliveryPosition();
 	void MoveToInfeederPosition();
+	void ClearShooterPathPosition();
 };
 
 #endif
