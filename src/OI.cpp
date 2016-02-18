@@ -76,14 +76,16 @@ OI::OI()
 	MOHLeftTrigger 	-> WhenPressed(new FeedOutFromOuter());
 	MOHLeftTrigger 	-> WhenReleased(new FeederStop());
 
-	MOHButtonSquare	-> WhenPressed(new FeedInFromInner());
-	MOHButtonSquare	-> WhenReleased(new FeederStop());
+	MOHRightBumper	-> WhenPressed(new FeedInFromInner());
+	MOHRightBumper	-> WhenReleased(new FeederStop());
 
-	MOHButtonCircle	-> WhenPressed(new FeedOutFromInner());
-	MOHButtonCircle -> WhenReleased(new FeederStop());
+	MOHLeftBumper	-> WhenPressed(new FeedOutFromInner());
+	MOHLeftBumper   -> WhenReleased(new FeederStop());
 	
 	//TODO Add buttons for targeting and shooting
 
+	//MOHButtonTriangle -> AquireTarget;
+	//MOHButtonSquare   -> Shoot;
 
 }
 

@@ -13,6 +13,12 @@ private:
 	PIDController *SPTPotPID;//
 	Potentiometer *SPTPot;//Pot refers to potentiometers
 	double MotorOutput;
+
+	//PID Values
+	double SPT_Kp 		= 0;//Proportional - how far away - distance
+	double SPT_Ki		= 0 ;//Integral - how long traveled - time
+	double SPT_Kd		= 0;//Derivative - how fast getting there - speed
+
 public:
 
 	SPT();

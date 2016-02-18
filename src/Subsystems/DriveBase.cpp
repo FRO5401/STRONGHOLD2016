@@ -59,8 +59,8 @@ void DriveBase::Drive(double LeftDriveDesired, double RightDriveDesired)
   {
   LeftDrive1 	-> Set(LeftDriveDesired); //passes desired state to speed controllers
   LeftDrive2	-> Set(LeftDriveDesired);
-  RightDrive1 	-> Set(RightDriveDesired);
-  RightDrive2	-> Set(RightDriveDesired);
+  RightDrive1 	-> Set(-1 * RightDriveDesired);
+  RightDrive2	-> Set(-1 * RightDriveDesired);
 
   //New stuff
   //Sets the ratio for pulses to inches

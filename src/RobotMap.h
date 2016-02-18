@@ -122,9 +122,9 @@ const int HookShoulderPot_Channel	= 0;	//MUST BE UPDATED
 
 //Encoder DIO Channels
 const int Enc_Left_A 	= 0;
-const int Enc_Left_B 	= 0;
-const int Enc_Right_A 	= 0;
-const int Enc_Right_B 	= 0;
+const int Enc_Left_B 	= 1;
+const int Enc_Right_A 	= 2;
+const int Enc_Right_B 	= 3;
 
 const int Enc_Shooter_A = 0;
 const int Enc_Shooter_B = 0;
