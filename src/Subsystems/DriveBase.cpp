@@ -9,7 +9,8 @@
 #include "../RobotMap.h"
 #include <Commands/XboxMove.h>
 
-const double DPP			= 1; 		//TODO Must tune this
+const double DPPLeft		= (-1/76.6); 		//TODO Must tune this
+const double DPPRight		= (1/76.2);
 const float GyroScalar		= 10; 		//Preliminarily tuned
 const float GyroLinearAdj	= -0.696; 	//Adjusts for Gyro Creep = m
 const float GyroOffset		= -6.1395;	// = b
@@ -43,6 +44,8 @@ DriveBase::DriveBase() :
  	TimeCount = new Timer();
  	TimeCount -> Reset();
  	MainGyro  -> Reset();
+ //	LeftEnc -> Reset();Doesn't work when enabling and disabling
+ //	RightEnc -> Reset();
  	
 }
 
@@ -64,8 +67,8 @@ void DriveBase::Drive(double LeftDriveDesired, double RightDriveDesired)
 
   //New stuff
   //Sets the ratio for pulses to inches
-  LeftEnc 	-> SetDistancePerPulse(DPP);
-  RightEnc 	-> SetDistancePerPulse(DPP);
+  LeftEnc 	-> SetDistancePerPulse(DPPLeft);
+  RightEnc 	-> SetDistancePerPulse(DPPRight);
 
   //Displays certain values in the encoder onto the SmartDashboard
   SmartDashboard::PutNumber("Left Encoder Raw Count Value", 	LeftEnc 	-> Get());
@@ -74,6 +77,8 @@ void DriveBase::Drive(double LeftDriveDesired, double RightDriveDesired)
   SmartDashboard::PutNumber("Right Encoder Distance Traveled", 	RightEnc 	-> GetDistance());
 
   SmartDashboard::GetNumber("Initial Gyro Value", initialGyro);
+  //Test for initial gyro input
+  std::cout << initialGyro << "\n";
   }
 /*
  * Pneumatic shfting is out of design at this point
