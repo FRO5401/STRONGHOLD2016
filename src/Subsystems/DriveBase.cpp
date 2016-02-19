@@ -54,7 +54,8 @@ void DriveBase::InitDefaultCommand()
 	SetDefaultCommand(new XboxMove());
 	LeftEnc	  -> Reset();
 	RightEnc  -> Reset();
-	MainGyro  -> Calibrate();
+	//MainGyro  -> Calibrate();
+	MainGyro  -> Reset();
 	TimeCount -> Start();
 }
 
@@ -77,8 +78,7 @@ void DriveBase::Drive(double LeftDriveDesired, double RightDriveDesired)
   SmartDashboard::PutNumber("Right Encoder Distance Traveled", 	RightEnc 	-> GetDistance());
 
   SmartDashboard::GetNumber("Initial Gyro Value", initialGyro);
-  //Test for initial gyro input
-  std::cout << initialGyro << "\n";
+  SmartDashboard::PutNumber("Gyro Angle", ReportGyro());
   }
 /*
  * Pneumatic shfting is out of design at this point
@@ -172,7 +172,6 @@ float DriveBase::AutoTurnAngle(float DesiredTurnAngle)	//Turns a number of degre
 float DriveBase::ReportGyro()
 {
   	float Angle = (GyroScalar * MainGyro	->	GetAngle());
-   	SmartDashboard::PutNumber("Gyro Angle", Angle);
    	double Time = TimeCount -> Get();
    	float AdjAngle = Angle - (GyroLinearAdj * Time + GyroOffset);//Compensates for gyro creep - basically subtracts out mx+b the linear creep function
   	return Angle;

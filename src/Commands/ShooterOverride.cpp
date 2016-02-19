@@ -15,16 +15,15 @@ ShooterOverride::ShooterOverride()
 	void ShooterOverride::Initialize() { };
 
 	void ShooterOverride::Execute(){
-		double 	ShooterMove		=	oi	->	DummyJoystickReadFunction();//Define function once we figure out controller
-		bool	OverridePressed	=	oi	->	DummyButtonReadFunction();//Define function once we figure out controller
+		double 	ShooterMove		=	oi	->  ReadMOHRightStickY();
+		bool	OverridePressed	=	oi	->	GetMOHRightStickButton();
 
 		shooter        -> Override(ShooterMove);
-
 	};
 
 	bool ShooterOverride::IsFinished()
 {
-	bool	Override	=	oi	->	DummyButtonReadFunction();//Define function once we figure out controller
+	bool	Override	=	oi	->	GetMOHRightStickButton();
 	return (!Override);
 }
 

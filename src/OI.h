@@ -56,6 +56,8 @@ public:
 	bool GetButtonB();
 	void SendXboxRumble();
 	void SendMOHRumble();
+	double ReadMOHRightStickY();
+	bool GetMOHRightStickButton();
 };
 
 #endif

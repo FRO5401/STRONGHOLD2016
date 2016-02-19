@@ -10,6 +10,7 @@
 
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
+#include "OI.h"
 
 class Shooter: public Subsystem
 {

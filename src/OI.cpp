@@ -110,12 +110,12 @@ double OI::GetRightTrigger()
 
 bool OI::GetPrecision()
 {
-	return XboxController	->	GetRawButton(RBumper_ID);
+	return XboxController	->	GetRawButton(LBumper_ID);
 }
 
 bool OI::GetBrake()
 {
-	return XboxController	->	GetRawButton(LBumper_ID);
+	return XboxController	->	GetRawButton(RBumper_ID);
 }
 
 double OI::GetUpOrDownValueInfeeder(){
@@ -161,4 +161,12 @@ void OI::SendMOHRumble(){
 		MedalOfHonorController	->	SetRumble(Joystick::kRightRumble, 0);
 		Wait(0.5);
 	}
+}
+
+double OI::ReadMOHRightStickY(){
+	return MedalOfHonorController -> GetRawAxis(3);
+}
+
+bool OI::GetMOHRightStickButton(){
+	return MedalOfHonorController -> GetRawButton(12);
 }

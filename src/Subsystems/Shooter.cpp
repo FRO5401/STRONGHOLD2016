@@ -8,6 +8,7 @@
 #include "Shooter.h"
 #include "../RobotMap.h"
 #include "PIDController.h"
+#include <Commands/ShooterOverride.h>
 
 //Sensor parameters
 const double FwdSpeed 			= 0.5;
@@ -35,7 +36,7 @@ Shooter::Shooter() :
 
 void Shooter::InitDefaultCommand()
 {
-//	SetDefaultCommand(); //Not sure what/if the default command should be, but we may want a check/reset
+	SetDefaultCommand(new ShooterOverride()); //Not sure what/if the default command should be, but we may want a check/reset
 }
 
 void Shooter::Shoot() //Shoots the ball
@@ -85,5 +86,6 @@ void Shooter::Override(double Input)
  * Forward and reverse based on controller input - for jams or other unforeseen situations
  */
 	ShooterMotor	->	Set(Input);
+	SmartDashboard::PutNumber("Shooter Encoder", ShooterEnc ->Get());
 }
 
