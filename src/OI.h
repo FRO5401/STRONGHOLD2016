@@ -59,7 +59,9 @@ public:
 	bool GetButtonX();
 	bool GetButtonStart();
 	bool GetButtonBack();
+	bool GetButtonL3();
 	bool GetButtonR3();
+	int GetPOVState();
 	void SendXboxRumble();
 	void SendMOHRumble();
 	double ReadMOHRightStickY();

@@ -23,7 +23,7 @@ ShooterOverride::ShooterOverride()
 
 	bool ShooterOverride::IsFinished()
 {
-	bool	Override	=	oi	->	GetMOHRightStickButton();
+	bool	Override	=	oi	->	GetButtonR3();
 	return (!Override);
 }
 

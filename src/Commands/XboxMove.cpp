@@ -33,7 +33,7 @@ void XboxMove::Execute()
 	double 	Reverse 	=	oi	->	GetLeftTrigger();
 	bool 	Precision	=	oi	->	GetPrecision();
 	bool 	Brake		=	oi	->	GetBrake();
-	bool 	Turn		= 	oi	->	GetButtonB();
+	bool 	Turn		= 	oi	->	GetButtonL3();
 	
 	double Right,Left, Sensitivity;
 

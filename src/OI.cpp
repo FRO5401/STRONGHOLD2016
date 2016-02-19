@@ -156,8 +156,22 @@ bool OI::GetButtonBack(){
 	return XboxController	->	GetRawButton(Back_ID);
 }
 
+bool OI::GetButtonL3(){
+	return XboxController	->	GetRawButton(XboxL3_ID);
+}
+
 bool OI::GetButtonR3(){
 	return XboxController	->	GetRawButton(XboxR3_ID);
+}
+
+int OI::GetPOVState(){
+	int POV = XboxController	->	GetPOV();
+	if (POV == 225 || POV == 180 || POV == 135)
+		return -1;	//down
+	else if (POV == 315 || POV == 0 || POV == 45)
+		return 1; 	//up
+	else
+		return 0; 	//not pressed/error
 }
 
 void OI::SendXboxRumble(){
