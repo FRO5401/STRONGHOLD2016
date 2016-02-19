@@ -46,6 +46,7 @@ public:
 	//Functions to read axes, which cannot be listed like buttons
 	//Only declares
 	double ReadXboxLeftStickX();
+	double ReadXboxRightStickY();
 	double GetLeftTrigger();
 	double GetRightTrigger();
 	bool GetPrecision();
@@ -54,6 +55,11 @@ public:
 	double DummyJoystickReadFunction();//Define function once we figure out controller
 	bool DummyButtonReadFunction();//Define function once we figure out controller
 	bool GetButtonB();
+	bool GetButtonA();
+	bool GetButtonX();
+	bool GetButtonStart();
+	bool GetButtonBack();
+	bool GetButtonR3();
 	void SendXboxRumble();
 	void SendMOHRumble();
 	double ReadMOHRightStickY();

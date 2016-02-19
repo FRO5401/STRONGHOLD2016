@@ -96,6 +96,10 @@ double OI::ReadXboxLeftStickX()
 	return Slew;
 }
 
+double OI::ReadXboxRightStickY(){
+	return	XboxController	->	GetRawAxis(5);
+}
+
 double OI::GetLeftTrigger()
 {
 	double Throttle = XboxController	->	GetRawAxis(2);
@@ -136,10 +140,25 @@ bool OI::GetButtonB(){
 	return XboxController	->	GetRawButton(XboxB_ID);
 }
 
-//bool OI::GetStart()
-//{
-	//return XboxController -> GetRawButton();
-//}
+bool OI::GetButtonA(){
+	return XboxController	->	GetRawButton(XboxA_ID);
+}
+
+bool OI::GetButtonX(){
+	return XboxController	->	GetRawButton(XboxX_ID);
+}
+
+bool OI::GetButtonStart(){
+	return XboxController	-> GetRawButton(Start_ID);
+}
+
+bool OI::GetButtonBack(){
+	return XboxController	->	GetRawButton(Back_ID);
+}
+
+bool OI::GetButtonR3(){
+	return XboxController	->	GetRawButton(XboxR3_ID);
+}
 
 void OI::SendXboxRumble(){
 	for ( int i = 0; i < 2; i++ ) {
@@ -167,6 +186,6 @@ double OI::ReadMOHRightStickY(){
 	return MedalOfHonorController -> GetRawAxis(3);
 }
 
-bool OI::GetMOHRightStickButton(){
+bool OI::GetMOHRightStickButton(){ //probably not used
 	return MedalOfHonorController -> GetRawButton(12);
 }

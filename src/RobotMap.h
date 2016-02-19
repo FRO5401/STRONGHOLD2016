@@ -42,7 +42,11 @@ const int MedalOfHonorController_Channel = 2;//Controller for operator
 const int LBumper_ID	=	5; //Button channels
 const int RBumper_ID	=	6;
 const int XboxB_ID		=	2;
-//const int Start_ID	=	8;
+const int XboxA_ID		=	1;
+const int XboxX_ID		=	3;
+const int Start_ID		=	8;
+const int XboxR3_ID		=	10;
+const int Back_ID		=	7;
 
 /****************
  * End Controllers
