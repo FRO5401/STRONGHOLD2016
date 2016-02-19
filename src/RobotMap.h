@@ -39,6 +39,7 @@ const double Drive_Sensitivity_Precise	=	0.2;
 const int XboxController_Channel	= 1;//Controller for drivebase
 const int MedalOfHonorController_Channel = 2;//Controller for operator
 
+//XBox Controller
 const int LBumper_ID	=	5; //Button channels
 const int RBumper_ID	=	6;
 const int XboxB_ID		=	2;
@@ -48,6 +49,9 @@ const int Start_ID		=	8;
 const int XboxR3_ID		=	10;
 const int Back_ID		=	7;
 const int XboxL3_ID		=	9;
+
+//MOH Controller
+const int MOHStart_ID	=	10;
 
 /****************
  * End Controllers

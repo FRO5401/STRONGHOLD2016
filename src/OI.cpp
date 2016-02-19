@@ -81,12 +81,6 @@ OI::OI()
 
 	MOHLeftBumper	-> WhenPressed(new FeedOutFromInner());
 	MOHLeftBumper   -> WhenReleased(new FeederStop());
-	
-	//TODO Add buttons for targeting and shooting
-
-	//MOHButtonTriangle -> AquireTarget;
-	//MOHButtonSquare   -> Shoot;
-
 }
 
 //Defines the functions for the axis's declared in the h file
@@ -194,6 +188,10 @@ void OI::SendMOHRumble(){
 		MedalOfHonorController	->	SetRumble(Joystick::kRightRumble, 0);
 		Wait(0.5);
 	}
+}
+
+bool OI::GetMOHButtonStart(){
+	return MedalOfHonorController	->	GetRawButton(MOHStart_ID);
 }
 
 double OI::ReadMOHRightStickY(){

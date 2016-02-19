@@ -64,6 +64,7 @@ public:
 	int GetPOVState();
 	void SendXboxRumble();
 	void SendMOHRumble();
+	bool GetMOHButtonStart();
 	double ReadMOHRightStickY();
 	bool GetMOHRightStickButton();
 };
