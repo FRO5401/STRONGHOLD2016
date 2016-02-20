@@ -17,7 +17,7 @@ AutoLaunch::AutoLaunch()
 	Range RING_HUE_RANGE = {0	, 96};	//Default hue range for ring light R
 	Range RING_SAT_RANGE = {110	, 255};	//Default saturation range for ring light G
 	Range RING_VAL_RANGE = {110	, 255};	//Default value range for ring light B
-	ImgLatency 	= 2;
+	ImgLatency 	= 0;
 	Area		= 0.5;
 	Aspect 		= 0.5;
 	Angle 		= 0;

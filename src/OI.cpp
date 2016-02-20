@@ -84,10 +84,11 @@ OI::OI()
 	MOHRightBumper   -> WhenReleased(new FeederStop());
 	
 	//TODO Add buttons for targeting and shooting
-	XboxA			-> WhenPressed(new LockTarget());
-	XboxX			-> WhenPressed(new AutoLaunch());
-	//MOHButtonTriangle -> AquireTarget;
-	//MOHButtonSquare   -> Shoot;
+//	XboxA			-> WhenPressed(new LockTarget());
+//	XboxX			-> WhenPressed(new AutoLaunch());
+	XboxX			-> WhenPressed(new Launch());
+	MOHButtonTriangle -> WhenPressed(new LockTarget());
+	MOHButtonSquare   -> WhenPressed(new AutoLaunch());
 
 }
 
