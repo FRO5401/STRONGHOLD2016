@@ -9,13 +9,14 @@ class RelaySys: public Subsystem
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
-
-public:
 	Relay *LightRing;
+	Relay *CarriageLights;
+public:
 	RelaySys();
 	void InitDefaultCommand();
 	void TurnOn();
 	void TurnOff();
+	void ShootLights();
 };
 
 #endif

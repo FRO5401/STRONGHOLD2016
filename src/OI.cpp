@@ -174,9 +174,8 @@ int OI::GetPOVState(){
 		return 0; 	//not pressed/error
 }
 
-void OI::SendXboxRumble(){
-	for ( int i = 0; i < 2; i++ ) {
-		XboxController	->	SetRumble(Joystick::kLeftRumble, 1);
+void OI::SendXboxRumble(int j){
+	for ( int i = 0; i < j; i++ ) {		XboxController	->	SetRumble(Joystick::kLeftRumble, 1);
 		XboxController	->	SetRumble(Joystick::kRightRumble, 1);
 		Wait(0.5);
 		XboxController	->	SetRumble(Joystick::kLeftRumble, 0);
@@ -185,8 +184,8 @@ void OI::SendXboxRumble(){
 	}
 }
 
-void OI::SendMOHRumble(){
-	for ( int i = 0; i < 2; i++ ) {
+void OI::SendMOHRumble(int j){
+	for ( int i = 0; i < j; i++ ) {
 		MedalOfHonorController	->	SetRumble(Joystick::kLeftRumble, 1);
 		MedalOfHonorController	->	SetRumble(Joystick::kRightRumble, 1);
 		Wait(0.5);

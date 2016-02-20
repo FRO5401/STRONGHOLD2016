@@ -62,8 +62,8 @@ public:
 	bool GetButtonL3();
 	bool GetButtonR3();
 	int GetPOVState();
-	void SendXboxRumble();
-	void SendMOHRumble();
+	void SendXboxRumble(int);
+	void SendMOHRumble(int);
 	double ReadMOHRightStickY();
 	bool GetMOHRightStickButton();
 };

@@ -4,14 +4,14 @@
  * FROGramming team
  */
 
-#ifndef SRC_COMMANDS_LOCKTARGET_H_
-#define SRC_COMMANDS_LOCKTARGET_H_
+#ifndef SRC_COMMANDS_AutoLaunch_H_
+#define SRC_COMMANDS_AutoLaunch_H_
 
 
 #include "../CommandBase.h"
 #include "WPILib.h"
 
-class LockTarget: public CommandBase
+class AutoLaunch: public CommandBase
 {
 private:
 	Range RING_HUE_RANGE;// = {0	, 96};	//Default hue range for ring light R
@@ -23,7 +23,7 @@ private:
 	double Angle;
 	double AngleRange;
 public:
-	LockTarget();
+	AutoLaunch();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -32,4 +32,4 @@ public:
 };
 //#endif
 
-#endif /* SRC_COMMANDS_LOCKTARGET_H_ */
+#endif /* SRC_COMMANDS_AutoLaunch_H_ */

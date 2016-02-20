@@ -5,7 +5,7 @@ RelaySys::RelaySys() :
 		Subsystem("RelaySys")
 {
 	  LightRing 	= new Relay(LightRing_Channel);
-
+	  CarriageLights	= new Relay(CarriageLights_Channel);
 }
 
 void RelaySys::InitDefaultCommand()
@@ -24,3 +24,12 @@ void RelaySys::TurnOff()
 	LightRing -> Set(Relay::Value::kOff);
 }
 
+void RelaySys::ShootLights()
+{
+	for ( int i = 0; i < 5; i++ ) {
+		CarriageLights ->	Set(Relay::Value::kOn);
+		Wait(0.1);
+		CarriageLights -> 	Set(Relay::Value::kOff);
+		Wait(0.1);
+	}
+}

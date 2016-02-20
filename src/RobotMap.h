@@ -105,7 +105,7 @@ const int HookShoulderMotor_Channel			= 4;//MUST BE UPDATED
 
 const int ShooterMotor_Channel				= 9;//MUST BE UPDATED
 
-const int Scimitar_Channel			= 16;		//MUST BE UPDATED
+const int Scimitar_Channel					= 16;		//MUST BE UPDATED
 /************
  * End Other Motors
  ***********/
@@ -113,7 +113,8 @@ const int Scimitar_Channel			= 16;		//MUST BE UPDATED
 /************
  * Other Stuff
  ***********/
-const int LightRing_Channel			= 0;
+const int LightRing_Channel					= 0;
+const int CarriageLights_Channel			= 1;
 /************
  * End Other Stuff
  ***********/
