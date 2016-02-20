@@ -13,6 +13,8 @@
 
 class ShooterOverride: public CommandBase
 {
+private:
+	double ShooterMove;
 public:
 	ShooterOverride();
 	void Initialize();

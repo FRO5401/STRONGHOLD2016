@@ -10,6 +10,7 @@
 //#include "SmartDashboard/SmartDashboard.h"
 
 const double Thresh		=	0.1; //Set Dead Zone threshold for thumbstick so small movements don't mess things up
+const double SpinSensitivity	= .5;
 
 XboxMove::XboxMove()
 {
@@ -61,13 +62,10 @@ void XboxMove::Execute()
 								}//end bracket L2
 			} else //if (turn)
 				{	//drive turning end bracket L1, new bracket L1
-				if (Slew > Thresh){	//Spin in place, if Slew is positive (Thumbstick pushed right), spin right, new bracket L2
-					Left = Sensitivity * Slew * .5;					//Left partial power, tempered by thumbstick
-					Right = Sensitivity * Slew * -1 * .5;				//Right partial reverse, tempered by thumbstick
-				} else if (Slew < (-1 * Thresh)){	//Spin in place, if Slew is negative (Thumbstick pushed left), spin left, end bracket L2, new bracket L2 ***020516 KJM - added an else here.  May be unnecessary
-					Left = Sensitivity * Slew * -1 * .5;					//Left partial reverse, tempered by thumbstick
-					Right = Sensitivity * Slew * .5;					//Right partial forward, tempered by thumbstick
-				}//end bracket L2
+				if (fabs(Slew) > Threshold){
+				 	Left = SpinSensitivity * Slew;
+				 	Right = SpinSensitivity * Slew * -1;
+				 	}//end bracket L2
  
 			}//end bracket L1
 	//------End block of spin in place code

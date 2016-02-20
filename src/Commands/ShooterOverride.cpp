@@ -11,16 +11,18 @@
 ShooterOverride::ShooterOverride()
 {
   Requires(shooter);
+  ShooterMove = 0;
 }
 	void ShooterOverride::Initialize() { };
 
 	void ShooterOverride::Execute(){
-		  double 	ShooterMove;
-		if (oi -> GetButtonR3()){
-			ShooterMove		=	oi	->  ReadXboxRightStickY();
+		bool Button = oi -> GetButtonR3();
+		ShooterMove		=	oi	->  ReadXboxRightStickY();
+
+		if (Button){
+			shooter        -> Override(ShooterMove);
 		}//		bool	OverridePressed	=	oi	->	GetButtonR3(); //probably not needed
 
-		shooter        -> Override(ShooterMove);
 	};
 
 	bool ShooterOverride::IsFinished()
