@@ -191,6 +191,7 @@ float WateryTart::Search(Range Hue, Range Sat, Range Val, float AreaIn, float As
 //	} else {
 //		SmartDashboard::PutBoolean("IsTarget", false);
 //	}
+	SmartDashboard::PutNumber("Angle", Angle);
 	return Angle;
   }
 
