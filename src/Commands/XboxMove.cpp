@@ -62,7 +62,7 @@ void XboxMove::Execute()
 								}//end bracket L2
 			} else //if (turn)
 				{	//drive turning end bracket L1, new bracket L1
-				if (fabs(Slew) > Threshold){
+				if (fabs(Slew) > Thresh){
 				 	Left = SpinSensitivity * Slew;
 				 	Right = SpinSensitivity * Slew * -1;
 				 	}//end bracket L2
