@@ -77,11 +77,11 @@ OI::OI()
 	MOHLeftTrigger 	-> WhenPressed(new FeedOutFromOuter());
 	MOHLeftTrigger 	-> WhenReleased(new FeederStop());
 
-	MOHRightBumper	-> WhenPressed(new FeedInFromInner());
-	MOHRightBumper	-> WhenReleased(new FeederStop());
+	MOHLeftBumper	-> WhenPressed(new FeedInFromInner());
+	MOHLeftBumper	-> WhenReleased(new FeederStop());
 
-	MOHLeftBumper	-> WhenPressed(new FeedOutFromInner());
-	MOHLeftBumper   -> WhenReleased(new FeederStop());
+	MOHRightBumper	-> WhenPressed(new FeedOutFromInner());
+	MOHRightBumper   -> WhenReleased(new FeederStop());
 	
 	//TODO Add buttons for targeting and shooting
 	XboxA			-> WhenPressed(new LockTarget());
