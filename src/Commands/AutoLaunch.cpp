@@ -11,6 +11,7 @@
 //Range RING_SAT_RANGE;// = {110	, 255};	//Default saturation range for ring light G
 //Range RING_VAL_RANGE;// = {110	, 255};	//Default value range for ring light B
 //double ImgLatency;
+const int LightFlashes	= 5;
 
 AutoLaunch::AutoLaunch()
 {
@@ -51,11 +52,10 @@ void AutoLaunch::Execute(){
 	Angle = waterytart	->	Search(RING_HUE_RANGE, RING_SAT_RANGE, RING_VAL_RANGE, Area, Aspect, ImgLatency);
 	relaysys	->TurnOff();
     if (fabs(Angle) < AngleRange){
-    	oi	->	SendMOHRumble(1);
     	SmartDashboard::PutBoolean("LAUNCH ACTIVATED", true);
     	Error = drivebase -> AutoTurnAngle(Angle);
     	shooter -> Shoot();
-
+    	relaysys -> ShootLights(LightFlashes);
     } else {
     	SmartDashboard::PutBoolean("LAUNCH ABORTED", true);
     }
