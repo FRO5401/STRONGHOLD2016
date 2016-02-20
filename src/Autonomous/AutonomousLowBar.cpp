@@ -12,10 +12,10 @@ AutonomousLowBar::AutonomousLowBar(int DefensePosition, int GoalPosition, int Lo
 
 	AddSequential(new Launch());
 
-/*	Pusedocode Don't Use. Use 2.0 below
- * 	EncoderDrive() No parameter necessary. The placement will be the DistanceForEncoderDrive in DriveBase. COMMAND MADE
+/*	Pusedocode
+ * 	AutoDrive() No parameter necessary. The placement will be the DistanceForEncoderDrive in DriveBase. COMMAND MADE
  * 	AdjustAngle(0) Adjusts angle to 0 to make it run straight. COMMAND NOT CREATED YET
- *	AutoTurn(45) Turns 45 degrees. VALUE MAY CHANGE. COMMAND NOT CREATED YET. May have parameters or might be like DistanceForEncoderDrive for EncoderDrive
+ *	AutoTsurn(45) Turns 45 degrees. VALUE MAY CHANGE. COMMAND NOT CREATED YET. May have parameters or might be like DistanceForEncoderDrive for EncoderDrive
  *	AutoTarget() Finds target and locks on. Might be split into two command group. NEEDS EDITS
  *	Launch() COMMAND MADE
  *

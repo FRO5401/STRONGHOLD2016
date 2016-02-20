@@ -5,6 +5,14 @@ AutonomousMoat::AutonomousMoat(int DefensePosition, int GoalPosition, int LowOrH
 	/*	PsuedoCode V. 2.0
 	 * 	AdjustAngle() so it's straight
 	 * 	AutoDrive()
+	 * 	SPT down under horizon
+	 * 	AutoDrive()
+	 * 	SPT up to horizontal
+	 * 	AutoDrive()
+	 * 	SPT down under horizon
+	 * 	AutoDrive()
+	 * 	SPT up to horizontal
+	 * 	AutoDrive()
 	 * 	AdjustAngle() so it's straight
 	 * 	switch(DefensePosition)
 	 * 	{

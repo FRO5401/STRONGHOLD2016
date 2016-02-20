@@ -68,7 +68,11 @@ AutonomousRamparts::AutonomousRamparts(int DefensePosition, int GoalPosition, in
 	 *
 	 */
 	/*	PsuedoCode V. 2.0
-	 * 	AdjustAngle() so it's straight
+	 * 	AdjustAngle() so it's straight or angled correctly
+	 * 	AutoDrive()
+	 * 	SPT down
+	 * 	AutoDrive()
+	 * 	SPT Up
 	 * 	AutoDrive()
 	 * 	AdjustAngle() so it's straight
 	 * 	switch(DefensePosition)
