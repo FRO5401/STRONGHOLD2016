@@ -27,6 +27,7 @@ public:
 	void MoveToDeliveryPosition();
 	void MoveToInfeederPosition();
 	void ClearShooterPathPosition();
+	void StopForShoot();
 };
 
 #endif

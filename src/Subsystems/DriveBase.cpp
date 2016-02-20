@@ -121,8 +121,8 @@ void DriveBase::ShiftHigh()
   //New stuff
   //A function to use the encoders in driving, the robot will drive in a certain direction depending on the distance left to travel
 void DriveBase::AutoDriveDistance(float DesiredDistance){
-	SmartDashboard::GetNumber("Distance for Encoder Drive", DashAutoDistance); //TODO Remove this and 2 lines below once we calibrate, this is just to do it from the dashboard for various distances without recompiling over and over
-	DesiredDistance = DashAutoDistance;
+//	SmartDashboard::GetNumber("Distance for Encoder Drive", DashAutoDistance); //Remove this and 2 lines below once we calibrate, this is just to do it from the dashboard for various distances without recompiling over and over
+//	DesiredDistance = DashAutoDistance;
 
 	EncoderReset();
 	float Distance = ((LeftEnc -> GetDistance() + RightEnc -> GetDistance())/2); //Average the two sensor inputs

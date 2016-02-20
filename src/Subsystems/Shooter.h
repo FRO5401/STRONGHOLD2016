@@ -27,6 +27,7 @@ public:
 	void InitDefaultCommand();
 	void Shoot();
 	void Override(double);
+	void Reset();
 };
 
 

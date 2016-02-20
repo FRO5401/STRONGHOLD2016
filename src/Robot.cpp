@@ -126,7 +126,7 @@ private:
 		SmartDashboard::PutData("Autonomous Mode", autoMode);
 
 //Option 1 code start ========= This will display the camera and draw a shape on it - hopefully to show our targeting area
-	    // create an image
+/*	    // create an image
 		frame = imaqCreateImage(IMAQ_IMAGE_RGB, 0);
 		//the camera name (ex "cam0") can be found through the roborio web interface
 		imaqError = IMAQdxOpenCamera("cam0", IMAQdxCameraControlModeController, &RunningSession);
@@ -136,7 +136,7 @@ private:
 		imaqError = IMAQdxConfigureGrab(RunningSession);
 		if(imaqError != IMAQdxErrorSuccess) {
 			DriverStation::ReportError("IMAQdxConfigureGrab error: " + std::to_string((long)imaqError) + "\n");
-		}
+		}*/
 //Option 1 code end ==============
 /*
 //Option 2 code start ============ This will just display the camera, but is much simpler and may not conflict
@@ -171,7 +171,7 @@ private:
 		// this line or comment it out.
 		if (autonomousCommand != NULL)
 			autonomousCommand->Cancel();
-		IMAQdxStartAcquisition(RunningSession);
+		//IMAQdxStartAcquisition(RunningSession);
 	}
 
 	void TeleopPeriodic()
@@ -180,7 +180,7 @@ private:
 		Scheduler::GetInstance()->Run();
         // grab an image, draw the circle, and provide it for the camera server which will
         // in turn send it to the dashboard.
-		while(IsOperatorControl() && IsEnabled()) {
+/*		while(IsOperatorControl() && IsEnabled()) {
 			IMAQdxGrab(RunningSession, frame, true, NULL);
 			if(imaqError != IMAQdxErrorSuccess) {
 				DriverStation::ReportError("IMAQdxGrab error: " + std::to_string((long)imaqError) + "\n");
@@ -189,7 +189,7 @@ private:
 				CameraServer::GetInstance()->SetImage(frame);
 			}
 		}
-	}
+*/	}
 
 	void TestPeriodic()
 	{

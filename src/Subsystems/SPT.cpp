@@ -75,9 +75,9 @@ void SPT::InitDefaultCommand()
 void SPT::UpAndDown(double ShoulderChangeValue){
 
 	//Zero out the change if angle is at its upper limit and trying to increase
-	ShoulderChangeValue = ((ShoulderChangeValue < 0) && (SPTPot -> Get() >= SPTMaxAngle)) ? 0 : ShoulderChangeValue;
+//	ShoulderChangeValue = ((ShoulderChangeValue < 0) && (SPTPot -> Get() >= SPTMaxAngle)) ? 0 : ShoulderChangeValue;
 	//Zero out the change if angle is at its lower limit and trying to decrease
-	ShoulderChangeValue = ((ShoulderChangeValue > 0) && (SPTPot -> Get() <= SPTMinAngle)) ? 0 : ShoulderChangeValue;
+//	ShoulderChangeValue = ((ShoulderChangeValue > 0) && (SPTPot -> Get() <= SPTMinAngle)) ? 0 : ShoulderChangeValue;
 	SPTShoulderMotor -> Set(SPTPrecision * ShoulderChangeValue); 
 
 	SmartDashboard::PutNumber("SPTUpDown", ShoulderChangeValue);
@@ -119,3 +119,7 @@ void SPT::ClearShooterPathPosition(){
 	SPTPotPID -> Enable();
 
 }
+
+void SPT::StopForShoot(){
+	SPTShoulderMotor -> Set(0);
+} //TODO move  this to ClearShooterPathPosition

@@ -134,8 +134,8 @@ const int Enc_Left_B 	= 1;
 const int Enc_Right_A 	= 2;
 const int Enc_Right_B 	= 3;
 
-const int Enc_Shooter_A = 0;
-const int Enc_Shooter_B = 0;
+const int Enc_Shooter_A = 4;
+const int Enc_Shooter_B = 5;
 /************
  * End Sensor Channels
  ***********/

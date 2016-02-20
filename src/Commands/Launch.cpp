@@ -11,9 +11,12 @@
 Launch::Launch()
 {
   Requires(shooter);
+  Requires(spt);
 }
 void Launch::Initialize()
 {
+	shooter ->  Reset();
+	spt -> StopForShoot();
 	shooter	->	Shoot();
 }
 

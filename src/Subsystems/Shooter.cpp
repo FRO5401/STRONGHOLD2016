@@ -11,14 +11,14 @@
 #include <Commands/ShooterOverride.h>
 
 //Sensor parameters
-const double FwdSpeed 			= 0.5;
-const double ShooterResetDwell	= 0.01;
+const double FwdSpeed 			= 0.95;
+const double ShooterResetDwell	= 1;
 //Encoder Constant
 //Variable to convert pulse to degrees
-double ShooterDistancePerPulseValue = 0;
+double ShooterDistancePerPulseValue = 0.2682;
 //The degrees from starting position for the angle to shoot
-double ShooterFiredPosition = 0;
-double ShooterCockedPosition = 0;
+double ShooterFiredPosition = 89;
+double ShooterCockedPosition = 350;
 
 Shooter::Shooter() :
 		Subsystem("Shooter")
@@ -41,7 +41,7 @@ void Shooter::InitDefaultCommand()
 
 void Shooter::Shoot() //Shoots the ball
 {
-	while((ShooterEnc -> GetDistance()) != ShooterCockedPosition)
+	/*while((ShooterEnc -> GetDistance()) != ShooterCockedPosition)
 	{
 		//Automatically moves the motor when function is called
 		ShooterMotor	->	Set(FwdSpeed);
@@ -69,6 +69,21 @@ void Shooter::Shoot() //Shoots the ball
 		Wait(ShooterResetDwell);
 		ShooterMotor -> Set(0);
 	}
+*/
+	while (ShooterEnc -> GetDistance() < ShooterFiredPosition){
+		ShooterMotor -> Set(FwdSpeed);
+	}
+	Wait(ShooterResetDwell);
+	while (ShooterEnc -> GetDistance() < ShooterCockedPosition){
+		ShooterMotor -> Set(FwdSpeed);
+	}
+	ShooterMotor -> Set(0);
+
+	SmartDashboard::PutNumber("Distance Per Pulse Value in Degrees for Shooter", ShooterDistancePerPulseValue);
+	SmartDashboard::PutNumber("Position of Shooter After Being Fired", ShooterFiredPosition);
+	SmartDashboard::PutNumber("Position of Shooter Being Cocked", ShooterCockedPosition);
+	SmartDashboard::PutNumber("Shooter Encoder", ShooterEnc ->GetDistance());
+
 /* Original design - may remove the loop
  * Loop
  * Check encoder is at its initial set point (cocked - constant)
@@ -89,3 +104,6 @@ void Shooter::Override(double Input)
 	SmartDashboard::PutNumber("Shooter Encoder", ShooterEnc ->Get());
 }
 
+void Shooter::Reset(){
+	ShooterEnc -> Reset();
+}
