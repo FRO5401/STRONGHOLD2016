@@ -6,6 +6,7 @@
 #include "Commands/XboxMove.h"
 #include "Commands/XboxMove.h"
 #include "Commands/AbortReach.h"
+#include "Commands/AutoLaunch.h"
 #include "Commands/ChargeCompressor.h"
 #include "Commands/DeployHook.h"
 #include "Commands/DrivingWithEncoderInput.h"
@@ -83,7 +84,8 @@ OI::OI()
 	MOHLeftBumper   -> WhenReleased(new FeederStop());
 	
 	//TODO Add buttons for targeting and shooting
-
+	XboxA			-> WhenPressed(new LockTarget());
+	XboxX			-> WhenPressed(new AutoLaunch());
 	//MOHButtonTriangle -> AquireTarget;
 	//MOHButtonSquare   -> Shoot;
 
