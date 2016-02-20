@@ -198,7 +198,7 @@ void OI::SendMOHRumble(int j){
 }
 
 bool OI::GetMOHButtonStart(){
-	return MedalOfHonorController	->	GetRawButton(MOHStart_ID);
+	return MedalOfHonorController	->	GetRawButton(MOHStartID);
 }
 
 double OI::ReadMOHRightStickY(){
