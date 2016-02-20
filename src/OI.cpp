@@ -82,7 +82,6 @@ OI::OI()
 
 	MOHLeftBumper	-> WhenPressed(new FeedOutFromInner());
 	MOHLeftBumper   -> WhenReleased(new FeederStop());
-<<<<<<< HEAD
 	
 	//TODO Add buttons for targeting and shooting
 	XboxA			-> WhenPressed(new LockTarget());
@@ -90,8 +89,6 @@ OI::OI()
 	//MOHButtonTriangle -> AquireTarget;
 	//MOHButtonSquare   -> Shoot;
 
-=======
->>>>>>> origin/NewMaster
 }
 
 //Defines the functions for the axis's declared in the h file
