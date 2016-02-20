@@ -24,12 +24,13 @@ void RelaySys::TurnOff()
 	LightRing -> Set(Relay::Value::kOff);
 }
 
-void RelaySys::ShootLights()
+void RelaySys::ShootLights(int j)
 {
-	for ( int i = 0; i < 5; i++ ) {
+	float timing = (1/6); //NASA says eye is most sensitive to lights between 4-8 Hz, therefore setting to 6 Hz
+	for ( int i = 0; i < j; i++ ) {
 		CarriageLights ->	Set(Relay::Value::kOn);
-		Wait(0.1);
+		Wait(timing);
 		CarriageLights -> 	Set(Relay::Value::kOff);
-		Wait(0.1);
+		Wait(timing);
 	}
 }

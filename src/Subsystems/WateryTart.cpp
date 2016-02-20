@@ -22,6 +22,17 @@
 	};
 //	double XFirstPixel, YFirstPixel, XUpLeftCorner, YUpLeftCorner, XDownRightCorner, YDownRightCorner, RectHeight, RectWidth, Aspect;
 	const float PixelAngleScale = 10;	//Pixels per degree angle, measured and subject to adjustment
+	/*
+	 * Target info - synch with WateryTart
+	 */
+	const int TargetX		= 100;
+	const int TargetY		= 50;
+	const int TargetWidth	= 100;
+	const int TargetHeight	= 50;
+	/************
+	 * End Target info
+	 ************/
+
 
 //	IMAQdxSession session;
 	IMAQdxError imaqErrorEnum;
@@ -176,7 +187,8 @@ float WateryTart::Search(Range Hue, Range Sat, Range Val, float AreaIn, float As
 
 		double distance =  targetWidth/(normalizedWidth*12*tan(VIEW_ANGLE*M_PI/(180*2)));
 		SmartDashboard::PutNumber("Distance", distance);
-		}
+		Angle = (XUpLeftCorner - TargetX)/ PixelAngleScale;
+		}//TODO Version 2, try not to have to run this whole thing a second time
 //	} else {
 //		SmartDashboard::PutBoolean("IsTarget", false);
 //	}

@@ -93,7 +93,19 @@ private:
 	Command *autonomousCommand;
 	LiveWindow *lw;
 	SendableChooser *autoMode;
-
+	IMAQdxSession RunningSession;
+	Image *frame;
+	IMAQdxError imaqError;
+	/*
+	 * Target info - synch with WateryTart
+	 */
+	int TargetX = 100;
+	int TargetY = 50;
+	int TargetWidth	=	100;
+	int TargetHeight = 	50;
+	/************
+	 * End Target info
+	 ************/
 
 	void RobotInit()
 	{
@@ -113,10 +125,26 @@ private:
 //		autoMode->AddObject("SpyBot", new AutonomousSpyBot()); //Restore when command is written, plus need one for each position
 		SmartDashboard::PutData("Autonomous Mode", autoMode);
 
-
-
-//		CameraServer::GetInstance() -> SetQuality(50);
-//		CameraServer::GetInstance() -> StartAutomaticCapture("cam0");
+//Option 1 code start ========= This will display the camera and draw a shape on it - hopefully to show our targeting area
+	    // create an image
+		frame = imaqCreateImage(IMAQ_IMAGE_RGB, 0);
+		//the camera name (ex "cam0") can be found through the roborio web interface
+		imaqError = IMAQdxOpenCamera("cam0", IMAQdxCameraControlModeController, &RunningSession);
+		if(imaqError != IMAQdxErrorSuccess) {
+			DriverStation::ReportError("IMAQdxOpenCamera error: " + std::to_string((long)imaqError) + "\n");
+		}
+		imaqError = IMAQdxConfigureGrab(RunningSession);
+		if(imaqError != IMAQdxErrorSuccess) {
+			DriverStation::ReportError("IMAQdxConfigureGrab error: " + std::to_string((long)imaqError) + "\n");
+		}
+//Option 1 code end ==============
+/*
+//Option 2 code start ============ This will just display the camera, but is much simpler and may not conflict
+		CameraServer::GetInstance() -> SetQuality(50);
+		CameraServer::GetInstance() -> StartAutomaticCapture("cam0");
+//Option 2 code end ===============
+ *
+ */
 	}
 	
 	void DisabledPeriodic()
@@ -143,11 +171,24 @@ private:
 		// this line or comment it out.
 		if (autonomousCommand != NULL)
 			autonomousCommand->Cancel();
+		IMAQdxStartAcquisition(RunningSession);
 	}
 
 	void TeleopPeriodic()
 	{
+
 		Scheduler::GetInstance()->Run();
+        // grab an image, draw the circle, and provide it for the camera server which will
+        // in turn send it to the dashboard.
+		while(IsOperatorControl() && IsEnabled()) {
+			IMAQdxGrab(RunningSession, frame, true, NULL);
+			if(imaqError != IMAQdxErrorSuccess) {
+				DriverStation::ReportError("IMAQdxGrab error: " + std::to_string((long)imaqError) + "\n");
+			} else {
+				imaqDrawShapeOnImage(frame, frame, { TargetY, TargetX, TargetHeight, TargetWidth }, DrawMode::IMAQ_DRAW_VALUE, ShapeMode::IMAQ_SHAPE_OVAL, 0.0f);
+				CameraServer::GetInstance()->SetImage(frame);
+			}
+		}
 	}
 
 	void TestPeriodic()
