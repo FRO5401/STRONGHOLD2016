@@ -16,9 +16,11 @@ void UpAndDownInfeeder::Execute()
 {
 	//Plans on needing to WhilePressed() either the joystick or D-pad
 	//Gets the value of up or down
-	double UpOrDownValue = oi -> GetUpOrDownValueInfeeder();
-	//Tells the Infeeder to go up or down
-	spt -> UpAndDown(UpOrDownValue);
+	if (!oi->GetMOHButtonL3()){
+		double UpOrDownValue = oi -> GetUpOrDownValueInfeeder();
+		//Tells the Infeeder to go up or down
+		spt -> UpAndDown(UpOrDownValue);
+	}
 
 }
 

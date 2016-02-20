@@ -209,3 +209,9 @@ double OI::ReadMOHRightStickY(){
 bool OI::GetMOHRightStickButton(){ //probably not used
 	return MedalOfHonorController -> GetRawButton(12);
 }
+
+bool OI::GetMOHButtonL3(){
+	return MedalOfHonorController -> GetRawButton(MOHL3_ID);
+}
+
+

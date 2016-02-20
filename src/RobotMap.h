@@ -49,6 +49,7 @@ const int XboxR3_ID		=	10;
 const int Back_ID		=	7;
 const int XboxL3_ID		=	9;
 const int MOHStartID	=	10;
+const int MOHL3_ID		= 	11;
 
 /****************
  * End Controllers
