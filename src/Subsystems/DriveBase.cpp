@@ -126,20 +126,12 @@ void DriveBase::AutoDriveDistance(float DesiredDistance){
 //	DesiredDistance = DashAutoDistance;
 
 	EncoderReset();
-	float Distance = ((LeftEnc -> GetDistance() + RightEnc -> GetDistance())/2.0); //Average the two sensor inputs
-	/*while (fabs(DesiredDistance - Distance) > AutoDistThresh){
-		if (fabs(DesiredDistance - Distance) > AutoDistThresh){
-			Drive(AutoDriveSpeed, AutoDriveSpeed);
-		} else if (fabs(DesiredDistance - Distance) < -AutoDistThresh){
-			Drive(-1 * AutoDriveSpeed, -1 * AutoDriveSpeed);
-		 	}
-		Distance = ((LeftEnc -> GetDistance() + RightEnc -> GetDistance())/2.0);
-	}*/
+
 	float DistanceTraveled = 0;
 	if (fabs(DesiredDistance) <= AutoDistThresh){
 		std::cout << "DesiredDistance to small!!!\n";
 	} else {
-		while (DistanceTraveled < fabs(DesiredDistance) - AutoDistThresh){
+		while ((DesiredDistance > 0) ? (DistanceTraveled < fabs(DesiredDistance) - AutoDistThresh) : (DistanceTraveled > AutoDistThresh - fabs(DesiredDistance))){
 			if (DesiredDistance > 0){ //DesiredDistance is positive, go forward
 				Drive(AutoDriveSpeed, AutoDriveSpeed);
 			} else if (DesiredDistance < 0){ //DesiredDistance is negative, go backward
