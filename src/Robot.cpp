@@ -86,6 +86,8 @@
 #include "Autonomous/AutonomousRockWall.h"
 #include "Autonomous/AutonomousRoughTerrain.h"
 
+#include "Commands/DriveForward.h"
+
 //2016 Stronghold code
 class Robot: public IterativeRobot
 {
@@ -96,6 +98,9 @@ private:
 	IMAQdxSession RunningSession;
 	Image *frame;
 	IMAQdxError imaqError;
+
+	std::unique_ptr<Command> AutoDriveForward{new DriveForward()};
+
 	/*
 	 * Target info - synch with WateryTart
 	 */
@@ -123,7 +128,11 @@ private:
 		autoMode->AddObject("Rock Wall", new AutonomousRockWall());
 		autoMode->AddObject("Rough Terrain", new AutonomousRoughTerrain());
 //		autoMode->AddObject("SpyBot", new AutonomousSpyBot()); //Restore when command is written, plus need one for each position
-		SmartDashboard::PutData("Autonomous Mode", autoMode);
+//		SmartDashboard::PutData("Autonomous Mode", autoMode);
+
+		//Commands for SmartDashboard
+		autoMode->AddObject("Drive Forward", AutoDriveForward.get());
+		SmartDashboard::PutData("Auto Mode", autoMode);
 
 //Option 1 code start ========= This will display the camera and draw a shape on it - hopefully to show our targeting area
 /*	    // create an image

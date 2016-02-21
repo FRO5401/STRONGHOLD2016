@@ -4,6 +4,10 @@ DriveForward::DriveForward()
 {
 	// Use Requires() here to declare subsystem dependencies
 	Requires(drivebase);
+	distance = 0; //might be able to be done in .h
+	SmartDashboard::PutNumber("Desired AutoDrive Distance(ft)", distance);
+	distance = SmartDashboard::GetNumber("Desired AutoDrive Distance(ft)", distance);
+
 }
 
 // Called just before this Command runs the first time
@@ -15,7 +19,7 @@ void DriveForward::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void DriveForward::Execute()
 {
-	drivebase -> AutoDriveDistance(12.0);
+	drivebase -> AutoDriveDistance(distance);
 }
 
 // Make this return true when this Command no longer needs to run execute()

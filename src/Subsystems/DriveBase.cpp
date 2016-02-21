@@ -10,7 +10,7 @@
 #include <Commands/XboxMove.h>
 #include <Commands/DriveForward.h>
 
-const double DPPLeft		= (-1/76.6); 		//TODO Must tune this
+const double DPPLeft		= (-1/76.6); 		//TODO Must tune this and change to inches!
 const double DPPRight		= (1/76.2);
 const float GyroScalar		= 10; 		//Preliminarily tuned
 const float GyroLinearAdj	= -0.696; 	//Adjusts for Gyro Creep = m
@@ -20,7 +20,7 @@ float initialGyro			= 0;
 const double AutoDriveSpeed	= 0.5;
 const double AutoTurnSpeed	= 0.5;
 const double AngleThreshold	= 2; 		//Turn angle in degrees //TODO Must tune this
-const double AutoDistThresh	= 2; 		//Distance threshold in inches //TODO Must tune this
+const double AutoDistThresh	= (2/12);//2inches 		//Distance threshold in inches //TODO Must tune this
 
 DriveBase::DriveBase() :
 		Subsystem("DriveBase")
