@@ -126,20 +126,40 @@ void DriveBase::AutoDriveDistance(float DesiredDistance){
 //	DesiredDistance = DashAutoDistance;
 
 	EncoderReset();
-	float Distance = ((LeftEnc -> GetDistance() + RightEnc -> GetDistance())/2); //Average the two sensor inputs
-	while (fabs(DesiredDistance - Distance) > AutoDistThresh){
+	float Distance = ((LeftEnc -> GetDistance() + RightEnc -> GetDistance())/2.0); //Average the two sensor inputs
+	/*while (fabs(DesiredDistance - Distance) > AutoDistThresh){
 		if (fabs(DesiredDistance - Distance) > AutoDistThresh){
 			Drive(AutoDriveSpeed, AutoDriveSpeed);
 		} else if (fabs(DesiredDistance - Distance) < -AutoDistThresh){
 			Drive(-1 * AutoDriveSpeed, -1 * AutoDriveSpeed);
 		 	}
-		Distance = ((LeftEnc -> GetDistance() + RightEnc -> GetDistance())/2);
+		Distance = ((LeftEnc -> GetDistance() + RightEnc -> GetDistance())/2.0);
+	}*/
+	float DistanceTraveled = 0;
+	if (fabs(DesiredDistance) <= AutoDistThresh){
+		std::cout << "DesiredDistance to small!!!\n";
+	} else {
+		while (DistanceTraveled < fabs(DesiredDistance) - AutoDistThresh){
+			if (DesiredDistance > 0){ //DesiredDistance is positive, go forward
+				Drive(AutoDriveSpeed, AutoDriveSpeed);
+			} else if (DesiredDistance < 0){ //DesiredDistance is negative, go backward
+				Drive(-AutoDriveSpeed, -AutoDriveSpeed);
+			} else { //error or exactly 0
+				std::cout << "AutoDriveDistance Error!!!\n";
+				break;
+			}
+			DistanceTraveled = ((LeftEnc -> GetDistance() + RightEnc -> GetDistance())/2.0);
+		}
 	}
 }
 
   void DriveBase::EncoderReset(){
 	  LeftEnc -> Reset();
 	  RightEnc -> Reset();
+
+	  //Might not be needed
+	  LeftEnc 	-> SetDistancePerPulse(DPPLeft);
+	  RightEnc 	-> SetDistancePerPulse(DPPRight);
   }
 
 float DriveBase::AutoTurnToAngle(float DesiredAngle)//Turns to an absolute angle based on encoder calibration

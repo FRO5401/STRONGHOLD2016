@@ -38,7 +38,7 @@ void XboxMove::Execute()
 	
 	double Right,Left, Sensitivity;
 	if (oi->GetMOHButtonStart()){
-
+		drivebase -> AutoDriveDistance(12.0);
 	}
 	if (Precision) { //Sets drive precision based on RobotMap and Precision Mode
 		Sensitivity	=	Drive_Sensitivity_Precise;
