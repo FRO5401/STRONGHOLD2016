@@ -158,16 +158,17 @@ if ((RawErr >= 0 && RawErr <=180) || (RawErr >= -360 && RawErr <= -180)) {//Dete
 float DriveBase::AutoTurnAngle(float DesiredTurnAngle)	//Turns a number of degrees relative to current position
 {
 	  float GyroAngle = ReportGyro();
-	  while (fabs(DesiredTurnAngle - GyroAngle) > AngleThreshold)
+	  float FinalAngle = GyroAngle + DesiredTurnAngle;
+	  while (fabs(FinalAngle - GyroAngle) > AngleThreshold)
 	  {
-		  if ((DesiredTurnAngle - GyroAngle) > AngleThreshold) {
+		  if ((FinalAngle - GyroAngle) > AngleThreshold) {
 			  Drive(AutoTurnSpeed, -AutoTurnSpeed);
-		  } 	else if ((DesiredTurnAngle - GyroAngle) < AngleThreshold) {
+		  } 	else if ((FinalAngle - GyroAngle) < AngleThreshold) {
 			  	  Drive(-AutoTurnSpeed, AutoTurnSpeed);
 				}
 		GyroAngle = ReportGyro();
 	}
-	return (DesiredTurnAngle - GyroAngle); //return the final delta
+	return (FinalAngle - GyroAngle); //return the final delta
 }
 float DriveBase::ReportGyro()
 {

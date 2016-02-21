@@ -23,7 +23,7 @@
 //	double XFirstPixel, YFirstPixel, XUpLeftCorner, YUpLeftCorner, XDownRightCorner, YDownRightCorner, RectHeight, RectWidth, Aspect;
 	const float PixelAngleScale = 10;	//Pixels per degree angle, measured and subject to adjustment
 	/*
-	 * Target info - synch with WateryTart
+	 * Target info - synch with Robot.cpp
 	 */
 	const int TargetX		= 100;
 	const int TargetY		= 50;
@@ -115,13 +115,12 @@ float WateryTart::Search(Range Hue, Range Sat, Range Val, float AreaIn, float As
 //This is the box along the left side
 //	imaqError = imaqDrawShapeOnImage(frame, frame, {0, 0, 600, 70}, DrawMode::IMAQ_PAINT_INVERT, ShapeMode::IMAQ_SHAPE_RECT, 0.0f);
 
-//XXX	LCameraServer::GetInstance()->SetImage(frame);  //Send original image to dashboard to assist in tweaking mask.
+	LCameraServer::GetInstance()->SetImage(frame);  //Send original image to dashboard to assist in tweaking mask.
 	Wait(WaitTime); //Part of test code to cycle between the filtered image and the color image
 	imaqError = imaqCopyRect(SecondFrame, frame, {135, 70, 465, 770}, {0, 0});
 	imaqError = imaqSetImageSize(SecondFrame, 840, 600);
-//XXX	LCameraServer::GetInstance()->SetImage(SecondFrame);  //Send original image to dashboard to assist in tweaking mask.
+	LCameraServer::GetInstance()->SetImage(SecondFrame);  //Send original image to dashboard to assist in tweaking mask.
 	Wait(WaitTime); //Part of test code to cycle between the filtered image and the color image
-
 
 	//Threshold the image looking for ring light color
 	imaqError = imaqColorThreshold(binaryFrame, SecondFrame, 255, IMAQ_RGB, &Hue, &Sat, &Val);
@@ -132,7 +131,7 @@ float WateryTart::Search(Range Hue, Range Sat, Range Val, float AreaIn, float As
 	SmartDashboard::PutNumber("Masked particles", numParticles);
 
 	//Replaces the SendtoDashboard function without error handling
-//XXX	LCameraServer::GetInstance()->SetImage(binaryFrame); //Send masked image to dashboard to assist in tweaking mask.
+	LCameraServer::GetInstance()->SetImage(binaryFrame); //Send masked image to dashboard to assist in tweaking mask.
 	Wait(WaitTime); //Part of test code to cycle between the filtered image and the color image
 
 	//filter out small particles
@@ -140,8 +139,6 @@ float WateryTart::Search(Range Hue, Range Sat, Range Val, float AreaIn, float As
 //	criteria[0] = {IMAQ_MT_AREA_BY_IMAGE_AREA, areaMin, 100, false, false};
 	criteria[0] = {IMAQ_MT_AREA_BY_IMAGE_AREA, AreaIn, 100, false, false};
 	imaqError = imaqParticleFilter4(binaryFrame, binaryFrame, criteria, 1, &filterOptions, NULL, NULL);
-
-
 
 	if(numParticles > 0) {
 
@@ -171,8 +168,8 @@ float WateryTart::Search(Range Hue, Range Sat, Range Val, float AreaIn, float As
 //		SmartDashboard::PutBoolean("IsTarget", isTarget);
 //		double WateryTart::computeDistance (Image *image, ParticleReport report) {
 
-//XXX		imaqError = imaqDrawShapeOnImage(TargetFrame, binaryFrame, {YUpLeftCorner, XUpLeftCorner, RectWidth, RectHeight}, DrawMode::IMAQ_DRAW_INVERT, ShapeMode::IMAQ_SHAPE_RECT, 0.0f);
-//XXX		LCameraServer::GetInstance()->SetImage(TargetFrame); //Send masked image to dashboard to assist in tweaking mask.
+		imaqError = imaqDrawShapeOnImage(TargetFrame, binaryFrame, {YUpLeftCorner, XUpLeftCorner, RectWidth, RectHeight}, DrawMode::IMAQ_DRAW_INVERT, ShapeMode::IMAQ_SHAPE_RECT, 0.0f);
+		LCameraServer::GetInstance()->SetImage(TargetFrame); //Send masked image to dashboard to assist in tweaking mask.
 		Wait(WaitTime); //Part of test code to cycle between the filtered image and the color image
 
 		double normalizedWidth, targetWidth;
@@ -191,6 +188,7 @@ float WateryTart::Search(Range Hue, Range Sat, Range Val, float AreaIn, float As
 //	} else {
 //		SmartDashboard::PutBoolean("IsTarget", false);
 //	}
+	SmartDashboard::PutNumber("Angle", Angle);
 	return Angle;
   }
 

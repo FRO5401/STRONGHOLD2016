@@ -9,14 +9,13 @@
 //Range RING_HUE_RANGE;// = {0	, 96};	//Default hue range for ring light R
 //Range RING_SAT_RANGE;// = {110	, 255};	//Default saturation range for ring light G
 //Range RING_VAL_RANGE;// = {110	, 255};	//Default value range for ring light B
-//double ImgLatency;
 
 LockTarget::LockTarget()
 {
-	Range RING_HUE_RANGE = {0	, 96};	//Default hue range for ring light R
-	Range RING_SAT_RANGE = {110	, 255};	//Default saturation range for ring light G
-	Range RING_VAL_RANGE = {110	, 255};	//Default value range for ring light B
-	ImgLatency = 0;
+	RING_HUE_RANGE = {245	, 250};	//Default hue range for ring light R
+	RING_SAT_RANGE = {250	, 255};	//Default saturation range for ring light G
+	RING_VAL_RANGE = {245	, 248};	//Default value range for ring light B
+	ImgLatency = 1;
 	Area = 0.5;
 	Aspect = 0.5;
 	Angle 		= 0;
