@@ -20,7 +20,11 @@
 		double Area;
 		double Aspect;
 	};
-//	double XFirstPixel, YFirstPixel, XUpLeftCorner, YUpLeftCorner, XDownRightCorner, YDownRightCorner, RectHeight, RectWidth, Aspect;
+
+	BCGOptions_struct R_options;
+	BCGOptions_struct G_options;
+	BCGOptions_struct B_options;
+	//	double XFirstPixel, YFirstPixel, XUpLeftCorner, YUpLeftCorner, XDownRightCorner, YDownRightCorner, RectHeight, RectWidth, Aspect;
 	const float PixelAngleScale = 10;	//Pixels per degree angle, measured and subject to adjustment
 	/*
 	 * Target info - synch with Robot.cpp
@@ -80,6 +84,17 @@ void WateryTart::InitDefaultCommand()
  */
 float WateryTart::Search(Range Hue, Range Sat, Range Val, float AreaIn, float AspectIn, double WaitTime)
   {
+	R_options.brightness = 32;
+	R_options.contrast = 45;
+	R_options.gamma = 1.0;
+
+	G_options.brightness = 32;
+	G_options.contrast = 45;
+	G_options.gamma = 1.0;
+
+	B_options.brightness = 16;
+	B_options.contrast = 45;
+	B_options.gamma = 1.0;
 	double XFirstPixel, YFirstPixel, XUpLeftCorner, YUpLeftCorner, XDownRightCorner, YDownRightCorner, RectHeight, RectWidth, Aspect = 0;
 	double Angle = -180;
 	int Particle_No = 0;
@@ -90,6 +105,10 @@ float WateryTart::Search(Range Hue, Range Sat, Range Val, float AreaIn, float As
 	SmartDashboard::PutNumber("Tote sat max", Sat.maxValue);
 	SmartDashboard::PutNumber("Tote val min", Val.minValue);
 	SmartDashboard::PutNumber("Tote val max", Val.maxValue);
+	SmartDashboard::PutNumber("RBrightness", R_options.brightness);
+	SmartDashboard::PutNumber("GBrightness", G_options.brightness);
+	SmartDashboard::PutNumber("BBrightness", B_options.brightness);
+
 	SmartDashboard::PutNumber("Target Area min %", AreaIn);
 	SmartDashboard::PutNumber("Target Aspect %", AspectIn);
 	SmartDashboard::PutNumber("Wait Time", WaitTime);
@@ -121,6 +140,13 @@ float WateryTart::Search(Range Hue, Range Sat, Range Val, float AreaIn, float As
 	imaqError = imaqSetImageSize(SecondFrame, 840, 600);
 	LCameraServer::GetInstance()->SetImage(SecondFrame);  //Send original image to dashboard to assist in tweaking mask.
 	Wait(WaitTime); //Part of test code to cycle between the filtered image and the color image
+//XXX
+	SmartDashboard::GetNumber("RBrightness", R_options.brightness);
+	SmartDashboard::GetNumber("GBrightness", G_options.brightness);
+	SmartDashboard::GetNumber("BBrightness", B_options.brightness);
+	imaqError = imaqColorBCGTransform(SecondFrame, SecondFrame, &R_options, &G_options, &B_options, NULL);
+	LCameraServer::GetInstance() -> SetImage(SecondFrame);
+	Wait(WaitTime);
 
 	//Threshold the image looking for ring light color
 	imaqError = imaqColorThreshold(binaryFrame, SecondFrame, 255, IMAQ_RGB, &Hue, &Sat, &Val);
@@ -135,9 +161,9 @@ float WateryTart::Search(Range Hue, Range Sat, Range Val, float AreaIn, float As
 	Wait(WaitTime); //Part of test code to cycle between the filtered image and the color image
 
 	//filter out small particles
-//	float areaMin = SmartDashboard::GetNumber("Area min %", AREA_MINIMUM);
-//	criteria[0] = {IMAQ_MT_AREA_BY_IMAGE_AREA, areaMin, 100, false, false};
-	criteria[0] = {IMAQ_MT_AREA_BY_IMAGE_AREA, AreaIn, 100, false, false};
+	float areaMin = SmartDashboard::GetNumber("Area min %", AreaIn);
+	criteria[0] = {IMAQ_MT_AREA_BY_IMAGE_AREA, areaMin, 100, false, false};
+//	criteria[0] = {IMAQ_MT_AREA_BY_IMAGE_AREA, AreaIn, 100, false, false};
 	imaqError = imaqParticleFilter4(binaryFrame, binaryFrame, criteria, 1, &filterOptions, NULL, NULL);
 
 	if(numParticles > 0) {
@@ -168,7 +194,7 @@ float WateryTart::Search(Range Hue, Range Sat, Range Val, float AreaIn, float As
 //		SmartDashboard::PutBoolean("IsTarget", isTarget);
 //		double WateryTart::computeDistance (Image *image, ParticleReport report) {
 
-		imaqError = imaqDrawShapeOnImage(TargetFrame, binaryFrame, {YUpLeftCorner, XUpLeftCorner, RectWidth, RectHeight}, DrawMode::IMAQ_DRAW_INVERT, ShapeMode::IMAQ_SHAPE_RECT, 0.0f);
+		imaqError = imaqDrawShapeOnImage(TargetFrame, binaryFrame, {YUpLeftCorner, XUpLeftCorner, RectWidth, RectHeight}, DrawMode::IMAQ_PAINT_INVERT, ShapeMode::IMAQ_SHAPE_RECT, 0.0f);
 		LCameraServer::GetInstance()->SetImage(TargetFrame); //Send masked image to dashboard to assist in tweaking mask.
 		Wait(WaitTime); //Part of test code to cycle between the filtered image and the color image
 

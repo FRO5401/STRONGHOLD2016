@@ -6,15 +6,12 @@
 
 #include <Commands/LockTarget.h>
 #include "RobotMap.h"
-//Range RING_HUE_RANGE;// = {0	, 96};	//Default hue range for ring light R
-//Range RING_SAT_RANGE;// = {110	, 255};	//Default saturation range for ring light G
-//Range RING_VAL_RANGE;// = {110	, 255};	//Default value range for ring light B
 
 LockTarget::LockTarget()
 {
-	RING_HUE_RANGE = {245	, 250};	//Default hue range for ring light R
-	RING_SAT_RANGE = {250	, 255};	//Default saturation range for ring light G
-	RING_VAL_RANGE = {245	, 248};	//Default value range for ring light B
+	RING_HUE_RANGE = {240	, 255};	//Default hue range for ring light R
+	RING_SAT_RANGE = {225	, 255};	//Default saturation range for ring light G
+	RING_VAL_RANGE = {0	, 248};	//Default value range for ring light B
 	ImgLatency = 1;
 	Area = 0.5;
 	Aspect = 0.5;
@@ -40,8 +37,8 @@ void LockTarget::Execute(){
 	RING_SAT_RANGE.maxValue = SmartDashboard::GetNumber("Tote sat max", RING_SAT_RANGE.maxValue);
 	RING_VAL_RANGE.minValue = SmartDashboard::GetNumber("Tote val min", RING_VAL_RANGE.minValue);
 	RING_VAL_RANGE.maxValue = SmartDashboard::GetNumber("Tote val max", RING_VAL_RANGE.maxValue);
-	Area					 = SmartDashboard::GetNumber("Desired Area min %", Area);
-	Aspect					 = SmartDashboard::GetNumber("Desired Aspect Ratio", Aspect);//Unused right now
+	Area					 = SmartDashboard::GetNumber("Target Area min %", Area);
+	Aspect					 = SmartDashboard::GetNumber("Target Aspect Ratio", Aspect);//Unused right now
 	relaysys	->TurnOn();
 	Angle = waterytart	->	Search(RING_HUE_RANGE, RING_SAT_RANGE, RING_VAL_RANGE, Area, Aspect, ImgLatency);
 	if (fabs(Angle) < AngleRange){
