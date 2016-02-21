@@ -37,7 +37,9 @@ void XboxMove::Execute()
 	bool 	Turn		= 	oi	->	GetButtonL3();
 	
 	double Right,Left, Sensitivity;
+	if (oi->GetMOHButtonStart()){
 
+	}
 	if (Precision) { //Sets drive precision based on RobotMap and Precision Mode
 		Sensitivity	=	Drive_Sensitivity_Precise;
 	} else {

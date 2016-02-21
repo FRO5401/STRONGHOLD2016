@@ -8,6 +8,7 @@
 #include "DriveBase.h"
 #include "../RobotMap.h"
 #include <Commands/XboxMove.h>
+#include <Commands/DriveForward.h>
 
 const double DPPLeft		= (-1/76.6); 		//TODO Must tune this
 const double DPPRight		= (1/76.2);

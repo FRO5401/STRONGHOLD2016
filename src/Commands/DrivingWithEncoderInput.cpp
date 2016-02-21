@@ -10,6 +10,7 @@ DrivingWithEncoderInput::DrivingWithEncoderInput()
 void DrivingWithEncoderInput::Initialize()
 {
 //	drivebase -> EncoderDrive(); //KJM Not sure we want to call this from initialization
+//	drivebase -> Reset();	//Can't do this in final code as gyro will get reset again when we go into teleop
 }
 
 // Called repeatedly when this Command is scheduled to run
