@@ -23,7 +23,7 @@
 //	double XFirstPixel, YFirstPixel, XUpLeftCorner, YUpLeftCorner, XDownRightCorner, YDownRightCorner, RectHeight, RectWidth, Aspect;
 	const float PixelAngleScale = 10;	//Pixels per degree angle, measured and subject to adjustment
 	/*
-	 * Target info - synch with WateryTart
+	 * Target info - synch with Robot.cpp
 	 */
 	const int TargetX		= 100;
 	const int TargetY		= 50;
@@ -122,7 +122,6 @@ float WateryTart::Search(Range Hue, Range Sat, Range Val, float AreaIn, float As
 	LCameraServer::GetInstance()->SetImage(SecondFrame);  //Send original image to dashboard to assist in tweaking mask.
 	Wait(WaitTime); //Part of test code to cycle between the filtered image and the color image
 
-
 	//Threshold the image looking for ring light color
 	imaqError = imaqColorThreshold(binaryFrame, SecondFrame, 255, IMAQ_RGB, &Hue, &Sat, &Val);
 
@@ -140,8 +139,6 @@ float WateryTart::Search(Range Hue, Range Sat, Range Val, float AreaIn, float As
 //	criteria[0] = {IMAQ_MT_AREA_BY_IMAGE_AREA, areaMin, 100, false, false};
 	criteria[0] = {IMAQ_MT_AREA_BY_IMAGE_AREA, AreaIn, 100, false, false};
 	imaqError = imaqParticleFilter4(binaryFrame, binaryFrame, criteria, 1, &filterOptions, NULL, NULL);
-
-
 
 	if(numParticles > 0) {
 
