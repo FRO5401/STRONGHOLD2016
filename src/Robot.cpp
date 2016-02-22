@@ -99,7 +99,7 @@ private:
 	Image *frame;
 	IMAQdxError imaqError;
 
-	std::unique_ptr<Command> AutoDriveForward{new DriveForward()};
+//	std::unique_ptr<Command> AutoDriveForward{new DriveForward()};
 
 	/*
 	 * Target info - synch with WateryTart
@@ -131,7 +131,8 @@ private:
 //		SmartDashboard::PutData("Autonomous Mode", autoMode);
 
 		//Commands for SmartDashboard
-		autoMode->AddObject("Drive Forward", AutoDriveForward.get());
+	//	autoMode->AddObject("Drive Forward", AutoDriveForward.get());
+		autoMode->AddObject("Drive Forward", new DriveForward());
 		SmartDashboard::PutData("Auto Mode", autoMode);
 
 //Option 1 code start ========= This will display the camera and draw a shape on it - hopefully to show our targeting area

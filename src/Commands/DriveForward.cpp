@@ -6,7 +6,7 @@ DriveForward::DriveForward()
 	Requires(drivebase);
 	distance = 0; //might be able to be done in .h
 	SmartDashboard::PutNumber("Desired AutoDrive Distance(ft)", distance);
-	distance = SmartDashboard::GetNumber("Desired AutoDrive Distance(ft)", distance);
+	//distance = SmartDashboard::GetNumber("Desired AutoDrive Distance(ft)", distance);
 
 }
 
@@ -19,13 +19,19 @@ void DriveForward::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void DriveForward::Execute()
 {
+	distance = SmartDashboard::GetNumber("Desired AutoDrive Distance(ft)", distance);
 	drivebase -> AutoDriveDistance(distance);
+	distance = -1;
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool DriveForward::IsFinished()
 {
-	return false;
+	if (distance == -1){
+		return true;
+	} else {
+		return false;
+	}
 }
 
 // Called once after isFinished returns true
