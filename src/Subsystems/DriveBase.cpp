@@ -10,8 +10,8 @@
 #include <Commands/XboxMove.h>
 #include <Commands/DriveForward.h>
 
-const double DPPLeft		= (-1/76.6); 		//TODO Must tune this and change to inches!
-const double DPPRight		= (1/76.2);
+const double DPPLeft		= (-1/6.318); 		//TODO Must tune this and change to inches!
+const double DPPRight		= (1/6.318);
 const float GyroScalar		= 10; 		//Preliminarily tuned
 const float GyroLinearAdj	= -0.696; 	//Adjusts for Gyro Creep = m
 const float GyroOffset		= -6.1395;	// = b
@@ -20,7 +20,7 @@ float initialGyro			= 0;
 const double AutoDriveSpeed	= 0.5;
 const double AutoTurnSpeed	= 0.5;
 const double AngleThreshold	= 2; 		//Turn angle in degrees //TODO Must tune this
-const double AutoDistThresh	= (2/12);//2inches 		//Distance threshold in inches //TODO Must tune this
+const double AutoDistThresh	= 2;//2inches 		//Distance threshold in inches //TODO Must tune this
 
 DriveBase::DriveBase() :
 		Subsystem("DriveBase")
@@ -39,6 +39,9 @@ DriveBase::DriveBase() :
 	double DashAutoDistance = 0;//Remove or comment this and below it, this is for calibrating the auto drive
 	SmartDashboard::PutNumber("Distance for Encoder Drive", DashAutoDistance);
 	SmartDashboard::PutNumber("Initial Gyro Value", initialGyro);
+
+	kP = 0;
+	SmartDashboard::PutNumber("kP Value", kP);
 
 	MainGyro	= new ADXRS450_Gyro();
  	DS_ForDriveBase -> GetInstance();
@@ -62,6 +65,9 @@ void DriveBase::InitDefaultCommand()
 
 void DriveBase::Drive(double LeftDriveDesired, double RightDriveDesired)
   {
+
+  kP = SmartDashboard::GetNumber("kP Value", kP);
+
   LeftDrive1 	-> Set(LeftDriveDesired); //passes desired state to speed controllers
   LeftDrive2	-> Set(LeftDriveDesired);
   RightDrive1 	-> Set(-1 * RightDriveDesired);
@@ -79,7 +85,8 @@ void DriveBase::Drive(double LeftDriveDesired, double RightDriveDesired)
   SmartDashboard::PutNumber("Right Encoder Distance Traveled", 	RightEnc 	-> GetDistance());
 
   SmartDashboard::GetNumber("Initial Gyro Value", initialGyro);
-  SmartDashboard::PutNumber("Gyro Angle", ReportGyro());
+  SmartDashboard::PutNumber("Gyro GetAngle", MainGyro -> GetAngle());
+  SmartDashboard::PutNumber("Timer" , TimeCount -> Get());
   }
 /*
  * Pneumatic shfting is out of design at this point
@@ -127,20 +134,22 @@ void DriveBase::AutoDriveDistance(float DesiredDistance){
 
 	EncoderReset();
 
+	MainGyro -> Reset();
+
 	float DistanceTraveled = 0;
 	if (fabs(DesiredDistance) <= AutoDistThresh){
 		std::cout << "DesiredDistance to small!!!\n";
 	} else {
 		while ((DesiredDistance > 0) ? (DistanceTraveled < fabs(DesiredDistance) - AutoDistThresh) : (DistanceTraveled > AutoDistThresh - fabs(DesiredDistance))){
 			if (DesiredDistance > 0){ //DesiredDistance is positive, go forward
-				Drive(AutoDriveSpeed, AutoDriveSpeed);
+				Drive(AutoDriveSpeed * kP, AutoDriveSpeed);
 			} else if (DesiredDistance < 0){ //DesiredDistance is negative, go backward
-				Drive(-AutoDriveSpeed, -AutoDriveSpeed);
+				Drive(-AutoDriveSpeed * kP, -AutoDriveSpeed);
 			} else { //error or exactly 0
 				std::cout << "AutoDriveDistance Error!!!\n";
 				break;
 			}
-			DistanceTraveled = ((LeftEnc -> GetDistance() + RightEnc -> GetDistance())/2.0);
+			DistanceTraveled = (RightEnc -> GetDistance());//TODO readd leftenc
 		}
 	}
 }

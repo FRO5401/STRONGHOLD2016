@@ -37,11 +37,11 @@ void Feeder::FeedOutToField(){
 }
 
 void Feeder::FeedToShooter(){
-	FeederInnerSlowerMotor -> Set(DeliveryGo);
+	//XXX FeederInnerSlowerMotor -> Set(DeliveryGo);
 }
 // KJM Not sure what this is.
 void Feeder::FeedOutFromShooter(){
-	FeederInnerSlowerMotor -> Set(-DeliveryGo);
+	//XXX FeederInnerSlowerMotor -> Set(-DeliveryGo);
 }
 
 void Feeder::StopFeed(){

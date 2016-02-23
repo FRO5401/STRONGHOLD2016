@@ -13,6 +13,8 @@
 
 class XboxMove: public CommandBase
 {
+private:
+	float distance;
 public:
 	XboxMove();
 	void Initialize();

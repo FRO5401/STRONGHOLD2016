@@ -11,6 +11,8 @@ private:
 	// for methods that implement subsystem capabilities
 	float GyroScalar;
 	float DashAutoDistance;
+	float kP;
+
 public:
 	//Declares the parts of the robot necessary for this subsystem
 	Victor *LeftDrive1;//Variable for left set of motors, this set contains 3 motors

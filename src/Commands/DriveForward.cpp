@@ -6,7 +6,7 @@ DriveForward::DriveForward()
 	Requires(drivebase);
 	distance = 0; //might be able to be done in .h
 	SmartDashboard::PutNumber("Desired AutoDrive Distance(ft)", distance);
-	//distance = SmartDashboard::GetNumber("Desired AutoDrive Distance(ft)", distance);
+	distance = SmartDashboard::GetNumber("Desired AutoDrive Distance(ft)", distance);
 
 }
 

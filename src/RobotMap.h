@@ -125,7 +125,7 @@ const int CarriageLights_Channel			= 1;
  * Sensor Channels
  ***********/
 const int ShooterSwitch_Channel 	= 0;			//MUST BE UPDATED
-const int SPTPot_Channel 		= 1;//MUST BE UPDATED SPT potentiometer channel
+const int SPTPot_Channel 		= 1;//MUST BE UPDATED SPT potentiometer channel, under Analogs
 const int HookShoulderPot_Channel	= 0;	//MUST BE UPDATED
 
 //Encoder DIO Channels
