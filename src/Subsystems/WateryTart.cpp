@@ -61,6 +61,27 @@ WateryTart::WateryTart() :
 	SecondFrame = imaqCreateImage(IMAQ_IMAGE_RGB, 0);
 	binaryFrame = imaqCreateImage(IMAQ_IMAGE_U8, 0);
 	TargetFrame = imaqCreateImage(IMAQ_IMAGE_U8,0);
+	R_options.brightness = 32;
+	R_options.contrast = 45;
+	R_options.gamma = 1.0;
+
+	G_options.brightness = 32;
+	G_options.contrast = 45;
+	G_options.gamma = 1.0;
+
+	B_options.brightness = 16;
+	B_options.contrast = 45;
+	B_options.gamma = 1.0;
+
+	SmartDashboard::PutNumber("RedBrightness", R_options.brightness);
+	SmartDashboard::PutNumber("Redcontrast", R_options.contrast);
+	SmartDashboard::PutNumber("Redgamma", R_options.gamma);
+	SmartDashboard::PutNumber("GreenBrightness", G_options.brightness);
+	SmartDashboard::PutNumber("Greencontrast", G_options.contrast);
+	SmartDashboard::PutNumber("Greengamma", G_options.gamma);
+	SmartDashboard::PutNumber("BlueBrightness", B_options.brightness);
+	SmartDashboard::PutNumber("Bluecontrast", B_options.contrast);
+	SmartDashboard::PutNumber("Bluegamma", B_options.gamma);
 
 	imaqError = IMAQdxOpenCamera("cam0", IMAQdxCameraControlModeController, &session);
 	if(imaqErrorEnum != IMAQdxErrorSuccess) {
@@ -84,7 +105,7 @@ void WateryTart::InitDefaultCommand()
  */
 float WateryTart::Search(Range Hue, Range Sat, Range Val, float AreaIn, float AspectIn, double WaitTime)
   {
-	R_options.brightness = 32;
+/*	R_options.brightness = 32;
 	R_options.contrast = 45;
 	R_options.gamma = 1.0;
 
@@ -95,6 +116,16 @@ float WateryTart::Search(Range Hue, Range Sat, Range Val, float AreaIn, float As
 	B_options.brightness = 16;
 	B_options.contrast = 45;
 	B_options.gamma = 1.0;
+*/
+	R_options.brightness = SmartDashboard::GetNumber("RedBrightness", R_options.brightness);
+	R_options.contrast = SmartDashboard::GetNumber("Redcontrast", R_options.contrast);
+	R_options.gamma = SmartDashboard::GetNumber("Redgamma", R_options.gamma);
+	G_options.brightness = SmartDashboard::GetNumber("GreenBrightness", G_options.brightness);
+	G_options.contrast = SmartDashboard::GetNumber("Greencontrast", G_options.contrast);
+	G_options.gamma = SmartDashboard::GetNumber("Greengamma", G_options.gamma);
+	B_options.brightness = SmartDashboard::GetNumber("BlueBrightness", B_options.brightness);
+	B_options.contrast = SmartDashboard::GetNumber("Bluecontrast", B_options.contrast);
+	B_options.gamma = SmartDashboard::GetNumber("Bluegamma", B_options.gamma);
 	double XFirstPixel, YFirstPixel, XUpLeftCorner, YUpLeftCorner, XDownRightCorner, YDownRightCorner, RectHeight, RectWidth, Aspect = 0;
 	double Angle = -180;
 	int Particle_No = 0;
@@ -105,9 +136,6 @@ float WateryTart::Search(Range Hue, Range Sat, Range Val, float AreaIn, float As
 	SmartDashboard::PutNumber("Tote sat max", Sat.maxValue);
 	SmartDashboard::PutNumber("Tote val min", Val.minValue);
 	SmartDashboard::PutNumber("Tote val max", Val.maxValue);
-	SmartDashboard::PutNumber("RBrightness", R_options.brightness);
-	SmartDashboard::PutNumber("GBrightness", G_options.brightness);
-	SmartDashboard::PutNumber("BBrightness", B_options.brightness);
 
 	SmartDashboard::PutNumber("Target Area min %", AreaIn);
 	SmartDashboard::PutNumber("Target Aspect %", AspectIn);
