@@ -15,10 +15,10 @@ const double FwdSpeed 			= 0.95;
 const double ShooterResetDwell	= 1;
 //Encoder Constant
 //Variable to convert pulse to degrees
-double ShooterDistancePerPulseValue = 0.2682;
+double ShooterDistancePerPulseValue = 0.2925;//Tuned in 022316
 //The degrees from starting position for the angle to shoot
-double ShooterFiredPosition = 89;
-double ShooterCockedPosition = 350;
+double ShooterFiredPosition = 85;
+double ShooterCockedPosition = 359;
 
 Shooter::Shooter() :
 		Subsystem("Shooter")
@@ -41,58 +41,21 @@ void Shooter::InitDefaultCommand()
 
 void Shooter::Shoot() //Shoots the ball
 {
-	/*while((ShooterEnc -> GetDistance()) != ShooterCockedPosition)
-	{
-		//Automatically moves the motor when function is called
-		ShooterMotor	->	Set(FwdSpeed);
-		//When the limit switch is hit the encoder resets and starts to run forward
-		if(ShooterSwitch -> Get())
-		{
-			ShooterEnc -> Reset();
-			while((ShooterEnc -> GetDistance()) != ShooterCockedPosition)
-			{
-				if((ShooterEnc -> GetDistance()) < ShooterCockedPosition)
-				{
-					ShooterMotor -> Set(FwdSpeed);
-				}
-				if((ShooterEnc -> GetDistance()) > ShooterCockedPosition)
-				{
-					ShooterMotor -> Set(-FwdSpeed);
-				}
-			}
-		}
-//	Wait(ShooterResetDwell);  //Inserting a small dwell, just to make sure that it moves forward before terminating
-	}
-	while((ShooterEnc -> GetDistance()) != ShooterFiredPosition)
-	{
-		ShooterMotor -> Set(FwdSpeed);
-		Wait(ShooterResetDwell);
-		ShooterMotor -> Set(0);
-	}
-*/
 	while (ShooterEnc -> GetDistance() < ShooterFiredPosition){
-		ShooterMotor -> Set(FwdSpeed);
+		ShooterMotor -> Set(FwdSpeed); 	//Moves the shooter from the cocked position to the fired position
 	}
-	Wait(ShooterResetDwell);
+	ShooterMotor -> Set(0); //Stops the shooter after firing
+	Wait(ShooterResetDwell); //Waits just to clear the ball
 	while (ShooterEnc -> GetDistance() < ShooterCockedPosition){
 		ShooterMotor -> Set(FwdSpeed);
 	}
 	ShooterMotor -> Set(0);
 
-	SmartDashboard::PutNumber("Distance Per Pulse Value in Degrees for Shooter", ShooterDistancePerPulseValue);
-	SmartDashboard::PutNumber("Position of Shooter After Being Fired", ShooterFiredPosition);
-	SmartDashboard::PutNumber("Position of Shooter Being Cocked", ShooterCockedPosition);
-	SmartDashboard::PutNumber("Shooter Encoder", ShooterEnc ->GetDistance());
+//	SmartDashboard::PutNumber("Distance Per Pulse Value in Degrees for Shooter", ShooterDistancePerPulseValue);
+//	SmartDashboard::PutNumber("Position of Shooter After Being Fired", ShooterFiredPosition);
+//	SmartDashboard::PutNumber("Position of Shooter Being Cocked", ShooterCockedPosition);
+//	SmartDashboard::PutNumber("Shooter Encoder", ShooterEnc ->GetDistance());
 
-/* Original design - may remove the loop
- * Loop
- * Check encoder is at its initial set point (cocked - constant)
- * if not at cocked, reverse until at cocked
- * else move to next set point (fired - constant), wait (wait time constant), and BREAK out of loop
- * forward to cocked set point
- * end
- * Update 020716 Pot not correct for shooter.  must move forward cyclically.  Going forward on command until a limit switch is tripped.
- */
 }
 
 void Shooter::Override(double Input)
