@@ -9,8 +9,8 @@
 #include "../RobotMap.h"
 #include <Commands/XboxMove.h>
 
-const double DPPLeft		= (-1/76.6); 		//TODO Must tune this
-const double DPPRight		= (1/76.2);
+const double DPPLeft		= (-1/6.318); 		//TODO Might need to to tune left enc
+const double DPPRight		= (1/6.318);
 const float GyroScalar		= 10; 		//Preliminarily tuned
 const float GyroLinearAdj	= -0.696; 	//Adjusts for Gyro Creep = m
 const float GyroOffset		= -6.1395;	// = b
@@ -20,6 +20,8 @@ const double AutoDriveSpeed	= 0.5;
 const double AutoTurnSpeed	= 0.5;
 const double AngleThreshold	= 2; 		//Turn angle in degrees //TODO Must tune this
 const double AutoDistThresh	= 2; 		//Distance threshold in inches //TODO Must tune this
+
+const float kP = .835;	//Default kP scalar value
 
 DriveBase::DriveBase() :
 		Subsystem("DriveBase")
@@ -47,6 +49,9 @@ DriveBase::DriveBase() :
  //	LeftEnc -> Reset();Doesn't work when enabling and disabling
  //	RightEnc -> Reset();
  	
+ 	//kP = 0;			//Uncomment for getting value from dashboard
+ 	//SmartDashboard::PutNumber("kP Value", kP);
+
 }
 
 void DriveBase::InitDefaultCommand()
@@ -61,6 +66,9 @@ void DriveBase::InitDefaultCommand()
 
 void DriveBase::Drive(double LeftDriveDesired, double RightDriveDesired)
   {
+
+  //kP = SmartDashboard::GetNumber("kP Value", kP); //Uncomment for getting value from dashboard
+
   LeftDrive1 	-> Set(LeftDriveDesired); //passes desired state to speed controllers
   LeftDrive2	-> Set(LeftDriveDesired);
   RightDrive1 	-> Set(-1 * RightDriveDesired);
@@ -78,7 +86,8 @@ void DriveBase::Drive(double LeftDriveDesired, double RightDriveDesired)
   SmartDashboard::PutNumber("Right Encoder Distance Traveled", 	RightEnc 	-> GetDistance());
 
   SmartDashboard::GetNumber("Initial Gyro Value", initialGyro);
-  SmartDashboard::PutNumber("Gyro Angle", ReportGyro());
+  //SmartDashboard::PutNumber("Gyro Angle", ReportGyro());	//doesn't work for some reason
+  SmartDashboard::PutNumber("Gyro GetAngle", MainGyro -> GetAngle());
   }
 /*
  * Pneumatic shfting is out of design at this point
@@ -125,20 +134,33 @@ void DriveBase::AutoDriveDistance(float DesiredDistance){
 //	DesiredDistance = DashAutoDistance;
 
 	EncoderReset();
-	float Distance = ((LeftEnc -> GetDistance() + RightEnc -> GetDistance())/2); //Average the two sensor inputs
-	while (fabs(DesiredDistance - Distance) > AutoDistThresh){
-		if (fabs(DesiredDistance - Distance) > AutoDistThresh){
-			Drive(AutoDriveSpeed, AutoDriveSpeed);
-		} else if (fabs(DesiredDistance - Distance) < -AutoDistThresh){
-			Drive(-1 * AutoDriveSpeed, -1 * AutoDriveSpeed);
-		 	}
-		Distance = ((LeftEnc -> GetDistance() + RightEnc -> GetDistance())/2);
+	MainGyro -> Reset();
+
+	float DistanceTraveled = 0;
+	if (fabs(DesiredDistance) <= AutoDistThresh){
+		std::cout << "DesiredDistance to small!!!\n";
+	} else {
+		while ((DesiredDistance > 0) ? (DistanceTraveled < fabs(DesiredDistance) - AutoDistThresh) : (DistanceTraveled > AutoDistThresh - fabs(DesiredDistance))){
+			if (DesiredDistance > 0){ //DesiredDistance is positive, go forward
+				Drive(AutoDriveSpeed * kP, AutoDriveSpeed);
+			} else if (DesiredDistance < 0){ //DesiredDistance is negative, go backward
+				Drive(-AutoDriveSpeed * kP, -AutoDriveSpeed);
+			} else { //error or exactly 0
+				std::cout << "AutoDriveDistance Error!!!\n";
+				break;
+			}
+		DistanceTraveled = (RightEnc -> GetDistance());//XXX TODO re-add leftenc for competition robot
+		}
 	}
 }
 
   void DriveBase::EncoderReset(){
 	  LeftEnc -> Reset();
 	  RightEnc -> Reset();
+
+	  //Might not be needed
+	  LeftEnc 	-> SetDistancePerPulse(DPPLeft);
+	  RightEnc 	-> SetDistancePerPulse(DPPRight);
   }
 
 float DriveBase::AutoTurnToAngle(float DesiredAngle)//Turns to an absolute angle based on encoder calibration
