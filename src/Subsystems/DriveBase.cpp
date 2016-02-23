@@ -8,13 +8,8 @@
 #include "../RobotMap.h"
 #include <Commands/XboxMove.h>
 
-<<<<<<< HEAD
 const double DPPLeft		= (-1/6.318); //919.636		//TODO Must tune left? this
 const double DPPRight		= (1/6.318); //914.618
-=======
-const double DPPLeft		= (-1/6.318); 		//TODO Might need to to tune left enc
-const double DPPRight		= (1/6.318);
->>>>>>> origin/NewMaster
 const float GyroScalar		= 10; 		//Preliminarily tuned
 const float GyroLinearAdj	= -0.696; 	//Adjusts for Gyro Creep = m
 const float GyroOffset		= -6.1395;	// = b

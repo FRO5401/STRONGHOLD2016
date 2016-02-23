@@ -61,15 +61,15 @@ WateryTart::WateryTart() :
 	SecondFrame = imaqCreateImage(IMAQ_IMAGE_RGB, 0);
 	binaryFrame = imaqCreateImage(IMAQ_IMAGE_U8, 0);
 	TargetFrame = imaqCreateImage(IMAQ_IMAGE_U8,0);
-	R_options.brightness = 32;
+	R_options.brightness = 128;
 	R_options.contrast = 45;
 	R_options.gamma = 1.0;
 
-	G_options.brightness = 32;
+	G_options.brightness = 128;
 	G_options.contrast = 45;
 	G_options.gamma = 1.0;
 
-	B_options.brightness = 16;
+	B_options.brightness = 128;
 	B_options.contrast = 45;
 	B_options.gamma = 1.0;
 
