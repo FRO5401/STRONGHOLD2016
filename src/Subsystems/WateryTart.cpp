@@ -72,7 +72,7 @@ WateryTart::WateryTart() :
 	B_options.brightness = 128;
 	B_options.contrast = 45;
 	B_options.gamma = 1.0;
-
+//test
 	SmartDashboard::PutNumber("RedBrightness", R_options.brightness);
 	SmartDashboard::PutNumber("Redcontrast", R_options.contrast);
 	SmartDashboard::PutNumber("Redgamma", R_options.gamma);
