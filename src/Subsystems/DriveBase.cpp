@@ -1,5 +1,4 @@
-/*
- * Drive Base subsystem for 2016 FRC Stronghold game
+/* Drive Base subsystem for 2016 FRC Stronghold game
  * Team 5401 Fightin' Robotic Owls
  * FROGramming team
  * Subsystem's got two empty halves of coconut and is bangin' 'em together.
