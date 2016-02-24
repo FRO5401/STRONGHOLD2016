@@ -57,8 +57,8 @@ WateryTart::WateryTart() :
 		Subsystem("WateryTart")
 {
 //Motor and sensor declarations here
-	MainCam = USBCamera("cam0");
-	MainCam ->SetBrightness(1);
+//	MainCam = USBCamera("cam0");
+//	MainCam ->SetBrightness(1);
 
 	//Images
 	frame 		= imaqCreateImage(IMAQ_IMAGE_RGB, 0);   //TODO Try these in the search function along with a destroy to possibly save memory
@@ -167,11 +167,11 @@ float WateryTart::Search(Range Hue, Range Sat, Range Val, float AreaIn, float As
 //This is the box along the left side
 //	imaqError = imaqDrawShapeOnImage(frame, frame, {0, 0, 600, 70}, DrawMode::IMAQ_PAINT_INVERT, ShapeMode::IMAQ_SHAPE_RECT, 0.0f);
 
-//	LCameraServer::GetInstance()->SetImage(frame);  //Send original image to dashboard to assist in tweaking mask.
+	LCameraServer::GetInstance()->SetImage(frame);  //Send original image to dashboard to assist in tweaking mask.
 	Wait(WaitTime); //Part of test code to cycle between the filtered image and the color image
 	imaqError = imaqCopyRect(SecondFrame, frame, {135, 70, 465, 770}, {0, 0});
 	imaqError = imaqSetImageSize(SecondFrame, 840, 600);
-//	LCameraServer::GetInstance()->SetImage(SecondFrame);  //Send original image to dashboard to assist in tweaking mask.
+	LCameraServer::GetInstance()->SetImage(SecondFrame);  //Send original image to dashboard to assist in tweaking mask.
 	Wait(WaitTime); //Part of test code to cycle between the filtered image and the color image
 //XXX
 	/*
@@ -191,7 +191,7 @@ float WateryTart::Search(Range Hue, Range Sat, Range Val, float AreaIn, float As
 	SmartDashboard::PutNumber("Masked particles", numParticles);
 
 	//Replaces the SendtoDashboard function without error handling
-//	LCameraServer::GetInstance()->SetImage(binaryFrame); //Send masked image to dashboard to assist in tweaking mask.
+	LCameraServer::GetInstance()->SetImage(binaryFrame); //Send masked image to dashboard to assist in tweaking mask.
 	Wait(WaitTime); //Part of test code to cycle between the filtered image and the color image
 
 	//filter out small particles
@@ -229,7 +229,7 @@ float WateryTart::Search(Range Hue, Range Sat, Range Val, float AreaIn, float As
 //		double WateryTart::computeDistance (Image *image, ParticleReport report) {
 
 		imaqError = imaqDrawShapeOnImage(TargetFrame, binaryFrame, {YUpLeftCorner, XUpLeftCorner, RectWidth, RectHeight}, DrawMode::IMAQ_PAINT_INVERT, ShapeMode::IMAQ_SHAPE_RECT, 0.0f);
-//		LCameraServer::GetInstance()->SetImage(TargetFrame); //Send masked image to dashboard to assist in tweaking mask.
+		LCameraServer::GetInstance()->SetImage(TargetFrame); //Send masked image to dashboard to assist in tweaking mask.
 		Wait(WaitTime); //Part of test code to cycle between the filtered image and the color image
 
 		double normalizedWidth, targetWidth;
