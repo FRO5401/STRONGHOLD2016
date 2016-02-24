@@ -9,6 +9,7 @@
 #include "WateryTart.h"
 #include "../RobotMap.h"
 #include "Commands/LockTarget.h"
+#include  "USBCamera.h"
 //#include "SmartDashboard/SmartDashboard.h"
 //#include "LiveWindow/LiveWindow.h"
 
@@ -29,10 +30,10 @@
 	/*
 	 * Target info - synch with Robot.cpp
 	 */
-	const int TargetX		= 100;
-	const int TargetY		= 50;
-	const int TargetWidth	= 100;
-	const int TargetHeight	= 50;
+	const int TargetX		= 336; //Initial numbers are made up based on using the center 20% of the viewable image
+	const int TargetY		= 240;
+	const int TargetWidth	= 168;
+	const int TargetHeight	= 120;
 	/************
 	 * End Target info
 	 ************/
@@ -91,6 +92,9 @@ WateryTart::WateryTart() :
 	if(imaqErrorEnum != IMAQdxErrorSuccess) {
 		DriverStation::ReportError("IMAQdxConfigureGrab error: " + std::to_string((long)imaqError) + "\n");
 	}
+//	USBCamera::SetBrightness(50);
+//	MainCam = USBCamera("cam0");
+	MainCam ->SetBrightness(1);
 }
 
 void WateryTart::InitDefaultCommand()
@@ -169,13 +173,14 @@ float WateryTart::Search(Range Hue, Range Sat, Range Val, float AreaIn, float As
 	LCameraServer::GetInstance()->SetImage(SecondFrame);  //Send original image to dashboard to assist in tweaking mask.
 	Wait(WaitTime); //Part of test code to cycle between the filtered image and the color image
 //XXX
+	/*
 	SmartDashboard::GetNumber("RBrightness", R_options.brightness);
 	SmartDashboard::GetNumber("GBrightness", G_options.brightness);
 	SmartDashboard::GetNumber("BBrightness", B_options.brightness);
 	imaqError = imaqColorBCGTransform(SecondFrame, SecondFrame, &R_options, &G_options, &B_options, NULL);
 	LCameraServer::GetInstance() -> SetImage(SecondFrame);
 	Wait(WaitTime);
-
+*/
 	//Threshold the image looking for ring light color
 	imaqError = imaqColorThreshold(binaryFrame, SecondFrame, 255, IMAQ_RGB, &Hue, &Sat, &Val);
 
