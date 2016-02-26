@@ -1,6 +1,6 @@
 #include "Autonomous/AutonomousDrawbridge.h"
 
-AutonomousDrawbridge::AutonomousDrawbridge()
+AutonomousDrawbridge::AutonomousDrawbridge(int DefensePosition, int GoalPosition, int LowOrHigh)
 {
 	//WON'T BE USED
 
