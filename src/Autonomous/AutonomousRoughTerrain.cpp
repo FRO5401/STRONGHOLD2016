@@ -3,12 +3,9 @@
 AutonomousRoughTerrain::AutonomousRoughTerrain(int DefensePosition, int GoalPosition, int LowOrHigh)
 {
 	/*	PsuedoCode V. 2.0
-	 * 	AdjustAngle() so it's straight or angled correctly
-	 * 	AutoDrive()
-	 * 	SPT down under horizontal
-	 * 	AutoDrive()
-	 * 	SPT Up to horizontal
-	 * 	AutoDrive()
+	 * 	AdjustAngle() so it's straight or angled correctly MAYBE???
+	 * 	AddParalletl(new SPT to ShooterPosition);
+	 * 	AddParalletl(new AutoDriveCommand());
 	 * 	AdjustAngle() so it's straight
 	 * 	switch(DefensePosition)
 	 * 	{

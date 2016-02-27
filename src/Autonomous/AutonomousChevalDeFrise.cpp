@@ -3,12 +3,13 @@
 AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPosition, int LowOrHigh)
 {
 	/*	PsuedoCode V. 2.0
-	 * 	AdjustAngle() so it's straight or angled correctly
-	 * 	AutoDrive()
-	 * 	SPT up above horizon
-	 * 	SPT down to horizontal
-	 * 	AutoDrive()
-	 * 	AdjustAngle() so it's straight
+	 * 	AdjustAngle() so it's straight or angled correctly 	MAYBE???
+	 * 	AddSequential(new AutoDriveCommand());
+	 * 	AddSequential(new SPT down to horizontal);
+	 * 	AddSequential(new AutoDrive()); //very small
+	 * 	AddParallel(new AutoDrive());
+	 * 	AddParallel(new SPT Shooter position);
+	 * 	AdjustAngle(0) so it's straight
 	 * 	switch(DefensePosition)
 	 * 	{
 	 * 		case 2:
