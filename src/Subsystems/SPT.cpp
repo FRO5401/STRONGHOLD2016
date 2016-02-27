@@ -72,12 +72,13 @@ void SPT::InitDefaultCommand()
 
 
 //This function sets the shoulder motor of SPT to a certain direction between up and down
-void SPT::UpAndDown(double ShoulderChangeValue){
-
+void SPT::UpAndDown(double ShoulderChangeValue, bool Override){
+	if (!Override) {
 	//Zero out the change if angle is at its upper limit and trying to increase
 	ShoulderChangeValue = ((ShoulderChangeValue < 0) && (SPTPot -> Get() >= SPTMaxAngle)) ? 0 : ShoulderChangeValue;
 	//Zero out the change if angle is at its lower limit and trying to decrease
 	ShoulderChangeValue = ((ShoulderChangeValue > 0) && (SPTPot -> Get() <= SPTMinAngle)) ? 0 : ShoulderChangeValue;
+	}
 	SPTShoulderMotor -> Set(SPTPrecision * ShoulderChangeValue); 
 
 	SmartDashboard::PutNumber("SPTUpDown", ShoulderChangeValue);

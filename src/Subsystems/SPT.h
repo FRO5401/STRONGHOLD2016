@@ -23,7 +23,7 @@ public:
 
 	SPT();
 	void InitDefaultCommand();
-	void UpAndDown(double);
+	void UpAndDown(double, bool);
 	void MoveToDeliveryPosition();
 	void MoveToInfeederPosition();
 	void ClearShooterPathPosition();

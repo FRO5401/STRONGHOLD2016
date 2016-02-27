@@ -29,10 +29,10 @@
 	/*
 	 * Target info - synch with Robot.cpp
 	 */
-	const int TargetX		= 100;
-	const int TargetY		= 50;
-	const int TargetWidth	= 100;
-	const int TargetHeight	= 50;
+	const int TargetX		= 336;//TODO put these into a new Target.h file and ref out here and in robot.cpp
+	const int TargetY		= 240;
+	const int TargetWidth	= 168;
+	const int TargetHeight	= 120;
 	/************
 	 * End Target info
 	 ************/

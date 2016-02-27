@@ -67,6 +67,7 @@ public:
 	bool GetMOHButtonStart();
 	double ReadMOHRightStickY();
 	bool GetMOHRightStickButton();
+	bool GetMOHLeftStickButton();
 	bool GetMOHButtonL3();
 };
 

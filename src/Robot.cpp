@@ -90,29 +90,49 @@
 class Robot: public IterativeRobot
 {
 private:
-	Command *autonomousCommand;
-	LiveWindow *lw;
-	SendableChooser *autoMode;
+	/*XXX***********
+	 * Camera Info
+	 ************/
+
 	IMAQdxSession RunningSession;
 	Image *frame;
 	IMAQdxError imaqError;
-	/*
+	USBCamera *targetCam;
+	CameraServer *server;
+	int set_bright 	= 10;
+	int set_exp		= 10;
+	/************
+	 * End Camera info
+	 ************/
+
+	/* XXX
 	 * Target info - synch with WateryTart
 	 */
-	int TargetX = 100;
-	int TargetY = 50;
-	int TargetWidth	=	100;
-	int TargetHeight = 	50;
+
+	int TargetX = 336;
+	int TargetY = 240;
+	int TargetWidth	=	168;
+	int TargetHeight = 	120;
+
 	/************
 	 * End Target info
 	 ************/
-	//Displays variables necessary for autonomous mode
+
+	/************XXX
+	 * Autonomous mode variables
+	 ************/
+	Command *autonomousCommand;
+	LiveWindow *lw;
+	SendableChooser *autoMode;
 	//Defense positions refer to map of arena in game manual
 	int PositionForDefense 	= 0;
 	//Position for Goal. 1 for left. 2 for middle. 3 for right. Note that 2 will not be used for low goal because there is no middle low goal
 	int PositionForGoal 	= 0;
 	//1 is for low goal. 2 is for high goal
 	int LowOrHighGoal		= 0;
+	/************
+	 * End Autonomous mode variables
+	 ************/
 
 	void RobotInit()
 	{
@@ -122,25 +142,13 @@ private:
 		SmartDashboard::PutNumber("Position of the Defense", 	PositionForDefense);
 		SmartDashboard::PutNumber("Position of the Goal", 		PositionForGoal);
 		SmartDashboard::PutNumber("Choose High or Low Goal", 	LowOrHighGoal);
+		targetCam = new USBCamera("cam0", true);
+		targetCam->SetBrightness(set_bright);
+		targetCam->SetExposureManual(set_exp);
+		targetCam->UpdateSettings();
+//		targetCam->CloseCamera();
 
-/*			MOVED DOWN TO DISABLED PERIODIC()
- *
- *			autoMode = new SendableChooser();
- *	//		Low Bar CommandGroup is constant because it'll always be in defense position 1 and go in left goal
- *			autoMode->AddDefault("Default-Low Bar", new AutonomousLowBar(1,1));
- *			autoMode->AddObject("Portcullis", new AutonomousPortcullis(PositionForGoal, PositionForDefense));
- *			autoMode->AddObject("Cheval de Frise", new AutonomousChevalDeFrise(PositionForGoal, PositionForDefense));
- *			autoMode->AddObject("Ramparts", new AutonomousRamparts(PositionForGoal, PositionForDefense));
- *			autoMode->AddObject("Moat", new AutonomousMoat(PositionForGoal, PositionForDefense));
- *	//		autoMode->AddObject("Drawbridge", new AutonomousDrawbridge(PositionForGoal, PositionForDefense));
- *	//		autoMode->AddObject("Sally Port", new AutonomousSallyPort(PositionForGoal, PositionForDefense));
- *			autoMode->AddObject("Rock Wall", new AutonomousRockWall(PositionForGoal, PositionForDefense));
- *			autoMode->AddObject("Rough Terrain", new AutonomousRoughTerrain(PositionForGoal, PositionForDefense));
- *	//		autoMode->AddObject("SpyBot", new AutonomousSpyBot()); //Restore when command is written, plus need one for each position
- *			SmartDashboard::PutData("Autonomous Mode", autoMode);
- */
-
-//Option 1 code start ========= This will display the camera and draw a shape on it - hopefully to show our targeting area
+//Camera Option 1 code start ========= This will display the camera and draw a shape on it - hopefully to show our targeting area
 /*	    // create an image
 		frame = imaqCreateImage(IMAQ_IMAGE_RGB, 0);
 		//the camera name (ex "cam0") can be found through the roborio web interface
