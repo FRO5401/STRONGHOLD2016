@@ -75,6 +75,7 @@
 
 #include "WPILib.h"
 #include "Commands/Command.h"
+#include "Target.h"
 #include "CommandBase.h"
 #include "Autonomous/AutonomousLowBar.h"
 #include "Autonomous/AutonomousPortcullis.h"
@@ -103,19 +104,6 @@ private:
 	int set_exp		= 1;
 	/************
 	 * End Camera info
-	 ************/
-
-	/* XXX
-	 * Target info - synch with WateryTart
-	 */
-
-	int TargetX = 336;
-	int TargetY = 240;
-	int TargetWidth	=	168;
-	int TargetHeight = 	120;
-
-	/************
-	 * End Target info
 	 ************/
 
 	/************XXX
