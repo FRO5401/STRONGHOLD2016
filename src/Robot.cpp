@@ -99,8 +99,8 @@ private:
 	IMAQdxError imaqError;
 	USBCamera *targetCam;
 	CameraServer *server;
-	int set_bright 	= 10;
-	int set_exp		= 10;
+	int set_bright 	= 1;
+	int set_exp		= 1;
 	/************
 	 * End Camera info
 	 ************/
