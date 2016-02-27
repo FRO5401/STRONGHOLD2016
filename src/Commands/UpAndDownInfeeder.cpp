@@ -14,12 +14,14 @@ void UpAndDownInfeeder::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void UpAndDownInfeeder::Execute()
 {
+	bool SPT_Override = (oi	->	GetMOHLeftStickButton());
+
 	//Plans on needing to WhilePressed() either the joystick or D-pad
 	//Gets the value of up or down
 	if (!oi->GetMOHButtonL3()){
 		double UpOrDownValue = oi -> GetUpOrDownValueInfeeder();
 		//Tells the Infeeder to go up or down
-		spt -> UpAndDown(UpOrDownValue);
+		spt -> UpAndDown(UpOrDownValue, SPT_Override);
 	}
 
 }

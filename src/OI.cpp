@@ -206,6 +206,10 @@ double OI::ReadMOHRightStickY(){
 	return MedalOfHonorController -> GetRawAxis(3);
 }
 
+bool OI::GetMOHLeftStickButton(){ //ShooterOverride
+	return MedalOfHonorController -> GetRawButton(11);
+}
+
 bool OI::GetMOHRightStickButton(){ //probably not used
 	return MedalOfHonorController -> GetRawButton(12);
 }

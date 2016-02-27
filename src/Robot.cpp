@@ -89,23 +89,29 @@
 //2016 Stronghold code
 class Robot: public IterativeRobot
 {
+public:
+	USBCamera *targetCam;
+
 private:
 	Command *autonomousCommand;
 	LiveWindow *lw;
 	SendableChooser *autoMode;
-	IMAQdxSession RunningSession;
-	Image *frame;
-	IMAQdxError imaqError;
+//	IMAQdxSession RunningSession;
+//	Image *frame;
+//	IMAQdxError imaqError;
 	/*
 	 * Target info - synch with WateryTart
 	 */
-	int TargetX = 100;
-	int TargetY = 50;
-	int TargetWidth	=	100;
-	int TargetHeight = 	50;
+	const int TargetX		= 336; //Initial numbers are made up based on using the center 20% of the viewable image
+	const int TargetY		= 240;
+	const int TargetWidth	= 168;
+	const int TargetHeight	= 120;
 	/************
 	 * End Target info
 	 ************/
+	int set_bright 	= 10;
+	int set_exp		= 10;
+	CameraServer *server;
 
 	void RobotInit()
 	{
@@ -124,6 +130,11 @@ private:
 		autoMode->AddObject("Rough Terrain", new AutonomousRoughTerrain());
 //		autoMode->AddObject("SpyBot", new AutonomousSpyBot()); //Restore when command is written, plus need one for each position
 		SmartDashboard::PutData("Autonomous Mode", autoMode);
+		targetCam = new USBCamera("cam0", true);
+		targetCam->SetBrightness(set_bright);
+		targetCam->SetExposureManual(set_exp);
+		targetCam->UpdateSettings();
+//		targetCam->CloseCamera();
 
 //Option 1 code start ========= This will display the camera and draw a shape on it - hopefully to show our targeting area
 /*	    // create an image

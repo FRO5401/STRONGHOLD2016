@@ -66,6 +66,7 @@ public:
 	void SendMOHRumble(int);
 	bool GetMOHButtonStart();
 	double ReadMOHRightStickY();
+	bool GetMOHLeftStickButton();
 	bool GetMOHRightStickButton();
 	bool GetMOHButtonL3();
 };

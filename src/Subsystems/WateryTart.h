@@ -23,7 +23,9 @@ private:
 	Image* TargetFrame;
 	IMAQdxSession session;
 	int imaqError;
-	USBCamera* MainCam;
+	USBCamera *targetCam;
+
+//	USBCamera* MainCam;
 //	double WaitTime;
 
 public:
