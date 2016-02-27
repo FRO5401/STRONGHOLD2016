@@ -98,10 +98,10 @@ private:
 	IMAQdxSession RunningSession;
 	Image *frame;
 	IMAQdxError imaqError;
-	USBCamera *targetCam;
-	CameraServer *server;
-	int set_bright 	= 1;
-	int set_exp		= 1;
+//	USBCamera *targetCam;
+//	CameraServer *server;
+//	int set_bright 	= 1;
+//	int set_exp		= 1;
 	/************
 	 * End Camera info
 	 ************/
@@ -130,10 +130,10 @@ private:
 		SmartDashboard::PutNumber("Position of the Defense", 	PositionForDefense);
 		SmartDashboard::PutNumber("Position of the Goal", 		PositionForGoal);
 		SmartDashboard::PutNumber("Choose High or Low Goal", 	LowOrHighGoal);
-		targetCam = new USBCamera("cam0", true);
-		targetCam->SetBrightness(set_bright);
-		targetCam->SetExposureManual(set_exp);
-		targetCam->UpdateSettings();
+//		targetCam = new USBCamera("cam0", true);
+//		targetCam->SetBrightness(set_bright);
+//		targetCam->SetExposureManual(set_exp);
+//		targetCam->UpdateSettings();
 //		targetCam->CloseCamera();
 
 //Camera Option 1 code start ========= This will display the camera and draw a shape on it - hopefully to show our targeting area

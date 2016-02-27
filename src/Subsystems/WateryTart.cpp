@@ -200,8 +200,8 @@ float WateryTart::Search(Range Hue, Range Sat, Range Val, float AreaIn, float As
 //		double WateryTart::computeDistance (Image *image, ParticleReport report) {
 
 //		imaqError = imaqDrawShapeOnImage(TargetFrame, binaryFrame, {YUpLeftCorner, XUpLeftCorner, RectWidth, RectHeight}, DrawMode::IMAQ_PAINT_INVERT, ShapeMode::IMAQ_SHAPE_RECT, 0.0f);
-		imaqError = imaqDrawShapeOnImage(TargetFrame, frame, {YUpLeftCorner, XUpLeftCorner, RectWidth, RectHeight}, DrawMode::IMAQ_PAINT_INVERT, ShapeMode::IMAQ_SHAPE_RECT, 0.0f);
-		LCameraServer::GetInstance()->SetImage(TargetFrame); //Send masked image to dashboard to assist in tweaking mask.
+		imaqError = imaqDrawShapeOnImage(SecondFrame, SecondFrame, {YUpLeftCorner, XUpLeftCorner, RectWidth, RectHeight}, DrawMode::IMAQ_PAINT_INVERT, ShapeMode::IMAQ_SHAPE_RECT, 0.0f);
+		LCameraServer::GetInstance()->SetImage(SecondFrame); //Send masked image to dashboard to assist in tweaking mask.
 		Wait(WaitTime); //Part of test code to cycle between the filtered image and the color image
 
 		double normalizedWidth, targetWidth;
