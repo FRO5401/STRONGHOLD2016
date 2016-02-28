@@ -188,9 +188,9 @@ float DriveBase::AutoTurnAngle(float DesiredTurnAngle, float TurnPrecision)	//Tu
 	  while (fabs(FinalAngle - GyroAngle) > AngleThreshold)
 	  {
 		  if ((FinalAngle - GyroAngle) > AngleThreshold) {
-			  Drive(AutoTurnSpeed * TurnPrecision, -AutoTurnSpeed*TurnPrecision);
+			  Drive(AutoTurnSpeed * AutoTurnPrecision, -AutoTurnSpeed * AutoTurnPrecision);
 		  } 	else if ((FinalAngle - GyroAngle) < AngleThreshold) {
-			  	  Drive(-AutoTurnSpeed*TurnPrecision, AutoTurnSpeed*TurnPrecision);
+			  	  Drive(-AutoTurnSpeed * AutoTurnPrecision, AutoTurnSpeed * AutoTurnPrecision);
 				}
 		GyroAngle = ReportGyro();
 	}
