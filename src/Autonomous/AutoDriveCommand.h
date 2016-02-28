@@ -7,8 +7,10 @@
 class AutoDriveCommand: public CommandBase
 {
 public:
-	AutoDriveCommand();
-	void Initialize(float);
+	float DistanceToDrive;
+
+	AutoDriveCommand(float);
+	void Initialize();
 	void Execute();
 	bool IsFinished();
 	void End();

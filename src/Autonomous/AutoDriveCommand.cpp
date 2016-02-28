@@ -1,16 +1,17 @@
 #include "AutoDriveCommand.h"
 
-AutoDriveCommand::AutoDriveCommand()
+AutoDriveCommand::AutoDriveCommand(float DistanceInput)
 {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(chassis);
 	Requires(drivebase);
+	DistanceToDrive = DistanceInput;
 }
 
 // Called just before this Command runs the first time
-void AutoDriveCommand::Initialize(float DistanceForDriving)
+void AutoDriveCommand::Initialize()
 {
-	drivebase	-> 	AutoDriveDistance(DistanceForDriving);
+	drivebase	-> 	AutoDriveDistance(DistanceToDrive);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -37,3 +38,4 @@ void AutoDriveCommand::Interrupted()
 {
 
 }
+

@@ -1,14 +1,15 @@
 #include "AutoTurnToAngleCommand.h"
 
-AutoTurnToAngleCommand::AutoTurnToAngleCommand()
+AutoTurnToAngleCommand::AutoTurnToAngleCommand(float AngleInput)
 {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(chassis);
 	Requires(drivebase);
+	AngleToTurn = AngleInput;
 }
 
 // Called just before this Command runs the first time
-void AutoTurnToAngleCommand::Initialize(float AngleToTurn)
+void AutoTurnToAngleCommand::Initialize()
 {
 	drivebase	->	AutoTurnToAngle(AngleToTurn);
 }
