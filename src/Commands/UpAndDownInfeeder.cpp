@@ -17,6 +17,7 @@ void UpAndDownInfeeder::Execute()
 	bool SPT_Override = (oi	->	GetMOHButtonL3());
 
 	int POV = oi -> GetPOVState();
+
 	if (POV != 0){
 		if (POV == 1){
 			spt -> MoveToDeliveryPosition();

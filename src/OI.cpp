@@ -168,11 +168,15 @@ bool OI::GetButtonR3(){
 }
 
 int OI::GetPOVState(){
-	int POV = XboxController	->	GetPOV();
-	if (POV == 225 || POV == 180 || POV == 135)
+	int POV = MedalOfHonorController	->	GetPOV();
+	if (POV == 225 || POV == 180 || POV == 135){
+		std::cout << "DOWN\n";
 		return -1;	//down
-	else if (POV == 315 || POV == 0 || POV == 45)
+	}
+	else if (POV == 315 || POV == 0 || POV == 45){
+		std::cout << "UP\n";
 		return 1; 	//up
+	}
 	else
 		return 0; 	//not pressed/error
 }

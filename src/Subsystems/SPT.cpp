@@ -25,7 +25,7 @@ double SPT_Offset 	= 638.073;
 double SPTMotorMin	= -1;//Min Motor speed
 double SPTMotorMax	= 1;// Max motor speed
 double SPTDistancePerPulseValue = .3689;
-float SPTMotorSpeed = .5;
+float SPTMotorSpeed = .9;
 
 float SPTDeliveryPosition 	= -34.677;//Position has measured 022816
 float SPTFeederPosition		= -112.146;//Position has measured 022816
@@ -85,14 +85,14 @@ void SPT::UpAndDown(double ShoulderChangeValue, bool Override){
 void SPT::MoveToDeliveryPosition(){
 
 	while (SPTEnc -> GetDistance() < SPTDeliveryPosition){
-		SPTShoulderMotor -> Set(SPTMotorSpeed * SPTPrecision);
+		SPTShoulderMotor -> Set(-SPTMotorSpeed * SPTPrecision);
 	}
 }
 
 //Same thing as MoveToDeliveryPosition but the point where it goes to is the InfeederPosition
 void SPT::MoveToInfeederPosition(){
 	while (SPTEnc -> GetDistance() > SPTFeederPosition){
-		SPTShoulderMotor -> Set(-SPTMotorSpeed * SPTPrecision);
+		SPTShoulderMotor -> Set(SPTMotorSpeed * SPTPrecision);
 	}
 }
 
