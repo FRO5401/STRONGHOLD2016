@@ -10,14 +10,8 @@ private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 	Victor *SPTShoulderMotor;
-	PIDController *SPTPotPID;//
-	Potentiometer *SPTPot;//Pot refers to potentiometers
+	Encoder *SPTEnc;
 	double MotorOutput;
-
-	//PID Values
-	double SPT_Kp 		= 0;//Proportional - how far away - distance
-	double SPT_Ki		= 0 ;//Integral - how long traveled - time
-	double SPT_Kd		= 0;//Derivative - how fast getting there - speed
 
 public:
 
