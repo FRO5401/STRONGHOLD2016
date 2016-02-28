@@ -86,7 +86,7 @@ OI::OI()
 	//TODO Add buttons for targeting and shooting
 //	XboxA			-> WhenPressed(new LockTarget());
 //	XboxX			-> WhenPressed(new AutoLaunch());
-	XboxX			-> WhenPressed(new Launch());
+	XboxX			-> 	 WhenPressed(new Launch());
 	MOHButtonTriangle -> WhenPressed(new LockTarget());
 	MOHButtonSquare   -> WhenPressed(new AutoLaunch());
 

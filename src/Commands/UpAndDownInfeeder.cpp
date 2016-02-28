@@ -16,6 +16,15 @@ void UpAndDownInfeeder::Execute()
 {
 	bool SPT_Override = (oi	->	GetMOHButtonL3());
 
+	int POV = oi -> GetPOVState();
+	if (POV != 0){
+		if (POV == 1){
+			spt -> MoveToDeliveryPosition();
+		} else {
+			spt -> MoveToInfeederPosition();
+		}
+	}
+
  	//Plans on needing to WhilePressed() either the joystick or D-pad		 	//Plans on needing to WhilePressed() either the joystick or D-pad
  	//Gets the value of up or down		 	//Gets the value of up or down
 
