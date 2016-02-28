@@ -16,7 +16,8 @@ const float GyroOffset		= -6.1395;	// = b
 float initialGyro			= 0;
 
 const double AutoDriveSpeed	= 0.5;
-const double AutoTurnSpeed	= 0.5;
+const double AutoTurnSpeed	= 0.95;
+const float DefaultTurnPrecision = 0.5;
 const double AngleThreshold	= 2; 		//Turn angle in degrees //TODO Must tune this
 const double AutoDistThresh	= 2; 		//Distance threshold in inches //TODO Must tune this
 
@@ -45,6 +46,7 @@ DriveBase::DriveBase() :
  	TimeCount = new Timer();
  	TimeCount -> Reset();
  	MainGyro  -> Reset();
+ 	AutoTurnPrecision = DefaultTurnPrecision;
  //	LeftEnc -> Reset();Doesn't work when enabling and disabling
  //	RightEnc -> Reset();
  	
@@ -172,22 +174,23 @@ float DriveBase::AutoTurnToAngle(float DesiredAngle)//Turns to an absolute angle
 		AbsErr = 360 - AbsErr; //This determines the shortest distance between the angles
 	}
 if ((RawErr >= 0 && RawErr <=180) || (RawErr >= -360 && RawErr <= -180)) {//Determines sign of angle difference
-	return AutoTurnAngle(AbsErr); //AutoTurnAngle returns the final angle difference, then this returns that return
+	return AutoTurnAngle(AbsErr, DefaultTurnPrecision); //AutoTurnAngle returns the final angle difference, then this returns that return
 	} else {
-		return AutoTurnAngle(-AbsErr);
+		return AutoTurnAngle(-AbsErr, DefaultTurnPrecision);
 		}
 }
 
-float DriveBase::AutoTurnAngle(float DesiredTurnAngle)	//Turns a number of degrees relative to current position
+float DriveBase::AutoTurnAngle(float DesiredTurnAngle, float TurnPrecision)	//Turns a number of degrees relative to current position
 {
-	  float GyroAngle = ReportGyro();
+	AutoTurnPrecision = TurnPrecision;
+	float GyroAngle = ReportGyro();
 	  float FinalAngle = GyroAngle + DesiredTurnAngle;
 	  while (fabs(FinalAngle - GyroAngle) > AngleThreshold)
 	  {
 		  if ((FinalAngle - GyroAngle) > AngleThreshold) {
-			  Drive(AutoTurnSpeed, -AutoTurnSpeed);
+			  Drive(AutoTurnSpeed * TurnPrecision, -AutoTurnSpeed*TurnPrecision);
 		  } 	else if ((FinalAngle - GyroAngle) < AngleThreshold) {
-			  	  Drive(-AutoTurnSpeed, AutoTurnSpeed);
+			  	  Drive(-AutoTurnSpeed*TurnPrecision, AutoTurnSpeed*TurnPrecision);
 				}
 		GyroAngle = ReportGyro();
 	}
@@ -198,5 +201,5 @@ float DriveBase::ReportGyro()
   	float Angle = (GyroScalar * MainGyro	->	GetAngle());
    	double Time = TimeCount -> Get();
    	float AdjAngle = Angle - (GyroLinearAdj * Time + GyroOffset);//Compensates for gyro creep - basically subtracts out mx+b the linear creep function
-  	return Angle;
+  	return AdjAngle;
 }

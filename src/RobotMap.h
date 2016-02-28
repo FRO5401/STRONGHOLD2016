@@ -27,6 +27,7 @@ const double MinSensitivityThreshold = 0.1;//Sensitivity is used in driving, so 
 const double MaxSensitivityThreshold = 0.9;//for highest speed and lowest speed
 const double Drive_Sensitivity_Default	=	1;
 const double Drive_Sensitivity_Precise	=	0.2;
+const double Latency = 0.001;
 
 //const double Encoder_Conversion_To_Inches_Constant = 1; No longer needed. Equivalent is in DriveBase
 /***********************

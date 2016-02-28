@@ -48,6 +48,7 @@ void Shooter::Shoot() //Shoots the ball
 	Wait(ShooterResetDwell); //Waits just to clear the ball
 	while (ShooterEnc -> GetDistance() < ShooterCockedPosition){
 		ShooterMotor -> Set(FwdSpeed);
+		Wait(Latency);//Sets a small wait to allow other commands to proceed while this is operating
 	}
 	ShooterMotor -> Set(0);
 

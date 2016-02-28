@@ -178,12 +178,13 @@ int OI::GetPOVState(){
 }
 
 void OI::SendXboxRumble(int j){
-	for ( int i = 0; i < j; i++ ) {		XboxController	->	SetRumble(Joystick::kLeftRumble, 1);
+	for ( int i = 0; i < j; i++ ) {
+		XboxController	->	SetRumble(Joystick::kLeftRumble, 1);
 		XboxController	->	SetRumble(Joystick::kRightRumble, 1);
-		Wait(0.5);
+		Wait(2);
 		XboxController	->	SetRumble(Joystick::kLeftRumble, 0);
 		XboxController	->	SetRumble(Joystick::kRightRumble, 0);
-		Wait(0.5);
+		Wait(2);
 	}
 }
 
@@ -191,10 +192,10 @@ void OI::SendMOHRumble(int j){
 	for ( int i = 0; i < j; i++ ) {
 		MedalOfHonorController	->	SetRumble(Joystick::kLeftRumble, 1);
 		MedalOfHonorController	->	SetRumble(Joystick::kRightRumble, 1);
-		Wait(0.5);
+		Wait(2);
 		MedalOfHonorController	->	SetRumble(Joystick::kLeftRumble, 0);
 		MedalOfHonorController	->	SetRumble(Joystick::kRightRumble, 0);
-		Wait(0.5);
+		Wait(2);
 	}
 }
 

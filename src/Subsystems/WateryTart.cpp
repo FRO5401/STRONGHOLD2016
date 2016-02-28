@@ -167,8 +167,8 @@ float WateryTart::Search(Range Hue, Range Sat, Range Val, float AreaIn, float As
 	SmartDashboard::PutNumber("Masked particles", numParticles);
 
 	//Replaces the SendtoDashboard function without error handling
-	LCameraServer::GetInstance()->SetImage(binaryFrame); //Send masked image to dashboard to assist in tweaking mask.
-	Wait(WaitTime); //Part of test code to cycle between the filtered image and the color image
+//	LCameraServer::GetInstance()->SetImage(binaryFrame); //Send masked image to dashboard to assist in tweaking mask.
+//	Wait(WaitTime); //Part of test code to cycle between the filtered image and the color image
 
 	//filter out small particles
 	float areaMin = SmartDashboard::GetNumber("Area min %", AreaIn);

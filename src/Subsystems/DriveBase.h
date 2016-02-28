@@ -11,6 +11,7 @@ private:
 	// for methods that implement subsystem capabilities
 	float GyroScalar;
 	float DashAutoDistance;
+	float AutoTurnPrecision;
 //	float kP;	//Uncomment to get value from dashboard
 
 public:
@@ -41,7 +42,7 @@ public:
 	void Reset();
 	void AutoDriveDistance(float);
 	float AutoTurnToAngle(float);//Turns to an absolute angle based on encoder calibration
-	float AutoTurnAngle(float);	//Turns a number of degrees relative to current position
+	float AutoTurnAngle(float, float);	//Turns a number of degrees relative to current position
 	void EncoderReset();
 	float ReportGyro();
 };
