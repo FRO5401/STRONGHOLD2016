@@ -203,6 +203,7 @@ float DriveBase::AutoTurnAngle(float DesiredTurnAngle, float TurnPrecision)	//Tu
 		}
 	}
 }
+
 float DriveBase::ReportGyro()
 {
   	float Angle = (GyroScalar * MainGyro	->	GetAngle());
