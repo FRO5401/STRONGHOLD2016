@@ -15,7 +15,7 @@ const double FwdSpeed 			= 0.95;
 const double ShooterResetDwell	= 1;
 //Encoder Constant
 //Variable to convert pulse to degrees
-double ShooterDistancePerPulseValue = 0.2935;//Tuned in 022316
+double ShooterDistancePerPulseValue = -0.2910;//Tuned in 022816
 //The degrees from starting position for the angle to shoot
 double ShooterFiredPosition = 85;
 double ShooterCockedPosition = 359;
@@ -43,6 +43,7 @@ void Shooter::Shoot() //Shoots the ball
 {
 	while (ShooterEnc -> GetDistance() < ShooterFiredPosition){
 		ShooterMotor -> Set(FwdSpeed);	//Moves the shooter from the cocked position into the fired position
+		SmartDashboard::PutNumber("Shooter Encoder", ShooterEnc ->GetDistance());
 	}
 	ShooterMotor -> Set(0); //Stops the shooter after firing
 	Wait(ShooterResetDwell); //Waits just to clear the ball
