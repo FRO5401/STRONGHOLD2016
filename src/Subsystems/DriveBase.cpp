@@ -183,18 +183,25 @@ if ((RawErr >= 0 && RawErr <=180) || (RawErr >= -360 && RawErr <= -180)) {//Dete
 float DriveBase::AutoTurnAngle(float DesiredTurnAngle, float TurnPrecision)	//Turns a number of degrees relative to current position
 {
 	AutoTurnPrecision = TurnPrecision;
-	float GyroAngle = ReportGyro();
-	  float FinalAngle = GyroAngle + DesiredTurnAngle;
-	  while (fabs(FinalAngle - GyroAngle) > AngleThreshold)
-	  {
-		  if ((FinalAngle - GyroAngle) > AngleThreshold) {
-			  Drive(AutoTurnSpeed * TurnPrecision, -AutoTurnSpeed*TurnPrecision);
-		  } 	else if ((FinalAngle - GyroAngle) < AngleThreshold) {
-			  	  Drive(-AutoTurnSpeed*TurnPrecision, AutoTurnSpeed*TurnPrecision);
-				}
-		GyroAngle = ReportGyro();
+	//Not using ReportGyro as it possibly doesn't work; if this code works, try ReportGyro()
+	float CurrentAngle = 0;
+	float InitAngle = MainGyro -> GetAngle();
+
+	if (fabs(DesiredTurnAngle) <= AngleThreshold){
+		std::cout << "DesiredTurnAngle too small!!!\n";
+	} else {
+		while ((DesiredTurnAngle > 0) ? (CurrentAngle < fabs(DesiredTurnAngle) - AngleThreshold) : (CurrentAngle > AngleThreshold - fabs(DesiredTurnAngle))){
+			if (DesiredTurnAngle > 0){
+				Drive(AutoTurnSpeed * AutoTurnPrecision, -AutoTurnSpeed * AutoTurnPrecision);
+			} else if (DesiredTurnAngle < 0) {
+				Drive(-AutoTurnSpeed * AutoTurnPrecision, AutoTurnSpeed * AutoTurnPrecision);
+			} else { //error or exactly 0
+				std::cout << "AutoTurnAngle Error!!!\n";
+				break;
+			}
+		CurrentAngle = MainGyro -> GetAngle() - InitAngle;
+		}
 	}
-	return (FinalAngle - GyroAngle); //return the final delta
 }
 float DriveBase::ReportGyro()
 {
