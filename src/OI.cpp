@@ -211,9 +211,9 @@ bool OI::GetMOHRightStickButton(){ //probably not used
 	return MedalOfHonorController -> GetRawButton(12);
 }
 
-bool OI::GetMOHLeftStickButton(){ //SPT Override soft stops
+/*bool OI::GetMOHLeftStickButton(){ //SPT Override soft stops
 	return MedalOfHonorController -> GetRawButton(11);
-}
+}*/
 
 
 bool OI::GetMOHButtonL3(){
