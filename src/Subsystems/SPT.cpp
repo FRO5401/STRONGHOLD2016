@@ -30,8 +30,8 @@ float SPTMotorSpeed = .9;
 float SPTDeliveryPosition 	= -34.677;//Position has measured 022816
 float SPTFeederPosition		= -112.146;//Position has measured 022816
 float SPTShootingPosition	= -50;//Position has measured 021716
-double SPTMaxAngle			= 80; //Measured 100 degrees  021616 //normally 98
-double SPTMinAngle			= -63.082; //Measured 022816
+double SPTMaxAngle			= 0; //Measured 100 degrees  021616 //normally 98
+double SPTMinAngle			= -155; //Measured 022816
 double SPTPrecision = 0.5; //Set precision very high while PID and stop points are not defined
 
 SPT::SPT() :
@@ -83,10 +83,10 @@ void SPT::UpAndDown(double ShoulderChangeValue, bool Override){
 //The waits a while and stops the motor at the correct angle
 //The wait amount is guess and checked.
 void SPT::MoveToDeliveryPosition(){
-
 	while (SPTEnc -> GetDistance() < SPTDeliveryPosition){
 		SPTShoulderMotor -> Set(-SPTMotorSpeed * SPTPrecision);
 	}
+	SPTShoulderMotor -> Set(0);
 }
 
 //Same thing as MoveToDeliveryPosition but the point where it goes to is the InfeederPosition
@@ -94,6 +94,7 @@ void SPT::MoveToInfeederPosition(){
 	while (SPTEnc -> GetDistance() > SPTFeederPosition){
 		SPTShoulderMotor -> Set(SPTMotorSpeed * SPTPrecision);
 	}
+	SPTShoulderMotor -> Set(0);
 }
 
 void SPT::ClearShooterPathPosition(){

@@ -147,7 +147,7 @@ void DriveBase::AutoDriveDistance(float DesiredDistance){
 			if (DesiredDistance > 0){ //DesiredDistance is positive, go forward
 				Drive(AutoDriveSpeed * kP, AutoDriveSpeed);
 			} else if (DesiredDistance < 0){ //DesiredDistance is negative, go backward
-				Drive(-AutoDriveSpeed * kP, -AutoDriveSpeed);
+				Drive(-AutoDriveSpeed, -AutoDriveSpeed);//There is no kp value here because the kp value makes the robot run curved when going backwards
 			} else { //error or exactly 0
 				std::cout << "AutoDriveDistance Error!!!\n";
 				break;
