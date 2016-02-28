@@ -200,6 +200,8 @@ private:
 		if (autonomousCommand != NULL)
 			autonomousCommand->Cancel();
 		//IMAQdxStartAcquisition(RunningSession);
+		CommandBase::drivebase -> Stop();//Stops DriveBase motors when teleop is first enabled
+		CommandBase::spt -> StopForShoot();//Stops the shoulder motor of SPT when teleop is first enabled
 	}
 
 	void TeleopPeriodic()
