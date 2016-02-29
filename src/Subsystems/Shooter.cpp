@@ -46,17 +46,12 @@ void Shooter::Shoot() //Shoots the ball
 		SmartDashboard::PutNumber("Shooter Encoder", ShooterEnc ->GetDistance());
 	}
 	ShooterMotor -> Set(0); //Stops the shooter after firing
-	Wait(ShooterResetDwell); //Waits just to clear the ball
-	while (ShooterEnc -> GetDistance() < ShooterCockedPosition){
-		ShooterMotor -> Set(FwdSpeed);
-		Wait(Latency);//Sets a small wait to allow other commands to proceed while this is operating
-	}
-	ShooterMotor -> Set(0);
 
 //	SmartDashboard::PutNumber("Distance Per Pulse Value in Degrees for Shooter", ShooterDistancePerPulseValue);
 //	SmartDashboard::PutNumber("Position of Shooter After Being Fired", ShooterFiredPosition);
 //	SmartDashboard::PutNumber("Position of Shooter Being Cocked", ShooterCockedPosition);
 //	SmartDashboard::PutNumber("Shooter Encoder", ShooterEnc ->GetDistance());
+	Wait(ShooterResetDwell); //Waits just to clear the ball
 }
 
 void Shooter::Override(double Input)
@@ -69,5 +64,10 @@ void Shooter::Override(double Input)
 }
 
 void Shooter::Reset(){
+	while (ShooterEnc -> GetDistance() < ShooterCockedPosition){
+		ShooterMotor -> Set(FwdSpeed);
+		Wait(Latency);//Sets a small wait to allow other commands to proceed while this is operating
+	}
+	ShooterMotor -> Set(0);
 	ShooterEnc -> Reset();
 }

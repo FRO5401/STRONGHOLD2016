@@ -12,12 +12,13 @@ Launch::Launch()
 {
   Requires(shooter);
   Requires(spt);
+  Requires(relaysys);
 }
 void Launch::Initialize()
 {
-	shooter ->  Reset();
-	spt -> StopForShoot();
+	spt -> ClearShooterPathPosition();
 	shooter	->	Shoot();
+	relaysys -> ShootLights(2);
 }
 
 void Launch::Execute(){};
@@ -27,7 +28,11 @@ bool Launch::IsFinished()
 	return true;
 }
 
-void Launch::End(){};
+void Launch::End(){
+
+	shooter ->  Reset();
+
+};
 void Launch::Interrupted(){};
 
 
