@@ -21,7 +21,9 @@ const float DefaultTurnPrecision = 0.5;
 const double AngleThreshold	= 2; 		//Turn angle in degrees //TODO Must tune this
 const double AutoDistThresh	= 2; 		//Distance threshold in inches //TODO Must tune this
 
-const float kP = .835;	//Default kP scalar value
+//Offset for drive motors when driving autonomously
+const float kPLeft = .835;	//For going forwards
+const float kPRight = .9; //For going backwards
 
 DriveBase::DriveBase() :
 		Subsystem("DriveBase")
@@ -145,9 +147,9 @@ void DriveBase::AutoDriveDistance(float DesiredDistance){
 	} else {
 		while ((DesiredDistance > 0) ? (DistanceTraveled < fabs(DesiredDistance) - AutoDistThresh) : (DistanceTraveled > AutoDistThresh - fabs(DesiredDistance))){
 			if (DesiredDistance > 0){ //DesiredDistance is positive, go forward
-				Drive(AutoDriveSpeed * kP, AutoDriveSpeed);
+				Drive(AutoDriveSpeed * kPLeft, AutoDriveSpeed);
 			} else if (DesiredDistance < 0){ //DesiredDistance is negative, go backward
-				Drive(-AutoDriveSpeed, -AutoDriveSpeed);//There is no kp value here because the kp value makes the robot run curved when going backwards
+				Drive(-AutoDriveSpeed, -AutoDriveSpeed * kPRight);//There is no kp value here because the kp value makes the robot run curved when going backwards
 			} else { //error or exactly 0
 				std::cout << "AutoDriveDistance Error!!!\n";
 				break;
