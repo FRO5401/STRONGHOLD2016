@@ -3,7 +3,7 @@
 #include "Commands/InfeederLiftIntoDelivery.h"
 #include "Commands/InfeederLiftIntoInfeederPosition.h"
 
-#include "Autonomous/AutoTurnToAngleCommand.h"
+#include "Autonomous/AutonomousAutoTurnAngle.h"
 #include "Autonomous/AutoDriveCommand.h"
 //Includes are for commands that are used in this command group
 
@@ -27,11 +27,12 @@ AutonomousLowBar::AutonomousLowBar(int DefensePosition, int GoalPosition, int Lo
 //	AddSequential(new AutoTurnToAngleCommand(180); //Because SPT is not need thus immediate position for shooting can work
 	AddSequential(new InfeederLiftIntoInfeederPosition());
 	Wait(.25);
-	AddSequential(new AutoDriveCommand(-125.5));//Formerly -122.5
-	AddSequential(new AutoTurnToAngleCommand(90.0));
+	AddSequential(new AutoDriveCommand(-128.5));//Formerly -122.5
+	Wait(.5);
+	AddSequential(new AutonomousAutoTurnAngle(90.0));
 	AddParallel(new InfeederLiftIntoDelivery());
 	AddSequential(new AutoDriveCommand(-128.5));
-	AddSequential(new AutoTurnToAngleCommand(0.0));
+	AddSequential(new AutonomousAutoTurnAngle(-90.0));
 	AddSequential(new AutoLaunch());
 
 

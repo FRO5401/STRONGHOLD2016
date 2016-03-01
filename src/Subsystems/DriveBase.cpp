@@ -186,16 +186,16 @@ float DriveBase::AutoTurnAngle(float DesiredTurnAngle, float TurnPrecision)	//Tu
 {
 	AutoTurnPrecision = TurnPrecision;
 	//Not using ReportGyro as it possibly doesn't work; if this code works, try ReportGyro()
-	float CurrentAngle = 0;
 	float InitAngle = MainGyro -> GetAngle();
+	float CurrentAngle = InitAngle;
 
 	if (fabs(DesiredTurnAngle) <= AngleThreshold){
 		std::cout << "DesiredTurnAngle too small!!!\n";
 	} else {
 		while ((DesiredTurnAngle > 0) ? (CurrentAngle < fabs(DesiredTurnAngle) - AngleThreshold) : (CurrentAngle > AngleThreshold - fabs(DesiredTurnAngle))){
-			if (DesiredTurnAngle > 0){
+			if (CurrentAngle > 0 && DesiredTurnAngle > 0){
 				Drive(AutoTurnSpeed * AutoTurnPrecision, -AutoTurnSpeed * AutoTurnPrecision);
-			} else if (DesiredTurnAngle < 0) {
+			} else if (CurrentAngle < 0 && DesiredTurnAngle < 0) {
 				Drive(-AutoTurnSpeed * AutoTurnPrecision, AutoTurnSpeed * AutoTurnPrecision);
 			} else { //error or exactly 0
 				std::cout << "AutoTurnAngle Error!!!\n";
@@ -204,6 +204,8 @@ float DriveBase::AutoTurnAngle(float DesiredTurnAngle, float TurnPrecision)	//Tu
 		CurrentAngle = MainGyro -> GetAngle() - InitAngle;
 		}
 	}
+
+	Stop(); //Stop motors for autonomous
 }
 
 float DriveBase::ReportGyro()
