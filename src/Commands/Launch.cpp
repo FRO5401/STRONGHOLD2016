@@ -21,9 +21,9 @@ void Launch::Initialize()
 }
 
 void Launch::Execute(){
+	shooter	->	Shoot();
 	if (shooter -> ReportEncoder() < ShooterFiredPosition){
 	LaunchComplete = false;
-	shooter	->	Shoot();
 //	relaysys -> ShootLights(2);
 	} else {
 		LaunchComplete = true;

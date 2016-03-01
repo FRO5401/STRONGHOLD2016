@@ -26,14 +26,14 @@ Shooter::Shooter() :
 	//New Stuff 020816
 	ShooterEnc		= new Encoder(Enc_Shooter_A, Enc_Shooter_B, true, Encoder::k1X);
 	SmartDashboard::PutNumber("Distance Per Pulse Value in Degrees for Shooter", ShooterDistancePerPulseValue);
-	SmartDashboard::PutNumber("Position of Shooter After Being Fired", ShooterFiredPosition);
-	SmartDashboard::PutNumber("Position of Shooter Being Cocked", ShooterCockedPosition);
+//	SmartDashboard::PutNumber("Position of Shooter After Being Fired", ShooterFiredPosition);
+//	SmartDashboard::PutNumber("Position of Shooter Being Cocked", ShooterCockedPosition);
 	ShooterEnc -> SetDistancePerPulse(ShooterDistancePerPulseValue);
 }
 
 void Shooter::InitDefaultCommand()
 {
-	SetDefaultCommand(new ShooterOverride()); //Not sure what/if the default command should be, but we may want a check/reset
+//	SetDefaultCommand(new ShooterOverride()); //Not sure what/if the default command should be, but we may want a check/reset
 }
 
 void Shooter::Shoot() //Shoots the ball
@@ -66,14 +66,14 @@ void Shooter::Override(double Input)
 }
 
 void Shooter::Reset(){
-	while (ShooterEnc -> GetDistance() < ShooterCockedPosition){
+/*	while (ShooterEnc -> GetDistance() < ShooterCockedPosition){
 		ShooterMotor -> Set(FwdSpeed);
 		Wait(Latency);//Sets a small wait to allow other commands to proceed while this is operating
 	}
 	ShooterMotor -> Set(0);
 	ShooterEnc -> Reset();
 	SmartDashboard::PutNumber("Shooter Encoder", ShooterEnc ->Get());
-}
+*/}
 
 float Shooter::ReportEncoder(){
 	return ShooterEnc -> GetDistance();

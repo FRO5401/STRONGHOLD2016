@@ -34,7 +34,9 @@ ShooterOverride::ShooterOverride()
 	return false;/*(!Override)*/;
 }
 
-	void ShooterOverride::End(){};
+	void ShooterOverride::End(){
+		shooter -> Stop();
+	};
 	void ShooterOverride::Interrupted(){};
 
 

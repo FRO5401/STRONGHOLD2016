@@ -85,13 +85,13 @@ OI::OI()
 	MOHRightBumper	-> WhenPressed(new FeedOutFromInner());
 	MOHRightBumper   -> WhenReleased(new FeederStop());
 	
-	//TODO Add buttons for targeting and shooting
-//	XboxA			-> WhenPressed(new LockTarget());
-//	XboxX			-> WhenPressed(new AutoLaunch());
-	XboxX			-> 	 WhenPressed(new Launch());
 	MOHButtonTriangle -> WhenPressed(new LockTarget());
 	MOHButtonSquare   -> WhenPressed(new AutoLaunch());
 	MOHStartButton	-> WhenPressed(new AutoDeliverBall(1.5));
+
+	XboxX			-> 	 WhenPressed(new Launch());
+	XboxRightStickButton -> WhenPressed(new ShooterOverride());
+
 }
 
 //Defines the functions for the axis's declared in the h file
