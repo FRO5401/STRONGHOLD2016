@@ -15,7 +15,7 @@
 	const int TargetWidth	= 88;
 	const int TargetHeight	= 55;
 
-	const float Area_d = 0.5;
+	const float Area_d = 0.25;
 	const float Aspect_d = 0.5;
 
 	const float AngleRange	= 22; //Angle left or right of center that target can be seen

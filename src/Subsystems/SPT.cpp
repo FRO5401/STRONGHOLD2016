@@ -20,19 +20,19 @@
 //Multiplier to get meaningful value. A number can be put here - 0 value is horizontal from front of robot
 double SPT_Range 	= -1376.15;
 //Quote "offset added to the scaled value to control the 0 value
-double SPT_Offset 	= 638.073;
+double SPT_Offset 	= -93.701;
 
 double SPTMotorMin	= -1;//Min Motor speed
 double SPTMotorMax	= 1;// Max motor speed
 double SPTDistancePerPulseValue = .3689;
 float SPTMotorSpeed = .9;
 
-float SPTDeliveryPosition 	= -34.677;//Position has measured 022816
-float SPTFeederPosition		= -112.146;//Position has measured 022816
+float SPTDeliveryPosition 	= 55;//-34.677 from start
+float SPTFeederPosition		= -21;//-112.146 from start
 float SPTShootingPosition	= -50;//Position has measured 021716
-double SPTMaxAngle			= 0; //Measured 100 degrees  021616 //normally 98
-double SPTMinAngle			= -155; //Measured 022816
-double SPTPrecision = 0.5; //Set precision very high while PID and stop points are not defined
+double SPTMaxAngle			= 59.024; //Measured 100 degrees  021616 //normally 98
+double SPTMinAngle			= -61.299; //Measured 022816
+double SPTPrecision = 0.75; //Set precision very high while PID and stop points are not defined
 
 SPT::SPT() :
 		Subsystem("SPT")
@@ -68,9 +68,9 @@ void SPT::InitDefaultCommand()
 void SPT::UpAndDown(double ShoulderChangeValue, bool Override){
 	if (!Override) {
 	//Zero out the change if angle is at its upper limit and trying to increase
-	ShoulderChangeValue = ((ShoulderChangeValue < 0) && (SPTEnc -> GetDistance() >= SPTMaxAngle)) ? 0 : ShoulderChangeValue;
+	ShoulderChangeValue = ((ShoulderChangeValue < 0) && (GetAdjustedEncDistance() >= SPTMaxAngle)) ? 0 : ShoulderChangeValue;
 	//Zero out the change if angle is at its lower limit and trying to decrease
-	ShoulderChangeValue = ((ShoulderChangeValue > 0) && (SPTEnc -> GetDistance() <= SPTMinAngle)) ? 0 : ShoulderChangeValue;
+	ShoulderChangeValue = ((ShoulderChangeValue > 0) && (GetAdjustedEncDistance() <= SPTMinAngle)) ? 0 : ShoulderChangeValue;
 	}
 	SPTShoulderMotor -> Set(SPTPrecision * ShoulderChangeValue); 
 
@@ -83,7 +83,7 @@ void SPT::UpAndDown(double ShoulderChangeValue, bool Override){
 //The waits a while and stops the motor at the correct angle
 //The wait amount is guess and checked.
 void SPT::MoveToDeliveryPosition(){
-	while (SPTEnc -> GetDistance() < SPTDeliveryPosition){
+	while (GetAdjustedEncDistance() < SPTDeliveryPosition){
 		SPTShoulderMotor -> Set(-SPTMotorSpeed * SPTPrecision);
 	}
 	SPTShoulderMotor -> Set(0);
@@ -91,7 +91,7 @@ void SPT::MoveToDeliveryPosition(){
 
 //Same thing as MoveToDeliveryPosition but the point where it goes to is the InfeederPosition
 void SPT::MoveToInfeederPosition(){
-	while (SPTEnc -> GetDistance() > SPTFeederPosition){
+	while (GetAdjustedEncDistance() > SPTFeederPosition){
 		SPTShoulderMotor -> Set(SPTMotorSpeed * SPTPrecision);
 	}
 	SPTShoulderMotor -> Set(0);
@@ -104,3 +104,13 @@ void SPT::ClearShooterPathPosition(){
 void SPT::StopForShoot(){
 	SPTShoulderMotor -> Set(0);
 } //TODO move  this to ClearShooterPathPosition
+
+float SPT::GetAdjustedEncDistance(){
+	return (SPTEnc -> GetDistance() - SPT_Offset);
+}
+
+void SPT::Reset()
+{
+	SPTEnc	  -> Reset();
+
+}

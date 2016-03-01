@@ -22,6 +22,8 @@ public:
 	void MoveToInfeederPosition();
 	void ClearShooterPathPosition();
 	void StopForShoot();
+	float GetAdjustedEncDistance();
+	void Reset();
 };
 
 #endif

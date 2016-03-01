@@ -1,5 +1,4 @@
-/*
- * Catapult targeting for 2016 FRC Stronghold game
+* Catapult targeting for 2016 FRC Stronghold game
  * Team 5401 Fightin' Robotic Owls
  * FROGramming team
  */
