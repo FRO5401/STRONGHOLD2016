@@ -27,6 +27,7 @@ const double MinSensitivityThreshold = 0.1;//Sensitivity is used in driving, so 
 const double MaxSensitivityThreshold = 0.9;//for highest speed and lowest speed
 const double Drive_Sensitivity_Default	=	1;
 const double Drive_Sensitivity_Precise	=	0.2;
+const double Latency = 0.001;
 
 //const double Encoder_Conversion_To_Inches_Constant = 1; No longer needed. Equivalent is in DriveBase
 /***********************
@@ -49,6 +50,7 @@ const int XboxR3_ID		=	10;
 const int Back_ID		=	7;
 const int XboxL3_ID		=	9;
 const int MOHStartID	=	10;
+const int MOHL3_ID		= 	11;
 
 /****************
  * End Controllers
@@ -124,7 +126,6 @@ const int CarriageLights_Channel			= 1;
  * Sensor Channels
  ***********/
 const int ShooterSwitch_Channel 	= 0;			//MUST BE UPDATED
-const int SPTPot_Channel 		= 1;//MUST BE UPDATED SPT potentiometer channel
 const int HookShoulderPot_Channel	= 0;	//MUST BE UPDATED
 
 //Encoder DIO Channels
@@ -133,10 +134,15 @@ const int Enc_Left_B 	= 1;
 const int Enc_Right_A 	= 2;
 const int Enc_Right_B 	= 3;
 
-const int Enc_Shooter_A = 0;
-const int Enc_Shooter_B = 0;
+const int Enc_Shooter_A = 4;
+const int Enc_Shooter_B = 5;
+
+const int Enc_SPT_Loc_A = 6;
+const int Enc_SPT_Loc_B = 7;
 /************
  * End Sensor Channels
  ***********/
+
+
 
 #endif

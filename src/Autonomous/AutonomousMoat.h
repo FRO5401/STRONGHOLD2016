@@ -7,7 +7,7 @@
 class AutonomousMoat: public CommandGroup
 {
 public:
-	AutonomousMoat();
+	AutonomousMoat(int, int, int);
 };
 
 #endif

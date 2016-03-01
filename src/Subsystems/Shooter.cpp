@@ -11,14 +11,14 @@
 #include <Commands/ShooterOverride.h>
 
 //Sensor parameters
-const double FwdSpeed 			= 0.5;
-const double ShooterResetDwell	= 0.01;
+const double FwdSpeed 			= 0.95;
+const double ShooterResetDwell	= 1;
 //Encoder Constant
 //Variable to convert pulse to degrees
-double ShooterDistancePerPulseValue = 0;
+double ShooterDistancePerPulseValue = -0.2910;//Tuned in 022816
 //The degrees from starting position for the angle to shoot
-double ShooterFiredPosition = 0;
-double ShooterCockedPosition = 0;
+double ShooterFiredPosition = 85;
+double ShooterCockedPosition = 359;
 
 Shooter::Shooter() :
 		Subsystem("Shooter")
@@ -41,43 +41,17 @@ void Shooter::InitDefaultCommand()
 
 void Shooter::Shoot() //Shoots the ball
 {
-	while((ShooterEnc -> GetDistance()) != ShooterCockedPosition)
-	{
-		//Automatically moves the motor when function is called
-		ShooterMotor	->	Set(FwdSpeed);
-		//When the limit switch is hit the encoder resets and starts to run forward
-		if(ShooterSwitch -> Get())
-		{
-			ShooterEnc -> Reset();
-			while((ShooterEnc -> GetDistance()) != ShooterCockedPosition)
-			{
-				if((ShooterEnc -> GetDistance()) < ShooterCockedPosition)
-				{
-					ShooterMotor -> Set(FwdSpeed);
-				}
-				if((ShooterEnc -> GetDistance()) > ShooterCockedPosition)
-				{
-					ShooterMotor -> Set(-FwdSpeed);
-				}
-			}
-		}
-//	Wait(ShooterResetDwell);  //Inserting a small dwell, just to make sure that it moves forward before terminating
+	while (ShooterEnc -> GetDistance() < ShooterFiredPosition){
+		ShooterMotor -> Set(FwdSpeed);	//Moves the shooter from the cocked position into the fired position
+		SmartDashboard::PutNumber("Shooter Encoder", ShooterEnc ->GetDistance());
 	}
-	while((ShooterEnc -> GetDistance()) != ShooterFiredPosition)
-	{
-		ShooterMotor -> Set(FwdSpeed);
-		Wait(ShooterResetDwell);
-		ShooterMotor -> Set(0);
-	}
-/* Original design - may remove the loop
- * Loop
- * Check encoder is at its initial set point (cocked - constant)
- * if not at cocked, reverse until at cocked
- * else move to next set point (fired - constant), wait (wait time constant), and BREAK out of loop
- * forward to cocked set point
- * end
- * Update 020716 Pot not correct for shooter.  must move forward cyclically.  Going forward on command until a limit switch is tripped.
- */
+	ShooterMotor -> Set(0); //Stops the shooter after firing
+	Wait(ShooterResetDwell); //Waits just to clear the ball
+
+//	SmartDashboard::PutNumber("Distance Per Pulse Value in Degrees for Shooter", ShooterDistancePerPulseValue);
+//	SmartDashboard::PutNumber("Position of Shooter After Being Fired", ShooterFiredPosition);
+//	SmartDashboard::PutNumber("Position of Shooter Being Cocked", ShooterCockedPosition);
+//	SmartDashboard::PutNumber("Shooter Encoder", ShooterEnc ->GetDistance());
 }
 
 void Shooter::Override(double Input)
@@ -89,3 +63,11 @@ void Shooter::Override(double Input)
 	SmartDashboard::PutNumber("Shooter Encoder", ShooterEnc ->Get());
 }
 
+void Shooter::Reset(){
+	while (ShooterEnc -> GetDistance() < ShooterCockedPosition){
+		ShooterMotor -> Set(FwdSpeed);
+		Wait(Latency);//Sets a small wait to allow other commands to proceed while this is operating
+	}
+	ShooterMotor -> Set(0);
+	ShooterEnc -> Reset();
+}

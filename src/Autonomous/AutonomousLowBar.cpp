@@ -1,7 +1,39 @@
 #include "Autonomous/AutonomousLowBar.h"
+#include "Commands/AutoLaunch.h"
+#include "Commands/InfeederLiftIntoDelivery.h"
+#include "Commands/InfeederLiftIntoInfeederPosition.h"
 
-AutonomousLowBar::AutonomousLowBar()
+#include "Autonomous/AutonomousAutoTurnAngle.h"
+#include "Autonomous/AutoDriveCommand.h"
+//Includes are for commands that are used in this command group
+
+AutonomousLowBar::AutonomousLowBar(int DefensePosition, int GoalPosition, int LowOrHigh)
 {
+/*	AddSequential(new DrivingWithEncoderInput());
+	//Adjust Angle COMMAND NOT CREATED YET
+	AddSequential(new LockTarget());//LockTarget needs it to be edited to find if it is within range
+
+	AddSequential(new Launch());
+*/
+
+/*	Pusedocode
+ *	AddSequential(new AutoTurnToAngle(180); //Because SPT is not need thus immediate position for shooting can work
+ *	AddSequential(new AutoDriveCommand(#));
+ *	AddSequential(new AutoTurnToAngleCommand(45)); maybe????
+ *	AddSequential(new AutoLaunch());
+ *
+ */
+//	Not needed because the driver will position the robot as necessary before turning on
+//	AddSequential(new AutoTurnToAngleCommand(180); //Because SPT is not need thus immediate position for shooting can work
+
+	AddSequential(new InfeederLiftIntoInfeederPosition());
+	AddSequential(new AutoDriveCommand(-215));//Formerly -122.5
+	Wait(.5);		//2 autodrives?
+	AddSequential(new InfeederLiftIntoDelivery());
+	AddSequential(new AutonomousAutoTurnAngle(37));//46.8 but we overshoot
+	AddSequential(new AutoLaunch());
+
+
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());

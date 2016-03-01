@@ -1,5 +1,4 @@
-/*
- * Drive Base subsystem for 2016 FRC Stronghold game
+/* Drive Base subsystem for 2016 FRC Stronghold game
  * Team 5401 Fightin' Robotic Owls
  * FROGramming team
  * Subsystem's got two empty halves of coconut and is bangin' 'em together.
@@ -9,17 +8,22 @@
 #include "../RobotMap.h"
 #include <Commands/XboxMove.h>
 
-const double DPPLeft		= (-1/76.6); 		//TODO Must tune this
-const double DPPRight		= (1/76.2);
+const double DPPLeft		= (-1/6.318); //919.636		//TODO Must tune left? this
+const double DPPRight		= (1/6.318); //914.618
 const float GyroScalar		= 10; 		//Preliminarily tuned
 const float GyroLinearAdj	= -0.696; 	//Adjusts for Gyro Creep = m
 const float GyroOffset		= -6.1395;	// = b
 float initialGyro			= 0;
 
 const double AutoDriveSpeed	= 0.5;
-const double AutoTurnSpeed	= 0.5;
+const double AutoTurnSpeed	= 0.95;
+const float DefaultTurnPrecision = 0.5;
 const double AngleThreshold	= 2; 		//Turn angle in degrees //TODO Must tune this
 const double AutoDistThresh	= 2; 		//Distance threshold in inches //TODO Must tune this
+
+//Offset for drive motors when driving autonomously
+const float kPLeft = .835;	//For going forwards
+const float kPRight = .9; //For going backwards
 
 DriveBase::DriveBase() :
 		Subsystem("DriveBase")
@@ -44,9 +48,13 @@ DriveBase::DriveBase() :
  	TimeCount = new Timer();
  	TimeCount -> Reset();
  	MainGyro  -> Reset();
+ 	AutoTurnPrecision = DefaultTurnPrecision;
  //	LeftEnc -> Reset();Doesn't work when enabling and disabling
  //	RightEnc -> Reset();
  	
+ 	//kP = 0;			//Uncomment for getting value from dashboard
+ 	//SmartDashboard::PutNumber("kP Value", kP);
+
 }
 
 void DriveBase::InitDefaultCommand()
@@ -61,6 +69,9 @@ void DriveBase::InitDefaultCommand()
 
 void DriveBase::Drive(double LeftDriveDesired, double RightDriveDesired)
   {
+
+  //kP = SmartDashboard::GetNumber("kP Value", kP); //Uncomment for getting value from dashboard
+
   LeftDrive1 	-> Set(LeftDriveDesired); //passes desired state to speed controllers
   LeftDrive2	-> Set(LeftDriveDesired);
   RightDrive1 	-> Set(-1 * RightDriveDesired);
@@ -78,7 +89,8 @@ void DriveBase::Drive(double LeftDriveDesired, double RightDriveDesired)
   SmartDashboard::PutNumber("Right Encoder Distance Traveled", 	RightEnc 	-> GetDistance());
 
   SmartDashboard::GetNumber("Initial Gyro Value", initialGyro);
-  SmartDashboard::PutNumber("Gyro Angle", ReportGyro());
+  //SmartDashboard::PutNumber("Gyro Angle", ReportGyro());	//doesn't work for some reason
+  SmartDashboard::PutNumber("Gyro GetAngle", MainGyro -> GetAngle());
   }
 /*
  * Pneumatic shfting is out of design at this point
@@ -101,14 +113,12 @@ void DriveBase::ShiftHigh()
   LeftDrive2	-> Set(0);
   RightDrive1	-> Set(0);
   RightDrive2	-> Set(0);
-  TimeCount 	-> Stop();
+//  TimeCount 	-> Stop();
 
   }
 
   void DriveBase::Reset()
   {
-//  	LeftEnc ->Reset();
-//  	RightEnc ->Reset();
   	LeftDrive1	-> Set(0);
   	LeftDrive2	-> Set(0);
   	RightDrive1	-> Set(0);
@@ -116,29 +126,45 @@ void DriveBase::ShiftHigh()
 
   	TimeCount -> Reset();
   	MainGyro  -> Reset();
+  	LeftEnc	  -> Reset();
+  	RightEnc  -> Reset();
 
   }
   //New stuff
   //A function to use the encoders in driving, the robot will drive in a certain direction depending on the distance left to travel
 void DriveBase::AutoDriveDistance(float DesiredDistance){
-	SmartDashboard::GetNumber("Distance for Encoder Drive", DashAutoDistance); //TODO Remove this and 2 lines below once we calibrate, this is just to do it from the dashboard for various distances without recompiling over and over
-	DesiredDistance = DashAutoDistance;
+//	SmartDashboard::GetNumber("Distance for Encoder Drive", DashAutoDistance); //Remove this and 2 lines below once we calibrate, this is just to do it from the dashboard for various distances without recompiling over and over
+//	DesiredDistance = DashAutoDistance;
 
 	EncoderReset();
-	float Distance = ((LeftEnc -> GetDistance() + RightEnc -> GetDistance())/2); //Average the two sensor inputs
-	while (fabs(DesiredDistance - Distance) > AutoDistThresh){
-		if (fabs(DesiredDistance - Distance) > AutoDistThresh){
-			Drive(AutoDriveSpeed, AutoDriveSpeed);
-		} else if (fabs(DesiredDistance - Distance) < -AutoDistThresh){
-			Drive(-1 * AutoDriveSpeed, -1 * AutoDriveSpeed);
-		 	}
-		Distance = ((LeftEnc -> GetDistance() + RightEnc -> GetDistance())/2);
+	MainGyro -> Reset();
+
+	float DistanceTraveled = 0;
+	if (fabs(DesiredDistance) <= AutoDistThresh){
+		std::cout << "DesiredDistance to small!!!\n";
+	} else {
+		while ((DesiredDistance > 0) ? (DistanceTraveled < fabs(DesiredDistance) - AutoDistThresh) : (DistanceTraveled > AutoDistThresh - fabs(DesiredDistance))){
+			if (DesiredDistance > 0){ //DesiredDistance is positive, go forward
+				Drive(AutoDriveSpeed * kPLeft, AutoDriveSpeed);
+			} else if (DesiredDistance < 0){ //DesiredDistance is negative, go backward
+				Drive(-AutoDriveSpeed, -AutoDriveSpeed * kPRight);//There is no kp value here because the kp value makes the robot run curved when going backwards
+			} else { //error or exactly 0
+				std::cout << "AutoDriveDistance Error!!!\n";
+				break;
+			}
+		DistanceTraveled = (RightEnc -> GetDistance());//XXX TODO re-add leftenc for competition robot
+		}
 	}
+	Stop();
 }
 
   void DriveBase::EncoderReset(){
 	  LeftEnc -> Reset();
 	  RightEnc -> Reset();
+
+	  //Might not be needed
+	  LeftEnc 	-> SetDistancePerPulse(DPPLeft);
+	  RightEnc 	-> SetDistancePerPulse(DPPRight);
   }
 
 float DriveBase::AutoTurnToAngle(float DesiredAngle)//Turns to an absolute angle based on encoder calibration
@@ -149,30 +175,43 @@ float DriveBase::AutoTurnToAngle(float DesiredAngle)//Turns to an absolute angle
 		AbsErr = 360 - AbsErr; //This determines the shortest distance between the angles
 	}
 if ((RawErr >= 0 && RawErr <=180) || (RawErr >= -360 && RawErr <= -180)) {//Determines sign of angle difference
-	return AutoTurnAngle(AbsErr); //AutoTurnAngle returns the final angle difference, then this returns that return
+	return AutoTurnAngle(AbsErr, DefaultTurnPrecision); //AutoTurnAngle returns the final angle difference, then this returns that return
 	} else {
-		return AutoTurnAngle(-AbsErr);
+		return AutoTurnAngle(-AbsErr, DefaultTurnPrecision);
 		}
 }
 
-float DriveBase::AutoTurnAngle(float DesiredTurnAngle)	//Turns a number of degrees relative to current position
+float DriveBase::AutoTurnAngle(float DesiredTurnAngle, float TurnPrecision)	//Turns a number of degrees relative to current position
 {
-	  float GyroAngle = ReportGyro();
-	  while (fabs(DesiredTurnAngle - GyroAngle) > AngleThreshold)
-	  {
-		  if ((DesiredTurnAngle - GyroAngle) > AngleThreshold) {
-			  Drive(AutoTurnSpeed, -AutoTurnSpeed);
-		  } 	else if ((DesiredTurnAngle - GyroAngle) < AngleThreshold) {
-			  	  Drive(-AutoTurnSpeed, AutoTurnSpeed);
-				}
-		GyroAngle = ReportGyro();
+	AutoTurnPrecision = TurnPrecision;
+	//Not using ReportGyro as it possibly doesn't work; if this code works, try ReportGyro()
+	float CurrentAngle = 0;
+	float InitAngle = MainGyro -> GetAngle();
+
+	if (fabs(DesiredTurnAngle) <= AngleThreshold){
+		std::cout << "DesiredTurnAngle too small!!!\n";
+	} else {
+		while ((DesiredTurnAngle > 0) ? (CurrentAngle < fabs(DesiredTurnAngle) - AngleThreshold) : (CurrentAngle > AngleThreshold - fabs(DesiredTurnAngle))){
+			if (DesiredTurnAngle > 0){
+				Drive(AutoTurnSpeed * AutoTurnPrecision, -AutoTurnSpeed * AutoTurnPrecision);
+			} else if (DesiredTurnAngle < 0) {
+				Drive(-AutoTurnSpeed * AutoTurnPrecision, AutoTurnSpeed * AutoTurnPrecision);
+			} else { //error or exactly 0
+				std::cout << "AutoTurnAngle Error!!!\n";
+				break;
+			}
+		CurrentAngle = MainGyro -> GetAngle() - InitAngle;
+		}
 	}
-	return (DesiredTurnAngle - GyroAngle); //return the final delta
+
+	Stop(); //Stop motors for autonomous
+	return (0); //not sure what return does
 }
+
 float DriveBase::ReportGyro()
 {
   	float Angle = (GyroScalar * MainGyro	->	GetAngle());
    	double Time = TimeCount -> Get();
    	float AdjAngle = Angle - (GyroLinearAdj * Time + GyroOffset);//Compensates for gyro creep - basically subtracts out mx+b the linear creep function
-  	return Angle;
+  	return AdjAngle;
 }

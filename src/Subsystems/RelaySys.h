@@ -16,7 +16,7 @@ public:
 	void InitDefaultCommand();
 	void TurnOn();
 	void TurnOff();
-	void ShootLights();
+	void ShootLights(int);
 };
 
 #endif

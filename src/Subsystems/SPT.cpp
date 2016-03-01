@@ -20,41 +20,34 @@
 //Multiplier to get meaningful value. A number can be put here - 0 value is horizontal from front of robot
 double SPT_Range 	= -1376.15;
 //Quote "offset added to the scaled value to control the 0 value
-double SPT_Offset 	= 638.073;
+double SPT_Offset 	= -93.701;
 
 double SPTMotorMin	= -1;//Min Motor speed
 double SPTMotorMax	= 1;// Max motor speed
+double SPTDistancePerPulseValue = .3689;
+float SPTMotorSpeed = .9;
 
-double SPTDeliveryPosition 	= 46.9;//Position has measured 021716
-double SPTFeederPosition	= -23.3;//Position has measured 021716
-double SPTShootingPosition	= 46.9;//Position has measured 021716
-double SPTMaxAngle			= 98; //Measured 100 degrees  021616
-double SPTMinAngle			= -48; //Measured -50 degrees 021616
-double SPTPrecision = 0.5; //Set precision very high while PID and stop points are not defined
+float SPTDeliveryPosition 	= 55;//-34.677 from start
+float SPTFeederPosition		= -21;//-112.146 from start
+float SPTShootingPosition	= -50;//Position has measured 021716
+double SPTMaxAngle			= 59.024; //Measured 100 degrees  021616 //normally 98
+double SPTMinAngle			= -61.299; //Measured 022816
+double SPTPrecision = 0.75; //Set precision very high while PID and stop points are not defined
 
 SPT::SPT() :
 		Subsystem("SPT")
 {
 	SPTShoulderMotor = new Victor(SPTShoulderMotor_Channel);
 
-	SPTPot = new AnalogPotentiometer(SPTPot_Channel, SPT_Range, SPT_Offset);
-	//								 ^^Channel in RobotMap
-	//Format for declaring PIDControllers (Kp value, Ki value, Kd value, the input source, the output source)
+	SPTEnc		= new Encoder(Enc_SPT_Loc_A, Enc_SPT_Loc_B, true, Encoder::k1X);
+	SPTEnc 		-> SetDistancePerPulse(SPTDistancePerPulseValue);
 	//Read Control Theory from http://www.chiefdelphi.com/media/papers/1823
-	//PID Values
-	SPT_Kp 		= 0;//Proportional - how far away - distance
-	SPT_Ki		= 0 ;//Integral - how long traveled - time
-	SPT_Kd		= 0;//Derivative - how fast getting there - speed
-	SPTPotPID = new PIDController(SPT_Kp, SPT_Ki, SPT_Kd, SPTPot, SPTShoulderMotor);
 	MotorOutput = 0;
 
 //Makes the SPT subsystem constantly get the values of the global variables off the SmartDashboard
 //Thus if operater makes change to values, the code will automatically input that value.
 	SmartDashboard::PutNumber("SPT Range", SPT_Range);
 	SmartDashboard::PutNumber("SPT Offset", SPT_Offset);
-	SmartDashboard::PutNumber("SPT Kp", SPT_Kp);
-	SmartDashboard::PutNumber("SPT Ki", SPT_Ki);
-	SmartDashboard::PutNumber("SPT Kd", SPT_Kd);
 	SmartDashboard::PutNumber("SPTMotorMin", SPTMotorMin);
 	SmartDashboard::PutNumber("SPTMotorMax", SPTMotorMax);
 	SmartDashboard::PutNumber("SPTDeliveryPosition", SPTDeliveryPosition);
@@ -72,50 +65,52 @@ void SPT::InitDefaultCommand()
 
 
 //This function sets the shoulder motor of SPT to a certain direction between up and down
-void SPT::UpAndDown(double ShoulderChangeValue){
-
+void SPT::UpAndDown(double ShoulderChangeValue, bool Override){
+	if (!Override) {
 	//Zero out the change if angle is at its upper limit and trying to increase
-	ShoulderChangeValue = ((ShoulderChangeValue < 0) && (SPTPot -> Get() >= SPTMaxAngle)) ? 0 : ShoulderChangeValue;
+	ShoulderChangeValue = ((ShoulderChangeValue < 0) && (GetAdjustedEncDistance() >= SPTMaxAngle)) ? 0 : ShoulderChangeValue;
 	//Zero out the change if angle is at its lower limit and trying to decrease
-	ShoulderChangeValue = ((ShoulderChangeValue > 0) && (SPTPot -> Get() <= SPTMinAngle)) ? 0 : ShoulderChangeValue;
+	ShoulderChangeValue = ((ShoulderChangeValue > 0) && (GetAdjustedEncDistance() <= SPTMinAngle)) ? 0 : ShoulderChangeValue;
+	}
 	SPTShoulderMotor -> Set(SPTPrecision * ShoulderChangeValue); 
 
 	SmartDashboard::PutNumber("SPTUpDown", ShoulderChangeValue);
-	SmartDashboard::PutNumber("SPTPot", SPTPot ->Get());
+	SmartDashboard::PutNumber("SPTEnc Raw", SPTEnc -> Get());
+	SmartDashboard::PutNumber("SPTEnc", SPTEnc ->GetDistance());
 }
 
 //This function sets the shoulder motor to a certain speed
 //The waits a while and stops the motor at the correct angle
 //The wait amount is guess and checked.
 void SPT::MoveToDeliveryPosition(){
-	SmartDashboard::GetNumber("Distance", SPT_Kp);
-	SmartDashboard::GetNumber("Time", SPT_Ki);
-	SmartDashboard::GetNumber("Speed", SPT_Kd);
-
-	//Sets the min and max speed the motor of that the SPT has
-	SPTPotPID -> SetOutputRange(SPTMotorMin, SPTMotorMax);
-	SPTPotPID -> SetSetpoint(SPTDeliveryPosition);
-	SPTPotPID -> Enable();
+	while (GetAdjustedEncDistance() < SPTDeliveryPosition){
+		SPTShoulderMotor -> Set(-SPTMotorSpeed * SPTPrecision);
+	}
+	SPTShoulderMotor -> Set(0);
 }
 
 //Same thing as MoveToDeliveryPosition but the point where it goes to is the InfeederPosition
 void SPT::MoveToInfeederPosition(){
-	SmartDashboard::GetNumber("Distance", SPT_Kp);
-	SmartDashboard::GetNumber("Time", SPT_Ki);
-	SmartDashboard::GetNumber("Speed", SPT_Kd);
-
-	SPTPotPID -> SetOutputRange(SPTMotorMin, SPTMotorMax);
-	SPTPotPID -> SetSetpoint(SPTFeederPosition);
-	SPTPotPID -> Enable();
+	while (GetAdjustedEncDistance() > SPTFeederPosition){
+		SPTShoulderMotor -> Set(SPTMotorSpeed * SPTPrecision);
+	}
+	SPTShoulderMotor -> Set(0);
 }
 
 void SPT::ClearShooterPathPosition(){
-	SmartDashboard::GetNumber("Distance", SPT_Kp);
-	SmartDashboard::GetNumber("Time", SPT_Ki);
-	SmartDashboard::GetNumber("Speed", SPT_Kd);
 
-	SPTPotPID -> SetOutputRange(SPTMotorMin, SPTMotorMax);
-	SPTPotPID -> SetSetpoint(SPTShootingPosition);
-	SPTPotPID -> Enable();
+}
+
+void SPT::StopForShoot(){
+	SPTShoulderMotor -> Set(0);
+} //TODO move  this to ClearShooterPathPosition
+
+float SPT::GetAdjustedEncDistance(){
+	return (SPTEnc -> GetDistance() - SPT_Offset);
+}
+
+void SPT::Reset()
+{
+	SPTEnc	  -> Reset();
 
 }

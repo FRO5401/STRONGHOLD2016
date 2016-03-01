@@ -6,21 +6,17 @@
 
 #include <Commands/LockTarget.h>
 #include "RobotMap.h"
-//Range RING_HUE_RANGE;// = {0	, 96};	//Default hue range for ring light R
-//Range RING_SAT_RANGE;// = {110	, 255};	//Default saturation range for ring light G
-//Range RING_VAL_RANGE;// = {110	, 255};	//Default value range for ring light B
-//double ImgLatency;
+#include "../Target.h"
 
 LockTarget::LockTarget()
 {
-	Range RING_HUE_RANGE = {0	, 96};	//Default hue range for ring light R
-	Range RING_SAT_RANGE = {110	, 255};	//Default saturation range for ring light G
-	Range RING_VAL_RANGE = {110	, 255};	//Default value range for ring light B
-	ImgLatency = 2;
-	Area = 0.5;
-	Aspect = 0.5;
-	Angle 		= 0;
-	AngleRange	= 22;
+	RING_HUE_RANGE = RING_HUE_RANGE_d;	//Default hue range for ring light R
+	RING_SAT_RANGE = RING_SAT_RANGE_d;	//Default saturation range for ring light G
+	RING_VAL_RANGE = RING_VAL_RANGE_d;	//Default value range for ring light B
+	ImgLatency = 0.5;
+	Area = Area_d;
+	Aspect = Aspect_d;
+	Angle 		= -180;
 	Requires(waterytart);
 	Requires(relaysys);
 }
@@ -41,12 +37,13 @@ void LockTarget::Execute(){
 	RING_SAT_RANGE.maxValue = SmartDashboard::GetNumber("Tote sat max", RING_SAT_RANGE.maxValue);
 	RING_VAL_RANGE.minValue = SmartDashboard::GetNumber("Tote val min", RING_VAL_RANGE.minValue);
 	RING_VAL_RANGE.maxValue = SmartDashboard::GetNumber("Tote val max", RING_VAL_RANGE.maxValue);
-	Area					 = SmartDashboard::GetNumber("Desired Area min %", Area);
-	Aspect					 = SmartDashboard::GetNumber("Desired Aspect Ratio", Aspect);//Unused right now
+	Area					 = SmartDashboard::GetNumber("Target Area min %", Area);
+	Aspect					 = SmartDashboard::GetNumber("Target Aspect Ratio", Aspect);//Unused right now
+	Angle = -180;
 	relaysys	->TurnOn();
 	Angle = waterytart	->	Search(RING_HUE_RANGE, RING_SAT_RANGE, RING_VAL_RANGE, Area, Aspect, ImgLatency);
 	if (fabs(Angle) < AngleRange){
-	   	oi	->	SendMOHRumble(2); //Target acquired TODO add this to the smartdashboard
+	   	oi	->	SendMOHRumble(2);
 	   	SmartDashboard::PutBoolean("TARGET ACQUIRED", true);
 	} else {
 	SmartDashboard::PutBoolean("TARGET ACQUIRED", false);
@@ -55,9 +52,6 @@ void LockTarget::Execute(){
 
 bool LockTarget::IsFinished()
 {
-//	return Lock;
-//		bool ButtonTwo = oi	-> GetPSButtonTwo();
-//		return ButtonTwo;
 	return true;
 }
 

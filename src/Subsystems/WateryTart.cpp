@@ -8,6 +8,7 @@
 
 #include "WateryTart.h"
 #include "../RobotMap.h"
+#include "../Target.h"
 #include "Commands/LockTarget.h"
 //#include "SmartDashboard/SmartDashboard.h"
 //#include "LiveWindow/LiveWindow.h"
@@ -20,14 +21,19 @@
 		double Area;
 		double Aspect;
 	};
-//	double XFirstPixel, YFirstPixel, XUpLeftCorner, YUpLeftCorner, XDownRightCorner, YDownRightCorner, RectHeight, RectWidth, Aspect;
+
+/*	BCGOptions_struct R_options;
+	BCGOptions_struct G_options;
+	BCGOptions_struct B_options;
+*/
 	const float PixelAngleScale = 10;	//Pixels per degree angle, measured and subject to adjustment
+
 
 //	IMAQdxSession session;
 	IMAQdxError imaqErrorEnum;
 
 	//Constants
-	double AREA_MINIMUM = 0.5; //Default Area minimum for particle as a percentage of total image area
+	double AREA_MINIMUM = 0.25; //0.5; //Default Area minimum for particle as a percentage of total image area
 	double LONG_RATIO = 2.22; //Tote long side = 26.9 / Tote height = 12.1 = 2.22
 	double SHORT_RATIO = 1.4; //Tote short side = 16.9 / Tote height = 12.1 = 1.4
 	double SCORE_MIN = 75.0;  //Minimum score to be considered a tote
@@ -46,7 +52,29 @@ WateryTart::WateryTart() :
 	SecondFrame = imaqCreateImage(IMAQ_IMAGE_RGB, 0);
 	binaryFrame = imaqCreateImage(IMAQ_IMAGE_U8, 0);
 	TargetFrame = imaqCreateImage(IMAQ_IMAGE_U8,0);
+/* Removed because the transform was removed
+	R_options.brightness = 128;
+	R_options.contrast = 45;
+	R_options.gamma = 1.0;
 
+	G_options.brightness = 128;
+	G_options.contrast = 45;
+	G_options.gamma = 1.0;
+
+	B_options.brightness = 128;
+	B_options.contrast = 45;
+	B_options.gamma = 1.0;
+
+	SmartDashboard::PutNumber("RedBrightness", R_options.brightness);
+	SmartDashboard::PutNumber("Redcontrast", R_options.contrast);
+	SmartDashboard::PutNumber("Redgamma", R_options.gamma);
+	SmartDashboard::PutNumber("GreenBrightness", G_options.brightness);
+	SmartDashboard::PutNumber("Greencontrast", G_options.contrast);
+	SmartDashboard::PutNumber("Greengamma", G_options.gamma);
+	SmartDashboard::PutNumber("BlueBrightness", B_options.brightness);
+	SmartDashboard::PutNumber("Bluecontrast", B_options.contrast);
+	SmartDashboard::PutNumber("Bluegamma", B_options.gamma);
+*/
 	imaqError = IMAQdxOpenCamera("cam0", IMAQdxCameraControlModeController, &session);
 	if(imaqErrorEnum != IMAQdxErrorSuccess) {
 		DriverStation::ReportError("IMAQdxOpenCamera error: " + std::to_string((long)imaqError) + "\n");
@@ -55,7 +83,6 @@ WateryTart::WateryTart() :
 	if(imaqErrorEnum != IMAQdxErrorSuccess) {
 		DriverStation::ReportError("IMAQdxConfigureGrab error: " + std::to_string((long)imaqError) + "\n");
 	}
-//	WaitTime = 1.5;
 }
 
 void WateryTart::InitDefaultCommand()
@@ -70,6 +97,17 @@ void WateryTart::InitDefaultCommand()
  */
 float WateryTart::Search(Range Hue, Range Sat, Range Val, float AreaIn, float AspectIn, double WaitTime)
   {
+/*	Removed because we're nto doing the transform anymore
+	R_options.brightness = SmartDashboard::GetNumber("RedBrightness", R_options.brightness);
+	R_options.contrast = SmartDashboard::GetNumber("Redcontrast", R_options.contrast);
+	R_options.gamma = SmartDashboard::GetNumber("Redgamma", R_options.gamma);
+	G_options.brightness = SmartDashboard::GetNumber("GreenBrightness", G_options.brightness);
+	G_options.contrast = SmartDashboard::GetNumber("Greencontrast", G_options.contrast);
+	G_options.gamma = SmartDashboard::GetNumber("Greengamma", G_options.gamma);
+	B_options.brightness = SmartDashboard::GetNumber("BlueBrightness", B_options.brightness);
+	B_options.contrast = SmartDashboard::GetNumber("Bluecontrast", B_options.contrast);
+	B_options.gamma = SmartDashboard::GetNumber("Bluegamma", B_options.gamma);
+*/
 	double XFirstPixel, YFirstPixel, XUpLeftCorner, YUpLeftCorner, XDownRightCorner, YDownRightCorner, RectHeight, RectWidth, Aspect = 0;
 	double Angle = -180;
 	int Particle_No = 0;
@@ -80,6 +118,7 @@ float WateryTart::Search(Range Hue, Range Sat, Range Val, float AreaIn, float As
 	SmartDashboard::PutNumber("Tote sat max", Sat.maxValue);
 	SmartDashboard::PutNumber("Tote val min", Val.minValue);
 	SmartDashboard::PutNumber("Tote val max", Val.maxValue);
+
 	SmartDashboard::PutNumber("Target Area min %", AreaIn);
 	SmartDashboard::PutNumber("Target Aspect %", AspectIn);
 	SmartDashboard::PutNumber("Wait Time", WaitTime);
@@ -111,8 +150,14 @@ float WateryTart::Search(Range Hue, Range Sat, Range Val, float AreaIn, float As
 	imaqError = imaqSetImageSize(SecondFrame, 840, 600);
 	LCameraServer::GetInstance()->SetImage(SecondFrame);  //Send original image to dashboard to assist in tweaking mask.
 	Wait(WaitTime); //Part of test code to cycle between the filtered image and the color image
-
-
+/*//XXX Remove transform - unnecessary flops that weren't helpful
+	SmartDashboard::GetNumber("RBrightness", R_options.brightness);
+	SmartDashboard::GetNumber("GBrightness", G_options.brightness);
+	SmartDashboard::GetNumber("BBrightness", B_options.brightness);
+	imaqError = imaqColorBCGTransform(SecondFrame, SecondFrame, &R_options, &G_options, &B_options, NULL);
+	LCameraServer::GetInstance() -> SetImage(SecondFrame);
+	Wait(WaitTime);
+*/
 	//Threshold the image looking for ring light color
 	imaqError = imaqColorThreshold(binaryFrame, SecondFrame, 255, IMAQ_RGB, &Hue, &Sat, &Val);
 
@@ -122,32 +167,26 @@ float WateryTart::Search(Range Hue, Range Sat, Range Val, float AreaIn, float As
 	SmartDashboard::PutNumber("Masked particles", numParticles);
 
 	//Replaces the SendtoDashboard function without error handling
-	LCameraServer::GetInstance()->SetImage(binaryFrame); //Send masked image to dashboard to assist in tweaking mask.
-	Wait(WaitTime); //Part of test code to cycle between the filtered image and the color image
+//	LCameraServer::GetInstance()->SetImage(binaryFrame); //Send masked image to dashboard to assist in tweaking mask.
+//	Wait(WaitTime); //Part of test code to cycle between the filtered image and the color image
 
 	//filter out small particles
-//	float areaMin = SmartDashboard::GetNumber("Area min %", AREA_MINIMUM);
-//	criteria[0] = {IMAQ_MT_AREA_BY_IMAGE_AREA, areaMin, 100, false, false};
-	criteria[0] = {IMAQ_MT_AREA_BY_IMAGE_AREA, AreaIn, 100, false, false};
+	float areaMin = SmartDashboard::GetNumber("Area min %", AreaIn);
+	criteria[0] = {IMAQ_MT_AREA_BY_IMAGE_AREA, areaMin, 100, false, false};
 	imaqError = imaqParticleFilter4(binaryFrame, binaryFrame, criteria, 1, &filterOptions, NULL, NULL);
-
-
 
 	if(numParticles > 0) {
 
 	//Send particle count after filtering to dashboard
 		imaqError = imaqCountParticles(binaryFrame, 1, &numParticles);
 		SmartDashboard::PutNumber("Filtered particles", numParticles);
-		imaqMeasureParticle(binaryFrame, Particle_No, false, IMAQ_MT_FIRST_PIXEL_X, &XFirstPixel);
-		imaqMeasureParticle(binaryFrame, Particle_No, false, IMAQ_MT_FIRST_PIXEL_Y, &YFirstPixel);
 		imaqMeasureParticle(binaryFrame, Particle_No, false, IMAQ_MT_BOUNDING_RECT_LEFT, &XUpLeftCorner);
 		imaqMeasureParticle(binaryFrame, Particle_No, false, IMAQ_MT_BOUNDING_RECT_TOP, &YUpLeftCorner);
 		imaqMeasureParticle(binaryFrame, Particle_No, false, IMAQ_MT_BOUNDING_RECT_RIGHT, &XDownRightCorner);
 		imaqMeasureParticle(binaryFrame, Particle_No, false, IMAQ_MT_BOUNDING_RECT_BOTTOM, &YDownRightCorner);
 		imaqMeasureParticle(binaryFrame, Particle_No, false, IMAQ_MT_BOUNDING_RECT_WIDTH, &RectHeight);
 		imaqMeasureParticle(binaryFrame, Particle_No, false, IMAQ_MT_BOUNDING_RECT_HEIGHT, &RectWidth);
-		SmartDashboard::PutNumber("First Pixel - X", XFirstPixel);
-		SmartDashboard::PutNumber("First Pixel - Y", YFirstPixel);
+		Aspect = (RectWidth / RectHeight);
 		SmartDashboard::PutNumber("LeftRectTop-X", XUpLeftCorner);
 		SmartDashboard::PutNumber("LeftRectTop-Y", YUpLeftCorner);
 		SmartDashboard::PutNumber("RightRectDown-X", XDownRightCorner);
@@ -155,14 +194,14 @@ float WateryTart::Search(Range Hue, Range Sat, Range Val, float AreaIn, float As
 		SmartDashboard::PutNumber("Rectangle Height", RectHeight);
 		SmartDashboard::PutNumber("Rectangle Width", RectWidth);
 		SmartDashboard::PutNumber("Aspect Ratio", Aspect);
-		Aspect = (RectWidth / RectHeight);
 		scores.Aspect = (Aspect / ASPECT_GOAL);
 
 //		SmartDashboard::PutBoolean("IsTarget", isTarget);
 //		double WateryTart::computeDistance (Image *image, ParticleReport report) {
 
-		imaqError = imaqDrawShapeOnImage(TargetFrame, binaryFrame, {YUpLeftCorner, XUpLeftCorner, RectWidth, RectHeight}, DrawMode::IMAQ_DRAW_INVERT, ShapeMode::IMAQ_SHAPE_RECT, 0.0f);
-		LCameraServer::GetInstance()->SetImage(TargetFrame); //Send masked image to dashboard to assist in tweaking mask.
+//		imaqError = imaqDrawShapeOnImage(TargetFrame, binaryFrame, {YUpLeftCorner, XUpLeftCorner, RectWidth, RectHeight}, DrawMode::IMAQ_PAINT_INVERT, ShapeMode::IMAQ_SHAPE_RECT, 0.0f);
+		imaqError = imaqDrawShapeOnImage(SecondFrame, SecondFrame, {YUpLeftCorner, XUpLeftCorner, RectWidth, RectHeight}, DrawMode::IMAQ_PAINT_INVERT, ShapeMode::IMAQ_SHAPE_RECT, 0.0f);
+		LCameraServer::GetInstance()->SetImage(SecondFrame); //Send masked image to dashboard to assist in tweaking mask.
 		Wait(WaitTime); //Part of test code to cycle between the filtered image and the color image
 
 		double normalizedWidth, targetWidth;
@@ -176,10 +215,13 @@ float WateryTart::Search(Range Hue, Range Sat, Range Val, float AreaIn, float As
 
 		double distance =  targetWidth/(normalizedWidth*12*tan(VIEW_ANGLE*M_PI/(180*2)));
 		SmartDashboard::PutNumber("Distance", distance);
-		}
+		Angle = (XUpLeftCorner - TargetX)/ PixelAngleScale;
+		}//TODO Version 2, try not to have to run this whole thing a second time
 //	} else {
 //		SmartDashboard::PutBoolean("IsTarget", false);
 //	}
+	SmartDashboard::PutNumber("Angle", Angle);
+
 	return Angle;
   }
 

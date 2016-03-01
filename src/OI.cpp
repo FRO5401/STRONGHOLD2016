@@ -84,10 +84,11 @@ OI::OI()
 	MOHRightBumper   -> WhenReleased(new FeederStop());
 	
 	//TODO Add buttons for targeting and shooting
-	XboxA			-> WhenPressed(new LockTarget());
-	XboxX			-> WhenPressed(new AutoLaunch());
-	//MOHButtonTriangle -> AquireTarget;
-	//MOHButtonSquare   -> Shoot;
+//	XboxA			-> WhenPressed(new LockTarget());
+//	XboxX			-> WhenPressed(new AutoLaunch());
+	XboxX			-> 	 WhenPressed(new Launch());
+	MOHButtonTriangle -> WhenPressed(new LockTarget());
+	MOHButtonSquare   -> WhenPressed(new AutoLaunch());
 
 }
 
@@ -167,22 +168,27 @@ bool OI::GetButtonR3(){
 }
 
 int OI::GetPOVState(){
-	int POV = XboxController	->	GetPOV();
-	if (POV == 225 || POV == 180 || POV == 135)
+	int POV = MedalOfHonorController	->	GetPOV();
+	if (POV == 225 || POV == 180 || POV == 135){
+		std::cout << "DOWN\n";
 		return -1;	//down
-	else if (POV == 315 || POV == 0 || POV == 45)
+	}
+	else if (POV == 315 || POV == 0 || POV == 45){
+		std::cout << "UP\n";
 		return 1; 	//up
+	}
 	else
 		return 0; 	//not pressed/error
 }
 
 void OI::SendXboxRumble(int j){
-	for ( int i = 0; i < j; i++ ) {		XboxController	->	SetRumble(Joystick::kLeftRumble, 1);
+	for ( int i = 0; i < j; i++ ) {
+		XboxController	->	SetRumble(Joystick::kLeftRumble, 1);
 		XboxController	->	SetRumble(Joystick::kRightRumble, 1);
-		Wait(0.5);
+		Wait(2);
 		XboxController	->	SetRumble(Joystick::kLeftRumble, 0);
 		XboxController	->	SetRumble(Joystick::kRightRumble, 0);
-		Wait(0.5);
+		Wait(2);
 	}
 }
 
@@ -190,10 +196,10 @@ void OI::SendMOHRumble(int j){
 	for ( int i = 0; i < j; i++ ) {
 		MedalOfHonorController	->	SetRumble(Joystick::kLeftRumble, 1);
 		MedalOfHonorController	->	SetRumble(Joystick::kRightRumble, 1);
-		Wait(0.5);
+		Wait(2);
 		MedalOfHonorController	->	SetRumble(Joystick::kLeftRumble, 0);
 		MedalOfHonorController	->	SetRumble(Joystick::kRightRumble, 0);
-		Wait(0.5);
+		Wait(2);
 	}
 }
 
@@ -208,3 +214,14 @@ double OI::ReadMOHRightStickY(){
 bool OI::GetMOHRightStickButton(){ //probably not used
 	return MedalOfHonorController -> GetRawButton(12);
 }
+
+/*bool OI::GetMOHLeftStickButton(){ //SPT Override soft stops
+	return MedalOfHonorController -> GetRawButton(11);
+}*/
+
+
+bool OI::GetMOHButtonL3(){
+	return MedalOfHonorController -> GetRawButton(MOHL3_ID);
+}
+
+

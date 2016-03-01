@@ -7,7 +7,7 @@
 class AutonomousLowBar: public CommandGroup
 {
 public:
-	AutonomousLowBar();
+	AutonomousLowBar(int, int, int);
 };
 
 #endif

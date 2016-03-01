@@ -21,7 +21,7 @@ private:
 	float Aspect;
 	float ImgLatency;
 	double Angle;
-	double AngleRange;
+	bool Finish;
 public:
 	AutoLaunch();
 	void Initialize();
