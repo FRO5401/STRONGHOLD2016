@@ -27,12 +27,12 @@ double SPTMotorMax	= 1;// Max motor speed
 double SPTDistancePerPulseValue = .3689;
 float SPTMotorSpeed = .9;
 
-float SPTDeliveryPosition 	= 59.024;//-34.677 from start
+float SPTDeliveryPosition 	= 55;//-34.677 from start
 float SPTFeederPosition		= -21;//-112.146 from start
 float SPTShootingPosition	= -50;//Position has measured 021716
 double SPTMaxAngle			= 59.024; //Measured 100 degrees  021616 //normally 98
 double SPTMinAngle			= -61.299; //Measured 022816
-double SPTPrecision = 0.5; //Set precision very high while PID and stop points are not defined
+double SPTPrecision = 0.75; //Set precision very high while PID and stop points are not defined
 
 SPT::SPT() :
 		Subsystem("SPT")

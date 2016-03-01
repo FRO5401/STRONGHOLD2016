@@ -25,14 +25,12 @@ AutonomousLowBar::AutonomousLowBar(int DefensePosition, int GoalPosition, int Lo
  */
 //	Not needed because the driver will position the robot as necessary before turning on
 //	AddSequential(new AutoTurnToAngleCommand(180); //Because SPT is not need thus immediate position for shooting can work
+
 	AddSequential(new InfeederLiftIntoInfeederPosition());
-	Wait(.25);
-	AddSequential(new AutoDriveCommand(-128.5));//Formerly -122.5
-	Wait(.5);
-	AddSequential(new AutonomousAutoTurnAngle(90.0));
+	AddSequential(new AutoDriveCommand(-215));//Formerly -122.5
+	Wait(.5);		//2 autodrives?
 	AddParallel(new InfeederLiftIntoDelivery());
-	AddSequential(new AutoDriveCommand(-128.5));
-	AddSequential(new AutonomousAutoTurnAngle(-90.0));
+	AddSequential(new AutonomousAutoTurnAngle(37));//46.8 but we overshoot
 	AddSequential(new AutoLaunch());
 
 
