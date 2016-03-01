@@ -56,7 +56,7 @@ void AutoLaunch::Execute(){
     	spt 	-> ClearShooterPathPosition();
     	float Error = drivebase -> AutoTurnAngle(Angle, LaunchPrecision);
     	SmartDashboard::PutNumber("Auto Launch Angle Error", Error);
- //   	shooter -> Shoot();
+    	shooter -> Shoot();
     	relaysys -> ShootLights(LightFlashes);
     } else {
     	SmartDashboard::PutBoolean("LAUNCH ABORTED", true);
@@ -71,7 +71,7 @@ bool AutoLaunch::IsFinished()
 void AutoLaunch::End(){
 	relaysys	->TurnOff();
 	waterytart	->	Stop();
-//	shooter -> Reset();
+	shooter -> Reset();
 }
 
 void AutoLaunch::Interrupted(){};
