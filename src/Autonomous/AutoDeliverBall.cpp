@@ -1,38 +1,42 @@
-#include "FeederStop.h"
+#include "AutoDeliverBall.h"
 
-FeederStop::FeederStop()
+AutoDeliverBall::AutoDeliverBall(float t)
 {
 	// Use Requires() here to declare subsystem dependencies
 	Requires(feeder);
+	FeedTime = t;
 }
 
 // Called just before this Command runs the first time
-void FeederStop::Initialize()
+void AutoDeliverBall::Initialize()
 {
-	feeder -> StopFeed();
+
 }
 
 // Called repeatedly when this Command is scheduled to run
-void FeederStop::Execute()
+void AutoDeliverBall::Execute()
 {
 
+	feeder -> FeedOutFromShooter();
+	Wait(FeedTime);
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool FeederStop::IsFinished()
+bool AutoDeliverBall::IsFinished()
 {
 	return true;
 }
 
 // Called once after isFinished returns true
-void FeederStop::End()
+void AutoDeliverBall::End()
 {
+	feeder -> StopFeed();
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void FeederStop::Interrupted()
+void AutoDeliverBall::Interrupted()
 {
 
 }

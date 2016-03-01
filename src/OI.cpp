@@ -6,6 +6,7 @@
 #include "Commands/XboxMove.h"
 #include "Commands/XboxMove.h"
 #include "Commands/AbortReach.h"
+#include "Autonomous/AutoDeliverBall.h"
 #include "Commands/AutoLaunch.h"
 #include "Commands/ChargeCompressor.h"
 #include "Commands/DeployHook.h"
@@ -27,6 +28,7 @@
 #include "Commands/ShiftScaleToDrive.h"
 #include "Commands/ShooterOverride.h"
 #include "Commands/StopDriveForAutonomous.h"
+#include "Commands/SPTShootingPosition.h"
 #include "Commands/UpAndDownInfeeder.h"
 #include "WPILib.h"
 
@@ -89,7 +91,7 @@ OI::OI()
 	XboxX			-> 	 WhenPressed(new Launch());
 	MOHButtonTriangle -> WhenPressed(new LockTarget());
 	MOHButtonSquare   -> WhenPressed(new AutoLaunch());
-
+	MOHStartButton	-> WhenPressed(new AutoDeliverBall(1.5));
 }
 
 //Defines the functions for the axis's declared in the h file

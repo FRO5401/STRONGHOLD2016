@@ -4,6 +4,7 @@
 #include "Commands/InfeederLiftIntoInfeederPosition.h"
 
 #include "Autonomous/AutonomousAutoTurnAngle.h"
+#include "Autonomous/AutoDeliverBall.h"
 #include "Autonomous/AutoDriveCommand.h"
 //Includes are for commands that are used in this command group
 
@@ -31,6 +32,7 @@ AutonomousLowBar::AutonomousLowBar(int DefensePosition, int GoalPosition, int Lo
 	Wait(.5);		//2 autodrives?
 	AddSequential(new InfeederLiftIntoDelivery());
 	AddSequential(new AutonomousAutoTurnAngle(37));//46.8 but we overshoot
+	AddSequential(new AutoDeliverBall(2.0));
 	AddSequential(new AutoLaunch());
 
 

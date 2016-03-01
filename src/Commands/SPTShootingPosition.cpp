@@ -1,38 +1,39 @@
-#include "FeederStop.h"
+#include "SPTShootingPosition.h"
 
-FeederStop::FeederStop()
+SPTShootingPosition::SPTShootingPosition()
 {
-	// Use Requires() here to declare subsystem dependencies
-	Requires(feeder);
+	Requires(spt);
 }
 
 // Called just before this Command runs the first time
-void FeederStop::Initialize()
+void SPTShootingPosition::Initialize()
 {
-	feeder -> StopFeed();
+
 }
 
 // Called repeatedly when this Command is scheduled to run
-void FeederStop::Execute()
+void SPTShootingPosition::Execute()
 {
-
+	spt -> ClearShooterPathPosition();
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool FeederStop::IsFinished()
+bool SPTShootingPosition::IsFinished()
 {
 	return true;
 }
 
 // Called once after isFinished returns true
-void FeederStop::End()
+void SPTShootingPosition::End()
 {
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void FeederStop::Interrupted()
+void SPTShootingPosition::Interrupted()
 {
 
 }
+
+
