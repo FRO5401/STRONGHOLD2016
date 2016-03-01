@@ -108,3 +108,9 @@ void SPT::StopForShoot(){
 float SPT::GetAdjustedEncDistance(){
 	return (SPTEnc -> GetDistance() - SPT_Offset);
 }
+
+void SPT::Reset()
+{
+	SPTEnc	  -> Reset();
+
+}

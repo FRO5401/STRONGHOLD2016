@@ -29,7 +29,7 @@ AutonomousLowBar::AutonomousLowBar(int DefensePosition, int GoalPosition, int Lo
 	AddSequential(new InfeederLiftIntoInfeederPosition());
 	AddSequential(new AutoDriveCommand(-215));//Formerly -122.5
 	Wait(.5);		//2 autodrives?
-	AddParallel(new InfeederLiftIntoDelivery());
+	AddSequential(new InfeederLiftIntoDelivery());
 	AddSequential(new AutonomousAutoTurnAngle(37));//46.8 but we overshoot
 	AddSequential(new AutoLaunch());
 

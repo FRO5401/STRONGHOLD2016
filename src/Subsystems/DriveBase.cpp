@@ -119,8 +119,6 @@ void DriveBase::ShiftHigh()
 
   void DriveBase::Reset()
   {
-//  	LeftEnc ->Reset();
-//  	RightEnc ->Reset();
   	LeftDrive1	-> Set(0);
   	LeftDrive2	-> Set(0);
   	RightDrive1	-> Set(0);
@@ -157,6 +155,7 @@ void DriveBase::AutoDriveDistance(float DesiredDistance){
 		DistanceTraveled = (RightEnc -> GetDistance());//XXX TODO re-add leftenc for competition robot
 		}
 	}
+	Stop();
 }
 
   void DriveBase::EncoderReset(){

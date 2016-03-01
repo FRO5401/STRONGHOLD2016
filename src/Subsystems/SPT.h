@@ -23,6 +23,7 @@ public:
 	void ClearShooterPathPosition();
 	void StopForShoot();
 	float GetAdjustedEncDistance();
+	void Reset();
 };
 
 #endif

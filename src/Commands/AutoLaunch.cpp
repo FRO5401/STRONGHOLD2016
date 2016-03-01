@@ -22,6 +22,7 @@ AutoLaunch::AutoLaunch()
 	Angle 		= -180;
 	Requires(waterytart);
 	Requires(relaysys);
+	Requires(shooter);
 	Finish = false;
 }
 
