@@ -113,7 +113,7 @@ void DriveBase::ShiftHigh()
   LeftDrive2	-> Set(0);
   RightDrive1	-> Set(0);
   RightDrive2	-> Set(0);
-  TimeCount 	-> Stop();
+//  TimeCount 	-> Stop();
 
   }
 
