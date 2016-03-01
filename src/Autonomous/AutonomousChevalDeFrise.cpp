@@ -2,6 +2,18 @@
 
 AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPosition, int LowOrHigh)
 {
+ /*	 AddSequential(new AutoDriveCommand(46)); //Drive to defense
+	 AddSequential(new AutoSPTMoveToPosition(-132.804-Offset)); //Move SPT down to prepare to drive over cheval
+	 AddParallel(new SPTtoDelivery()); //Move SPT up and out of the way
+	 AddSequential(new AutoDriveCommand(70)); //TODO determine best distance to drive //Drive over cheval
+	 //Determine which goal to shoot at
+	 //If needed
+	 	AddSequential(new AutoTurnToAngleCommand(determine angle)); //turn to drive
+	  	AddSequential(new AutoDriveCommand(length varies)); //Drive forward to get a good angle
+	 	AddSequential(new AutoTurnToAngleCommand(determine angle)); //Turn to goal
+	 AddSequential(new FeedToShooter()); //TODO Create command //Feeds ball into shooter
+	 AddSequential(new AutoTarget()); //Shoot and score!
+	*/
 	/*	PsuedoCode V. 2.0
 	 * 	AdjustAngle() so it's straight or angled correctly 	MAYBE???
 	 * 	AddSequential(new AutoDriveCommand());
@@ -249,6 +261,12 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	 * 	}
 	 *
 	 */
+
+
+
+
+
+
 
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
