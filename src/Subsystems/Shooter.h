@@ -26,8 +26,10 @@ public:
 	Shooter();
 	void InitDefaultCommand();
 	void Shoot();
+	void Stop();
 	void Override(double);
 	void Reset();
+	float ReportEncoder();
 };
 
 

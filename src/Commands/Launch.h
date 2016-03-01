@@ -11,6 +11,8 @@
 
 class Launch: public CommandBase
 {
+private:
+	bool LaunchComplete;
 public:
 	Launch();
 	void Initialize();

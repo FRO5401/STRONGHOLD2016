@@ -12,13 +12,10 @@
 
 //Sensor parameters
 const double FwdSpeed 			= 0.95;
-const double ShooterResetDwell	= 1;
 //Encoder Constant
 //Variable to convert pulse to degrees
 double ShooterDistancePerPulseValue = -0.2910;//Tuned in 022816
 //The degrees from starting position for the angle to shoot
-double ShooterFiredPosition = 85;
-double ShooterCockedPosition = 359;
 
 Shooter::Shooter() :
 		Subsystem("Shooter")
@@ -41,17 +38,22 @@ void Shooter::InitDefaultCommand()
 
 void Shooter::Shoot() //Shoots the ball
 {
-	while (ShooterEnc -> GetDistance() < ShooterFiredPosition){
-		ShooterMotor -> Set(FwdSpeed);	//Moves the shooter from the cocked position into the fired position
-		SmartDashboard::PutNumber("Shooter Encoder", ShooterEnc ->GetDistance());
-	}
-	ShooterMotor -> Set(0); //Stops the shooter after firing
-	Wait(ShooterResetDwell); //Waits just to clear the ball
+	ShooterMotor -> Set(FwdSpeed);	//Moves the shooter from the cocked position into the fired position
+	SmartDashboard::PutNumber("Shooter Encoder", ShooterEnc ->GetDistance());
 
 //	SmartDashboard::PutNumber("Distance Per Pulse Value in Degrees for Shooter", ShooterDistancePerPulseValue);
 //	SmartDashboard::PutNumber("Position of Shooter After Being Fired", ShooterFiredPosition);
 //	SmartDashboard::PutNumber("Position of Shooter Being Cocked", ShooterCockedPosition);
-//	SmartDashboard::PutNumber("Shooter Encoder", ShooterEnc ->GetDistance());
+}
+
+void Shooter::Stop() //Shoots the ball
+{
+	ShooterMotor -> Set(0); //Stops the shooter after firing
+
+//	SmartDashboard::PutNumber("Distance Per Pulse Value in Degrees for Shooter", ShooterDistancePerPulseValue);
+//	SmartDashboard::PutNumber("Position of Shooter After Being Fired", ShooterFiredPosition);
+//	SmartDashboard::PutNumber("Position of Shooter Being Cocked", ShooterCockedPosition);
+	SmartDashboard::PutNumber("Shooter Encoder", ShooterEnc ->GetDistance());
 }
 
 void Shooter::Override(double Input)
@@ -70,4 +72,9 @@ void Shooter::Reset(){
 	}
 	ShooterMotor -> Set(0);
 	ShooterEnc -> Reset();
+	SmartDashboard::PutNumber("Shooter Encoder", ShooterEnc ->Get());
+}
+
+float Shooter::ReportEncoder(){
+	return ShooterEnc -> GetDistance();
 }

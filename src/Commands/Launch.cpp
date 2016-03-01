@@ -8,32 +8,41 @@
 #include "Launch.h"
 #include "RobotMap.h"
 
+const double ShooterFiredPosition = 85;
+
 Launch::Launch()
 {
   Requires(shooter);
-  Requires(spt);
-//  Requires(relaysys);
+  LaunchComplete = true;
 }
 void Launch::Initialize()
 {
 	spt -> ClearShooterPathPosition();
-	shooter	->	Shoot();
-//	relaysys -> ShootLights(2);
 }
 
-void Launch::Execute(){};
+void Launch::Execute(){
+	if (shooter -> ReportEncoder() < ShooterFiredPosition){
+	LaunchComplete = false;
+	shooter	->	Shoot();
+//	relaysys -> ShootLights(2);
+	} else {
+		LaunchComplete = true;
+		}
+}
 
 bool Launch::IsFinished()
 {
-	return true;
+	return LaunchComplete;
 }
 
 void Launch::End(){
-
-	shooter ->  Reset();
+	shooter -> Stop();
 
 };
-void Launch::Interrupted(){};
+void Launch::Interrupted(){
+	shooter -> Stop();
+
+};
 
 
 
