@@ -1,5 +1,9 @@
 #include "MoveSPTtoPosition.h"
 
+const float SPTDeliveryPosition 	= 55;//-34.677 from start
+const float SPTFeederPosition		= -21;//-112.146 from start
+float SPTAngleTolerance = 2;
+
 MoveSPTtoPosition::MoveSPTtoPosition(float angle)
 {
 	// Use Requires() here to declare subsystem dependencies
@@ -18,10 +22,10 @@ void MoveSPTtoPosition::Initialize()
 void MoveSPTtoPosition::Execute()
 {
 	if (spt -> GetAdjustedEncDistance() > DesiredAngle + SPTAngleTolerance){
-		spt -> SPTShoulderMotor -> Set(SPTMotorSpeed * SPTPrecision); //positive value goes down
+		spt -> UpAndDown(1, false); //positive value goes down
 		finished = false;
 	} else if (spt ->GetAdjustedEncDistance() < DesiredAngle - SPTAngleTolerance){
-		spt -> SPTShoulderMotor -> Set(-SPTMotorSpeed * SPTPrecision); //negative value goes up
+		spt -> UpAndDown(-1, false);//negative value goes up
 		finished = false;
 	} else {
 		finished = true;
@@ -37,12 +41,12 @@ bool MoveSPTtoPosition::IsFinished()
 // Called once after isFinished returns true
 void MoveSPTtoPosition::End()
 {
-	spt ->SPTShoulderMotor -> Set(0);
+	spt -> StopForShoot();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void MoveSPTtoPosition::Interrupted()
 {
-	spt ->SPTShoulderMotor -> Set(0);
+	spt -> StopForShoot();
 }

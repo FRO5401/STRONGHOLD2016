@@ -27,8 +27,8 @@ double SPTMotorMax	= 1;// Max motor speed
 double SPTDistancePerPulseValue = .3689;
 float SPTMotorSpeed = .9;
 
-float SPTDeliveryPosition 	= 55;//-34.677 from start
-float SPTFeederPosition		= -21;//-112.146 from start
+const float SPTDeliveryPosition 	= 55;//-34.677 from start
+const float SPTFeederPosition		= -21;//-112.146 from start
 float SPTShootingPosition	= -50;//Position has measured 021716
 double SPTMaxAngle			= 59.024; //Measured 100 degrees  021616 //normally 98
 double SPTMinAngle			= -61.299; //Measured 022816
@@ -83,7 +83,7 @@ void SPT::UpAndDown(double ShoulderChangeValue, bool Override){
 //This function sets the shoulder motor to a certain speed
 //The waits a while and stops the motor at the correct angle
 //The wait amount is guess and checked.
-void SPT::MoveToDeliveryPosition(){
+/*void SPT::MoveToDeliveryPosition(){
 //	while (fabs(GetAdjustedEncDistance() - SPTDeliveryPosition) > SPTAngleTolerance){
 
 //	}
@@ -100,7 +100,7 @@ void SPT::MoveToInfeederPosition(){
 		SPTShoulderMotor -> Set(SPTMotorSpeed * SPTPrecision); //positive value goes down
 	}
 	SPTShoulderMotor -> Set(0);
-}
+}*/
 
 void SPT::ClearShooterPathPosition(){
 	while (GetAdjustedEncDistance() > (SPTDeliveryPosition - 5)){

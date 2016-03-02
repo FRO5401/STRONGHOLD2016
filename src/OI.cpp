@@ -30,6 +30,7 @@
 #include "Commands/StopDriveForAutonomous.h"
 #include "Commands/SPTShootingPosition.h"
 #include "Commands/UpAndDownInfeeder.h"
+#include "Commands/MoveSPTtoPosition.h"
 #include "WPILib.h"
 
 OI::OI()
@@ -91,6 +92,9 @@ OI::OI()
 
 	XboxX			-> 	 WhenPressed(new LaunchSequence());
 	XboxRightStickButton -> WhenPressed(new ShooterOverride());
+
+	SPTDeliveryPosition = 55;  //-34.677 from start
+	SPTFeederPosition   = -21; //-112.146 from start
 
 }
 
@@ -169,18 +173,26 @@ bool OI::GetButtonR3(){
 	return XboxController	->	GetRawButton(XboxR3_ID);
 }
 
-int OI::GetPOVState(){
+void OI::GetPOVState(){
 	int POV = MedalOfHonorController	->	GetPOV();
+	int state = 0;
+
 	if (POV == 225 || POV == 180 || POV == 135){
 		std::cout << "DOWN\n";
-		return -1;	//down
+		state = -1;	//down
 	}
 	else if (POV == 315 || POV == 0 || POV == 45){
 		std::cout << "UP\n";
-		return 1; 	//up
+		state = 1; 	//up
 	}
-	else
-		return 0; 	//not pressed/error
+
+	if (POV != 0){
+		if (POV == 1){
+			MoveSPTtoPosition(SPTDeliveryPosition);
+		} else {
+			MoveSPTtoPosition(SPTFeederPosition);
+		}
+	}
 }
 
 void OI::SendXboxRumble(int j){

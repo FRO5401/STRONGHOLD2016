@@ -8,6 +8,8 @@
 class OI
 {
 private:
+	const float SPTDeliveryPosition; 	//= 55;//-34.677 from start
+	const float SPTFeederPosition;		//= -21;//-112.146 from start
 
 public:
 	//Declares controller
@@ -61,7 +63,7 @@ public:
 	bool GetButtonBack();
 	bool GetButtonL3();
 	bool GetButtonR3();
-	int GetPOVState();
+	void GetPOVState();
 	void SendXboxRumble(int);
 	void SendMOHRumble(int);
 	bool GetMOHButtonStart();
