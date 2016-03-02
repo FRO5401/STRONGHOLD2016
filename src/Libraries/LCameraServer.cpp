@@ -195,7 +195,8 @@ void LCameraServer::Serve() {
       continue;
     } else {
       req.fps = ntohl(req.fps);
-      req.compression = ntohl(req.compression);
+//      req.compression = ntohl(req.compression);
+      req.compression = kHardwareCompression;
       req.size = ntohl(req.size);
     }
 

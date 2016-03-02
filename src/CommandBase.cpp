@@ -1,6 +1,6 @@
 #include "CommandBase.h"
 #include "Commands/Scheduler.h"
-
+//test
 // Initialize a single static instance of all of your subsystems to NULL
 //ExampleSubsystem* CommandBase::examplesubsystem = NULL;
 OI*			CommandBase::oi 			= NULL;
