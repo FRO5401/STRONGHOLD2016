@@ -89,7 +89,7 @@ void SPT::MoveToDeliveryPosition(){
 //	}
 
 	while (GetAdjustedEncDistance() < SPTDeliveryPosition){
-		SPTShoulderMotor -> Set(-SPTMotorSpeed * SPTPrecision);
+		SPTShoulderMotor -> Set(-SPTMotorSpeed * SPTPrecision); //negative value goes up
 	}
 	SPTShoulderMotor -> Set(0);
 }
@@ -97,7 +97,7 @@ void SPT::MoveToDeliveryPosition(){
 //Same thing as MoveToDeliveryPosition but the point where it goes to is the InfeederPosition
 void SPT::MoveToInfeederPosition(){
 	while (GetAdjustedEncDistance() > SPTFeederPosition){
-		SPTShoulderMotor -> Set(SPTMotorSpeed * SPTPrecision);
+		SPTShoulderMotor -> Set(SPTMotorSpeed * SPTPrecision); //positive value goes down
 	}
 	SPTShoulderMotor -> Set(0);
 }
@@ -120,5 +120,4 @@ float SPT::GetAdjustedEncDistance(){
 void SPT::Reset()
 {
 	SPTEnc	  -> Reset();
-
 }
