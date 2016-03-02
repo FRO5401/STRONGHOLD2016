@@ -16,12 +16,14 @@ void ShooterReset::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void ShooterReset::Execute()
 {
-	if (shooter -> ReportEncoder() < ShooterCockedPosition){
-	ResetComplete = false;
 	shooter	->	Shoot();
-//	relaysys -> ShootLights(2);
+	if ((shooter -> ReportEncoder()) < ShooterCockedPosition){
+	ResetComplete = false;
+	std::cout << ("Rsetting\n");
+	//	relaysys -> ShootLights(2);
 	} else {
 		ResetComplete = true;
+		std::cout << ("Rset finished\n");
 		}
 
 }
@@ -36,6 +38,7 @@ bool ShooterReset::IsFinished()
 void ShooterReset::End()
 {
 	shooter -> Stop();
+	std::cout << ("Rset stopping shooter\n");
 
 }
 
@@ -44,5 +47,6 @@ void ShooterReset::End()
 void ShooterReset::Interrupted()
 {
 	shooter -> Stop();
+	std::cout << ("Rset interrupted\n");
 
 }

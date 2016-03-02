@@ -7,9 +7,13 @@ const double ShooterResetDwell	= 1;
 
 LaunchSequence::LaunchSequence()
 {
+	std::cout << ("Starting launch sequence\n");
+
 	AddSequential (new SPTShootingPosition());
+	std::cout << ("Starting launch\n");
 	AddSequential (new Launch());
-	Wait(ShooterResetDwell);
+//	Wait(ShooterResetDwell);
+	std::cout << ("Starting reset\n");
 	AddSequential (new ShooterReset());
 
 	// Add Commands here:

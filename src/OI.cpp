@@ -20,7 +20,7 @@
 #include "Commands/HookScale.h"
 #include "Commands/InfeederLiftIntoDelivery.h"
 #include "Commands/InfeederLiftIntoInfeederPosition.h"
-#include "Commands/Launch.h"
+#include "Commands/LaunchSequence.h"
 #include "Commands/LockTarget.h"
 #include "Commands/PrepareToScale.h"
 #include "Commands/ReachForBar.h"
@@ -89,7 +89,7 @@ OI::OI()
 	MOHButtonSquare   -> WhenPressed(new AutoLaunch());
 	MOHStartButton	-> WhenPressed(new AutoDeliverBall(1.5));
 
-	XboxX			-> 	 WhenPressed(new Launch());
+	XboxX			-> 	 WhenPressed(new LaunchSequence());
 	XboxRightStickButton -> WhenPressed(new ShooterOverride());
 
 }

@@ -78,3 +78,7 @@ void Shooter::Reset(){
 float Shooter::ReportEncoder(){
 	return ShooterEnc -> GetDistance();
 }
+
+void Shooter::ResetEncoder(){
+	return ShooterEnc -> Reset();
+}
