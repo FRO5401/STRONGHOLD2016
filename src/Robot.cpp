@@ -184,7 +184,7 @@ private:
 	{
 		CommandBase::drivebase -> Reset();//Stops DriveBase motors when first enabled
 		CommandBase::spt -> StopForShoot();//Stops the shoulder motor of SPT when first enabled
-		CommandBase::spt -> Reset();//Stops the shoulder motor of SPT when first enabled
+		//CommandBase::spt -> Reset();//Stops the shoulder motor of SPT when first enabled
 		autonomousCommand = (Command *) autoMode->GetSelected(); //Dashboard selection command
 		autonomousCommand->Start();
 	}

@@ -8,8 +8,8 @@
 #include "../RobotMap.h"
 #include <Commands/XboxMove.h>
 
-const double DPPLeft		= (-1/6.318); //919.636		//TODO Must tune left? this
-const double DPPRight		= (1/6.318); //914.618
+//const double DPPLeft		= (-1/6.318); //919.636		//TODO Must tune left? this
+//const double DPPRight		= (1/6.318); //914.618
 const float GyroScalar		= 10; 		//Preliminarily tuned
 const float GyroLinearAdj	= -0.696; 	//Adjusts for Gyro Creep = m
 const float GyroOffset		= -6.1395;	// = b
@@ -22,8 +22,8 @@ const double AngleThreshold	= 2; 		//Turn angle in degrees //TODO Must tune this
 const double AutoDistThresh	= 2; 		//Distance threshold in inches //TODO Must tune this
 
 //Offset for drive motors when driving autonomously
-const float kPLeft = .835;	//For going forwards
-const float kPRight = .9; //For going backwards
+//const float kPLeft = .835;	//For going forwards
+//const float kPRight = .9; //For going backwards
 
 DriveBase::DriveBase() :
 		Subsystem("DriveBase")
@@ -52,8 +52,14 @@ DriveBase::DriveBase() :
  //	LeftEnc -> Reset();Doesn't work when enabling and disabling
  //	RightEnc -> Reset();
  	
- 	//kP = 0;			//Uncomment for getting value from dashboard
- 	//SmartDashboard::PutNumber("kP Value", kP);
+ 	kP_Right = .9;			//Uncomment for getting value from dashboard
+ 	kP_Left = .835;
+ 	DPPRight = (1/6.318);
+ 	DPPLeft = (-1/6.318);
+ 	SmartDashboard::PutNumber("kP Backwards Value", kP_Right);
+ 	SmartDashboard::PutNumber("kP Forwards Value", kP_Left);
+ 	SmartDashboard::PutNumber("DPPRight", DPPRight);
+ 	SmartDashboard::PutNumber("DPPLeft", DPPLeft);
 
 }
 
@@ -72,10 +78,15 @@ void DriveBase::Drive(double LeftDriveDesired, double RightDriveDesired)
 
   //kP = SmartDashboard::GetNumber("kP Value", kP); //Uncomment for getting value from dashboard
 
-  LeftDrive1 	-> Set(LeftDriveDesired); //passes desired state to speed controllers
-  LeftDrive2	-> Set(LeftDriveDesired);
-  RightDrive1 	-> Set(-1 * RightDriveDesired);
-  RightDrive2	-> Set(-1 * RightDriveDesired);
+	SmartDashboard::PutNumber("kP Backwards Value", kP_Right);
+	SmartDashboard::PutNumber("kP Forwards Value", kP_Left);
+	SmartDashboard::PutNumber("DPPRight", DPPRight);
+	SmartDashboard::PutNumber("DPPLeft", DPPLeft);
+
+  LeftDrive1 	-> Set(-1 * LeftDriveDesired); //passes desired state to speed controllers
+  LeftDrive2	-> Set(-1 * LeftDriveDesired);
+  RightDrive1 	-> Set(RightDriveDesired);
+  RightDrive2	-> Set(RightDriveDesired);
 
   //New stuff
   //Sets the ratio for pulses to inches
@@ -145,9 +156,9 @@ void DriveBase::AutoDriveDistance(float DesiredDistance){
 	} else {
 		while ((DesiredDistance > 0) ? (DistanceTraveled < fabs(DesiredDistance) - AutoDistThresh) : (DistanceTraveled > AutoDistThresh - fabs(DesiredDistance))){
 			if (DesiredDistance > 0){ //DesiredDistance is positive, go forward
-				Drive(AutoDriveSpeed * kPLeft, AutoDriveSpeed);
+				Drive(AutoDriveSpeed * kP_Left, AutoDriveSpeed);
 			} else if (DesiredDistance < 0){ //DesiredDistance is negative, go backward
-				Drive(-AutoDriveSpeed, -AutoDriveSpeed * kPRight);//There is no kp value here because the kp value makes the robot run curved when going backwards
+				Drive(-AutoDriveSpeed, -AutoDriveSpeed * kP_Right);//There is no kp value here because the kp value makes the robot run curved when going backwards
 			} else { //error or exactly 0
 				std::cout << "AutoDriveDistance Error!!!\n";
 				break;

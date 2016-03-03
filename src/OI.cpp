@@ -87,11 +87,10 @@ OI::OI()
 	
 	MOHButtonTriangle -> WhenPressed(new LockTarget());
 	MOHButtonSquare   -> WhenPressed(new AutoLaunch());
-	MOHStartButton	-> WhenPressed(new AutoDeliverBall(1.5));
+//	MOHStartButton	-> WhenPressed(new AutoDeliverBall(1.5)); //Commented out, using button to auto drive
 
 	XboxX			-> 	 WhenPressed(new Launch());
 	XboxRightStickButton -> WhenPressed(new ShooterOverride());
-
 }
 
 //Defines the functions for the axis's declared in the h file

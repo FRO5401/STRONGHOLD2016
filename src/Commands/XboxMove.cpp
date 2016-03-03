@@ -17,6 +17,7 @@ XboxMove::XboxMove()
 	//Declares required subsystems
 	Requires(drivebase);
 
+	SmartDashboard::PutNumber("Drive Distance:", DesiredDistance);
 }
 
 // Called just before this Command runs the first time
@@ -37,6 +38,10 @@ void XboxMove::Execute()
 	bool 	Turn		= 	oi	->	GetButtonL3();
 	
 	double Right,Left, Sensitivity;
+
+	SmartDashboard::GetNumber("Drive Distance:", DesiredDistance);
+	if (oi->GetMOHButtonStart())
+		drivebase -> AutoDriveDistance(DesiredDistance);
 
 	if (Precision) { //Sets drive precision based on RobotMap and Precision Mode
 		Sensitivity	=	Drive_Sensitivity_Precise;

@@ -13,6 +13,10 @@ private:
 	float DashAutoDistance;
 	float AutoTurnPrecision;
 //	float kP;	//Uncomment to get value from dashboard
+	float kP_Right;			//Uncomment for getting value from dashboard
+	float kP_Left;
+	float DPPLeft;
+	float DPPRight;
 
 public:
 	//Declares the parts of the robot necessary for this subsystem
