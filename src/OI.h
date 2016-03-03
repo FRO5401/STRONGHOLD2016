@@ -60,7 +60,7 @@ public:
 	bool GetButtonBack();
 	bool GetButtonL3();
 	bool GetButtonR3();
-	void GetPOVState();
+	int GetPOVState();
 	void SendXboxRumble(int);
 	void SendMOHRumble(int);
 	bool GetMOHButtonStart();

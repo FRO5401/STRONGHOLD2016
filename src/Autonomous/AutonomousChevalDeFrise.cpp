@@ -10,8 +10,9 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 {
  	 AddSequential(new AutoDriveCommand(46)); //Drive to defense
  	 AddSequential(new MoveSPTtoPosition(-39.103)); //Move SPT down to prepare to drive over cheval
+ 	 Wait(1);
  	 AddParallel(new MoveSPTtoPosition(55)); //Move SPT up and out of the way to delivery position
-	 AddSequential(new AutoDriveCommand(70)); //TODO determine best distance to drive //Drive over cheval
+	 AddSequential(new AutoDriveCommand(90)); //TODO determine best distance to drive //Drive over cheval
 	 //Determine which goal to shoot at
 	 //If needed
 	 //	AddSequential(new AutoTurnToAngleCommand(determine angle)); //turn to drive

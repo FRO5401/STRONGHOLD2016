@@ -137,7 +137,7 @@ void DriveBase::AutoDriveDistance(float DesiredDistance){
 //	DesiredDistance = DashAutoDistance;
 
 	EncoderReset();
-	MainGyro -> Reset();
+	//MainGyro -> Reset(); //not sure if needed
 
 	float DistanceTraveled = 0;
 	if (fabs(DesiredDistance) <= AutoDistThresh){

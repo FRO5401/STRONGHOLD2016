@@ -7,7 +7,9 @@
 class AutoDriveCommand: public CommandBase
 {
 public:
-	float DistanceToDrive;
+	float DesiredDistance;
+	float DistanceTraveled;
+	bool DoneTraveling;
 
 	AutoDriveCommand(float);
 	void Initialize();

@@ -6,6 +6,10 @@
 
 class UpAndDownInfeeder: public CommandBase
 {
+private:
+	bool POVPress;
+	int POV;
+
 public:
 	UpAndDownInfeeder();
 	void Initialize();
@@ -13,6 +17,7 @@ public:
 	bool IsFinished();
 	void End();
 	void Interrupted();
+	void SPTMoveToSetPoint(float);
 };
 
 #endif

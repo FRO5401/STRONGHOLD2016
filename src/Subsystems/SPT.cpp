@@ -30,8 +30,8 @@ float SPTMotorSpeed = .9;
 const float SPTDeliveryPosition 	= 55;//-34.677 from start
 const float SPTFeederPosition		= -21;//-112.146 from start
 float SPTShootingPosition	= -50;//Position has measured 021716
-double SPTMaxAngle			= 59.024; //Measured 100 degrees  021616 //normally 98
-double SPTMinAngle			= -61.299; //Measured 022816
+double SPTMaxAngle			= 59; //Measured 100 degrees  021616 //normally 98
+double SPTMinAngle			= -58; //Measured 022816
 double SPTPrecision = 0.75; //Set precision very high while PID and stop points are not defined
 //float SPTAngleTolerance = 2;
 
@@ -73,7 +73,7 @@ void SPT::UpAndDown(double ShoulderChangeValue, bool Override){
 	//Zero out the change if angle is at its lower limit and trying to decrease
 	ShoulderChangeValue = ((ShoulderChangeValue > 0) && (GetAdjustedEncDistance() <= SPTMinAngle)) ? 0 : ShoulderChangeValue;
 	}
-	SPTShoulderMotor -> Set(SPTPrecision * ShoulderChangeValue); 
+	SPTShoulderMotor -> Set(SPTPrecision * ShoulderChangeValue);
 
 	SmartDashboard::PutNumber("SPTUpDown", ShoulderChangeValue);
 	SmartDashboard::PutNumber("SPTEnc Raw", SPTEnc -> Get());

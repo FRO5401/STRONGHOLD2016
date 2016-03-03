@@ -2,7 +2,7 @@
 
 const float SPTDeliveryPosition 	= 55;//-34.677 from start
 const float SPTFeederPosition		= -21;//-112.146 from start
-float SPTAngleTolerance = 2;
+float SPTAngleBuffer = 2;
 
 MoveSPTtoPosition::MoveSPTtoPosition(float angle)
 {
@@ -21,10 +21,11 @@ void MoveSPTtoPosition::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void MoveSPTtoPosition::Execute()
 {
-	if (spt -> GetAdjustedEncDistance() > DesiredAngle + SPTAngleTolerance){
+	std::cout << "Moving SPT\n";
+	if (spt -> GetAdjustedEncDistance() > DesiredAngle + SPTAngleBuffer){
 		spt -> UpAndDown(1, false); //positive value goes down
 		finished = false;
-	} else if (spt ->GetAdjustedEncDistance() < DesiredAngle - SPTAngleTolerance){
+	} else if (spt ->GetAdjustedEncDistance() < DesiredAngle - SPTAngleBuffer){
 		spt -> UpAndDown(-1, false);//negative value goes up
 		finished = false;
 	} else {

@@ -28,7 +28,6 @@
 #include "Commands/StopDriveForAutonomous.h"
 #include "Commands/SPTShootingPosition.h"
 #include "Commands/UpAndDownInfeeder.h"
-#include "Commands/MoveSPTtoPosition.h"
 #include "WPILib.h"
 
 //const float SPTDeliveryPosition = 55;//-34.677 from start
@@ -170,26 +169,18 @@ bool OI::GetButtonR3(){
 	return XboxController	->	GetRawButton(XboxR3_ID);
 }
 
-void OI::GetPOVState(){
+int OI::GetPOVState(){
 	int POV = MedalOfHonorController	->	GetPOV();
-	int state = 0;
 
 	if (POV == 225 || POV == 180 || POV == 135){
-		std::cout << "DOWN\n";
-		state = -1;	//down
+		//std::cout << "DOWN\n";
+		return -1;	//down
 	}
 	else if (POV == 315 || POV == 0 || POV == 45){
-		std::cout << "UP\n";
-		state = 1; 	//up
-	}
-
-	if (POV != 0){
-		if (POV == 1){
-			MoveSPTtoPosition(55.0);
-		} else {
-			MoveSPTtoPosition(-21.0);
-		}
-	}
+		//std::cout << "UP\n";
+		return 1; 	//up
+	} else
+		return 0;
 }
 
 void OI::SendXboxRumble(int j){
