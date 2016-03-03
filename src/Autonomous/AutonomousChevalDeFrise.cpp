@@ -4,12 +4,13 @@
 #include "Autonomous/AutoTurnToAngleCommand.h"
 
 #include "Commands/AutoLaunch.h"
+#include "Commands/MoveSPTtoPosition.h"
 
 AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPosition, int LowOrHigh)
 {
  	 AddSequential(new AutoDriveCommand(46)); //Drive to defense
-//TODO	 AddSequential(new MoveSPTtoPosition(-39.103)); //Move SPT down to prepare to drive over cheval
-//TODO Change to new command	 AddParallel(new InfeederLiftIntoDelivery()); //Move SPT up and out of the way
+ 	 AddSequential(new MoveSPTtoPosition(-39.103)); //Move SPT down to prepare to drive over cheval
+ 	 AddParallel(new MoveSPTtoPosition(55)); //Move SPT up and out of the way to delivery position
 	 AddSequential(new AutoDriveCommand(70)); //TODO determine best distance to drive //Drive over cheval
 	 //Determine which goal to shoot at
 	 //If needed
@@ -26,6 +27,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	 * 	AddParallel(new AutoDrive());
 	 * 	AddParallel(new SPT Shooter position);
 	 * 	AdjustAngle(0) so it's straight
+	 *
 	 * 	switch(DefensePosition)
 	 * 	{
 	 * 		case 2:
