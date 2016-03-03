@@ -30,6 +30,7 @@ public:
 	void Override(double);
 	void Reset();
 	float ReportEncoder();
+	void ResetEncoder();
 };
 
 

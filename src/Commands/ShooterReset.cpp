@@ -16,8 +16,8 @@ void ShooterReset::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void ShooterReset::Execute()
 {
-	if (shooter -> ReportEncoder() < ShooterCockedPosition){
 	ResetComplete = false;
+	if (shooter -> ReportEncoder() < ShooterCockedPosition){
 	shooter	->	Shoot();
 //	relaysys -> ShootLights(2);
 	} else {

@@ -17,7 +17,7 @@ Launch::Launch()
 }
 void Launch::Initialize()
 {
-	spt -> ClearShooterPathPosition();
+	shooter -> ResetEncoder();
 }
 
 void Launch::Execute(){

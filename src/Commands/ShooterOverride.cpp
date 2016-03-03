@@ -31,13 +31,16 @@ ShooterOverride::ShooterOverride()
 	bool ShooterOverride::IsFinished()
 {
 	bool	Override	=	oi	->	GetButtonR3();
-	return false;/*(!Override)*/;
+	return (!Override);/*(!Override)*/;
 }
 
 	void ShooterOverride::End(){
 		shooter -> Stop();
 	};
-	void ShooterOverride::Interrupted(){};
+	void ShooterOverride::Interrupted(){
+		shooter -> Stop();
+
+	};
 
 
 
