@@ -18,8 +18,6 @@
 #include "Commands/FeedOutFromOuter.h"
 #include "Commands/HookBumper.h"
 #include "Commands/HookScale.h"
-#include "Commands/InfeederLiftIntoDelivery.h"
-#include "Commands/InfeederLiftIntoInfeederPosition.h"
 #include "Commands/LaunchSequence.h"
 #include "Commands/LockTarget.h"
 #include "Commands/PrepareToScale.h"
@@ -32,6 +30,9 @@
 #include "Commands/UpAndDownInfeeder.h"
 #include "Commands/MoveSPTtoPosition.h"
 #include "WPILib.h"
+
+//const float SPTDeliveryPosition = 55;//-34.677 from start
+//const float SPTFeederPosition = -21;//-112.146 from start
 
 OI::OI()
 {
@@ -92,10 +93,6 @@ OI::OI()
 
 	XboxX			-> 	 WhenPressed(new LaunchSequence());
 	XboxRightStickButton -> WhenPressed(new ShooterOverride());
-
-	SPTDeliveryPosition = 55;  //-34.677 from start
-	SPTFeederPosition   = -21; //-112.146 from start
-
 }
 
 //Defines the functions for the axis's declared in the h file
@@ -188,9 +185,9 @@ void OI::GetPOVState(){
 
 	if (POV != 0){
 		if (POV == 1){
-			MoveSPTtoPosition(SPTDeliveryPosition);
+			MoveSPTtoPosition(55.0);
 		} else {
-			MoveSPTtoPosition(SPTFeederPosition);
+			MoveSPTtoPosition(-21.0);
 		}
 	}
 }

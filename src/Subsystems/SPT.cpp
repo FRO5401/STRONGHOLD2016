@@ -33,7 +33,7 @@ float SPTShootingPosition	= -50;//Position has measured 021716
 double SPTMaxAngle			= 59.024; //Measured 100 degrees  021616 //normally 98
 double SPTMinAngle			= -61.299; //Measured 022816
 double SPTPrecision = 0.75; //Set precision very high while PID and stop points are not defined
-float SPTAngleTolerance = 2;
+//float SPTAngleTolerance = 2;
 
 SPT::SPT() :
 		Subsystem("SPT")

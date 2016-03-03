@@ -7,9 +7,6 @@
 
 class OI
 {
-private:
-	const float SPTDeliveryPosition; 	//= 55;//-34.677 from start
-	const float SPTFeederPosition;		//= -21;//-112.146 from start
 
 public:
 	//Declares controller
