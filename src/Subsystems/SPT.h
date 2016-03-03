@@ -10,7 +10,8 @@ private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 	Victor *SPTShoulderMotor;
-	Encoder *SPTEnc;
+	//Encoder *SPTEnc;
+	Potentiometer *SPTPot;
 	double MotorOutput;
 
 public:
