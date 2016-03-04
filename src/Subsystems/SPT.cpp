@@ -74,7 +74,7 @@ void SPT::UpAndDown(double ShoulderChangeValue, bool Override){
 	//Zero out the change if angle is at its lower limit and trying to decrease
 	ShoulderChangeValue = ((ShoulderChangeValue > 0) && (SPTPot -> Get() <= SPTMinAngle)) ? 0 : ShoulderChangeValue;
 	}
-	SPTShoulderMotor -> Set(SPTPrecision * ShoulderChangeValue); 
+	SPTShoulderMotor -> Set(-1 * SPTPrecision * ShoulderChangeValue);
 
 	SmartDashboard::PutNumber("SPTUpDown", ShoulderChangeValue);
 	SmartDashboard::PutNumber("SPTPot", SPTPot ->Get());

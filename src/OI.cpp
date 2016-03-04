@@ -72,17 +72,17 @@ OI::OI()
 						MOHHomeButton			= new JoystickButton(MedalOfHonorController, 13);
 
 	//SPT Buttons
-	//Feeder Buttons
-	MOHRightTrigger	-> WhenPressed(new FeedInFromOuter());
+	//Feeder Buttons //NOTE: Directions are correct, command names are not necessarily correct
+	MOHRightTrigger	-> WhenPressed(new FeedOutFromOuter());
 	MOHRightTrigger	-> WhenReleased(new FeederStop());
 
-	MOHLeftTrigger 	-> WhenPressed(new FeedOutFromOuter());
+	MOHLeftTrigger 	-> WhenPressed(new FeedInFromOuter());
 	MOHLeftTrigger 	-> WhenReleased(new FeederStop());
 
-	MOHLeftBumper	-> WhenPressed(new FeedInFromInner());
+	MOHLeftBumper	-> WhenPressed(new FeedOutFromInner());
 	MOHLeftBumper	-> WhenReleased(new FeederStop());
 
-	MOHRightBumper	-> WhenPressed(new FeedOutFromInner());
+	MOHRightBumper	-> WhenPressed(new FeedInFromInner());
 	MOHRightBumper   -> WhenReleased(new FeederStop());
 	
 	MOHButtonTriangle -> WhenPressed(new LockTarget());
