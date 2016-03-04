@@ -22,10 +22,10 @@ void MoveSPTtoPosition::Initialize()
 void MoveSPTtoPosition::Execute()
 {
 	std::cout << "Moving SPT\n";
-	if (spt -> GetAdjustedEncDistance() > DesiredAngle + SPTAngleBuffer){
+	if (spd -> ReportAngle() > (DesiredAngle + SPTAngleBuffer)){
 		spt -> UpAndDown(1, false); //positive value goes down
 		finished = false;
-	} else if (spt ->GetAdjustedEncDistance() < DesiredAngle - SPTAngleBuffer){
+	} else if (spd -> ReportAngle() < (DesiredAngle - SPTAngleBuffer)){
 		spt -> UpAndDown(-1, false);//negative value goes up
 		finished = false;
 	} else {
