@@ -118,6 +118,11 @@ void SPT::StopForShoot(){
 	SPTShoulderMotor -> Set(0);
 }
 
+float SPT::ReportAngle(){
+	return SPTPot ->Get(); //Comment this out and uncomment the below to use encoder
+//	return (SPTEnc -> GetDistance() - SPT_Offset);
+}
+
 /*float SPT::GetAdjustedEncDistance(){
 	return (SPTEnc -> GetDistance() - SPT_Offset);
 }
