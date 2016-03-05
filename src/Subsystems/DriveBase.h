@@ -49,6 +49,7 @@ public:
 	float AutoTurnAngle(float, float);	//Turns a number of degrees relative to current position
 	void EncoderReset();
 	float ReportGyro();
+	float GetEncoderDistance();
 };
 
 #endif

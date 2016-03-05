@@ -60,11 +60,9 @@ void HookShoulder::UpAndDown(double HookShoulderChangeValue){
 	HookShoulderChangeValue = ((HookShoulderChangeValue < 0) && (CurrentPosition >= MaxPosition)) ? 0 : HookShoulderChangeValue;
 	//Zero out the change if angle is at its lower limit and trying to decrease
 	HookShoulderChangeValue = ((HookShoulderChangeValue > 0) && (CurrentPosition <= MaxPosition)) ? 0 : HookShoulderChangeValue;
-
 }
 
 double HookShoulder::ReportAngle(){
 	//Sets the min and max speed the motor of that the SPT has
 	return HookShoulderPot -> Get();
-
 }

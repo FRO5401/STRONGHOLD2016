@@ -20,7 +20,7 @@
 //Multiplier to get meaningful value. A number can be put here - 0 value is horizontal from front of robot
 double SPT_Range 	= -1376.15; //-1376.15
 //Quote "offset added to the scaled value to control the 0 value
-double SPT_Offset 	= 638.073; //638.073 is old offset
+double SPT_Offset 	= 638.073 -7.164; //638.073 is old offset
 
 double SPTMotorMin	= -1;//Min Motor speed
 double SPTMotorMax	= 1;// Max motor speed

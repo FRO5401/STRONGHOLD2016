@@ -226,3 +226,7 @@ float DriveBase::ReportGyro()
    	float AdjAngle = Angle - (GyroLinearAdj * Time + GyroOffset);//Compensates for gyro creep - basically subtracts out mx+b the linear creep function
   	return AdjAngle;
 }
+
+float DriveBase::GetEncoderDistance(){
+	return ((RightEnc -> GetDistance() + LeftEnc -> GetDistance())/2);
+}

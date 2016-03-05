@@ -2,6 +2,7 @@
 #include "Commands/AutoLaunch.h"
 #include "Commands/InfeederLiftIntoDelivery.h"
 #include "Commands/InfeederLiftIntoInfeederPosition.h"
+#include "Commands/MoveSPTtoPosition.h"
 
 #include "Autonomous/AutonomousAutoTurnAngle.h"
 #include "Autonomous/AutoDeliverBall.h"
@@ -27,11 +28,10 @@ AutonomousLowBar::AutonomousLowBar(int DefensePosition, int GoalPosition, int Lo
 //	Not needed because the driver will position the robot as necessary before turning on
 //	AddSequential(new AutoTurnToAngleCommand(180); //Because SPT is not need thus immediate position for shooting can work
 
-	AddSequential(new InfeederLiftIntoInfeederPosition());
+	AddParallel(new MoveSPTtoPosition(-21));
 	AddSequential(new AutoDriveCommand(-215));//Formerly -122.5
-	Wait(.5);
-	AddSequential(new InfeederLiftIntoDelivery());
-	AddSequential(new AutonomousAutoTurnAngle(37));//46.8 but we overshoot
+	AddSequential(new MoveSPTtoPosition(55));
+	AddSequential(new AutonomousAutoTurnAngle(38));//46.8 but we overshoot
 	AddSequential(new AutoDeliverBall(2.0));
 	AddSequential(new AutoLaunch());
 
