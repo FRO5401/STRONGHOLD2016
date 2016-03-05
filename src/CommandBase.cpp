@@ -11,7 +11,7 @@ OffboardCompressor*	CommandBase::offboardcompressor	= NULL;
 Scale*		CommandBase::scale			= NULL;
 Scimitar*	CommandBase::scimitar		= NULL;
 Shooter* 	CommandBase::shooter		= NULL;
-ShortHook*	CommandBase::shorthook		= NULL;
+//ShortHook*	CommandBase::shorthook		= NULL;
 SPT*		CommandBase::spt		= NULL;
 WateryTart*	CommandBase::waterytart		= NULL;
 RelaySys*	CommandBase::relaysys		= NULL;
@@ -41,7 +41,7 @@ void CommandBase::init()
 	scale				= new Scale();
 	scimitar			= new Scimitar();
 	shooter 			= new Shooter();
-	shorthook			= new ShortHook();
+//	shorthook			= new ShortHook();
 	spt					= new SPT();
 	waterytart			= new WateryTart();
 	relaysys	= new RelaySys();

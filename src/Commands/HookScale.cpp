@@ -30,7 +30,7 @@ void HookScale::Initialize()
 void HookScale::Execute()
 {
 
-	hookshoulder        -> MoveToPosition(ScimitarPosition);
+	hookshoulder        -> UpAndDown(0);  //Add code here to move to setpoint
 
 }
 

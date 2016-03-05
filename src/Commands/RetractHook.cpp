@@ -3,7 +3,7 @@
 RetractHook::RetractHook()
 {
 	// Use Requires() here to declare subsystem dependencies
-	Requires(shorthook);
+//	Requires(shorthook);
 }
 
 // Called just before this Command runs the first time
@@ -15,7 +15,7 @@ void RetractHook::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void RetractHook::Execute()
 {
-	shorthook	->	Extend(false);
+//	shorthook	->	Extend(false);
 }
 
 // Make this return true when this Command no longer needs to run execute()

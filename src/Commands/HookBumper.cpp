@@ -18,7 +18,7 @@ void HookBumper::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void HookBumper::Execute()
 {
-	hookshoulder        -> MoveToPosition(BumperPosition);
+	hookshoulder        -> UpAndDown(0);//TODO Put real code here - this should run in all autonomous and move the scimitar down and retract to set points
 
 }
 

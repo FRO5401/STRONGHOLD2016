@@ -10,7 +10,7 @@
 #include "Subsystems/Scale.h"
 #include "Subsystems/Scimitar.h"
 #include "Subsystems/Shooter.h"
-#include "Subsystems/ShortHook.h"
+//#include "Subsystems/ShortHook.h"
 #include "Subsystems/SPT.h"
 #include "Subsystems/WateryTart.h"
 #include "Subsystems/RelaySys.h"
@@ -44,7 +44,7 @@ public:
 	static Scale 			*scale;
 	static Scimitar 		*scimitar;
 	static Shooter 			*shooter;
-	static ShortHook 		*shorthook;
+//	static ShortHook 		*shorthook;
 	static SPT 				*spt;
 	static WateryTart 		*waterytart;
 	static RelaySys 	*relaysys;
