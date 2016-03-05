@@ -18,6 +18,7 @@ Launch::Launch()
 void Launch::Initialize()
 {
 	shooter -> ResetEncoder();
+	shooter -> Stop();
 }
 
 void Launch::Execute(){

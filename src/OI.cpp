@@ -22,6 +22,7 @@
 #include "Commands/InfeederLiftIntoInfeederPosition.h"
 #include "Commands/LaunchSequence.h"
 #include "Commands/LockTarget.h"
+#include "Commands/MoveSPTtoPosition.h"
 #include "Commands/PrepareToScale.h"
 #include "Commands/ReachForBar.h"
 #include "Commands/RetractHook.h"
@@ -92,6 +93,8 @@ OI::OI()
 
 	XboxX			-> 	 WhenPressed(new LaunchSequence());
 	XboxRightStickButton -> WhenPressed(new ShooterOverride());
+//	MOHButtonCircle -> WhenPressed(new MoveSPTtoPosition(55)); //55 is Delivery
+//	MOHButtonX -> WhenPressed(new MoveSPTtoPosition(-21)); //-21 is Infeed
 }
 
 //Defines the functions for the axis's declared in the h file

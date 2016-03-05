@@ -1,19 +1,18 @@
-#ifndef SPTShootingPosition_H
-#define SPTShootingPosition_H
+#ifndef DoNothing_H
+#define DoNothing_H
 
 #include "../CommandBase.h"
 #include "WPILib.h"
 
-class SPTShootingPosition: public CommandBase
+class DoNothing: public CommandBase
 {
 public:
-	SPTShootingPosition();
+	DoNothing();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
 	void End();
 	void Interrupted();
-	bool Finished;
 };
 
 #endif

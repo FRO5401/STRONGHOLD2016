@@ -13,7 +13,7 @@ MoveSPTtoPosition::MoveSPTtoPosition(float angle)
 // Called just before this Command runs the first time
 void MoveSPTtoPosition::Initialize()
 {
-
+	//spt -> StopForShoot();
 }
 
 // Called repeatedly when this Command is scheduled to run

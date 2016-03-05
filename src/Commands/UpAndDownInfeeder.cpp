@@ -9,6 +9,7 @@ UpAndDownInfeeder::UpAndDownInfeeder()
 // Called just before this Command runs the first time
 void UpAndDownInfeeder::Initialize()
 {
+	//spt -> StopForShoot();
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -33,6 +34,7 @@ bool UpAndDownInfeeder::IsFinished()
 // Called once after isFinished returns true
 void UpAndDownInfeeder::End()
 {
+	spt -> StopForShoot();
 
 }
 
@@ -40,5 +42,6 @@ void UpAndDownInfeeder::End()
 // subsystems is scheduled to run
 void UpAndDownInfeeder::Interrupted()
 {
+	spt -> StopForShoot();
 
 }

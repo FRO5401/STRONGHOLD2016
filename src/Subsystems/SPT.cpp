@@ -107,9 +107,9 @@ void SPT::MoveToInfeederPosition(){
 }
 
 void SPT::ClearShooterPathPosition(){
-	/*while (GetAdjustedEncDistance() > (SPTDeliveryPosition - 5)){
+	while (SPTPot -> Get() > (SPTDeliveryPosition - 5)){
 		SPTShoulderMotor -> Set(SPTMotorSpeed * SPTPrecision);
-	}*/
+	}
 
 	SPTShoulderMotor -> Set(0);
 }

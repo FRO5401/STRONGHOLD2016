@@ -86,7 +86,7 @@
 #include "Autonomous/AutonomousSallyPort.h"
 #include "Autonomous/AutonomousRockWall.h"
 #include "Autonomous/AutonomousRoughTerrain.h"
-
+#include "Commands/DoNothing.h"
 //2016 Stronghold code
 class Robot: public IterativeRobot
 {
@@ -168,7 +168,7 @@ private:
 		//Low Bar CommandGroup is constant because it'll always be in defense position 1 and go in left high goal
 		autoMode->AddDefault("Default-Low Bar", new AutonomousLowBar(1,1,2));
 		autoMode->AddObject("Portcullis", new AutonomousPortcullis(PositionForDefense, PositionForGoal, LowOrHighGoal));
-		autoMode->AddObject("Cheval de Frise", new AutonomousChevalDeFrise(PositionForDefense, PositionForGoal, LowOrHighGoal));
+//		autoMode->AddObject("Cheval de Frise", new AutonomousChevalDeFrise(PositionForDefense, PositionForGoal, LowOrHighGoal));
 		autoMode->AddObject("Ramparts", new AutonomousRamparts(PositionForDefense, PositionForGoal, LowOrHighGoal));
 		autoMode->AddObject("Moat", new AutonomousMoat(PositionForDefense, PositionForGoal, LowOrHighGoal));
 //		autoMode->AddObject("Drawbridge", new AutonomousDrawbridge(PositionForDefense, PositionForGoal, LowOrHighGoal));
@@ -176,6 +176,7 @@ private:
 		autoMode->AddObject("Rock Wall", new AutonomousRockWall(PositionForDefense, PositionForGoal, LowOrHighGoal));
 		autoMode->AddObject("Rough Terrain", new AutonomousRoughTerrain(PositionForDefense, PositionForGoal, LowOrHighGoal));
 //		autoMode->AddObject("SpyBot", new AutonomousSpyBot()); //Restore when command is written, plus need one for each position
+		autoMode->AddObject("Do Nothing", new DoNothing());
 		SmartDashboard::PutData("Autonomous Mode", autoMode);
 		Scheduler::GetInstance()->Run();
 	}
