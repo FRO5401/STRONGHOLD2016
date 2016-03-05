@@ -2,6 +2,9 @@
 
 AutonomousRockWall::AutonomousRockWall(int DefensePosition, int GoalPosition, int LowOrHigh)
 {
+	AddSequential(new AutoDriveCommand(62));
+	AddSequential(new MoveSPTtoPosition(-30)); //TODO Adjust this
+//	AddSequential(AutoDriveCommand());
 	/*	PsuedoCode V. 2.0
 	 * 	AdjustAngle() so it's straight
 	 * 	AutoDrive()

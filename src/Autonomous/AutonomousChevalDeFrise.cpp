@@ -49,7 +49,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	 						case 2:
 	 							AddParallel(new AutonomousAutoTurnAngle(180));
 	 							AddSequential(new AutoDeliverBall(2));// TODO find time
-	  							AddSequential(new AutoLaunch());
+//	  							AddSequential(new AutoLaunch());
 	  							break;
 	  					}
 	  					break;
@@ -59,7 +59,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	  					AddSequential(new AutoDriveCommand(94));
 	  					AddSequential(new AutoTurnToAngleCommand(-180));
 	 					AddSequential(new AutoDeliverBall(2));
-	  					AddSequential(new AutoLaunch());
+//	  					AddSequential(new AutoLaunch());
 	  					//No Low goal in middle
 	  					break;
 
@@ -87,7 +87,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	 						case 2:
 	 							AddParallel(new AutonomousAutoTurnAngle(180));
 	 							AddSequential(new AutoDeliverBall(2));// TODO find time
-	  							AddSequential(new AutoLaunch());
+//	  							AddSequential(new AutoLaunch());
 	  							break;
 	  					}
 	  					break;
@@ -119,7 +119,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	 						case 2:
 	 							AddParallel(new AutonomousAutoTurnAngle(180));
 	 							AddSequential(new AutoDeliverBall(2));// TODO find time
-	  							AddSequential(new AutoLaunch());
+//	  							AddSequential(new AutoLaunch());
 	  							break;
 	  					}
 	  					break;
@@ -129,7 +129,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	  					AddSequential(new AutoDriveCommand(44));
 	  					AddSequential(new AutoTurnToAngleCommand(-180));
 	 					AddSequential(new AutoDeliverBall(2));
-	  					AddSequential(new AutoLaunch());
+//	  					AddSequential(new AutoLaunch());
 	  					//No Low goal in middle
 	  					break;
 
@@ -157,7 +157,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	 						case 2:
 	 							AddParallel(new AutonomousAutoTurnAngle(180));
 	 							AddSequential(new AutoDeliverBall(2));// TODO find time
-	  							AddSequential(new AutoLaunch());
+//	  							AddSequential(new AutoLaunch());
 	  							break;
 	  					}
 	  					break;
@@ -190,7 +190,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	 						case 2:
 	 							AddParallel(new AutonomousAutoTurnAngle(180));
 	 							AddSequential(new AutoDeliverBall(2));// TODO find time
-	  							AddSequential(new AutoLaunch());
+//	  							AddSequential(new AutoLaunch());
 	  							break;
 	  					}
 	  					break;
@@ -200,7 +200,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	  					AddSequential(new AutoDriveCommand(6));
 	  					AddSequential(new AutoTurnToAngleCommand(-180));
 	 					AddSequential(new AutoDeliverBall(2));
-	  					AddSequential(new AutoLaunch());
+//	  					AddSequential(new AutoLaunch());
 	  					//No Low goal in middle
 	  					break;
 	 				//Defense position 4 and Right Goal
@@ -228,7 +228,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	 						case 2:
 	 							AddParallel(new AutonomousAutoTurnAngle(180));
 	 							AddSequential(new AutoDeliverBall(2));// TODO find time
-	  							AddSequential(new AutoLaunch());
+//	  							AddSequential(new AutoLaunch());
 	  							break;
 	  					}
 	  					break;
@@ -262,7 +262,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	 						case 2:
 	 							AddParallel(new AutonomousAutoTurnAngle(180));
 	 							AddSequential(new AutoDeliverBall(2));// TODO find time
-	  							AddSequential(new AutoLaunch());
+//	  							AddSequential(new AutoLaunch());
 	  							break;
 	  					}
 	  					break;
@@ -273,7 +273,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	  					AddSequential(new AutoTurnToAngleCommand(0));
 	 					AddParallel(new AutonomousAutoTurnAngle(180));
 	 					AddSequential(new AutoDeliverBall(2));
-	  					AddSequential(new AutoLaunch());
+//	  					AddSequential(new AutoLaunch());
 	  					//No Low goal in middle
 	  					break;
 	 				//Defense position 5 and Right Goal
@@ -298,7 +298,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	  						case 2:
 	 							AddParallel(new AutonomousAutoTurnAngle(180));
 	 							AddSequential(new AutoDeliverBall(2));// TODO find time
-	  							AddSequential(new AutoLaunch());
+//	  							AddSequential(new AutoLaunch());
 	  							break;
 	  					}
 	  					break;
