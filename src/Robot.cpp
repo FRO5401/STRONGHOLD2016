@@ -176,7 +176,6 @@ private:
 		autoMode->AddObject("Rock Wall", new AutonomousRockWall(PositionForDefense, PositionForGoal, LowOrHighGoal));
 		autoMode->AddObject("Rough Terrain", new AutonomousRoughTerrain(PositionForDefense, PositionForGoal, LowOrHighGoal));
 //		autoMode->AddObject("SpyBot", new AutonomousSpyBot()); //Restore when command is written, plus need one for each position
-		autoMode->AddObject("Do Nothing", new AutoDoNothing());
 		SmartDashboard::PutData("Autonomous Mode", autoMode);
 		Scheduler::GetInstance()->Run();
 	}
