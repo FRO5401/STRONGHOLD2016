@@ -16,11 +16,14 @@ private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 	Victor *ScimitarExtender;	//Variable for motor to extend the scimitar to scale the tower
+	Encoder *ScimitarEnc;
 
 public:
 	Scimitar();
 	void InitDefaultCommand();
-	void Extend(bool);
+	void Extend(double);
+	double ReportPosition();
+	void ResetEncoder();
 };
 
 #endif

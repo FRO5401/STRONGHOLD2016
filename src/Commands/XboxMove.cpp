@@ -16,7 +16,7 @@ XboxMove::XboxMove()
 {
 	//Declares required subsystems
 	Requires(drivebase);
-	Requires(scimitar);
+//	Requires(scimitar);
 
 	SmartDashboard::PutNumber("Drive Distance:", DesiredDistance);
 }

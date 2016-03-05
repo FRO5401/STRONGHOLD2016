@@ -8,6 +8,7 @@
 #include "HookShoulder.h"
 #include "../RobotMap.h"
 #include "PIDController.h"
+#include "Commands/ScimitarUpDown.h"
 
 //Parameters for Potentiometer and the its PIDcontroller. Easier to edit if you put it here
 
@@ -22,6 +23,7 @@ const int HookShoulder_Kd		= 0;//Derivative
 
 const int HookShoulderMotorMin	= -1;//Min Motor speed
 const int HookShoulderMotorMax	= 1;// Max motor speed
+const int HookShoulderSensitivity = 0.5;
 
 //The following WILL CHANGEs
 const int MaxPosition			= 0;//The maximum position for the hook shoulder
@@ -37,14 +39,14 @@ HookShoulder::HookShoulder() :
 
 	//Format for declaring PIDControllers (Kp value, Ki value, Kd value, the input source, the output source)
 	//Read Control Theory from http://www.chiefdelphi.com/media/papers/1823
-	HookShoulderPID = new PIDController(HookShoulder_Kp, HookShoulder_Ki, HookShoulder_Kd, HookShoulderPot, HookShoulderMotor);
+//	HookShoulderPID = new PIDController(HookShoulder_Kp, HookShoulder_Ki, HookShoulder_Kd, HookShoulderPot, HookShoulderMotor);
 
 }
 
 void HookShoulder::InitDefaultCommand()
 {
 	// Set the default command for a subsystem here.
-	//SetDefaultCommand(new MySpecialCommand());
+	SetDefaultCommand(new ScimitarUpDown());
 }
 
 //This function sets the shoulder motor of SPT to a certain direction between up and down
@@ -53,27 +55,16 @@ void HookShoulder::UpAndDown(double HookShoulderChangeValue){
  * This is to keep it from going above a certain angle for rules and below a certain angle so it doesn't
  * keep running once it gets into the robot
  */
-	double Position = HookShoulderMotor -> Get();
-	if(Position <= MaxPosition && Position >= MinPosition)
-	{
-		HookShoulderMotor -> Set(-.5 * HookShoulderChangeValue); //Why -0.5?? carried from SPT KJM
-	}
-	else
-	{
-		HookShoulderMotor -> Set(0);
-	}
+	double CurrentPosition = ReportAngle();
+	//Zero out the change if angle is at its upper limit and trying to increase
+	HookShoulderChangeValue = ((HookShoulderChangeValue < 0) && (CurrentPosition >= MaxPosition)) ? 0 : HookShoulderChangeValue;
+	//Zero out the change if angle is at its lower limit and trying to decrease
+	HookShoulderChangeValue = ((HookShoulderChangeValue > 0) && (CurrentPosition <= MaxPosition)) ? 0 : HookShoulderChangeValue;
+
 }
 
-void HookShoulder::MoveToPosition(double DesiredPosition){
+double HookShoulder::ReportAngle(){
 	//Sets the min and max speed the motor of that the SPT has
-	HookShoulderPID -> SetOutputRange(HookShoulderMotorMin, HookShoulderMotorMax);
-	HookShoulderPID -> SetSetpoint(DesiredPosition);
-	HookShoulderPID -> Enable();
-}
-/*
-void HookShoulder::MoveToBumperPosition(){
-	HookShoulderPID -> SetOutputRange(HookShoulderMotorMin, HookShoulderMotorMax);
-	HookShoulderPID -> SetSetpoint(BumperPosition);
-	HookShoulderPID -> Enable();
+	return HookShoulderPot -> Get();
 
-}*/
+}

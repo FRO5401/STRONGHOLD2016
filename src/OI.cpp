@@ -25,6 +25,7 @@
 #include "Commands/PrepareToScale.h"
 #include "Commands/ReachForBar.h"
 #include "Commands/RetractHook.h"
+#include "Commands/ScimitarUpDown.h"
 #include "Commands/ShiftScaleToDrive.h"
 #include "Commands/ShooterOverride.h"
 #include "Commands/StopDriveForAutonomous.h"
@@ -168,7 +169,7 @@ bool OI::GetButtonR3(){
 	return XboxController	->	GetRawButton(XboxR3_ID);
 }
 
-int OI::GetPOVState(){
+int OI::GetMOHPOVState(){
 	int POV = MedalOfHonorController	->	GetPOV();
 	if (POV == 225 || POV == 180 || POV == 135){
 		std::cout << "DOWN\n";
@@ -224,5 +225,4 @@ bool OI::GetMOHRightStickButton(){ //probably not used
 bool OI::GetMOHButtonL3(){
 	return MedalOfHonorController -> GetRawButton(MOHL3_ID);
 }
-
 
