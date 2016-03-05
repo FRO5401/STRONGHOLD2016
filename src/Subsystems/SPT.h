@@ -23,6 +23,7 @@ public:
 	void MoveToInfeederPosition();
 	void ClearShooterPathPosition();
 	void StopForShoot();
+	float ReportAngle();
 	//float GetAdjustedEncDistance();
 	//void Reset();
 };

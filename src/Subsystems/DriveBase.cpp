@@ -163,7 +163,7 @@ void DriveBase::AutoDriveDistance(float DesiredDistance){
 				std::cout << "AutoDriveDistance Error!!!\n";
 				break;
 			}
-		DistanceTraveled = (RightEnc -> GetDistance());//XXX TODO re-add leftenc for competition robot
+		DistanceTraveled = ((RightEnc -> GetDistance() + LeftEnc -> GetDistance())/2);//XXX TODO re-add leftenc for competition robot
 		}
 	}
 	Stop();
