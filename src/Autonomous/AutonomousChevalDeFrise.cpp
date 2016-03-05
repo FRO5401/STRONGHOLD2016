@@ -7,10 +7,13 @@
 #include "Commands/InfeederLiftIntoDelivery.h"
 #include "Commands/AutoLaunch.h"
 #include "Commands/FeederStop.h"
+#include "Commands/FeedOutFromOuter.h"
+#include "Commands/FeedOutFromInner.h"
+#include "Commands/MoveSPTtoPosition.h"
 //#include "MoveSPTtoPosition.h"
 
 AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPosition, int LowOrHigh)
-{/*
+{
  	 AddSequential(new AutoDriveCommand(46)); //Drive to defense
 	 AddSequential(new MoveSPTtoPosition(-21)); //Move SPT down to prepare to drive over cheval
 	 AddParallel(new MoveSPTtoPosition(55)); //Move SPT up and out of the way
@@ -210,7 +213,6 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 
 	 					switch(LowOrHigh)//Decides to shoot or go forward for low goal
 	  					{
-	  						case 1:
 	 						//LowGoal
 	  						case 1:
 	  							AddSequential(new MoveSPTtoPosition(-21)); //TODO find position of spt in feeder position
@@ -302,6 +304,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	  					break;
 	  			}
 	  			break;
+	 	}
 /*	 //Determine which goal to shoot at
 	 //If needed
 	 //	AddSequential(new AutoTurnToAngleCommand(determine angle)); //turn to drive
