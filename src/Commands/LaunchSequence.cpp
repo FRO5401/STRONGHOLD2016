@@ -3,7 +3,7 @@
 #include "SPTShootingPosition.h"
 #include "ShooterReset.h"
 
-const double ShooterResetDwell	= 1;
+const double ShooterResetDwell	= 0.5;
 
 LaunchSequence::LaunchSequence()
 {

@@ -34,7 +34,7 @@ AutonomousLowBar::AutonomousLowBar(int DefensePosition, int GoalPosition, int Lo
 	AddSequential(new MoveSPTtoPosition(55));
 	AddSequential(new AutonomousAutoTurnAngle(38));//46.8 but we overshoot
 	AddSequential(new AutoDeliverBall(2.0));
-//	AddSequential(new AutoLaunch());
+	AddSequential(new AutoLaunch());
 
 
 	// Add Commands here:
