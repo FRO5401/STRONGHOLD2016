@@ -14,7 +14,7 @@ const double AutoTurnPrecision = 0.65;
 const double AutoTurnSpeed	= 0.95;
 
 AutoLaunch::AutoLaunch()
-{
+{/*
 	RING_HUE_RANGE = RING_HUE_RANGE_d;	//Default hue range for ring light R
 	RING_SAT_RANGE = RING_SAT_RANGE_d;	//Default saturation range for ring light G
 	RING_VAL_RANGE = RING_SAT_RANGE_d;	//Default value range for ring light B
@@ -32,25 +32,25 @@ AutoLaunch::AutoLaunch()
 	CurrentAngle = 0;
 	DesiredTurnAngle = 0;
 	InitAngle = 0;
-}
+*/}
 
-void AutoLaunch::Initialize() {
+void AutoLaunch::Initialize() {/*
   Finish = false;
 	Launching = false;
   CurrentAngle = 0;
   DesiredTurnAngle = 0;
   drivebase -> Stop();
   InitAngle = drivebase -> ReportGyro();
-};
+*/}
 
-void AutoLaunch::Execute(){
+void AutoLaunch::Execute(){/*
 	/*
 	 * This will do image processing, to locate the target and properly move the robot to the launch site
 	 * Then it will set a bool flag Lock to indicate target lock
 	 * When finished, it will kick off the launch command
 	 */
 			//Update threshold values from SmartDashboard. For performance reasons it is recommended to remove this after calibration is finished.
-	SmartDashboard::PutBoolean("LAUNCH ACTIVATED", false);
+/*	SmartDashboard::PutBoolean("LAUNCH ACTIVATED", false); //TODO extra comment start here due to one above
 	SmartDashboard::PutBoolean("LAUNCH ABORTED", false);
 	if(!Launching){
 		Angle = -180;
@@ -92,19 +92,14 @@ void AutoLaunch::Execute(){
         		} else {
         			Finish = true;
         		}
-        	} else Finish = true;
+        	} else { Finish = true;
      //   	relaysys -> ShootLights(LightFlashes);}
-        }
-  /*  	else {
-        	SmartDashboard::PutBoolean("LAUNCH ABORTED", true);
-        	Finish = true;
-        }*/
+        	}
+    	}
     	else {
-//    		while ((DesiredTurnAngle > 0) ? (CurrentAngle < fabs(DesiredTurnAngle) - AngleThreshold) : (CurrentAngle > AngleThreshold - fabs(DesiredTurnAngle))){
-    			if ((DesiredTurnAngle > 0) && (CurrentAngle < (fabs(DesiredTurnAngle) - AngleThreshold)))
-    			{
+    			if ((DesiredTurnAngle > 0) && (CurrentAngle < (fabs(DesiredTurnAngle) - LaunchAngleThreshold))){
     				drivebase -> Drive(AutoTurnSpeed * AutoTurnPrecision, -AutoTurnSpeed * AutoTurnPrecision);
-    			} else if (DesiredTurnAngle < 0 &&(CurrentAngle > AngleThreshold - fabs(DesiredTurnAngle)) {
+    			} else if (DesiredTurnAngle < 0 &&(CurrentAngle > LaunchAngleThreshold - fabs(DesiredTurnAngle)) {
     				drivebase -> Drive(-AutoTurnSpeed * AutoTurnPrecision, AutoTurnSpeed * AutoTurnPrecision);
     			} else { //error or exactly 0
     				std::cout << "AutoTurnAngle Error!!!\n";
@@ -114,17 +109,18 @@ void AutoLaunch::Execute(){
 
     	}
 
-    	drivebase Stop(); //Stop motors for autonomous
-    	return (0); //not sure what return does
+//    	drivebase -> Stop(); //Stop motors for autonomous
+//    	return (0); //not sure what return does
 
 
 //    	float Error = drivebase -> AutoTurnAngle(Angle, LaunchPrecision);
 //    	SmartDashboard::PutNumber("Auto Launch Angle Error", Error);
 }
+*/}
 
 bool AutoLaunch::IsFinished()
 {
-	return Finish;
+	return true;//Finish;
 }
 
 void AutoLaunch::End(){
