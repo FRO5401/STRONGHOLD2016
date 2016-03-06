@@ -3,7 +3,7 @@
 
 MoveForwardOnly::MoveForwardOnly()
 {
-	AddSequential(new AutoDriveCommand(46));
+	AddSequential(new AutoDriveCommand(48));
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());

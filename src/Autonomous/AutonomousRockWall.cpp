@@ -1,281 +1,10 @@
 #include "Autonomous/AutonomousRockWall.h"
-#include "Autonomous/AutoDriveCommand.h"
-#include "Autonomous/AutonomousAutoTurnAngle.h"
-#include "Autonomous/AutoTurnToAngleCommand.h"
-
-#include "Commands/MoveSPTtoPosition.h"
-#include "Commands/FeederStop.h"
 
 AutonomousRockWall::AutonomousRockWall(int DefensePosition, int GoalPosition, int LowOrHigh)
 {
-/*	Real Code TODO Adjust SPTPot Location with other things
-	//Needs Adjusting
-	AddSequential(new AutoDriveCommand(62));//TODO Adjust this
-	AddSequential(new MoveSPTtoPosition(-30)); //TODO Adjust this down
-	AddSequential(new AutoDriveCommand(5));//TODO Adjust this
-	AddParallel(new MoveSPTtoPosition(40));//TODO Adjust this up
-	AddSequential(new AutoDriveCommand(40));//TODO Adjust this
-	AddSequential(new MoveSPTtoPosition(-30));//TODO Adjust this down
-
-
-	//General Code, SPT must be up at end of crossing code only does middle goal currently
-	switch(DefensePosition)
-		{
-	 		case 2:
-	 			switch(GoalPosition)
-	 			{	//The following is for Defense position 2 and Left Goal
-		 			case 1:
-	 					AddSequential(new AutoTurnToAngleCommand(-90));
-	 					AddSequential(new AutoDriveCommand(50));
-	 					AddSequential(new AutoTurnToAngleCommand(0));
-	 					AddSequential(new AutoDriveCommand(104)); //up to appropriate distance from goal
-	 					AddSequential(new AutoTurnToAngleCommand(50)); //turns directly towards goal TODO figure out the correct angle
-
-						switch(LowOrHigh) //Decides to shoot or go forward for low goal
-	 					{
-	 						case 1:
-	 							AddSequential(new MoveSPTtoPosition()); //TODO find position of spt in feeder position
-	 							AddSequential(new AutoDriveCommand(130)); //To front of low goal
-	 							AddParallel(new FeedOutFromOuter());
-								AddSequential(new FeedOutFromInner());
-								AddSequential(new WaitCommand(2));
-								AddSequential(new FeederStop());
-	 							break;
-	 						case 2:
-								AddParallel(new AutonomousAutoTurnAngle(180));
-								AddSequential(new AutoDeliverBall(2));
-	 							AddSequential(new AutoLaunch());
-	 							break;
-	 					}
-	 					break;
-					//The following is for Defense position 2 and the Middel Goal
-	 				case 2:
-	 					AddSequential(new AutoTurnToAngleCommand(90));
-	 					AddSequential(new AutoDriveCommand(87));
-						AddParallel(new AutoDeliverBall(2));
-	 					AddSequential(new AutoTurnToAngleCommand(-180));
-	 					AddSequential(new AutoLaunch());
-	 					//No Low goal in middle
-	 					break;
-
-	 				case 3: //Defense position 2 and Right Goal
-	 					AddSequential(new AutoTurnToAngleCommand(90));
-	 					AddSequential(new AutoDriveCommand(204)); //until it goes over the secret passage boundary
-	 					AddSequential(new AutoTurnToAngleCommand(0));
-	 					AddSequential(new AutoDriveCommand(104)); //TODO edit distance //for the rest of the distance after boundary
-	 					AddSequential(new AutoTurnToAngleCommand(-50));//TODO edit this
-
-						switch(LowOrHigh)//Decides to shoot or go forward for low goal
-	 					{
-	 						case 1:
-	 							AddSequential(new MoveSPTtoPosition()); //TODO find position of spt in feeder position
-	 							AddSequential(new AutoDriveCommand(130));// //To front of low goal
-	 							AddParallel(new FeedOutFromOuter());
-								AddSequential(new FeedOutFromInner());
-								AddSequential(new WaitCommand(2));
-								AddSequential(new FeederStop());
-	 							break;
-	 						case 2:
-								AddParallel(new AutonomousAutoTurnAngle(180));
-								AddSequential(new AutoDeliverBall(2));
-	 							AddSequential(new AutoLaunch());
-	 							break;
-	 					}
-	 					break;
-	 			}
-	 			break;
-	 		case 3:
-	 			switch(GoalPosition)
-	 			{	//The following is for Defense position 3 and Left Goal
-		 			case 1:
-	 					AddSequential(new AutoTurnToAngleCommand(-90));
-	 					AddSequential(new AutoDriveCommand(100));
-	 					AddSequential(new AutoTurnToAngleCommand(0));
-	 					AddSequential(new AutoDriveCommand(104)); //up to appropriate distance from goal
-	 					AddSequential(new AutoTurnToAngleCommand(50)); //turns directly towards goal TODO figure out the correct angle
-
-						switch(LowOrHigh) //Decides to shoot or go forward for low goal
-	 					{
-	 						case 1:
-	 							AddSequential(new MoveSPTtoPosition()); //TODO find position of spt in feeder position
-	 							AddSequential(new AutoDriveCommand(130)); //To front of low goal
-	 							AddParallel(new FeedOutFromOuter());
-								AddSequential(new FeedOutFromInner());
-								AddSequential(new WaitCommand(2));
-								AddSequential(new FeederStop());
-	 							break;
-	 						case 2:
-								AddParallel(new AutonomousAutoTurnAngle(180));
-								AddSequential(new AutoDeliverBall(2));
-	 							AddSequential(new AutoLaunch());
-	 							break;
-	 					}
-	 					break;
-					//The following is for Defense position 3 and the Middel Goal
-	 				case 2:
-	 					AddSequential(new AutoTurnToAngleCommand(90));
-	 					AddSequential(new AutoDriveCommand(37));
-						AddParallel(new AutoDeliverBall(2));
-	 					AddSequential(new AutoTurnToAngleCommand(-180));
-	 					AddSequential(new AutoLaunch());
-	 					//No Low goal in middle
-	 					break;
-
-	 				case 3: //Defense position 3 and Right Goal
-	 					AddSequential(new AutoTurnToAngleCommand(90));
-	 					AddSequential(new AutoDriveCommand(154)); //until it goes over the secret passage boundary
-	 					AddSequential(new AutoTurnToAngleCommand(0));
-	 					AddSequential(new AutoDriveCommand(104)); //TODO edit distance //for the rest of the distance after boundary
-	 					AddSequential(new AutoTurnToAngleCommand(-50));//TODO edit this
-
-						switch(LowOrHigh)//Decides to shoot or go forward for low goal
-	 					{
-	 						case 1:
-	 							AddSequential(new MoveSPTtoPosition()); //TODO find position of spt in feeder position
-	 							AddSequential(new AutoDriveCommand(130));// //To front of low goal
-	 							AddParallel(new FeedOutFromOuter());
-								AddSequential(new FeedOutFromInner());
-								AddSequential(new WaitCommand(2));
-								AddSequential(new FeederStop());
-	 							break;
-	 						case 2:
-								AddParallel(new AutonomousAutoTurnAngle(180));
-								AddSequential(new AutoDeliverBall(2));
-	 							AddSequential(new AutoLaunch());
-	 							break;
-	 					}
-	 					break;
-	 			}
-	 			break;
-	 		case 4:
-	 			switch(GoalPosition)
-	 			{	//The following is for Defense position 4 and Left Goal
-		 			case 1:
-	 					AddSequential(new AutoTurnToAngleCommand(-90));
-	 					AddSequential(new AutoDriveCommand(150));
-	 					AddSequential(new AutoTurnToAngleCommand(0));
-	 					AddSequential(new AutoDriveCommand(104)); //up to appropriate distance from goal
-	 					AddSequential(new AutoTurnToAngleCommand(50)); //turns directly towards goal TODO figure out the correct angle
-
-						switch(LowOrHigh) //Decides to shoot or go forward for low goal
-	 					{
-	 						case 1:
-	 							AddSequential(new MoveSPTtoPosition()); //TODO find position of spt in feeder position
-	 							AddSequential(new AutoDriveCommand(130));// //To front of low goal
-	 							AddParallel(new FeedOutFromOuter());
-								AddSequential(new FeedOutFromInner());
-								AddSequential(new WaitCommand(2));
-								AddSequential(new FeederStop());
-	 							break;
-	 						case 2:
-								AddParallel(new AutonomousAutoTurnAngle(180));
-								AddSequential(new AutoDeliverBall(2));
-	 							AddSequential(new AutoLaunch());
-	 							break;
-	 					}
-	 					break;
-					//The following is for Defense position 4 and the Middel Goal
-	 				case 2:
-	 					AddSequential(new AutoTurnToAngleCommand(-90));
-	 					AddSequential(new AutoDriveCommand(13));
-						AddParallel(new AutoDeliverBall(2));
-	 					AddSequential(new AutoTurnToAngleCommand(-180));
-	 					AddSequential(new AutoLaunch());
-	 					//No Low goal in middle
-	 					break;
-					//Defense position 4 and Right Goal
-	 				case 3:
-	 					AddSequential(new AutoTurnToAngleCommand(90));
-	 					AddSequential(new AutoDriveCommand(104)); //until it goes over the secret passage boundary
-	 					AddSequential(new AutoTurnToAngleCommand(0));
-	 					AddSequential(new AutoDriveCommand(104)); //TODO edit distance //for the rest of the distance after boundary
-	 					AddSequential(new AutoTurnToAngleCommand(-50));//TODO edit this
-
-						switch(LowOrHigh)//Decides to shoot or go forward for low goal
-	 					{
-	 						case 1:
-	 							AddSequential(new MoveSPTtoPosition()); //TODO find position of spt in feeder position
-	 							AddSequential(new AutoDriveCommand(130)); //To front of low goal
-	 							AddParallel(new FeedOutFromOuter());
-								AddSequential(new FeedOutFromInner());
-								AddSequential(new WaitCommand(2));
-								AddSequential(new FeederStop());
-	 							break;
-	 						case 2:
-								AddParallel(new AutonomousAutoTurnAngle(180));
-								AddSequential(new AutoDeliverBall(2));
-	 							AddSequential(new AutoLaunch());
-	 							break;
-	 					}
-	 					break;
-	 			}
-	 			break;
-	 		case 5:
-
-	 			switch(GoalPosition)
-	 			{	//The following is for Defense position 5 and Left Goal
-		 			case 1:
-	 					AddSequential(new AutoTurnToAngleCommand(-90));
-	 					AddSequential(new AutoDriveCommand(200));
-	 					AddSequential(new AutoTurnToAngleCommand(0));
-	 					AddSequential(new AutoDriveCommand(104)); //up to appropriate distance from goal
-	 					AddSequential(new AutoTurnToAngleCommand(50)); //turns directly towards goal TODO figure out the correct angle
-
-						switch(LowOrHigh) //Decides to shoot or go forward for low goal
-	 					{
-	 						case 1:
-	 							AddSequential(new MoveSPTtoPosition()); //TODO find position of spt in feeder position
-	 							AddSequential(new AutoDriveCommand(130)); //To front of low goal
-	 							AddParallel(new FeedOutFromOuter());
-								AddSequential(new FeedOutFromInner());
-								AddSequential(new WaitCommand(2));
-								AddSequential(new FeederStop());
-	 							break;
-	 						case 2:
-								AddParallel(new AutonomousAutoTurnAngle(180));
-								AddSequential(new AutoDeliverBall(2));
-	 							AddSequential(new AutoLaunch());
-	 							break;
-	 					}
-	 					break;
-					//The following is for Defense position 5 and the Middel Goal
-	 				case 2:
-	 					AddSequential(new AutoTurnToAngleCommand(-90));
-	 					AddSequential(new AutoDriveCommand(63));
-						AddParallel(new AutoDeliverBall(2));
-	 					AddSequential(new AutoTurnToAngleCommand(-180));
-	 					AddSequential(new AutoLaunch());
-	 					//No Low goal in middle
-	 					break;
-					//Defense position 5 and Right Goal
-	 				case 3:
-	 					AddSequential(new AutoTurnToAngleCommand(90));
-	 					//AddSequential(new AutoDriveCommand(54)); //until it goes over the secret passage boundary
-	 					AddSequential(new AutoTurnToAngleCommand(0));
-	 					AddSequential(new AutoDriveCommand(104)); //TODO edit distance //for the rest of the distance after boundary
-	 					AddSequential(new AutoTurnToAngleCommand(-50));//TODO edit this
-
-						switch(LowOrHigh)//Decides to shoot or go forward for low goal
-	 					{
-	 						case 1:
-	 							AddSequential(new MoveSPTtoPosition()); //TODO find position of spt in feeder position
-	 							AddSequential(new AutoDriveCommand(130));// //To front of low goal
-	 							AddParallel(new FeedOutFromOuter());
-								AddSequential(new FeedOutFromInner());
-								AddSequential(new WaitCommand(2));
-								AddSequential(new FeederStop());
-	 							break;
-	 						case 2:
-								AddParallel(new AutonomousAutoTurnAngle(180));
-								AddSequential(new AutoDeliverBall(2));
-	 							AddSequential(new AutoLaunch());
-	 							break;
-	 					}
-	 					break;
-	 			}
-	 			break;
-		}
-*/
+	AddSequential(new AutoDriveCommand(62));
+	AddSequential(new MoveSPTtoPosition(-30)); //TODO Adjust this
+//	AddSequential(AutoDriveCommand());
 	/*	PsuedoCode V. 2.0
 	 * 	AdjustAngle() so it's straight
 	 * 	AutoDrive()
@@ -300,7 +29,7 @@ AutonomousRockWall::AutonomousRockWall(int DefensePosition, int GoalPosition, in
 	 * 					switch(LowOrHigh)
 	 * 					{
 	 * 						case 1:
-	 * 							AutoDrive(); //To front of low goal
+	 * 							AutoDrive(); To front of low goal
 	 * 							OutFeed(); AKA low kick
 	 * 							break;
 	 * 						case 2:
@@ -360,7 +89,7 @@ AutonomousRockWall::AutonomousRockWall(int DefensePosition, int GoalPosition, in
 	 * 					switch(LowOrHigh)
 	 * 					{
 	 * 						case 1:
-	 * 							AutoDrive(); //To front of low goal
+	 * 							AutoDrive(); To front of low goal
 	 * 							OutFeed(); AKA low kick
 	 * 							break;
 	 * 						case 2:
@@ -418,7 +147,7 @@ AutonomousRockWall::AutonomousRockWall(int DefensePosition, int GoalPosition, in
 	 * 					switch(LowOrHigh)
 	 * 					{
 	 * 						case 1:
-	 * 							AutoDrive(); //To front of low goal
+	 * 							AutoDrive(); To front of low goal
 	 * 							OutFeed(); AKA low kick
 	 * 							break;
 	 * 						case 2:
@@ -476,7 +205,7 @@ AutonomousRockWall::AutonomousRockWall(int DefensePosition, int GoalPosition, in
 	 * 					switch(LowOrHigh)
 	 * 					{
 	 * 						case 1:
-	 * 							AutoDrive(); //To front of low goal
+	 * 							AutoDrive(); To front of low goal
 	 * 							OutFeed(); AKA low kick
 	 * 							break;
 	 * 						case 2:
