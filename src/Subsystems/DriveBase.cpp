@@ -7,6 +7,7 @@
 #include "DriveBase.h"
 #include "../RobotMap.h"
 #include <Commands/XboxMove.h>
+#include "Commands/AutoLaunch.h"
 
 //const double DPPLeft		= (-1/6.318); //919.636		//TODO Must tune left? this
 //const double DPPRight		= (1/6.318); //914.618

@@ -21,7 +21,12 @@ private:
 	float Aspect;
 	float ImgLatency;
 	double Angle;
+	float CurrentAngle;
+	float DesiredTurnAngle;
 	bool Finish;
+	bool Launching;
+	float InitAngle;
+
 public:
 	AutoLaunch();
 	void Initialize();

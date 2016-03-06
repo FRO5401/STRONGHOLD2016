@@ -172,6 +172,10 @@ bool OI::GetButtonR3(){
 	return XboxController	->	GetRawButton(XboxR3_ID);
 }
 
+bool OI::GetXboxRightStickButton(){
+	return GetRawButton(XboxRightStickButton);
+}
+
 int OI::GetMOHPOVState(){
 	int POV = MedalOfHonorController	->	GetPOV();
 	if (POV == 225 || POV == 180 || POV == 135){

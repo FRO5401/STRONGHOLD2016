@@ -7,7 +7,7 @@ const double ShooterResetDwell	= 0.5;
 
 LaunchSequence::LaunchSequence()
 {
-	AddSequential (new SPTShootingPosition());
+//	AddSequential (new SPTShootingPosition());
 	AddSequential (new Launch());
 	Wait(ShooterResetDwell);
 	AddSequential (new ShooterReset());

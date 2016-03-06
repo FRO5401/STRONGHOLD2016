@@ -22,6 +22,8 @@ void Launch::Initialize()
 }
 
 void Launch::Execute(){
+	bool Abort = oi -> GetXboxRightStickButton();
+	if(!Abort){
 	shooter	->	Shoot();
 	if (shooter -> ReportEncoder() < ShooterFiredPosition){
 	LaunchComplete = false;
@@ -29,6 +31,7 @@ void Launch::Execute(){
 	} else {
 		LaunchComplete = true;
 		}
+	} else LaunchComplete = true;
 }
 
 bool Launch::IsFinished()
