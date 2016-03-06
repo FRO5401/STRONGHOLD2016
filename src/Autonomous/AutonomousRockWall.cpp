@@ -1,16 +1,7 @@
 #include "Autonomous/AutonomousRockWall.h"
-#include "Autonomous/AutoDriveCommand.h"
-
-#include "Commands/MoveSPTtoPosition.h"
 
 AutonomousRockWall::AutonomousRockWall(int DefensePosition, int GoalPosition, int LowOrHigh)
 {
-	 AddSequential(new AutoDriveCommand(48)); //Drive to defense
-	 AddSequential(new MoveSPTtoPosition(225)); //Move SPT down to prepare to drive over cheval
-	 AddSequential(new AutoDriveCommand(7)); //get wheels on wall
-	 AddParallel(new MoveSPTtoPosition(90)); //Move SPT up and out of the way
-	 AddSequential(new AutoDriveCommand(60)); //TODO determine best distance to drive //Drive over cheval.//updated 3/5/16 10:00am
-
 //	AddSequential(new AutoDriveCommand(62));
 //	AddSequential(new MoveSPTtoPosition(-30)); //TODO Adjust this
 //	AddSequential(AutoDriveCommand());
