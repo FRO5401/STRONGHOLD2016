@@ -4,13 +4,11 @@
 //MORE MAY BE ADD, SOME MAY BE DELETED
 //Updated as of 1/27/16 at 5 pm
 #include "Commands/XboxMove.h"
-#include "Commands/XboxMove.h"
 #include "Commands/AbortReach.h"
 #include "Autonomous/AutoDeliverBall.h"
 #include "Commands/AutoLaunch.h"
 #include "Commands/ChargeCompressor.h"
 #include "Commands/DeployHook.h"
-#include "Commands/DrivingWithEncoderInput.h"
 #include "Commands/FeederStop.h"
 #include "Commands/FeedInFromInner.h"
 #include "Commands/FeedInFromOuter.h"
@@ -18,8 +16,6 @@
 #include "Commands/FeedOutFromOuter.h"
 #include "Commands/HookBumper.h"
 #include "Commands/HookScale.h"
-#include "Commands/InfeederLiftIntoDelivery.h"
-#include "Commands/InfeederLiftIntoInfeederPosition.h"
 #include "Commands/LaunchSequence.h"
 #include "Commands/LockTarget.h"
 #include "Commands/MoveSPTtoPosition.h"
@@ -219,11 +215,6 @@ double OI::ReadMOHRightStickY(){
 bool OI::GetMOHRightStickButton(){ //probably not used
 	return MedalOfHonorController -> GetRawButton(12);
 }
-
-/*bool OI::GetMOHLeftStickButton(){ //SPT Override soft stops
-	return MedalOfHonorController -> GetRawButton(11);
-}*/
-
 
 bool OI::GetMOHButtonL3(){
 	return MedalOfHonorController -> GetRawButton(MOHL3_ID);

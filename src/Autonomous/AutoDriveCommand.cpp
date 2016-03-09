@@ -18,7 +18,6 @@ AutoDriveCommand::AutoDriveCommand(float DistanceInput)
 // Called just before this Command runs the first time
 void AutoDriveCommand::Initialize()
 {
-	//drivebase	-> 	AutoDriveDistance(DistanceToDrive);
 	drivebase -> EncoderReset();
 }
 
@@ -29,7 +28,6 @@ void AutoDriveCommand::Execute()
 	if (fabs(DesiredDistance) <= AutoDistThresh){
 		std::cout << "DesiredDistance to small!!!\n";
 	} else {
-		//while ((DesiredDistance > 0) ? (DistanceTraveled < fabs(DesiredDistance) - AutoDistThresh) : (DistanceTraveled > AutoDistThresh - fabs(DesiredDistance))){
 			if (DesiredDistance > 0 && (DistanceTraveled < fabs(DesiredDistance) - AutoDistThresh)){ //DesiredDistance is positive, go forward
 				drivebase -> Drive(AutoDriveSpeed * kP_Left, AutoDriveSpeed);
 				DoneTraveling = false;
@@ -40,8 +38,7 @@ void AutoDriveCommand::Execute()
 				std::cout << "AutoDriveDistance Error!!!\n";
 				DoneTraveling = true;
 			}
-		DistanceTraveled = (drivebase -> GetEncoderDistance());//XXX TODO re-add leftenc for competition robot
-		//}
+		DistanceTraveled = (drivebase -> GetEncoderDistance());
 	}
 
 }
