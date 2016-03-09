@@ -14,7 +14,7 @@ SPTShootingPosition::SPTShootingPosition()
 // Called just before this Command runs the first time
 void SPTShootingPosition::Initialize()
 {
-	//spt -> StopForShoot();
+	//spt -> Stop();
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -37,14 +37,14 @@ bool SPTShootingPosition::IsFinished()
 // Called once after isFinished returns true
 void SPTShootingPosition::End()
 {
-	spt -> StopForShoot();
+	spt -> Stop();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void SPTShootingPosition::Interrupted()
 {
-	spt -> StopForShoot();
+	spt -> Stop();
 }
 
 

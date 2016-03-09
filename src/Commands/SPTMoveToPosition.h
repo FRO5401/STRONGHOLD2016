@@ -1,16 +1,16 @@
-#ifndef MoveSPTtoPosition_H
-#define MoveSPTtoPosition_H
+#ifndef SPTMoveToPosition_H
+#define SPTMoveToPosition_H
 
 #include "../CommandBase.h"
 #include "WPILib.h"
 
-class MoveSPTtoPosition: public CommandBase
+class SPTMoveToPosition: public CommandBase
 {
 private:
 	bool finished;
 	float DesiredAngle;
 public:
-	MoveSPTtoPosition(float);
+	SPTMoveToPosition(float);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

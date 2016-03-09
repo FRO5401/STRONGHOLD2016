@@ -8,14 +8,14 @@
 #include "Commands/FeederStop.h"
 #include "Commands/FeedOutFromOuter.h"
 #include "Commands/FeedOutFromInner.h"
-#include "Commands/MoveSPTtoPosition.h"
+#include "Commands/SPTMoveToPosition.h"
 //#include "MoveSPTtoPosition.h"
 
 AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPosition, int LowOrHigh)
 {
  	 AddSequential(new AutoDriveCommand(46)); //Drive to defense
-	 AddSequential(new MoveSPTtoPosition(192)); //Move SPT down to prepare to drive over cheval
-	 AddParallel(new MoveSPTtoPosition(90)); //Move SPT up and out of the way
+	 AddSequential(new SPTMoveToPosition(192)); //Move SPT down to prepare to drive over cheval
+	 AddParallel(new SPTMoveToPosition(90)); //Move SPT up and out of the way
 	 AddSequential(new AutoDriveCommand(60)); //TODO determine best distance to drive //Drive over cheval.//updated 3/5/16 10:00am
 
 	 //Cheval Code Only does middle goal, SPT must be up before entering the switch statements SPT must be in front
@@ -35,7 +35,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	  					{
 	 						//LowGoal
 	  						case 1:
-	  							AddSequential(new MoveSPTtoPosition(192)); //TODO find position of spt in feeder position
+	  							AddSequential(new SPTMoveToPosition(192)); //TODO find position of spt in feeder position
 	  							AddSequential(new AutoDriveCommand(130)); //To front of low goal
 	  							AddParallel(new FeedOutFromOuter());
 	  							AddSequential(new FeedOutFromInner());
@@ -73,7 +73,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	  					{
 	 						//LowGoal
 	  						case 1:
-	  							AddSequential(new MoveSPTtoPosition(192)); //TODO find position of spt in feeder position
+	  							AddSequential(new SPTMoveToPosition(192)); //TODO find position of spt in feeder position
 	  							AddSequential(new AutoDriveCommand(130));//To front of low goal
 	  							AddParallel(new FeedOutFromOuter());
 	  							AddSequential(new FeedOutFromInner());
@@ -105,7 +105,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	 					switch(LowOrHigh) //Decides to shoot or go forward for low goal
 	  					{						//LowGoal
 	  						case 1:
-	  							AddSequential(new MoveSPTtoPosition(192)); //TODO find position of spt in feeder position
+	  							AddSequential(new SPTMoveToPosition(192)); //TODO find position of spt in feeder position
 	  							AddSequential(new AutoDriveCommand(130));// To front of low goal
 	  							AddParallel(new FeedOutFromOuter());
 	  							AddSequential(new FeedOutFromInner());
@@ -143,7 +143,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	  					{
 	 						//LowGoal
 	  						case 1:
-	  							AddSequential(new MoveSPTtoPosition(192)); //TODO find position of spt in feeder position
+	  							AddSequential(new SPTMoveToPosition(192)); //TODO find position of spt in feeder position
 	  							AddSequential(new AutoDriveCommand(130));// To front of low goal
 	  							AddParallel(new FeedOutFromOuter());
 	  							AddSequential(new FeedOutFromInner());
@@ -176,7 +176,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	  					{
 	 						//LowGoal
 	  						case 1:
-	  							AddSequential(new MoveSPTtoPosition(192)); //TODO find position of spt in feeder position, fix position
+	  							AddSequential(new SPTMoveToPosition(192)); //TODO find position of spt in feeder position, fix position
 	  							AddSequential(new AutoDriveCommand(130));// To front of low goal
 	  							AddParallel(new FeedOutFromOuter());
 	  							AddSequential(new FeedOutFromInner());
@@ -214,7 +214,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	  					{
 	 						//LowGoal
 	  						case 1:
-	  							AddSequential(new MoveSPTtoPosition(192)); //TODO find position of spt in feeder position
+	  							AddSequential(new SPTMoveToPosition(192)); //TODO find position of spt in feeder position
 	  							AddSequential(new AutoDriveCommand(130));// To front of low goal
 	  							AddParallel(new FeedOutFromOuter());
 	  							AddSequential(new FeedOutFromInner());
@@ -248,7 +248,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	  					{
 	 						//LowGoal
 	  						case 1:
-	  							AddSequential(new MoveSPTtoPosition(192)); //TODO find position of spt in feeder position
+	  							AddSequential(new SPTMoveToPosition(192)); //TODO find position of spt in feeder position
 	  							AddSequential(new AutoDriveCommand(130)); //To front of low goal
 	  							AddParallel(new FeedOutFromOuter());
 	  							AddSequential(new FeedOutFromInner());
@@ -286,7 +286,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	 					switch(LowOrHigh)//Decides to shoot or go forward for low goal
 	  					{
 	  						case 1:
-	  							AddSequential(new MoveSPTtoPosition(192)); //TODO find position of spt in feeder position
+	  							AddSequential(new SPTMoveToPosition(192)); //TODO find position of spt in feeder position
 	  							AddSequential(new AutoDriveCommand(130));// To front of low goal
 	  							AddParallel(new FeedOutFromOuter());
 	  							AddSequential(new FeedOutFromInner());

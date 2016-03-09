@@ -186,7 +186,7 @@ private:
 	void AutonomousInit()
 	{
 		CommandBase::drivebase -> Reset();//Stops DriveBase motors when first enabled
-		CommandBase::spt -> StopForShoot();//Stops the shoulder motor of SPT when first enabled
+		CommandBase::spt -> Stop();//Stops the shoulder motor of SPT when first enabled
 		//CommandBase::spt -> Reset();//Stops the shoulder motor of SPT when first enabled
 		autonomousCommand = (Command *) autoMode->GetSelected(); //Dashboard selection command
 		autonomousCommand->Start();
@@ -200,7 +200,7 @@ private:
 	void TeleopInit()
 	{
 		CommandBase::drivebase -> Stop();//Stops DriveBase motors when teleop is first enabled
-		CommandBase::spt -> StopForShoot();//Stops the shoulder motor of SPT when teleop is first enabled
+		CommandBase::spt -> Stop();//Stops the shoulder motor of SPT when teleop is first enabled
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to 
 		// continue until interrupted by another command, remove

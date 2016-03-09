@@ -20,7 +20,7 @@ public:
 	void InitDefaultCommand();
 	void UpAndDown(double, bool);
 	void ClearShooterPathPosition();
-	void StopForShoot();
+	void Stop();
 	float ReportAngle();
 	//float GetAdjustedEncDistance();
 	//void Reset();

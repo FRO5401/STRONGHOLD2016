@@ -18,7 +18,7 @@
 #include "Commands/HookScale.h"
 #include "Commands/LaunchSequence.h"
 #include "Commands/LockTarget.h"
-#include "Commands/MoveSPTtoPosition.h"
+#include "Commands/SPTMoveToPosition.h"
 #include "Commands/PrepareToScale.h"
 #include "Commands/ReachForBar.h"
 #include "Commands/RetractHook.h"
@@ -27,7 +27,7 @@
 #include "Commands/ShooterOverride.h"
 #include "Commands/StopDriveForAutonomous.h"
 #include "Commands/SPTShootingPosition.h"
-#include "Commands/UpAndDownInfeeder.h"
+#include "Commands/SPTMove.h"
 #include "WPILib.h"
 
 OI::OI()
