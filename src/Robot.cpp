@@ -164,6 +164,7 @@ private:
 		SmartDashboard::GetNumber("Position of the High Goal", 	PositionForGoal);
 		SmartDashboard::GetNumber("Choose High or Low Goal", 	LowOrHighGoal);
 
+		// @REVIEW NJL: I think this belongs in robotInit().  DisabledPeriodic runs every 20ms when disabled.
 		autoMode = new SendableChooser();
 		//Low Bar CommandGroup is constant because it'll always be in defense position 1 and go in left high goal
 		autoMode->AddDefault("Default-Low Bar", new AutonomousLowBar(1,1,2));

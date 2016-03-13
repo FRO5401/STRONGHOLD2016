@@ -204,7 +204,7 @@ void OI::SendXboxRumble(int j){
 }
 
 void OI::SendMOHRumble(int j){
-	for ( int i = 0; i < j; i++ ) {
+	for ( int i = 0; i < j; i++ ) {  // @REVIEW NJL: This is called from LockTarget::Execute.  It must return promptly (<<20ms).  Delays and loops are not appropriate here.
 		MedalOfHonorController	->	SetRumble(Joystick::kLeftRumble, 1);
 		MedalOfHonorController	->	SetRumble(Joystick::kRightRumble, 1);
 		Wait(2);
