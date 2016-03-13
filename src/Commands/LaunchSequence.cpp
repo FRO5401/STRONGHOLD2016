@@ -7,12 +7,12 @@ const double ShooterResetDwell	= 1;
 
 LaunchSequence::LaunchSequence()
 {
-	std::cout << ("Starting launch sequence\n");
+	std::cout << ("Starting launch sequence\n");  // @REVIEW NJL: This runs at robot boot time.  AddSequential is just a registration.  Don't expect cout text to appear during normal execution as you are proceeding through the sequence, because this code will not be running at that time.  The command sequence will be iterating through these registered commands.
 
 	AddSequential (new SPTShootingPosition());
 	std::cout << ("Starting launch\n");
 	AddSequential (new Launch());
-//	Wait(ShooterResetDwell);
+//	Wait(ShooterResetDwell);  // @REVIEW NJL: If you need a delay in the sequence, you'll need to write a delay command.  Do nothing in execute, and return true from IsFinished once the delay time has elapsed.
 	std::cout << ("Starting reset\n");
 	AddSequential (new ShooterReset());
 
