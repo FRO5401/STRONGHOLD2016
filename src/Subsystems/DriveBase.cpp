@@ -191,6 +191,8 @@ float DriveBase::AutoTurnAngle(float DesiredTurnAngle, float TurnPrecision)	//Tu
 	if (fabs(DesiredTurnAngle) <= AngleThreshold){
 		std::cout << "DesiredTurnAngle too small!!!\n";
 	} else {
+		// @REVIEW NJL: Recommend (1) Break out separate if statement instead of ?: in while.  (2) Use parentheses instead of relying on operator precedence.  These make the code easier to read.
+		// @REVIEW NJL: This is called from AutoLaunch::Execute.  Execute must return quickly, so a loop that takes time is not appropriate here.
 		while ((DesiredTurnAngle > 0) ? (CurrentAngle < fabs(DesiredTurnAngle) - AngleThreshold) : (CurrentAngle > AngleThreshold - fabs(DesiredTurnAngle))){
 			if (DesiredTurnAngle > 0){
 				Drive(AutoTurnSpeed * AutoTurnPrecision, -AutoTurnSpeed * AutoTurnPrecision);

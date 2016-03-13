@@ -103,7 +103,7 @@ void SPT::MoveToInfeederPosition(){
 }*/
 
 void SPT::ClearShooterPathPosition(){
-	while (GetAdjustedEncDistance() > (SPTDeliveryPosition - 5)){
+	while (GetAdjustedEncDistance() > (SPTDeliveryPosition - 5)){   // @REVIEW NJL: This is called from AutoLaunch::Execute and Launch::Execute and SPTShootingPosition::Execute.  Execute must return quickly, so a while loop is not appropriate here.
 		SPTShoulderMotor -> Set(SPTMotorSpeed * SPTPrecision);
 	}
 	SPTShoulderMotor -> Set(0);
