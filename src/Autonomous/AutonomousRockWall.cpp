@@ -1,7 +1,7 @@
 #include "Autonomous/AutonomousRockWall.h"
 
 AutonomousRockWall::AutonomousRockWall(int DefensePosition, int GoalPosition, int LowOrHigh)
-{
+{/*
 	AddSequential(new AutoDriveCommand(62));
 	AddSequential(new MoveSPTtoPosition(-30)); //TODO Adjust this
 //	AddSequential(AutoDriveCommand());
