@@ -14,10 +14,7 @@ const float GyroOffset		= -6.1395;	// = b
 float initialGyro			= 0;
 
 const double AutoDriveSpeed	= 0.5;
-const double AutoTurnSpeed	= 0.95;
 const float DefaultTurnPrecision = 0.5;
-const double AngleThreshold	= 2; 		//Turn angle in degrees //TODO Must tune this
-const double AutoDistThresh	= 2; 		//Distance threshold in inches //TODO Must tune this
 
 DriveBase::DriveBase() :
 		Subsystem("DriveBase")
@@ -42,7 +39,6 @@ DriveBase::DriveBase() :
  	TimeCount = new Timer();
  	TimeCount -> Reset();
  	MainGyro  -> Reset();
- 	AutoTurnPrecision = DefaultTurnPrecision;
  //	LeftEnc -> Reset();Doesn't work when enabling and disabling
  //	RightEnc -> Reset();
  	
@@ -138,7 +134,8 @@ void DriveBase::EncoderReset(){
 	RightEnc 	-> SetDistancePerPulse(DPPRight);
 }
 
-float DriveBase::AutoTurnToAngle(float DesiredAngle)//Turns to an absolute angle based on encoder calibration
+//No longer being used, but kept as may be needed in the future
+/*float DriveBase::AutoTurnToAngle(float DesiredAngle)//Turns to an absolute angle based on encoder calibration
 {
 	float RawErr = (DesiredAngle - ReportGyro());
 	float AbsErr = fabs(RawErr);
@@ -150,34 +147,7 @@ if ((RawErr >= 0 && RawErr <=180) || (RawErr >= -360 && RawErr <= -180)) {//Dete
 	} else {
 		return AutoTurnAngle(-AbsErr, DefaultTurnPrecision);
 		}
-}
-
-float DriveBase::AutoTurnAngle(float DesiredTurnAngle, float TurnPrecision)	//Turns a number of degrees relative to current position
-{
-	AutoTurnPrecision = TurnPrecision;
-	//Not using ReportGyro as it possibly doesn't work; if this code works, try ReportGyro()
-	float CurrentAngle = 0;
-	float InitAngle = MainGyro -> GetAngle();
-
-	if (fabs(DesiredTurnAngle) <= AngleThreshold){
-		std::cout << "DesiredTurnAngle too small!!!\n";
-	} else {
-		while ((DesiredTurnAngle > 0) ? (CurrentAngle < fabs(DesiredTurnAngle) - AngleThreshold) : (CurrentAngle > AngleThreshold - fabs(DesiredTurnAngle))){
-			if (DesiredTurnAngle > 0){
-				Drive(AutoTurnSpeed * AutoTurnPrecision, -AutoTurnSpeed * AutoTurnPrecision);
-			} else if (DesiredTurnAngle < 0) {
-				Drive(-AutoTurnSpeed * AutoTurnPrecision, AutoTurnSpeed * AutoTurnPrecision);
-			} else { //error or exactly 0
-				std::cout << "AutoTurnAngle Error!!!\n";
-				break;
-			}
-		CurrentAngle = MainGyro -> GetAngle() - InitAngle;
-		}
-	}
-
-	Stop(); //Stop motors for autonomous
-	return (0); //not sure what return does
-}
+}*/
 
 float DriveBase::ReportGyro()
 {

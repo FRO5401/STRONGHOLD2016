@@ -7,7 +7,10 @@
 class AutoTurnAngleCommand: public CommandBase
 {
 private:
-	float Angle;
+	float DesiredTurnAngle;
+	float CurrentAngle;
+	float InitAngle;
+	bool Finished;
 public:
 	AutoTurnAngleCommand(float);
 	void Initialize();

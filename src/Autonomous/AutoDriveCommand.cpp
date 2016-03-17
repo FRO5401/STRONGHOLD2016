@@ -27,6 +27,7 @@ void AutoDriveCommand::Execute()
 	//MainGyro -> Reset();
 	if (fabs(DesiredDistance) <= AutoDistThresh){
 		std::cout << "DesiredDistance to small!!!\n";
+		DoneTraveling = true;
 	} else {
 			if (DesiredDistance > 0 && (DistanceTraveled < fabs(DesiredDistance) - AutoDistThresh)){ //DesiredDistance is positive, go forward
 				drivebase -> Drive(AutoDriveSpeed * kP_Left, AutoDriveSpeed);

@@ -11,19 +11,19 @@ AutoTurnToAngleCommand::AutoTurnToAngleCommand(float AngleInput)
 // Called just before this Command runs the first time
 void AutoTurnToAngleCommand::Initialize()
 {
-	drivebase	->	AutoTurnToAngle(AngleToTurn);
+	//drivebase	->	AutoTurnToAngle(AngleToTurn);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AutoTurnToAngleCommand::Execute()
 {
-
+	std::cout << "AutoTurnToAngleCommand is no longer being used!\n";
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutoTurnToAngleCommand::IsFinished()
 {
-	return false;
+	return true;
 }
 
 // Called once after isFinished returns true

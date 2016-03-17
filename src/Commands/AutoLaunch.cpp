@@ -54,8 +54,8 @@ void AutoLaunch::Execute(){
     if (fabs(Angle) < AngleRange){
     	SmartDashboard::PutBoolean("LAUNCH ACTIVATED", true);
     	spt 	-> ClearShooterPathPosition();
-    	float Error = drivebase -> AutoTurnAngle(Angle, LaunchPrecision);
-    	SmartDashboard::PutNumber("Auto Launch Angle Error", Error);
+    	//float Error = drivebase -> AutoTurnAngle(Angle, LaunchPrecision); //change to command if this is ever used
+    	//SmartDashboard::PutNumber("Auto Launch Angle Error", Error);
     	shooter -> Shoot();
     	relaysys -> ShootLights(LightFlashes);
     } else {

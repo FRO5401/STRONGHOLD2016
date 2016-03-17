@@ -9,7 +9,6 @@ class DriveBase: public Subsystem
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
-	float GyroScalar;
 	float DashAutoDistance;
 	float AutoTurnPrecision;
 //	float kP;	//Uncomment to get value from dashboard
