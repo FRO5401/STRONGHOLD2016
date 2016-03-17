@@ -59,6 +59,6 @@ void AutoDriveCommand::End()
 // subsystems is scheduled to run
 void AutoDriveCommand::Interrupted()
 {
-
+	drivebase -> Stop();
 }
 

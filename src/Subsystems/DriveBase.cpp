@@ -105,8 +105,8 @@ void DriveBase::ShiftHigh()
 	RightShift ->	Set(DoubleSolenoid::Value::kReverse);
 }
 */
- void DriveBase::Stop()
-  {
+void DriveBase::Stop()
+{
 
   LeftDrive1	-> Set(0);
   LeftDrive2	-> Set(0);
@@ -114,10 +114,10 @@ void DriveBase::ShiftHigh()
   RightDrive2	-> Set(0);
 //  TimeCount 	-> Stop();
 
-  }
+}
 
-  void DriveBase::Reset()
-  {
+void DriveBase::Reset()
+{
   	LeftDrive1	-> Set(0);
   	LeftDrive2	-> Set(0);
   	RightDrive1	-> Set(0);
@@ -127,42 +127,16 @@ void DriveBase::ShiftHigh()
   	MainGyro  -> Reset();
   	LeftEnc	  -> Reset();
   	RightEnc  -> Reset();
-
-  }
-  //New stuff
-  //A function to use the encoders in driving, the robot will drive in a certain direction depending on the distance left to travel
-void DriveBase::AutoDriveDistance(float DesiredDistance){
-
-	EncoderReset();
-	MainGyro -> Reset();
-
-	float DistanceTraveled = 0;
-	if (fabs(DesiredDistance) <= AutoDistThresh){
-		std::cout << "DesiredDistance to small!!!\n";
-	} else {
-		while ((DesiredDistance > 0) ? (DistanceTraveled < fabs(DesiredDistance) - AutoDistThresh) : (DistanceTraveled > AutoDistThresh - fabs(DesiredDistance))){
-			if (DesiredDistance > 0){ //DesiredDistance is positive, go forward
-				Drive(AutoDriveSpeed * kP_Left, AutoDriveSpeed);
-			} else if (DesiredDistance < 0){ //DesiredDistance is negative, go backward
-				Drive(-AutoDriveSpeed, -AutoDriveSpeed * kP_Right);//There is no kp value here because the kp value makes the robot run curved when going backwards
-			} else { //error or exactly 0
-				std::cout << "AutoDriveDistance Error!!!\n";
-				break;
-			}
-		DistanceTraveled = GetEncoderDistance();
-		}
-	}
-	Stop();
 }
 
-  void DriveBase::EncoderReset(){
-	  LeftEnc -> Reset();
-	  RightEnc -> Reset();
+void DriveBase::EncoderReset(){
+	LeftEnc -> Reset();
+	RightEnc -> Reset();
 
-	  //Might not be needed
-	  LeftEnc 	-> SetDistancePerPulse(DPPLeft);
-	  RightEnc 	-> SetDistancePerPulse(DPPRight);
-  }
+	//Might not be needed
+	LeftEnc 	-> SetDistancePerPulse(DPPLeft);
+	RightEnc 	-> SetDistancePerPulse(DPPRight);
+}
 
 float DriveBase::AutoTurnToAngle(float DesiredAngle)//Turns to an absolute angle based on encoder calibration
 {
