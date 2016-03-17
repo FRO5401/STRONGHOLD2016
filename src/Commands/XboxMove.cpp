@@ -40,10 +40,6 @@ void XboxMove::Execute()
 	
 	double Right,Left, Sensitivity;
 
-	SmartDashboard::GetNumber("Drive Distance:", DesiredDistance);
-	if (oi->GetMOHButtonStart())
-		drivebase -> AutoDriveDistance(36); //inches
-
 	if (Precision) { //Sets drive precision based on RobotMap and Precision Mode
 		Sensitivity	=	Drive_Sensitivity_Precise;
 	} else {
