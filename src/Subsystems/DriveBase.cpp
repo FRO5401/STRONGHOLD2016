@@ -8,8 +8,6 @@
 #include "../RobotMap.h"
 #include <Commands/XboxMove.h>
 
-//const double DPPLeft		= (-1/6.318); //919.636		//TODO Must tune left? this
-//const double DPPRight		= (1/6.318); //914.618
 const float GyroScalar		= 10; 		//Preliminarily tuned
 const float GyroLinearAdj	= -0.696; 	//Adjusts for Gyro Creep = m
 const float GyroOffset		= -6.1395;	// = b
@@ -20,10 +18,6 @@ const double AutoTurnSpeed	= 0.95;
 const float DefaultTurnPrecision = 0.5;
 const double AngleThreshold	= 2; 		//Turn angle in degrees //TODO Must tune this
 const double AutoDistThresh	= 2; 		//Distance threshold in inches //TODO Must tune this
-
-//Offset for drive motors when driving autonomously
-//const float kPLeft = .835;	//For going forwards
-//const float kPRight = .9; //For going backwards
 
 DriveBase::DriveBase() :
 		Subsystem("DriveBase")
@@ -52,6 +46,7 @@ DriveBase::DriveBase() :
  //	LeftEnc -> Reset();Doesn't work when enabling and disabling
  //	RightEnc -> Reset();
  	
+ 	//Offset for drive motors when driving autonomously
  	kP_Right = .9;			//Uncomment for getting value from dashboard
  	kP_Left = .835;
  	DPPRight = (1/6.318);
@@ -75,13 +70,6 @@ void DriveBase::InitDefaultCommand()
 
 void DriveBase::Drive(double LeftDriveDesired, double RightDriveDesired)
   {
-
-  //kP = SmartDashboard::GetNumber("kP Value", kP); //Uncomment for getting value from dashboard
-
-	SmartDashboard::PutNumber("kP Backwards Value", kP_Right);
-	SmartDashboard::PutNumber("kP Forwards Value", kP_Left);
-	SmartDashboard::PutNumber("DPPRight", DPPRight);
-	SmartDashboard::PutNumber("DPPLeft", DPPLeft);
 
   LeftDrive1 	-> Set(-1 * LeftDriveDesired); //passes desired state to speed controllers
   LeftDrive2	-> Set(-1 * LeftDriveDesired);
@@ -144,8 +132,6 @@ void DriveBase::ShiftHigh()
   //New stuff
   //A function to use the encoders in driving, the robot will drive in a certain direction depending on the distance left to travel
 void DriveBase::AutoDriveDistance(float DesiredDistance){
-//	SmartDashboard::GetNumber("Distance for Encoder Drive", DashAutoDistance); //Remove this and 2 lines below once we calibrate, this is just to do it from the dashboard for various distances without recompiling over and over
-//	DesiredDistance = DashAutoDistance;
 
 	EncoderReset();
 	MainGyro -> Reset();
@@ -163,7 +149,7 @@ void DriveBase::AutoDriveDistance(float DesiredDistance){
 				std::cout << "AutoDriveDistance Error!!!\n";
 				break;
 			}
-		DistanceTraveled = ((RightEnc -> GetDistance() + LeftEnc -> GetDistance())/2);//XXX TODO re-add leftenc for competition robot
+		DistanceTraveled = GetEncoderDistance();
 		}
 	}
 	Stop();

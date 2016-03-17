@@ -1,15 +1,16 @@
-#ifndef AutonomousAutoTurnAngle_H
-#define AutonomousAutoTurnAngle_H
+#ifndef SPTMoveToPosition_H
+#define SPTMoveToPosition_H
 
 #include "../CommandBase.h"
 #include "WPILib.h"
 
-class AutonomousAutoTurnAngle: public CommandBase
+class SPTMoveToPosition: public CommandBase
 {
 private:
-	float Angle;
+	bool finished;
+	float DesiredAngle;
 public:
-	AutonomousAutoTurnAngle(float);
+	SPTMoveToPosition(float);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

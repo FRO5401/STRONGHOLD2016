@@ -1,38 +1,39 @@
-#include "InfeederLiftIntoInfeederPosition.h"
+#include "AutoTurnAngleCommand.h"
 
-InfeederLiftIntoInfeederPosition::InfeederLiftIntoInfeederPosition()
+AutoTurnAngleCommand::AutoTurnAngleCommand(float angle)
 {
 	// Use Requires() here to declare subsystem dependencies
-	Requires(spt);
+	Requires(drivebase);
+	Angle = angle;
 }
 
 // Called just before this Command runs the first time
-void InfeederLiftIntoInfeederPosition::Initialize()
+void AutoTurnAngleCommand::Initialize()
 {
-	spt -> MoveToInfeederPosition();
+
 }
 
 // Called repeatedly when this Command is scheduled to run
-void InfeederLiftIntoInfeederPosition::Execute()
+void AutoTurnAngleCommand::Execute()
 {
-
+	drivebase -> AutoTurnAngle(Angle, .5); //TODO make second parameter a variable
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool InfeederLiftIntoInfeederPosition::IsFinished()
+bool AutoTurnAngleCommand::IsFinished()
 {
 	return true;
 }
 
 // Called once after isFinished returns true
-void InfeederLiftIntoInfeederPosition::End()
+void AutoTurnAngleCommand::End()
 {
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void InfeederLiftIntoInfeederPosition::Interrupted()
+void AutoTurnAngleCommand::Interrupted()
 {
 
 }

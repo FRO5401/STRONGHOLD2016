@@ -13,7 +13,7 @@
 #include "SPT.h"
 #include "../RobotMap.h"
 #include "PIDController.h"
-#include "Commands/UpAndDownInfeeder.h"
+#include "Commands/SPTMove.h"
 #include <iostream>
 //Parameters for Potentiometer and the its PIDcontroller. Easier to edit if you put it here
 
@@ -59,7 +59,7 @@ SPT::SPT() :
 void SPT::InitDefaultCommand()
 {
 	// Set the default command for a subsystem here.
-	SetDefaultCommand(new UpAndDownInfeeder());
+	SetDefaultCommand(new SPTMove());
 }
 
 // Put methods for controlling this subsystem
@@ -85,26 +85,6 @@ void SPT::UpAndDown(double ShoulderChangeValue, bool Override){
 //This function sets the shoulder motor to a certain speed
 //The waits a while and stops the motor at the correct angle
 //The wait amount is guess and checked.
-void SPT::MoveToDeliveryPosition(){
-//	while (fabs(GetAdjustedEncDistance() - SPTDeliveryPosition) > SPTAngleTolerance){
-
-//	}
-
-/*	while (GetAdjustedEncDistance() < SPTDeliveryPosition){
-		SPTShoulderMotor -> Set(-SPTMotorSpeed * SPTPrecision); //negative value goes up
-	}*/
-
-	SPTShoulderMotor -> Set(0);
-}
-
-//Same thing as MoveToDeliveryPosition but the point where it goes to is the InfeederPosition
-void SPT::MoveToInfeederPosition(){
-/*	while (GetAdjustedEncDistance() > SPTFeederPosition){
-		SPTShoulderMotor -> Set(SPTMotorSpeed * SPTPrecision); //positive value goes down
-	}*/
-
-	SPTShoulderMotor -> Set(0);
-}
 
 void SPT::ClearShooterPathPosition(){
 	while (SPTPot -> Get() > (SPTDeliveryPosition - 5)){
@@ -114,7 +94,7 @@ void SPT::ClearShooterPathPosition(){
 	SPTShoulderMotor -> Set(0);
 }
 
-void SPT::StopForShoot(){
+void SPT::Stop(){
 	SPTShoulderMotor -> Set(0);
 }
 

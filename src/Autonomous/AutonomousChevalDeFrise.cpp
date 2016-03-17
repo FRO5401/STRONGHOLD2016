@@ -2,21 +2,20 @@
 #include "Autonomous/AutoDriveCommand.h"
 #include "Autonomous/AutoDeliverBall.h"
 #include "Autonomous/AutoTurnToAngleCommand.h"
-#include "Autonomous/AutonomousAutoTurnAngle.h"
+#include "Autonomous/AutoTurnAngleCommand.h"
 
-#include "Commands/InfeederLiftIntoDelivery.h"
 #include "Commands/AutoLaunch.h"
 #include "Commands/FeederStop.h"
 #include "Commands/FeedOutFromOuter.h"
 #include "Commands/FeedOutFromInner.h"
-#include "Commands/MoveSPTtoPosition.h"
+#include "Commands/SPTMoveToPosition.h"
 //#include "MoveSPTtoPosition.h"
 
 AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPosition, int LowOrHigh)
 {
  	 AddSequential(new AutoDriveCommand(46)); //Drive to defense
-	 AddSequential(new MoveSPTtoPosition(-21)); //Move SPT down to prepare to drive over cheval
-	 AddParallel(new MoveSPTtoPosition(55)); //Move SPT up and out of the way
+	 AddSequential(new SPTMoveToPosition(192)); //Move SPT down to prepare to drive over cheval
+	 AddParallel(new SPTMoveToPosition(90)); //Move SPT up and out of the way
 	 AddSequential(new AutoDriveCommand(60)); //TODO determine best distance to drive //Drive over cheval.//updated 3/5/16 10:00am
 
 	 //Cheval Code Only does middle goal, SPT must be up before entering the switch statements SPT must be in front
@@ -36,7 +35,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	  					{
 	 						//LowGoal
 	  						case 1:
-	  							AddSequential(new MoveSPTtoPosition(-21)); //TODO find position of spt in feeder position
+	  							AddSequential(new SPTMoveToPosition(192)); //TODO find position of spt in feeder position
 	  							AddSequential(new AutoDriveCommand(130)); //To front of low goal
 	  							AddParallel(new FeedOutFromOuter());
 	  							AddSequential(new FeedOutFromInner());
@@ -47,7 +46,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	  							break;
 	 						//HighGoal
 	 						case 2:
-	 							AddParallel(new AutonomousAutoTurnAngle(180));
+	 							AddParallel(new AutoTurnAngleCommand(180));
 	 							AddSequential(new AutoDeliverBall(2));// TODO find time
 //	  							AddSequential(new AutoLaunch());
 	  							break;
@@ -74,7 +73,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	  					{
 	 						//LowGoal
 	  						case 1:
-	  							AddSequential(new MoveSPTtoPosition(-21)); //TODO find position of spt in feeder position
+	  							AddSequential(new SPTMoveToPosition(192)); //TODO find position of spt in feeder position
 	  							AddSequential(new AutoDriveCommand(130));//To front of low goal
 	  							AddParallel(new FeedOutFromOuter());
 	  							AddSequential(new FeedOutFromInner());
@@ -85,7 +84,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	  							break;
 	 						//HighGoal
 	 						case 2:
-	 							AddParallel(new AutonomousAutoTurnAngle(180));
+	 							AddParallel(new AutoTurnAngleCommand(180));
 	 							AddSequential(new AutoDeliverBall(2));// TODO find time
 //	  							AddSequential(new AutoLaunch());
 	  							break;
@@ -106,7 +105,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	 					switch(LowOrHigh) //Decides to shoot or go forward for low goal
 	  					{						//LowGoal
 	  						case 1:
-	  							AddSequential(new MoveSPTtoPosition(-21)); //TODO find position of spt in feeder position
+	  							AddSequential(new SPTMoveToPosition(192)); //TODO find position of spt in feeder position
 	  							AddSequential(new AutoDriveCommand(130));// To front of low goal
 	  							AddParallel(new FeedOutFromOuter());
 	  							AddSequential(new FeedOutFromInner());
@@ -117,7 +116,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	  							break;
 	 						//HighGoal
 	 						case 2:
-	 							AddParallel(new AutonomousAutoTurnAngle(180));
+	 							AddParallel(new AutoTurnAngleCommand(180));
 	 							AddSequential(new AutoDeliverBall(2));// TODO find time
 //	  							AddSequential(new AutoLaunch());
 	  							break;
@@ -144,7 +143,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	  					{
 	 						//LowGoal
 	  						case 1:
-	  							AddSequential(new MoveSPTtoPosition(-21)); //TODO find position of spt in feeder position
+	  							AddSequential(new SPTMoveToPosition(192)); //TODO find position of spt in feeder position
 	  							AddSequential(new AutoDriveCommand(130));// To front of low goal
 	  							AddParallel(new FeedOutFromOuter());
 	  							AddSequential(new FeedOutFromInner());
@@ -155,7 +154,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	  							break;
 	 						//HighGoal
 	 						case 2:
-	 							AddParallel(new AutonomousAutoTurnAngle(180));
+	 							AddParallel(new AutoTurnAngleCommand(180));
 	 							AddSequential(new AutoDeliverBall(2));// TODO find time
 //	  							AddSequential(new AutoLaunch());
 	  							break;
@@ -177,7 +176,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	  					{
 	 						//LowGoal
 	  						case 1:
-	  							AddSequential(new MoveSPTtoPosition(-21)); //TODO find position of spt in feeder position, fix position
+	  							AddSequential(new SPTMoveToPosition(192)); //TODO find position of spt in feeder position, fix position
 	  							AddSequential(new AutoDriveCommand(130));// To front of low goal
 	  							AddParallel(new FeedOutFromOuter());
 	  							AddSequential(new FeedOutFromInner());
@@ -188,7 +187,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	  							break;
 	 						//HighGoal
 	 						case 2:
-	 							AddParallel(new AutonomousAutoTurnAngle(180));
+	 							AddParallel(new AutoTurnAngleCommand(180));
 	 							AddSequential(new AutoDeliverBall(2));// TODO find time
 //	  							AddSequential(new AutoLaunch());
 	  							break;
@@ -215,7 +214,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	  					{
 	 						//LowGoal
 	  						case 1:
-	  							AddSequential(new MoveSPTtoPosition(-21)); //TODO find position of spt in feeder position
+	  							AddSequential(new SPTMoveToPosition(192)); //TODO find position of spt in feeder position
 	  							AddSequential(new AutoDriveCommand(130));// To front of low goal
 	  							AddParallel(new FeedOutFromOuter());
 	  							AddSequential(new FeedOutFromInner());
@@ -226,7 +225,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	  							break;
 	 						//HighGoal
 	 						case 2:
-	 							AddParallel(new AutonomousAutoTurnAngle(180));
+	 							AddParallel(new AutoTurnAngleCommand(180));
 	 							AddSequential(new AutoDeliverBall(2));// TODO find time
 //	  							AddSequential(new AutoLaunch());
 	  							break;
@@ -249,7 +248,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	  					{
 	 						//LowGoal
 	  						case 1:
-	  							AddSequential(new MoveSPTtoPosition(-21)); //TODO find position of spt in feeder position
+	  							AddSequential(new SPTMoveToPosition(192)); //TODO find position of spt in feeder position
 	  							AddSequential(new AutoDriveCommand(130)); //To front of low goal
 	  							AddParallel(new FeedOutFromOuter());
 	  							AddSequential(new FeedOutFromInner());
@@ -260,7 +259,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	  							break;
 	 						//HighGoal
 	 						case 2:
-	 							AddParallel(new AutonomousAutoTurnAngle(180));
+	 							AddParallel(new AutoTurnAngleCommand(180));
 	 							AddSequential(new AutoDeliverBall(2));// TODO find time
 //	  							AddSequential(new AutoLaunch());
 	  							break;
@@ -271,7 +270,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	  					AddSequential(new AutoTurnToAngleCommand(-90));
 	  					AddSequential(new AutoDriveCommand(56));
 	  					AddSequential(new AutoTurnToAngleCommand(0));
-	 					AddParallel(new AutonomousAutoTurnAngle(180));
+	 					AddParallel(new AutoTurnAngleCommand(180));
 	 					AddSequential(new AutoDeliverBall(2));
 //	  					AddSequential(new AutoLaunch());
 	  					//No Low goal in middle
@@ -287,7 +286,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	 					switch(LowOrHigh)//Decides to shoot or go forward for low goal
 	  					{
 	  						case 1:
-	  							AddSequential(new MoveSPTtoPosition(-21)); //TODO find position of spt in feeder position
+	  							AddSequential(new SPTMoveToPosition(192)); //TODO find position of spt in feeder position
 	  							AddSequential(new AutoDriveCommand(130));// To front of low goal
 	  							AddParallel(new FeedOutFromOuter());
 	  							AddSequential(new FeedOutFromInner());
@@ -296,7 +295,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 
 	  							break;
 	  						case 2:
-	 							AddParallel(new AutonomousAutoTurnAngle(180));
+	 							AddParallel(new AutoTurnAngleCommand(180));
 	 							AddSequential(new AutoDeliverBall(2));// TODO find time
 //	  							AddSequential(new AutoLaunch());
 	  							break;
@@ -305,267 +304,6 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	  			}
 	  			break;
 	 	}
-/*	 //Determine which goal to shoot at
-	 //If needed
-	 //	AddSequential(new AutoTurnToAngleCommand(determine angle)); //turn to drive
-	 // AddSequential(new AutoDriveCommand(length varies)); //Drive forward to get a good angle
-	 //	AddSequential(new AutoTurnToAngleCommand(determine angle)); //Turn to goal
-	 AddSequential(new AutoDeliverBall(2.0)); //Feeds ball into shooter
-	 AddSequential(new AutoLaunch()); //Shoot and score!
-*/
-	/*	PsuedoCode V. 2.0
-	 * 	AdjustAngle() so it's straight or angled correctly 	MAYBE???
-	 * 	AddSequential(new AutoDriveCommand());
-	 * 	AddSequential(new SPT down to horizontal);
-	 * 	AddSequential(new AutoDrive()); //very small
-	 * 	AddParallel(new AutoDrive());
-	 * 	AddParallel(new SPT Shooter position);
-	 * 	AdjustAngle(0) so it's straight
-	 * 	switch(DefensePosition)
-	 * 	{
-	 * 		case 2:
-	 * 			switch(GoalPosition)
-	 * 			{
-	 * 				case 1:
-	 * 					AutoTurn() left 90
-	 * 					AutoDrive()
-	 * 					AdjustAngle straight
-	 * 					AutoTurn() right 90
-	 * 					AutoDrive() up to appropriate distance from goal
-	 * 					AdjustAngle straight
-	 * 					AutoTutn() turns directly towards goal
-	 * 					switch(LowOrHigh)
-	 * 					{
-	 * 						case 1:
-	 * 							AutoDrive(); To front of low goal
-	 * 							OutFeed(); AKA low kick
-	 * 							break;
-	 * 						case 2:
-	 * 						//Maybe loop between AutoDrive and AutoTarget
-	 * 							AutoTarget();
-	 * 							Shoot();
-	 * 							break;
-	 * 					}
-	 * 					break;
-	 * 				case 2:
-	 * 					AutoTurn() Right 90
-	 * 					AutoDrive()
-	 * 					AdjustAngle straight
-	 * 					AutoTurn() Left 90
-	 * 					AutoDrive() up to appropriate distance from goal
-	 * 					//Maybe loop between AutoDrive and AutoTarget
-	 * 					AutoTarget();
-	 * 					Shoot();
-	 * 					break;
-	 * 					}
-	 * 					break;
-	 * 				case 3:
-	 * 					AutoTurn() Right 90
-	 * 					AutoDrive() until it goes over the secret passage boundary
-	 * 					AdjustAngle straight for after going over boundary
-	 * 					AutoDrive() for the rest of the distance after boundary
-	 * 					AdjustAngle() Make sure it's straight
-	 * 					AutoTurn() Left 90
-	 * 					AutoDrive() up to appropriate distance from goal
-	 * 					AutoTurn() turns towards goal
-	 * 					switch(LowOrHigh)
-	 * 					{
-	 * 						case 1:
-	 * 							AutoDrive(); To In front of goal
-	 * 							OutFeed(); AKA low kick
-	 * 							break;
-	 * 						case 2:
-	 * 						//Maybe loop between AutoDrive and AutoTarget
-	 * 							AutoTarget();
-	 * 							Shoot();
-	 * 							break;
-	 * 					}
-	 * 					break;
-	 * 			}
-	 * 			break;
-	 * 		case 3:
-	 * 			switch(GoalPosition)
-	 * 			{
-	 * 				case 1:
-	 * 					AutoTurn() left 90
-	 * 					AutoDrive()
-	 * 					AdjustAngle straight
-	 * 					AutoTurn() right 90
-	 * 					AutoDrive() up to appropriate distance from goal
-	 * 					AdjustAngle straight
-	 * 					AutoTutn() turns directly towards goal
-	 * 					switch(LowOrHigh)
-	 * 					{
-	 * 						case 1:
-	 * 							AutoDrive(); To front of low goal
-	 * 							OutFeed(); AKA low kick
-	 * 							break;
-	 * 						case 2:
-	 * 						//Maybe loop between AutoDrive and AutoTarget
-	 * 							AutoTarget();
-	 * 							Shoot();
-	 * 							break;
-	 * 					}
-	 * 					break;
-	 * 				case 2:
-	 * 					AutoTurn() Right 90
-	 * 					AutoDrive()
-	 * 					AdjustAngle straight
-	 * 					AutoTurn() Left 90
-	 * 					AutoDrive() up to appropriate distance from goal
-	 * 					//Maybe loop between AutoDrive and AutoTarget
-	 * 					AutoTarget();
-	 * 					Shoot();
-	 * 					break;
-	 * 				case 3:
-	 * 					AutoTurn() Right 90
-	 * 					AutoDrive() until it goes over the secret passage boundary
-	 * 					AdjustAngle straight for after going over boundary
-	 * 					AutoDrive() for the rest of the distance after boundary
-	 * 					AdjustAngle() Make sure it's straight
-	 * 					AutoTurn() Left 90
-	 * 					AutoDrive() up to appropriate distance from goal
-	 * 					AutoTurn() turns towards goal
-	 * 					switch(LowOrHigh)
-	 * 					{
-	 * 						case 1:
-	 * 							AutoDrive(); To In front of goal
-	 * 							OutFeed(); AKA low kick
-	 * 							break;
-	 * 						case 2:
-	 * 						//Maybe loop between AutoDrive and AutoTarget
-	 * 							AutoTarget();
-	 * 							Shoot();
-	 * 							break;
-	 * 					}
-	 * 					break;
-	 * 			}
-	 * 			break;
-	 * 		case 4:
-	 * 			switch(GoalPosition)
-	 * 			{
-	 * 				case 1:
-	 * 					AutoTurn() left 90
-	 * 					AutoDrive()
-	 * 					AdjustAngle straight
-	 * 					AutoTurn() right 90
-	 * 					AutoDrive() up to appropriate distance from goal
-	 * 					AdjustAngle straight
-	 * 					AutoTutn() turns directly towards goal
-	 * 					switch(LowOrHigh)
-	 * 					{
-	 * 						case 1:
-	 * 							AutoDrive(); To front of low goal
-	 * 							OutFeed(); AKA low kick
-	 * 							break;
-	 * 						case 2:
-	 * 						//Maybe loop between AutoDrive and AutoTarget
-	 * 							AutoTarget();
-	 * 							Shoot();
-	 * 							break;
-	 * 					}
-	 * 					break;
-	 * 				case 2:
-	 * 					AutoTurn() left 90
-	 * 					AutoDrive()
-	 * 					AdjustAngle straight
-	 * 					AutoTurn() Left 90
-	 * 					AutoDrive() up to appropriate distance from goal
-	 * 					//Maybe loop between AutoDrive and AutoTarget
-	 * 					AutoTarget();
-	 * 					Shoot();
-	 * 					break;
-	 * 				case 3:
-	 * 					AutoTurn() Right 90
-	 * 					AutoDrive() until it goes over the secret passage boundary
-	 * 					AdjustAngle straight for after going over boundary
-	 * 					AutoDrive() for the rest of the distance after boundary
-	 * 					AdjustAngle() Make sure it's straight
-	 * 					AutoTurn() Left 90
-	 * 					AutoDrive() up to appropriate distance from goal
-	 * 					AutoTurn() turns towards goal
-	 * 					switch(LowOrHigh)
-	 * 					{
-	 * 						case 1:
-	 * 							AutoDrive(); To In front of goal
-	 * 							OutFeed(); AKA low kick
-	 * 							break;
-	 * 						case 2:
-	 * 						//Maybe loop between AutoDrive and AutoTarget
-	 * 							AutoTarget();
-	 * 							Shoot();
-	 * 							break;
-	 * 					}
-	 * 					break;
-	 * 			}
-	 * 			break;
-	 * 		case 5:
-	 * 			switch(GoalPosition)
-	 * 			{
-	 * 				case 1:
-	 * 					AutoTurn() left 90
-	 * 					AutoDrive()
-	 * 					AdjustAngle straight
-	 * 					AutoTurn() right 90
-	 * 					AutoDrive() up to appropriate distance from goal
-	 * 					AdjustAngle straight
-	 * 					AutoTutn() turns directly towards goal
-	 * 					switch(LowOrHigh)
-	 * 					{
-	 * 						case 1:
-	 * 							AutoDrive(); To front of low goal
-	 * 							OutFeed(); AKA low kick
-	 * 							break;
-	 * 						case 2:
-	 * 						//Maybe loop between AutoDrive and AutoTarget
-	 * 							AutoTarget();
-	 * 							Shoot();
-	 * 							break;
-	 * 					}
-	 * 					break;
-	 * 				case 2:
-	 * 					AutoTurn() left 90
-	 * 					AutoDrive()
-	 * 					AdjustAngle straight
-	 * 					AutoTurn() Left 90
-	 * 					AutoDrive() up to appropriate distance from goal
-	 * 					//Maybe loop between AutoDrive and AutoTarget
-	 * 					AutoTarget();
-	 * 					Shoot();
-	 * 					break;
-	 * 				case 3:
-	 * 					AutoTurn() Right 90
-	 * 					AutoDrive() until it goes over the secret passage boundary
-	 * 					AdjustAngle straight for after going over boundary
-	 * 					AutoDrive() for the rest of the distance after boundary
-	 * 					AdjustAngle() Make sure it's straight
-	 * 					AutoTurn() Left 90
-	 * 					AutoDrive() up to appropriate distance from goal
-	 * 					AutoTurn() turns towards goal
-	 * 					switch(LowOrHigh)
-	 * 					{
-	 * 						case 1:
-	 * 							AutoDrive(); To In front of goal
-	 * 							OutFeed(); AKA low kick
-	 * 							break;
-	 * 						case 2:
-	 * 						//Maybe loop between AutoDrive and AutoTarget
-	 * 							AutoTarget();
-	 * 							Shoot();
-	 * 							break;
-	 * 					}
-	 * 					break;
-	 * 			}
-	 * 			break;
-	 * 	}
-	 *
-	 */
-
-
-
-
-
-
 
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());

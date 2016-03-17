@@ -1,38 +1,42 @@
-#include "InfeederLiftIntoDelivery.h"
+#include "SPTMove.h"
 
-InfeederLiftIntoDelivery::InfeederLiftIntoDelivery()
+SPTMove::SPTMove()
 {
 	// Use Requires() here to declare subsystem dependencies
 	Requires(spt);
 }
 
 // Called just before this Command runs the first time
-void InfeederLiftIntoDelivery::Initialize()
+void SPTMove::Initialize()
 {
-	spt -> MoveToDeliveryPosition();
+
 }
 
 // Called repeatedly when this Command is scheduled to run
-void InfeederLiftIntoDelivery::Execute()
+void SPTMove::Execute()
 {
+	bool SPT_Override = (oi	->	GetMOHButtonL3());
+	double UpOrDownValue = oi -> GetUpOrDownValueInfeeder();
 
+	//Tells the Infeeder to go up or down
+	spt -> UpAndDown(UpOrDownValue, SPT_Override);
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool InfeederLiftIntoDelivery::IsFinished()
+bool SPTMove::IsFinished()
 {
-	return true;
+	return false;
 }
 
 // Called once after isFinished returns true
-void InfeederLiftIntoDelivery::End()
+void SPTMove::End()
 {
-
+	spt -> Stop();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void InfeederLiftIntoDelivery::Interrupted()
+void SPTMove::Interrupted()
 {
-
+	spt -> Stop();
 }

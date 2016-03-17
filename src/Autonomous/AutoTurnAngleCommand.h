@@ -1,13 +1,15 @@
-#ifndef DrivingWithEncoderInput_H
-#define DrivingWithEncoderInput_H
+#ifndef AutoTurnAngleCommand_H
+#define AutoTurnAngleCommand_H
 
 #include "../CommandBase.h"
 #include "WPILib.h"
 
-class DrivingWithEncoderInput: public CommandBase
+class AutoTurnAngleCommand: public CommandBase
 {
+private:
+	float Angle;
 public:
-	DrivingWithEncoderInput();
+	AutoTurnAngleCommand(float);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

@@ -1,13 +1,13 @@
-#ifndef UpAndDownInfeeder_H
-#define UpAndDownInfeeder_H
+#ifndef SPTMove_H
+#define SPTMove_H
 
 #include "../CommandBase.h"
 #include "WPILib.h"
 
-class UpAndDownInfeeder: public CommandBase
+class SPTMove: public CommandBase
 {
 public:
-	UpAndDownInfeeder();
+	SPTMove();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

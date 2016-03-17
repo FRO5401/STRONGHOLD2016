@@ -19,10 +19,8 @@ public:
 	SPT();
 	void InitDefaultCommand();
 	void UpAndDown(double, bool);
-	void MoveToDeliveryPosition();
-	void MoveToInfeederPosition();
 	void ClearShooterPathPosition();
-	void StopForShoot();
+	void Stop();
 	float ReportAngle();
 	//float GetAdjustedEncDistance();
 	//void Reset();

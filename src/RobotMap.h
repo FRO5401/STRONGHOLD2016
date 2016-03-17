@@ -140,13 +140,8 @@ const int Enc_Shooter_B = 5;
 //TODO validate these
 const int Enc_Scimitar_A = 6;
 const int Enc_Scimitar_B = 7;
-
-//const int Enc_SPT_Loc_A = 6; //no longer used here
-//const int Enc_SPT_Loc_B = 7;
 /************
  * End Sensor Channels
  ***********/
-
-
 
 #endif
