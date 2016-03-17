@@ -20,7 +20,7 @@
 //Multiplier to get meaningful value. A number can be put here - 0 value is horizontal from front of robot
 double SPT_Range 	= -1376.15; //-1376.15
 //Quote "offset added to the scaled value to control the 0 value
-double SPT_Offset 	= 638.073 -7.164; //638.073 is old offset
+double SPT_Offset 	= -93.701; //(638.073 - 7.164) is old offset for Pot?SPT?Both?
 
 double SPTMotorMin	= -1;//Min Motor speed
 double SPTMotorMax	= 1;// Max motor speed
@@ -40,9 +40,9 @@ SPT::SPT() :
 {
 	SPTShoulderMotor = new Victor(SPTShoulderMotor_Channel);
 
-	//SPTEnc		= new Encoder(Enc_SPT_Loc_A, Enc_SPT_Loc_B, true, Encoder::k1X);
-	SPTPot = new AnalogPotentiometer(SPTPot_Channel, SPT_Range, SPT_Offset);
-	//SPTEnc 		-> SetDistancePerPulse(SPTDistancePerPulseValue);
+	SPTEnc		= new Encoder(Enc_SPT_Loc_A, Enc_SPT_Loc_B, true, Encoder::k1X);
+//	SPTPot = new AnalogPotentiometer(SPTPot_Channel, SPT_Range, SPT_Offset);
+	SPTEnc 		-> SetDistancePerPulse(SPTDistancePerPulseValue);
 	//Read Control Theory from http://www.chiefdelphi.com/media/papers/1823
 	MotorOutput = 0;
 
@@ -70,16 +70,16 @@ void SPT::InitDefaultCommand()
 void SPT::UpAndDown(double ShoulderChangeValue, bool Override){
 	if (!Override) {
 	//Zero out the change if angle is at its upper limit and trying to increase
-	ShoulderChangeValue = ((ShoulderChangeValue < 0) && (SPTPot -> Get() >= SPTMaxAngle)) ? 0 : ShoulderChangeValue;
+	ShoulderChangeValue = ((ShoulderChangeValue < 0) && (ReportAngle() >= SPTMaxAngle)) ? 0 : ShoulderChangeValue;
 	//Zero out the change if angle is at its lower limit and trying to decrease
-	ShoulderChangeValue = ((ShoulderChangeValue > 0) && (SPTPot -> Get() <= SPTMinAngle)) ? 0 : ShoulderChangeValue;
+	ShoulderChangeValue = ((ShoulderChangeValue > 0) && (ReportAngle() <= SPTMinAngle)) ? 0 : ShoulderChangeValue;
 	}
 	SPTShoulderMotor -> Set(-1 * SPTPrecision * ShoulderChangeValue);
 
 	SmartDashboard::PutNumber("SPTUpDown", ShoulderChangeValue);
-	SmartDashboard::PutNumber("SPTPot", SPTPot ->Get());
-	//SmartDashboard::PutNumber("SPTEnc Raw", SPTEnc -> Get());
-	//SmartDashboard::PutNumber("SPTEnc", SPTEnc ->GetDistance());
+	//SmartDashboard::PutNumber("SPTPot", SPTPot ->Get());
+	SmartDashboard::PutNumber("SPTEnc Raw", SPTEnc -> Get());
+	SmartDashboard::PutNumber("SPTEnc", SPTEnc ->GetDistance());
 }
 
 //This function sets the shoulder motor to a certain speed
@@ -87,7 +87,7 @@ void SPT::UpAndDown(double ShoulderChangeValue, bool Override){
 //The wait amount is guess and checked.
 
 void SPT::ClearShooterPathPosition(){
-	while (SPTPot -> Get() > (SPTDeliveryPosition - 5)){
+	while (ReportAngle() > (SPTDeliveryPosition - 5)){
 		SPTShoulderMotor -> Set(SPTMotorSpeed * SPTPrecision);
 	}
 
@@ -99,15 +99,11 @@ void SPT::Stop(){
 }
 
 float SPT::ReportAngle(){
-	return SPTPot ->Get(); //Comment this out and uncomment the below to use encoder
-//	return (SPTEnc -> GetDistance() - SPT_Offset);
-}
-
-/*float SPT::GetAdjustedEncDistance(){
-	return (SPTEnc -> GetDistance() - SPT_Offset);
+//	return SPTPot ->Get(); //Comment this out and uncomment the below to use encoder
+	return (SPTEnc -> GetDistance() - SPT_Offset); //adjusted for offset
 }
 
 void SPT::Reset()
 {
-	//SPTEnc	  -> Reset();
-}*/
+	SPTEnc	  -> Reset();
+}

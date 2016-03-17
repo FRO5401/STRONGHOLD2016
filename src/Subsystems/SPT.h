@@ -10,8 +10,8 @@ private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 	Victor *SPTShoulderMotor;
-	//Encoder *SPTEnc;
-	Potentiometer *SPTPot;
+	Encoder *SPTEnc;
+	//Potentiometer *SPTPot;
 	double MotorOutput;
 
 public:
@@ -22,8 +22,7 @@ public:
 	void ClearShooterPathPosition();
 	void Stop();
 	float ReportAngle();
-	//float GetAdjustedEncDistance();
-	//void Reset();
+	void Reset();
 };
 
 #endif
