@@ -19,7 +19,8 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	 AddSequential(new AutoDriveCommand(60)); //TODO determine best distance to drive //Drive over cheval.//updated 3/5/16 10:00am
 
 	 //Cheval Code Only does middle goal, SPT must be up before entering the switch statements SPT must be in front
-	 switch(DefensePosition)
+	 //Code is commented out because it used AutoTurnToAngle which is no longer being used
+/*	 switch(DefensePosition)
 	 	{
 	  		case 2:
 	  			switch(GoalPosition)
@@ -304,7 +305,7 @@ AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPo
 	  			}
 	  			break;
 	 	}
-
+*/
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
