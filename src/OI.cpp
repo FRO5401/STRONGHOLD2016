@@ -81,16 +81,21 @@ OI::OI()
 	MOHLeftBumper	-> WhenReleased(new FeederStop());
 
 	MOHRightBumper	-> WhenPressed(new FeedInFromInner());
-	MOHRightBumper   -> WhenReleased(new FeederStop());
+	MOHRightBumper  -> WhenReleased(new FeederStop());
 	
-	MOHButtonTriangle -> WhenPressed(new LockTarget());
-	MOHButtonSquare   -> WhenPressed(new AutoLaunch());
+
 //	MOHStartButton	-> WhenPressed(new AutoDeliverBall(1.5)); //Commented out, using button to auto drive
 
-	XboxX			-> 	 WhenPressed(new LaunchSequence());
-	XboxRightStickButton -> WhenPressed(new ShooterOverride());
+
 //	MOHButtonCircle -> WhenPressed(new MoveSPTtoPosition(55)); //55 is Delivery
 //	MOHButtonX -> WhenPressed(new MoveSPTtoPosition(-21)); //-21 is Infeed
+
+/*Removed Until Further Notice
+ * 	MOHButtonTriangle -> WhenPressed(new LockTarget());
+ *	MOHButtonSquare   -> WhenPressed(new AutoLaunch());
+ *	XboxX			-> 	 WhenPressed(new LaunchSequence());
+ *	XboxRightStickButton -> WhenPressed(new ShooterOverride());
+ */
 }
 
 //Defines the functions for the axis's declared in the h file
