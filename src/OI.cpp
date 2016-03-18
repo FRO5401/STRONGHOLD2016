@@ -90,7 +90,7 @@ OI::OI()
 //	MOHButtonCircle -> WhenPressed(new MoveSPTtoPosition(55)); //55 is Delivery
 //	MOHButtonX -> WhenPressed(new MoveSPTtoPosition(-21)); //-21 is Infeed
 
-/*Removed Until Further Notice
+/*Removed Until Further Notice 31816
  * 	MOHButtonTriangle -> WhenPressed(new LockTarget());
  *	MOHButtonSquare   -> WhenPressed(new AutoLaunch());
  *	XboxX			-> 	 WhenPressed(new LaunchSequence());

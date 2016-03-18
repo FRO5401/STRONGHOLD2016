@@ -45,7 +45,7 @@ void CommandBase::init()
 	waterytart			= new WateryTart();
 	relaysys	= new RelaySys();
 
-/*	Removed Until Further Notice
+/*	Removed Until Further Notice 31816
  * 	shooter 			= new Shooter();
  */
 }

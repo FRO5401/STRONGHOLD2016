@@ -106,7 +106,8 @@ const int FeederInnerSlower_Channel			= 7;//Current as of 021616
 
 const int HookShoulderMotor_Channel			= 4;//MUST BE UPDATED
 
-const int ShooterMotor_Channel				= 9;//MUST BE UPDATED
+//Removed Until Further Notice 31816
+//const int ShooterMotor_Channel				= 9;//MUST BE UPDATED
 
 const int Scimitar_Channel					= 16;		//MUST BE UPDATED
 /************
@@ -125,7 +126,8 @@ const int CarriageLights_Channel			= 1;
 /************
  * Sensor Channels
  ***********/
-const int ShooterSwitch_Channel 	= 0;			//MUST BE UPDATED
+//Removed Until Further Notice 31816
+//const int ShooterSwitch_Channel 	= 0;			//MUST BE UPDATED
 const int HookShoulderPot_Channel	= 0;	//MUST BE UPDATED
 const int SPTPot_Channel 		= 1;//MUST BE UPDATED SPT potentiometer channel, under Analogs
 
