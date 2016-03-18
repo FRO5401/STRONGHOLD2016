@@ -59,7 +59,7 @@ SPT::SPT() :
 void SPT::InitDefaultCommand()
 {
 	// Set the default command for a subsystem here.
-	SetDefaultCommand(new SPTMove());
+//	SetDefaultCommand(new SPTMove());
 }
 
 // Put methods for controlling this subsystem
