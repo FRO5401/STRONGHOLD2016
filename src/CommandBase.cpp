@@ -40,9 +40,12 @@ void CommandBase::init()
 	offboardcompressor 	= new OffboardCompressor();
 	scale				= new Scale();
 	scimitar			= new Scimitar();
-	shooter 			= new Shooter();
 //	shorthook			= new ShortHook();
 	spt					= new SPT();
 	waterytart			= new WateryTart();
 	relaysys	= new RelaySys();
+
+/*	Removed Until Further Notice
+ * 	shooter 			= new Shooter();
+ */
 }
