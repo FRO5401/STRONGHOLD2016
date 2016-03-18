@@ -86,7 +86,10 @@
 #include "Autonomous/AutonomousSallyPort.h"
 #include "Autonomous/AutonomousRockWall.h"
 #include "Autonomous/AutonomousRoughTerrain.h"
+
+#include "Autonomous/MoveForwardOnly.h"
 #include "Commands/DoNothing.h"
+
 //2016 Stronghold code
 class Robot: public IterativeRobot
 {
@@ -177,7 +180,7 @@ private:
 		autoMode->AddObject("Rough Terrain", new AutonomousRoughTerrain(PositionForDefense, PositionForGoal, LowOrHighGoal));
 //		autoMode->AddObject("SpyBot", new AutonomousSpyBot()); //Restore when command is written, plus need one for each position
 		autoMode->AddObject("Do Nothing", new DoNothing());
-//		autoMode->
+		autoMode->AddObject("Move Forward to Outer Works Only", new MoveForwardOnly());
 		SmartDashboard::PutData("Autonomous Mode", autoMode);
 		Scheduler::GetInstance()->Run();
 	}
