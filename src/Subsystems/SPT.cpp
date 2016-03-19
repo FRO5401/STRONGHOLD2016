@@ -24,7 +24,7 @@ double SPT_Offset 	= -93.701; //(638.073 - 7.164) is old offset for Pot?SPT?Both
 
 double SPTMotorMin	= -1;//Min Motor speed
 double SPTMotorMax	= 1;// Max motor speed
-double SPTDistancePerPulseValue = .3689;
+double SPTDistancePerPulseValue = -0.4327;//Angles To Pulse
 float SPTMotorSpeed = .9;
 
 float SPTDeliveryPosition 	= 55;//-34.677 from start
