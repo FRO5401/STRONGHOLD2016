@@ -17,15 +17,16 @@ const int HookShoulder_Range 	= 0;
 //Quote "offset added to the scaled value to control the 0 value
 const int HookShoulder_Offset 	= 0;
 
+//NO LONGER USED
 const int HookShoulder_Kp 		= 0;//Proportional
-const int HookShoulder_Ki		= 0 ;//Intergral
+const int HookShoulder_Ki		= 0;//Intergral
 const int HookShoulder_Kd		= 0;//Derivative
 
 const int HookShoulderMotorMin	= -1;//Min Motor speed
 const int HookShoulderMotorMax	= 1;// Max motor speed
 const int HookShoulderSensitivity = 0.5;
 
-//The following WILL CHANGEs
+//The following WILL CHANGE
 const int MaxPosition			= 0;//The maximum position for the hook shoulder
 const int MinPosition			= 0;//the minimum position for the hook shoulder
 
@@ -35,7 +36,7 @@ HookShoulder::HookShoulder() :
 	HookShoulderMotor = new Victor(HookShoulderMotor_Channel);
 
 	HookShoulderPot = new AnalogPotentiometer(HookShoulderPot_Channel, HookShoulder_Range, HookShoulder_Offset);
-							//		 ^^Channel in RobotMap
+							//		 			^^Channel in RobotMap
 
 	//Format for declaring PIDControllers (Kp value, Ki value, Kd value, the input source, the output source)
 	//Read Control Theory from http://www.chiefdelphi.com/media/papers/1823
@@ -56,10 +57,13 @@ void HookShoulder::UpAndDown(double HookShoulderChangeValue){
  * keep running once it gets into the robot
  */
 	double CurrentPosition = ReportAngle();
-	//Zero out the change if angle is at its upper limit and trying to increase
+	//Zero out the change if angle is at its upper limit and trying to increase, <0 = UP?
 	HookShoulderChangeValue = ((HookShoulderChangeValue < 0) && (CurrentPosition >= MaxPosition)) ? 0 : HookShoulderChangeValue;
 	//Zero out the change if angle is at its lower limit and trying to decrease
-	HookShoulderChangeValue = ((HookShoulderChangeValue > 0) && (CurrentPosition <= MaxPosition)) ? 0 : HookShoulderChangeValue;
+	HookShoulderChangeValue = ((HookShoulderChangeValue > 0) && (CurrentPosition <= MinPosition)) ? 0 : HookShoulderChangeValue;
+
+	//Returns the Angle the HookShoulder is at to the Dashboard
+	SmartDashboard::PutNumber("SPTEnc Raw", HookShoulderPot -> Get());
 }
 
 double HookShoulder::ReportAngle(){
