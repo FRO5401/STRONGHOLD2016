@@ -1,8 +1,8 @@
 #include "Autonomous/AutonomousRockWall.h"
 #include "Autonomous/AutoDriveCommand.h"
 
-#include "HookShoulderMoveToPosition.h"
-#include "SPTMoveToPosition.h"
+#include "Commands/HookShoulderMoveToPosition.h"
+#include "Commands/SPTMoveToPosition.h"
 
 AutonomousRockWall::AutonomousRockWall(int DefensePosition, int GoalPosition, int LowOrHigh)
 {
