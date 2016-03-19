@@ -51,17 +51,19 @@ void HookShoulder::InitDefaultCommand()
 }
 
 //This function sets the shoulder motor of SPT to a certain direction between up and down
-void HookShoulder::UpAndDown(double HookShoulderChangeValue){
+void HookShoulder::UpAndDown(double HookShoulderChangeValue, bool Override){
 /*Add a constant above, and make this conditional on being within a max/min reading on the Pot.
  * This is to keep it from going above a certain angle for rules and below a certain angle so it doesn't
  * keep running once it gets into the robot
  */
 	double CurrentPosition = ReportAngle();
-	//Zero out the change if angle is at its upper limit and trying to increase, <0 = UP?
-	HookShoulderChangeValue = ((HookShoulderChangeValue < 0) && (CurrentPosition >= MaxPosition)) ? 0 : HookShoulderChangeValue;
-	//Zero out the change if angle is at its lower limit and trying to decrease
-	HookShoulderChangeValue = ((HookShoulderChangeValue > 0) && (CurrentPosition <= MinPosition)) ? 0 : HookShoulderChangeValue;
-
+	if(!Override)
+	{
+		//Zero out the change if angle is at its upper limit and trying to increase, <0 = UP?
+		HookShoulderChangeValue = ((HookShoulderChangeValue < 0) && (CurrentPosition >= MaxPosition)) ? 0 : HookShoulderChangeValue;
+		//Zero out the change if angle is at its lower limit and trying to decrease
+		HookShoulderChangeValue = ((HookShoulderChangeValue > 0) && (CurrentPosition <= MinPosition)) ? 0 : HookShoulderChangeValue;
+	}
 	//Returns the Angle the HookShoulder is at to the Dashboard
 	SmartDashboard::PutNumber("SPTEnc Raw", HookShoulderPot -> Get());
 }
@@ -70,5 +72,10 @@ double HookShoulder::ReportAngle(){
 	//Sets the min and max speed the motor of that the SPT has
 	return HookShoulderPot -> Get();
 }
+
+void HookShoulder::StopHookShoulder(){
+	HookShoulderMotor -> Set(0);
+}
+
 
 

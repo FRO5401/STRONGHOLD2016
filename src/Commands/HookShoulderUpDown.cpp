@@ -1,8 +1,6 @@
 #include "HookShoulderUpDown.h"
 
-const int UpMotorSpeed = 0.5;
-const int DownMotorSpeed = -0.5;
-
+const int HookShoulderChangeValue = 1;//Stands for 1 degrees
 
 HookShoulderUpDown::HookShoulderUpDown()
 {
@@ -21,14 +19,15 @@ void HookShoulderUpDown::Initialize()
 void HookShoulderUpDown::Execute()
 {
 	DpadDirection = oi -> GetMOHPOVState();
+	bool Override = oi -> GetButtonBack();
 
 	//If wondering about the numbers for the conditionals, look at GetMOHPOVState()
 	if (DpadDirection == 0){ //Stops the HookShoulder if D-pad is unpressed or pressed in the wrong section
-		hookshoulder -> UpAndDown(0);
-	} else 	if (DpadDirection == 1){//Makes the HookShoulder move the HookShoulder up if D-pad pressed up
-		hookshoulder -> UpAndDown(UpMotorSpeed);
-	} else if (DpadDirection == -1){//Makes the HookShoulder move the HookShoulder down if D-pad pressed down
-		hookshoulder-> UpAndDown(DownMotorSpeed);
+		hookshoulder -> UpAndDown(0, Override);
+	} else 	if (DpadDirection == 1){//Makes the HookShoulder move the HookShoulder up if D-pad pressed up, moves at 1 degree per loop
+		hookshoulder -> UpAndDown(HookShoulderChangeValue, Override);
+	} else if (DpadDirection == -1){//Makes the HookShoulder move the HookShoulder down if D-pad pressed down, moves at 1 degree per loop
+		hookshoulder-> UpAndDown(-HookShoulderChangeValue, Override);
 	}
 
 }
