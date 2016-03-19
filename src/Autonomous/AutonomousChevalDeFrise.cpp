@@ -9,20 +9,25 @@
 #include "Commands/FeedOutFromOuter.h"
 #include "Commands/FeedOutFromInner.h"
 #include "Commands/SPTMoveToPosition.h"
+#include "Commands/HookShoulderMoveToPosition.h"
 //#include "MoveSPTtoPosition.h"
 
 AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPosition, int LowOrHigh)
 {
- 	 AddSequential(new AutoDriveCommand(46)); //Drive to defense
-	 AddSequential(new SPTMoveToPosition(192)); //Move SPT down to prepare to drive over cheval
-	 AddParallel(new SPTMoveToPosition(90)); //Move SPT up and out of the way
-	 AddSequential(new AutoDriveCommand(60)); //TODO determine best distance to drive //Drive over cheval.//updated 3/5/16 10:00am
+	//SPT must be in the front
+	AddParallel(new HookShoulderMoveToPosition(45));//TODO change Position
+ 	AddSequential(new AutoDriveCommand(46)); //Drive to defense //TODO edit
+	AddSequential(new SPTMoveToPosition(192)); //Move SPT down to prepare to drive over cheval
+	AddParallel(new SPTMoveToPosition(90)); //Move SPT up and out of the way
+	AddSequential(new AutoDriveCommand(60)); //TODO determine best distance to drive //Drive over cheval.//updated 3/5/16 10:00am
 
-	 //Cheval Code Only does middle goal, SPT must be up before entering the switch statements SPT must be in front
-	 //Code is commented out because it used AutoTurnToAngle which is no longer being used
-/*	 switch(DefensePosition)
-	 	{
-	  		case 2:
+
+
+	//Cheval Code Only does middle goal, SPT must be up before entering the switch statements SPT must be in front
+	//Code is commented out because it used AutoTurnToAngle which is no longer being used
+/*	switch(DefensePosition)
+ 	{
+  		case 2:
 	  			switch(GoalPosition)
 	  			{	//The following is for Defense position 2 and Left Goal
 	 	 			case 1:
