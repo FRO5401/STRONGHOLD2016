@@ -15,7 +15,8 @@
 AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPosition, int LowOrHigh)
 {
 	//SPT must be in the front
-	AddParallel(new HookShoulderMoveToPosition(45));//TODO change Position
+//	AddParallel(new HookShoulderMoveToPosition(45));//TODO change Position, move it down
+//	AddParallel(new ScimitarRetract) //Command not created and ScimitarRetract is not created
  	AddSequential(new AutoDriveCommand(34)); //Drive to defense //TODO edit
 	AddSequential(new SPTMoveToPosition(192)); //Move SPT down to prepare to drive over cheval
 	AddParallel(new SPTMoveToPosition(90)); //Move SPT up and out of the way
