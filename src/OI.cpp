@@ -174,17 +174,22 @@ bool OI::GetButtonR3(){
 }
 
 int OI::GetMOHPOVState(){
-	int POV = MedalOfHonorController	->	GetPOV();
-	if (POV == 225 || POV == 180 || POV == 135){
-		std::cout << "DOWN\n";
-		return -1;	//down
-	}
-	else if (POV == 315 || POV == 0 || POV == 45){
+	int POV = MedalOfHonorController	->	GetPOV();//Gets the POV of the D-pad on the MOHController, an unpressed D-pad is -1, otherwise its the angle at which it is pressed
+	//If in the 7/8 sector (315 to 360 degrees) or 1/8 sector (0 to 45 degrees), make it return a value for up
+	if ((POV >= 315) || (POV <= 45)){
 		std::cout << "UP\n";
-		return 1; 	//up
+		return 1;	//Up
+	}
+	//If in 4/8 of 5/8 sector (135 to 225 degrees), make it return a value for down
+	else if ((POV >= 135) && (POV <=225)){
+		std::cout << "Down\n";
+		return -1; 	//Down
 	}
 	else
-		return 0; 	//not pressed/error
+	{
+		return 0; 	//not pressed/error or incorrect section is pressed
+					//Does nothing
+	}
 }
 
 void OI::SendXboxRumble(int j){
