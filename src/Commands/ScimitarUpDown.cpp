@@ -1,7 +1,7 @@
 #include "ScimitarUpDown.h"
 
-const int Up = 1;
-const int Down = -1;
+const int UpMotorSpeed = 0.5;
+const int DownMotorSpeed = -0.5;
 
 
 ScimitarUpDown::ScimitarUpDown()
@@ -21,12 +21,14 @@ void ScimitarUpDown::Initialize()
 void ScimitarUpDown::Execute()
 {
 	DpadDirection = oi -> GetMOHPOVState();
-	if (DpadDirection == 0){
+
+	//If wondering about the numbers for the conditionals, look at GetMOHPOVState()
+	if (DpadDirection == 0){ //Stops the HookShoulder if D-pad is unpressed or pressed in the wrong section
 		hookshoulder -> UpAndDown(0);
-	} else 	if (DpadDirection == 1){
-		hookshoulder -> UpAndDown(Up);
-	} else if (DpadDirection == -1){
-		hookshoulder-> UpAndDown(Down);
+	} else 	if (DpadDirection == 1){//Makes the HookShoulder move the Scimitar up if D-pad pressed up
+		hookshoulder -> UpAndDown(UpMotorSpeed);
+	} else if (DpadDirection == -1){//Makes the HookShoulder move the Scimitar down if D-pad pressed down
+		hookshoulder-> UpAndDown(DownMotorSpeed);
 	}
 
 }
