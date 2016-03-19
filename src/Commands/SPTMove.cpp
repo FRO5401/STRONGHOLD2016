@@ -15,7 +15,7 @@ void SPTMove::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void SPTMove::Execute()
 {
-	bool SPT_Override = (oi	->	GetMOHButtonL3());
+	bool SPT_Override = (oi	->	GetMOHRightStickButton());
 	double UpOrDownValue = oi -> GetUpOrDownValueInfeeder();
 
 	//Tells the Infeeder to go up or down
