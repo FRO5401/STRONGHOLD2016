@@ -30,7 +30,7 @@ void HookScale::Initialize()
 void HookScale::Execute()
 {
 
-	hookshoulder        -> UpAndDown(0);  //Add code here to move to setpoint
+	hookshoulder        -> UpAndDown(0, false);  //Add code here to move to setpoint
 
 }
 
