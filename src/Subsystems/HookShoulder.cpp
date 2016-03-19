@@ -8,7 +8,7 @@
 #include "HookShoulder.h"
 #include "../RobotMap.h"
 #include "PIDController.h"
-#include "Commands/ScimitarUpDown.h"
+#include "Commands/HookShoulderUpDown.h"
 
 //Parameters for Potentiometer and the its PIDcontroller. Easier to edit if you put it here
 
@@ -47,7 +47,7 @@ HookShoulder::HookShoulder() :
 void HookShoulder::InitDefaultCommand()
 {
 	// Set the default command for a subsystem here.
-	SetDefaultCommand(new ScimitarUpDown());
+	SetDefaultCommand(new HookShoulderUpDown());
 }
 
 //This function sets the shoulder motor of SPT to a certain direction between up and down
@@ -70,3 +70,5 @@ double HookShoulder::ReportAngle(){
 	//Sets the min and max speed the motor of that the SPT has
 	return HookShoulderPot -> Get();
 }
+
+

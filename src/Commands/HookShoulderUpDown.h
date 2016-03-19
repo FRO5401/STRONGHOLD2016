@@ -1,15 +1,15 @@
-#ifndef ScimitarUpDown_H
-#define ScimitarUpDown_H
+#ifndef HookShoulderUpDown_H
+#define HookShoulderUpDown_H
 
 #include "../CommandBase.h"
 #include "WPILib.h"
 
-class ScimitarUpDown: public CommandBase
+class HookShoulderUpDown: public CommandBase
 {
 private:
 	int DpadDirection;
 public:
-	ScimitarUpDown();
+	HookShoulderUpDown();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
