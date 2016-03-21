@@ -27,7 +27,7 @@ double SPTMotorMax	= 1;// Max motor speed
 double SPTDistancePerPulseValue = -0.4327;//Angles To Pulse
 float SPTMotorSpeed = .9;
 
-float SPTDeliveryPosition 	= 55;//-34.677 from start
+//float SPTDeliveryPosition 	= 55;//-34.677 from start//TODO needs changing
 float SPTFeederPosition		= -21;//-112.146 from start
 float SPTShootingPosition	= -50;//Position has measured 021716
 double SPTMaxAngle			= 59.024; //Measured 100 degrees  021616 //normally 98
