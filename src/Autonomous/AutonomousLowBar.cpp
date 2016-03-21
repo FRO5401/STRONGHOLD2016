@@ -13,9 +13,9 @@ AutonomousLowBar::AutonomousLowBar(int DefensePosition, int GoalPosition, int Lo
 	//SPT is in the back
 //	AddParallel(new HookShoulderMoveToPosition(45));//TODO determine actual position, needs to be down to go under Low Bar
 //	AddParallel(new ScimitarRetract) //Command not created and ScimitarRetract is not created
-	AddParallel(new SPTMoveToPosition(-24));
-	AddSequential(new AutoDriveCommand(-15));
-	AddSequential(new AutoDriveCommand(-100));//Formerly -200 //Before Formerly -122.5 //TODO calibrate
+	AddParallel(new SPTMoveToPosition(-24.0));
+	AddSequential(new AutoDriveCommand(-15.0));
+	AddSequential(new AutoDriveCommand(-100.0));//Formerly -200 //Before Formerly -122.5 //TODO calibrate
 //	AddSequential(new SPTMoveToPosition(90));
 //	AddSequential(new AutoTurnAngleCommand(38));//46.8 but we overshoot
 //	AddSequential(new AutoDeliverBall(2.0));

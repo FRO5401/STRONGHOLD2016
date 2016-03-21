@@ -158,5 +158,5 @@ float DriveBase::ReportGyro()
 }
 
 float DriveBase::GetEncoderDistance(){
-	return ((RightEnc -> GetDistance() + LeftEnc -> GetDistance())/2);
+	return ((RightEnc -> GetDistance())); //+ LeftEnc -> GetDistance())/2);
 }

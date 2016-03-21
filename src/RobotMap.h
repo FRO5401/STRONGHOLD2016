@@ -132,8 +132,8 @@ const int HookShoulderPot_Channel	= 0;	//MUST BE UPDATED
 const int SPTPot_Channel 		= 1;//MUST BE UPDATED SPT potentiometer channel, under Analogs
 
 //Encoder DIO Channels
-const int Enc_Left_A 	= 6;//Currently not there?
-const int Enc_Left_B 	= 7;//Currently not there?
+const int Enc_Left_A 	= 6; //XXX Should be 6
+const int Enc_Left_B 	= 7; //XXX Should be 7
 const int Enc_Right_A 	= 2;
 const int Enc_Right_B 	= 3;
 const int Enc_SPT_Loc_A = 0;

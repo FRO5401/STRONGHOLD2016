@@ -29,17 +29,18 @@ void AutoDriveCommand::Execute()
 		std::cout << "DesiredDistance to small!!!\n";
 		DoneTraveling = true;
 	} else {
-			if (DesiredDistance > 0 && (DistanceTraveled < fabs(DesiredDistance) - AutoDistThresh)){ //DesiredDistance is positive, go forward
+			if (DesiredDistance > 0 && (DistanceTraveled < (DesiredDistance) - AutoDistThresh)){ //DesiredDistance is positive, go forward
 				drivebase -> Drive(AutoDriveSpeed * kP_Left, AutoDriveSpeed);
 				DoneTraveling = false;
-			} else if (DesiredDistance < 0 && (DistanceTraveled > AutoDistThresh - fabs(DesiredDistance))){ //DesiredDistance is negative, go backward
+			} else if (DesiredDistance < 0 && (DistanceTraveled > AutoDistThresh - abs(DesiredDistance))){ //DesiredDistance is negative, go backward
 				drivebase -> Drive(-AutoDriveSpeed, -AutoDriveSpeed * kP_Right);//There is no kp value here because the kp value makes the robot run curved when going backwards
 				DoneTraveling = false;
-			} else { //error or exactly 0
-				std::cout << "AutoDriveDistance Error!!!\n";
+			} else { //done
+				std::cout << "AutoDriveDistance Finished\n";
 				DoneTraveling = true;
 			}
 		DistanceTraveled = (drivebase -> GetEncoderDistance());
+		SmartDashboard::PutNumber("Distance Traveled", DistanceTraveled);
 	}
 
 }
