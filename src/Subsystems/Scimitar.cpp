@@ -39,7 +39,7 @@ Scimitar::Scimitar() :
 void Scimitar::InitDefaultCommand()
 {
 	SetDefaultCommand(new ScimitarInOut());
-};
+}
 
 void Scimitar::Extend(double ScimChange, bool Override)
 {
