@@ -1,4 +1,4 @@
-#include "AutoDriveCommand.h"
+ #include "AutoDriveCommand.h"
 
  const float	kP_Right = .9;			//Uncomment for getting value from dashboard
  const float	kP_Left = .835;
@@ -13,6 +13,8 @@ AutoDriveCommand::AutoDriveCommand(float DistanceInput)
 	DesiredDistance = DistanceInput;
 	DoneTraveling = true;
 	DistanceTraveled = 0;
+	heading = drivebase -> ReportGyro();
+	drift = 0;
 }
 
 // Called just before this Command runs the first time
@@ -42,6 +44,13 @@ void AutoDriveCommand::Execute()
 		DistanceTraveled = (drivebase -> GetEncoderDistance());
 	}
 
+	//gyro drive straight
+	drift = drivebase -> ReportGyro() - heading;
+	if (drift > .05) { //drifting to the right
+		drivebase -> Drive(AutoDriveSpeed - (kP_Left * drift), AutoDriveSpeed);
+	} else if (drift < .05) { //drifting to the left
+		drivebase -> Drive(AutoDriveSpeed, AutoDriveSpeed - (kP_Right * drift));
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
