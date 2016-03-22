@@ -42,6 +42,11 @@ void Scimitar::InitDefaultCommand()
 	SetDefaultCommand(new ScimitarInOut());
 }
 
+void Scimitar::ExtendRetract(double ScimitarChangeValue, bool Override)
+{
+	LeftScimitarExtender -> Set(1 * ScimitarChangeValue);
+}
+//Erase the following. Does not work.
 void Scimitar::Extend(double ScimChange, bool Override)
 {
 	if (!Override){
@@ -60,7 +65,7 @@ void Scimitar::Extend(double ScimChange, bool Override)
 	SmartDashboard::PutBoolean("RightFarLimit", RightFarLimit->Get());
 	SmartDashboard::PutBoolean("LeftFarLimit", LeftFarLimit->Get());*/
 }
-
+//Erase the following. Does not work.
 void Scimitar::Extend(double ScimChange){
 	if (ScimChange > .2)
 		std::cout << "Moving on up";

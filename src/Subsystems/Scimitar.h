@@ -28,6 +28,7 @@ private:
 public:
 	Scimitar();
 	void InitDefaultCommand();
+	void ExtendRetract(double, bool);
 	void Extend(double, bool);
 	void Extend(double);
 	double ReportPosition();
