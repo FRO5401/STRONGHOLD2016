@@ -53,6 +53,12 @@ void Scimitar::Extend(double ScimChange, bool Override)
 			if (ReportPosition() > MinPosition && ReportPosition() < MaxPosition) //Keeps us from breaking the scimitar
 				Extend(ScimChange);
 	}
+
+	SmartDashboard::PutNumber("ScimitarEnc Distance", ReportPosition());
+	SmartDashboard::PutBoolean("RightCloseLimit", RightCloseLimit->Get());
+	SmartDashboard::PutBoolean("LeftCloseLimit", LeftCloseLimit->Get());
+	SmartDashboard::PutBoolean("RightFarLimit", RightFarLimit->Get());
+	SmartDashboard::PutBoolean("LeftFarLimit", LeftFarLimit->Get());
 }
 
 void Scimitar::Extend(double ScimChange){

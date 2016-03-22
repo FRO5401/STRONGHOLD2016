@@ -65,7 +65,7 @@ void HookShoulder::UpAndDown(double HookShoulderChangeValue, bool Override){
 		HookShoulderChangeValue = ((HookShoulderChangeValue > 0) && (CurrentPosition <= MinPosition)) ? 0 : HookShoulderChangeValue;
 	}
 	//Returns the Angle the HookShoulder is at to the Dashboard
-	SmartDashboard::PutNumber("SPTEnc Raw", HookShoulderPot -> Get());
+	SmartDashboard::PutNumber("HookShoulderPot", HookShoulderPot -> Get());
 }
 
 double HookShoulder::ReportAngle(){
