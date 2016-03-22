@@ -20,11 +20,11 @@ private:
 	Encoder *ScimitarEnc;
 
 	//Limit Switch Variables
-	DigitalInput *RightFarLimit;
+/*	DigitalInput *RightFarLimit;
 	DigitalInput *RightCloseLimit;
 	DigitalInput *LeftFarLimit;
 	DigitalInput *LeftCloseLimit;
-
+*/
 public:
 	Scimitar();
 	void InitDefaultCommand();

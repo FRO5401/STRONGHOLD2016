@@ -30,11 +30,11 @@ Scimitar::Scimitar() :
 	ScimitarEnc			= new Encoder(Enc_Scimitar_A, Enc_Scimitar_B, true, Encoder::k1X);
 	ResetEncoder();
 
-	RightFarLimit = new DigitalInput(RightFarLimit_Channel);
+/*	RightFarLimit = new DigitalInput(RightFarLimit_Channel);
 	RightCloseLimit = new DigitalInput(RightCloseLimit_Channel);
 	LeftFarLimit = new DigitalInput(LeftFarLimit_Channel);
 	LeftCloseLimit = new DigitalInput(LeftCloseLimit_Channel);
-
+*/
 }
 
 void Scimitar::InitDefaultCommand()
@@ -45,23 +45,25 @@ void Scimitar::InitDefaultCommand()
 void Scimitar::Extend(double ScimChange, bool Override)
 {
 	if (!Override){
-		if (!(RightCloseLimit->Get() && LeftCloseLimit->Get())) //runs if close limits aren't triggered
-			if (ReportPosition() > MinPosition && ReportPosition() < WithinFramePos) //Keeps us within frame perimeter
+	//	if (!(RightCloseLimit->Get() && LeftCloseLimit->Get())) //runs if close limits aren't triggered
+	//		if (ReportPosition() > MinPosition && ReportPosition() < WithinFramePos) //Keeps us within frame perimeter
 				Extend(ScimChange);
 	} else {
-		if (!((RightFarLimit->Get() && LeftFarLimit->Get()) || (RightCloseLimit->Get() && LeftCloseLimit->Get()))) //runs if neither set of switches are hit
-			if (ReportPosition() > MinPosition && ReportPosition() < MaxPosition) //Keeps us from breaking the scimitar
+	//	if (!((RightFarLimit->Get() && LeftFarLimit->Get()) || (RightCloseLimit->Get() && LeftCloseLimit->Get()))) //runs if neither set of switches are hit
+	//		if (ReportPosition() > MinPosition && ReportPosition() < MaxPosition) //Keeps us from breaking the scimitar
 				Extend(ScimChange);
 	}
 
 	SmartDashboard::PutNumber("ScimitarEnc Distance", ReportPosition());
-	SmartDashboard::PutBoolean("RightCloseLimit", RightCloseLimit->Get());
+/*	SmartDashboard::PutBoolean("RightCloseLimit", RightCloseLimit->Get());
 	SmartDashboard::PutBoolean("LeftCloseLimit", LeftCloseLimit->Get());
 	SmartDashboard::PutBoolean("RightFarLimit", RightFarLimit->Get());
-	SmartDashboard::PutBoolean("LeftFarLimit", LeftFarLimit->Get());
+	SmartDashboard::PutBoolean("LeftFarLimit", LeftFarLimit->Get());*/
 }
 
 void Scimitar::Extend(double ScimChange){
+	if (ScimChange > .2)
+		std::cout << "Moving on up";
 	LeftScimitarExtender -> Set(ScimChange * ScimPrecision);
 	RightScimitarExtender -> Set(ScimChange * ScimPrecision);
 }

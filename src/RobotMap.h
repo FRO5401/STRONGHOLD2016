@@ -98,7 +98,7 @@ const int RightMotor2	= 1;
 /************
  * Other Motors
  ***********/
-const int SPTShoulderMotor_Channel			= 5;//Current as of 021616
+const int SPTShoulderMotor_Channel			= 5;//Current as of 021616 //5
 
 //Feeder Motors the outer and inner one
 const int FeederOuterFasterMotor_Channel	= 6;//Current as of 021616
@@ -109,8 +109,8 @@ const int HookShoulderMotor_Channel			= 9;
 //Removed Until Further Notice 31816
 //const int ShooterMotor_Channel				= 9;
 
-const int RightScimitar_Channel				= 17;
-const int LeftScimitar_Channel				= 18;
+const int RightScimitar_Channel				= 17; //17
+const int LeftScimitar_Channel				= 10; //18
 /************
  * End Other Motors
  ***********/
@@ -143,14 +143,14 @@ const int Enc_SPT_Loc_B = 1;
 const int Enc_Shooter_A = 4;
 const int Enc_Shooter_B = 5;
 //TODO validate these
-const int Enc_Scimitar_A = 6;
-const int Enc_Scimitar_B = 7;
+const int Enc_Scimitar_A = 8; //was 7
+const int Enc_Scimitar_B = 9; //was 8
 
 //LimitSwitch Channels //TODO Make sure channels match the robot
-const int RightFarLimit_Channel   = 0;
+/*const int RightFarLimit_Channel   = 0;
 const int RightCloseLimit_Channel = 1;
 const int LeftFarLimit_Channel    = 2;
-const int LeftCloseLimit_Channel  = 3;
+const int LeftCloseLimit_Channel  = 3;*/
 
 /************
  * End Sensor Channels
