@@ -45,12 +45,16 @@ void AutoDriveCommand::Execute()
 	}
 
 	//gyro drive straight
+	float left, right;
 	drift = drivebase -> ReportGyro() - heading;
 	if (drift > .5) { //drifting to the right
-		drivebase -> Drive(AutoDriveSpeed - (kP_Left * drift), AutoDriveSpeed);
+		left  = AutoDriveSpeed - (kP_Left * drift);
+		right = AutoDriveSpeed;
 	} else if (drift < .5) { //drifting to the left
-		drivebase -> Drive(AutoDriveSpeed, AutoDriveSpeed - (kP_Right * drift));
+		left  = AutoDriveSpeed;
+		right = AutoDriveSpeed - (kP_Right * drift);
 	}
+	drivebase -> Drive(left, right);
 }
 
 // Make this return true when this Command no longer needs to run execute()
