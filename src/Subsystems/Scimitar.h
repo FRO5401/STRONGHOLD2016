@@ -15,9 +15,11 @@ class Scimitar: public Subsystem
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
-	Victor *ScimitarExtender;	//Variable for motor to extend the scimitar to scale the tower
+	Victor *RightScimitarExtender;	//Variable for motor to extend the scimitar to scale the tower
+	Victor *LeftScimitarExtender;
 	Encoder *ScimitarEnc;
 
+	//Limit Switch Variables
 	DigitalInput *RightFarLimit;
 	DigitalInput *RightCloseLimit;
 	DigitalInput *LeftFarLimit;
@@ -27,8 +29,10 @@ public:
 	Scimitar();
 	void InitDefaultCommand();
 	void Extend(double, bool);
+	void Extend(double);
 	double ReportPosition();
 	void ResetEncoder();
+	void Stop();
 };
 
 #endif
