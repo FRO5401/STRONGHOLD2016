@@ -104,12 +104,12 @@ const int SPTShoulderMotor_Channel			= 5;//Current as of 021616
 const int FeederOuterFasterMotor_Channel	= 6;//Current as of 021616
 const int FeederInnerSlower_Channel			= 7;//Current as of 021616
 
-const int HookShoulderMotor_Channel			= 4;//MUST BE UPDATED
+const int HookShoulderMotor_Channel			= 4;//TODO Enter correct channel when set up
 
 //Removed Until Further Notice 31816
-//const int ShooterMotor_Channel				= 9;//MUST BE UPDATED
+//const int ShooterMotor_Channel				= 9;
 
-const int Scimitar_Channel					= 16;		//MUST BE UPDATED
+const int Scimitar_Channel					= 0; //TODO Figure out correct channel
 /************
  * End Other Motors
  ***********/

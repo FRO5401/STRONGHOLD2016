@@ -44,13 +44,13 @@ void Scimitar::InitDefaultCommand()
 void Scimitar::Extend(double ScimChange, bool Override)
 {
 	if (!Override){
-	if (RightCloseLimit->Get() || LeftCloseLimit->Get()) //Should probably use && to be extra sure
-		if (ReportPosition() > MinPosition && ReportPosition() < WithinFramePos)
-			ScimitarExtender -> Set(ScimChange * ScimPrecision);
+		if (!(RightCloseLimit->Get() && LeftCloseLimit->Get())) //runs if close limits aren't triggered
+			if (ReportPosition() > MinPosition && ReportPosition() < WithinFramePos) //Keeps us within frame perimeter
+				ScimitarExtender -> Set(ScimChange * ScimPrecision);
 	} else {
-	if (RightFarLimit->Get() || LeftFarLimit->Get()) //Should probably use && to be extra sure
-		if (ReportPosition() > WithinFramePos && ReportPosition() < MaxPosition)
-			ScimitarExtender -> Set(ScimChange * ScimPrecision);
+		if (!((RightFarLimit->Get() && LeftFarLimit->Get()) || (RightCloseLimit->Get() && LeftCloseLimit->Get()))) //runs if neither set of switches are hit
+			if (ReportPosition() > MinPosition && ReportPosition() < MaxPosition) //Keeps us from breaking the scimitar
+				ScimitarExtender -> Set(ScimChange * ScimPrecision);
 	}
 }
 
