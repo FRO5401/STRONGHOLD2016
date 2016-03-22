@@ -144,6 +144,13 @@ const int Enc_Shooter_B = 5;
 //TODO validate these
 const int Enc_Scimitar_A = 6;
 const int Enc_Scimitar_B = 7;
+
+//LimitSwitch Channels //TODO Make sure channels match the robot
+const int RightFarLimit_Channel   = 0;
+const int RightCloseLimit_Channel = 1;
+const int LeftFarLimit_Channel    = 2;
+const int LeftCloseLimit_Channel  = 3;
+
 /************
  * End Sensor Channels
  ***********/

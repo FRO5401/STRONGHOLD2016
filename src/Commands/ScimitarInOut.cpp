@@ -15,7 +15,8 @@ void ScimitarInOut::Initialize()
 void ScimitarInOut::Execute()
 {
 	double Input = oi	-> ReadMOHRightStickY();
-	scimitar -> Extend(Input);
+	bool Override = oi -> GetMOHRightStickButton();
+	scimitar -> Extend(Input, Override);
 }
 
 // Make this return true when this Command no longer needs to run execute()

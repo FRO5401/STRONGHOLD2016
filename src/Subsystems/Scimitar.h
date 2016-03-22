@@ -18,10 +18,15 @@ private:
 	Victor *ScimitarExtender;	//Variable for motor to extend the scimitar to scale the tower
 	Encoder *ScimitarEnc;
 
+	DigitalInput *RightFarLimit;
+	DigitalInput *RightCloseLimit;
+	DigitalInput *LeftFarLimit;
+	DigitalInput *LeftCloseLimit;
+
 public:
 	Scimitar();
 	void InitDefaultCommand();
-	void Extend(double);
+	void Extend(double, bool);
 	double ReportPosition();
 	void ResetEncoder();
 };

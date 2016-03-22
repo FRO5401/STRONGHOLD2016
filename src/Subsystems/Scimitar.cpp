@@ -12,17 +12,28 @@
 #include "Commands/ScimitarInOut.h"
 
 const int ScimitarSpeed	=	0.9;
+const int ScimPrecision =   0.5;
 
 const double MaxPosition = 0;
 const double MinPosition = 0;
+const double WithinFramePos = 0;
 
 double ScimitarEncDPP = 1;
+
+//Must temper enc values so that one does not gain on the other
 
 Scimitar::Scimitar() :
 		Subsystem("Scimitar")
 {
 	ScimitarExtender 	= new Victor(Scimitar_Channel);
 	ScimitarEnc			= new Encoder(Enc_Scimitar_A, Enc_Scimitar_B, true, Encoder::k1X);
+	ResetEncoder();
+
+	RightFarLimit = new DigitalInput(RightFarLimit_Channel);
+	RightCloseLimit = new DigitalInput(RightCloseLimit_Channel);
+	LeftFarLimit = new DigitalInput(LeftFarLimit_Channel);
+	LeftCloseLimit = new DigitalInput(LeftCloseLimit_Channel);
+
 }
 
 void Scimitar::InitDefaultCommand()
@@ -30,13 +41,17 @@ void Scimitar::InitDefaultCommand()
 	SetDefaultCommand(new ScimitarInOut());
 };
 
-void Scimitar::Extend(double ScimChange)
+void Scimitar::Extend(double ScimChange, bool Override)
 {
-	double CurrentPosition = ReportPosition();
-	//Zero out the change if angle is at its upper limit and trying to increase
-	ScimChange = ((ScimChange < 0) && (CurrentPosition >= MaxPosition)) ? 0 : ScimChange;
-	//Zero out the change if angle is at its lower limit and trying to decrease
-	ScimChange = ((ScimChange > 0) && (CurrentPosition <= MaxPosition)) ? 0 : ScimChange;
+	if (!Override){
+	if (RightCloseLimit->Get() || LeftCloseLimit->Get()) //Should probably use && to be extra sure
+		if (ReportPosition() > MinPosition && ReportPosition() < WithinFramePos)
+			ScimitarExtender -> Set(ScimChange * ScimPrecision);
+	} else {
+	if (RightFarLimit->Get() || LeftFarLimit->Get()) //Should probably use && to be extra sure
+		if (ReportPosition() > WithinFramePos && ReportPosition() < MaxPosition)
+			ScimitarExtender -> Set(ScimChange * ScimPrecision);
+	}
 }
 
 double Scimitar::ReportPosition(){

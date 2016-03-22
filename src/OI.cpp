@@ -222,7 +222,7 @@ double OI::ReadMOHRightStickY(){
 	return MedalOfHonorController -> GetRawAxis(3);
 }
 
-bool OI::GetMOHRightStickButton(){ //probably not used
+bool OI::GetMOHRightStickButton(){
 	return MedalOfHonorController -> GetRawButton(12);
 }
 
