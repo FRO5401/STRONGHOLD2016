@@ -104,7 +104,7 @@ const int SPTShoulderMotor_Channel			= 5;//Current as of 021616
 const int FeederOuterFasterMotor_Channel	= 6;//Current as of 021616
 const int FeederInnerSlower_Channel			= 7;//Current as of 021616
 
-const int HookShoulderMotor_Channel			= 4;
+const int HookShoulderMotor_Channel			= 9;
 
 //Removed Until Further Notice 31816
 //const int ShooterMotor_Channel				= 9;

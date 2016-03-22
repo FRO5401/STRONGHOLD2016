@@ -114,10 +114,7 @@ void DriveBase::Stop()
 
 void DriveBase::Reset()
 {
-  	LeftDrive1	-> Set(0);
-  	LeftDrive2	-> Set(0);
-  	RightDrive1	-> Set(0);
-  	RightDrive2	-> Set(0);
+  	Stop();
 
   	TimeCount -> Reset();
   	MainGyro  -> Reset();
