@@ -46,9 +46,9 @@ void AutoDriveCommand::Execute()
 
 	//gyro drive straight
 	drift = drivebase -> ReportGyro() - heading;
-	if (drift > .05) { //drifting to the right
+	if (drift > .5) { //drifting to the right
 		drivebase -> Drive(AutoDriveSpeed - (kP_Left * drift), AutoDriveSpeed);
-	} else if (drift < .05) { //drifting to the left
+	} else if (drift < .5) { //drifting to the left
 		drivebase -> Drive(AutoDriveSpeed, AutoDriveSpeed - (kP_Right * drift));
 	}
 }
