@@ -49,7 +49,7 @@ void Scimitar::ExtendRetract(double ScimitarChangeValue, bool Override)
 //Erase the following. Does not work.
 void Scimitar::Extend(double ScimChange, bool Override)
 {
-	if (!Override){
+/*	if (!Override){
 	//	if (!(RightCloseLimit->Get() && LeftCloseLimit->Get())) //runs if close limits aren't triggered
 	//		if (ReportPosition() > MinPosition && ReportPosition() < WithinFramePos) //Keeps us within frame perimeter
 				Extend(ScimChange);
@@ -57,7 +57,8 @@ void Scimitar::Extend(double ScimChange, bool Override)
 	//	if (!((RightFarLimit->Get() && LeftFarLimit->Get()) || (RightCloseLimit->Get() && LeftCloseLimit->Get()))) //runs if neither set of switches are hit
 	//		if (ReportPosition() > MinPosition && ReportPosition() < MaxPosition) //Keeps us from breaking the scimitar
 				Extend(ScimChange);
-	}
+	} */
+	Extend(ScimChange);
 
 	SmartDashboard::PutNumber("ScimitarEnc Distance", ReportPosition());
 /*	SmartDashboard::PutBoolean("RightCloseLimit", RightCloseLimit->Get());
@@ -65,12 +66,12 @@ void Scimitar::Extend(double ScimChange, bool Override)
 	SmartDashboard::PutBoolean("RightFarLimit", RightFarLimit->Get());
 	SmartDashboard::PutBoolean("LeftFarLimit", LeftFarLimit->Get());*/
 }
-//Erase the following. Does not work.
+//Jason wants to get rid of overloading. Matt thinks its amazing. Suhail agrees. But doesn't work so Jason is right.
 void Scimitar::Extend(double ScimChange){
-	if (ScimChange > .2)
-		std::cout << "Moving on up";
-	LeftScimitarExtender -> Set(ScimChange * ScimPrecision);
-	RightScimitarExtender -> Set(ScimChange * ScimPrecision);
+//	if (ScimChange > .2)
+//		std::cout << "Moving on up";
+	LeftScimitarExtender -> Set(ScimChange);
+	RightScimitarExtender -> Set(ScimChange);
 }
 
 double Scimitar::ReportPosition(){

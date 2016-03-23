@@ -17,8 +17,8 @@ void ScimitarInOut::Execute()
 	double Input = oi	-> ReadMOHRightStickY();
 	SmartDashboard::PutNumber("MOHRightStickY", Input);
 	bool Override = oi -> GetMOHRightStickButton();
-//	scimitar -> Extend(Input); //TODO Put ovveride back in
-	scimitar -> ExtendRetract(Input, true);
+	scimitar -> Extend(Input, Override);
+//	scimitar -> ExtendRetract(Input, true);
 }
 
 // Make this return true when this Command no longer needs to run execute()
