@@ -1,7 +1,5 @@
-#include "AutoDriveCommand.h"
+ #include "AutoDriveCommand.h"
 
- const float	kP_Right = .9;			//Uncomment for getting value from dashboard
- const float	kP_Left = .835;
  const double AutoDriveSpeed	= 0.5;
  const float DefaultTurnPrecision = 0.5;
  const float AutoDistThresh = 2;
@@ -13,12 +11,19 @@ AutoDriveCommand::AutoDriveCommand(float DistanceInput)
 	DesiredDistance = DistanceInput;
 	DoneTraveling = true;
 	DistanceTraveled = 0;
+	heading = drivebase -> ReportGyro();
+	drift = 0;
+	kP_Drift = .1;
 }
 
 // Called just before this Command runs the first time
 void AutoDriveCommand::Initialize()
 {
 	drivebase -> EncoderReset();
+	heading = drivebase -> ReportGyro();
+	drift = 0;
+
+	SmartDashboard::PutNumber("heading", heading);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -29,20 +34,28 @@ void AutoDriveCommand::Execute()
 		std::cout << "DesiredDistance to small!!!\n";
 		DoneTraveling = true;
 	} else {
-			if (DesiredDistance > 0 && (DistanceTraveled < (DesiredDistance) - AutoDistThresh)){ //DesiredDistance is positive, go forward
-				drivebase -> Drive(AutoDriveSpeed * kP_Left, AutoDriveSpeed);
+		drift = drivebase -> ReportGyro() - heading;
+		SmartDashboard::PutNumber("Drift", drift);
+			if (DesiredDistance > 0 && (DistanceTraveled < fabs(DesiredDistance) - AutoDistThresh)){ //DesiredDistance is positive, go forward
+				if (drift < -1){ //Currently assumes we always drift left while going forwards
+					drivebase -> Drive(AutoDriveSpeed, AutoDriveSpeed + (kP_Drift * drift));
+				} else {
+					drivebase -> Drive(AutoDriveSpeed, AutoDriveSpeed);
+				}
 				DoneTraveling = false;
-			} else if (DesiredDistance < 0 && (DistanceTraveled > AutoDistThresh - abs(DesiredDistance))){ //DesiredDistance is negative, go backward
-				drivebase -> Drive(-AutoDriveSpeed, -AutoDriveSpeed * kP_Right);//There is no kp value here because the kp value makes the robot run curved when going backwards
+			} else if (DesiredDistance < 0 && (DistanceTraveled > AutoDistThresh - fabs(DesiredDistance))){ //DesiredDistance is negative, go backward
+				if(drift > 1){ //Currently assumes we always drift right while going backwards //TODO need to find slightly different KP for backwards
+					drivebase -> Drive(-(AutoDriveSpeed + (kP_Drift * drift)), -AutoDriveSpeed);//There is no kp value here because the kp value makes the robot run curved when going backwards
+				}else{
+					drivebase -> Drive(-AutoDriveSpeed, -AutoDriveSpeed);
+				}
 				DoneTraveling = false;
-			} else { //done
-				std::cout << "AutoDriveDistance Finished\n";
+			} else { //error, exactly 0, or done
+				std::cout << "AutoDriveDistance Error!!!\n";
 				DoneTraveling = true;
 			}
 		DistanceTraveled = (drivebase -> GetEncoderDistance());
-		SmartDashboard::PutNumber("Distance Traveled", DistanceTraveled);
 	}
-
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -63,4 +76,3 @@ void AutoDriveCommand::Interrupted()
 {
 	drivebase -> Stop();
 }
-

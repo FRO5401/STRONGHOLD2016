@@ -10,6 +10,9 @@ public:
 	float DesiredDistance;
 	bool DoneTraveling;
 	float DistanceTraveled;
+	float heading;
+	float drift;
+	float kP_Drift;
 
 	AutoDriveCommand(float);
 	void Initialize();
