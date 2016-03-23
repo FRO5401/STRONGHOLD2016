@@ -40,7 +40,6 @@ void XboxMove::Execute()
 	
 	double Right,Left, Sensitivity;
 
-
 	if (Precision) { //Sets drive precision based on RobotMap and Precision Mode
 		Sensitivity	=	Drive_Sensitivity_Precise;
 	} else {

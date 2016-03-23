@@ -6,6 +6,7 @@
 #include "Commands/XboxMove.h"
 #include "Commands/AbortReach.h"
 #include "Autonomous/AutoDeliverBall.h"
+#include "Autonomous/AutoDriveCommand.h";
 #include "Commands/AutoLaunch.h"
 #include "Commands/ChargeCompressor.h"
 #include "Commands/DeployHook.h"
@@ -83,7 +84,7 @@ OI::OI()
 	MOHRightBumper	-> WhenPressed(new FeedInFromInner());
 	MOHRightBumper  -> WhenReleased(new FeederStop());
 	
-	MOHStartButton -> WhenPressed(new AutoDriveCommand(60));
+	MOHStartButton -> WhenPressed(new AutoDriveCommand(36));
 
 //	MOHStartButton	-> WhenPressed(new AutoDeliverBall(1.5)); //Commented out, using button to auto drive
 

@@ -1,7 +1,7 @@
  #include "AutoDriveCommand.h"
 
- const float	kP_Right = .9;			//Uncomment for getting value from dashboard
- const float	kP_Left = .835;
+ //const float	kP_Right = .9;			//Uncomment for getting value from dashboard
+ //const float	kP_Left = .835;
  const double AutoDriveSpeed	= 0.5;
  const float DefaultTurnPrecision = 0.5;
  const float AutoDistThresh = 2;
@@ -15,12 +15,19 @@ AutoDriveCommand::AutoDriveCommand(float DistanceInput)
 	DistanceTraveled = 0;
 	heading = drivebase -> ReportGyro();
 	drift = 0;
+	kP_Right = .9;
+	kP_Left = 835;
 }
 
 // Called just before this Command runs the first time
 void AutoDriveCommand::Initialize()
 {
 	drivebase -> EncoderReset();
+	SmartDashboard::PutNumber("kP_Left(Forwards)", kP_Left);
+	SmartDashboard::PutNumber("kP_Right(Forwards)", kP_Right);
+	Wait(7);
+	SmartDashboard::GetNumber("kP_Left(Forwards)", kP_Left);
+	SmartDashboard::GetNumber("kP_Right(Forwards)", kP_Right);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -50,7 +57,7 @@ void AutoDriveCommand::Execute()
 	if (drift > .5) { //drifting to the right
 		left  = AutoDriveSpeed - (kP_Left * drift);
 		right = AutoDriveSpeed;
-	} else if (drift < .5) { //drifting to the left
+	} else if (drift < -.5) { //drifting to the left
 		left  = AutoDriveSpeed;
 		right = AutoDriveSpeed - (kP_Right * drift);
 	}

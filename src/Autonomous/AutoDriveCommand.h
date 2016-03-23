@@ -12,6 +12,8 @@ public:
 	float DistanceTraveled;
 	float heading;
 	float drift;
+	float kP_Left;
+	float kP_Right;
 
 	AutoDriveCommand(float);
 	void Initialize();
