@@ -84,5 +84,5 @@ void Scimitar::ResetEncoder(){
 }
 
 void Scimitar::Stop(){
-	Extend(0);
+	Move(0);
 }
