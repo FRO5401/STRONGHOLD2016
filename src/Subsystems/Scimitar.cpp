@@ -20,7 +20,7 @@ const double WithinFramePos = 0;
 
 double ScimitarEncDPP = 1;
 
-//Must temper enc values so that one does not gain on the other
+//TODO Must temper enc values so that one does not gain on the other
 
 Scimitar::Scimitar() :
 		Subsystem("Scimitar")
@@ -28,7 +28,6 @@ Scimitar::Scimitar() :
 	RightScimitarExtender 	= new Victor(RightScimitar_Channel);
 	LeftScimitarExtender 	= new Victor(LeftScimitar_Channel);
 	ScimitarEnc			= new Encoder(Enc_Scimitar_A, Enc_Scimitar_B, true, Encoder::k1X);
-	ResetEncoder();
 
 /*	RightFarLimit = new DigitalInput(RightFarLimit_Channel);
 	RightCloseLimit = new DigitalInput(RightCloseLimit_Channel);
@@ -40,6 +39,7 @@ Scimitar::Scimitar() :
 void Scimitar::InitDefaultCommand()
 {
 	SetDefaultCommand(new ScimitarInOut());
+	ResetEncoder();
 }
 
 void Scimitar::ExtendRetract(double ScimitarChangeValue, bool Override)
@@ -47,7 +47,7 @@ void Scimitar::ExtendRetract(double ScimitarChangeValue, bool Override)
 	LeftScimitarExtender -> Set(1 * ScimitarChangeValue);
 }
 //Erase the following. Does not work.
-void Scimitar::Extend(double ScimChange, bool Override)
+void Scimitar::Control(double ScimChange, bool Override)
 {
 /*	if (!Override){
 	//	if (!(RightCloseLimit->Get() && LeftCloseLimit->Get())) //runs if close limits aren't triggered
@@ -58,7 +58,7 @@ void Scimitar::Extend(double ScimChange, bool Override)
 	//		if (ReportPosition() > MinPosition && ReportPosition() < MaxPosition) //Keeps us from breaking the scimitar
 				Extend(ScimChange);
 	} */
-	Extend(ScimChange);
+	Move(ScimChange);
 
 	SmartDashboard::PutNumber("ScimitarEnc Distance", ReportPosition());
 /*	SmartDashboard::PutBoolean("RightCloseLimit", RightCloseLimit->Get());
@@ -67,7 +67,7 @@ void Scimitar::Extend(double ScimChange, bool Override)
 	SmartDashboard::PutBoolean("LeftFarLimit", LeftFarLimit->Get());*/
 }
 //Jason wants to get rid of overloading. Matt thinks its amazing. Suhail agrees. But doesn't work so Jason is right.
-void Scimitar::Extend(double ScimChange){
+void Scimitar::Move(double ScimChange){
 //	if (ScimChange > .2)
 //		std::cout << "Moving on up";
 	LeftScimitarExtender -> Set(ScimChange);

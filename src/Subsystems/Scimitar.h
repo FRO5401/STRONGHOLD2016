@@ -29,8 +29,8 @@ public:
 	Scimitar();
 	void InitDefaultCommand();
 	void ExtendRetract(double, bool);
-	void Extend(double, bool);
-	void Extend(double);
+	void Control(double, bool);
+	void Move(double);
 	double ReportPosition();
 	void ResetEncoder();
 	void Stop();

@@ -17,7 +17,7 @@ void ScimitarInOut::Execute()
 	double Input = oi	-> ReadMOHRightStickY();
 	SmartDashboard::PutNumber("MOHRightStickY", Input);
 	bool Override = oi -> GetMOHRightStickButton();
-	scimitar -> Extend(Input, Override);
+	scimitar -> Control(Input, Override);
 //	scimitar -> ExtendRetract(Input, true);
 }
 
