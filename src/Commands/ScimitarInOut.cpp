@@ -15,7 +15,7 @@ void ScimitarInOut::Initialize()
 void ScimitarInOut::Execute()
 {
 	double Input = oi	-> ReadMOHRightStickY();
-	scimitar -> Extend(Input);
+	//scimitar -> Extend(Input);
 }
 
 // Make this return true when this Command no longer needs to run execute()

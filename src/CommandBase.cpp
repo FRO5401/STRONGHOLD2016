@@ -38,7 +38,7 @@ void CommandBase::init()
 	feeder				= new Feeder();
 	hookshoulder 		= new HookShoulder();
 	offboardcompressor 	= new OffboardCompressor();
-	scimitar			= new Scimitar();
+//	scimitar			= new Scimitar();
 //	shorthook			= new ShortHook();
 	spt					= new SPT();
 	waterytart			= new WateryTart();

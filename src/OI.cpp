@@ -6,7 +6,7 @@
 #include "Commands/XboxMove.h"
 #include "Commands/AbortReach.h"
 #include "Autonomous/AutoDeliverBall.h"
-#include "Autonomous/AutoDriveCommand.h";
+#include "Autonomous/AutoDriveCommand.h"
 #include "Commands/AutoLaunch.h"
 #include "Commands/ChargeCompressor.h"
 #include "Commands/DeployHook.h"

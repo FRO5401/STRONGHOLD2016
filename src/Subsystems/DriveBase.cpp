@@ -43,12 +43,12 @@ DriveBase::DriveBase() :
  //	RightEnc -> Reset();
  	
  	//Offset for drive motors when driving autonomously
- 	kP_Right = .9;			//Uncomment for getting value from dashboard
- 	kP_Left = .835;
+ //	kP_Right = .9;			//Uncomment for getting value from dashboard
+// 	kP_Left = .835;
  	DPPRight = (1/6.318);
  	DPPLeft = (-1/6.318);
- 	SmartDashboard::PutNumber("kP Backwards Value", kP_Right);
- 	SmartDashboard::PutNumber("kP Forwards Value", kP_Left);
+// 	SmartDashboard::PutNumber("kP Backwards Value", kP_Right);
+// 	SmartDashboard::PutNumber("kP Forwards Value", kP_Left);
  	SmartDashboard::PutNumber("DPPRight", DPPRight);
  	SmartDashboard::PutNumber("DPPLeft", DPPLeft);
 
