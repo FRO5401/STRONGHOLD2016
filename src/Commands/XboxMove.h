@@ -15,6 +15,7 @@ class XboxMove: public CommandBase
 {
 private:
 	float DesiredDistance;
+	float heading;
 
 public:
 	XboxMove();

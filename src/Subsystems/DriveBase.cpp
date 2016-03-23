@@ -86,6 +86,7 @@ void DriveBase::Drive(double LeftDriveDesired, double RightDriveDesired)
   SmartDashboard::GetNumber("Initial Gyro Value", initialGyro);
   //SmartDashboard::PutNumber("Gyro Angle", ReportGyro());	//doesn't work for some reason
   SmartDashboard::PutNumber("Gyro GetAngle", MainGyro -> GetAngle());
+  SmartDashboard::PutNumber("Gyro Adjusted for Creep", ReportGyro());
   }
 /*
  * Pneumatic shfting is out of design at this point
@@ -151,10 +152,11 @@ if ((RawErr >= 0 && RawErr <=180) || (RawErr >= -360 && RawErr <= -180)) {//Dete
 
 float DriveBase::ReportGyro()
 {
-  	float Angle = (GyroScalar * MainGyro	->	GetAngle());
+ /* 	float Angle = (GyroScalar * MainGyro	->	GetAngle());
    	double Time = TimeCount -> Get();
    	float AdjAngle = Angle - (GyroLinearAdj * Time + GyroOffset);//Compensates for gyro creep - basically subtracts out mx+b the linear creep function
-  	return AdjAngle;
+  	return AdjAngle; */
+	return MainGyro -> GetAngle();
 }
 
 float DriveBase::GetEncoderDistance(){

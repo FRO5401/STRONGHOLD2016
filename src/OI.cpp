@@ -1,11 +1,14 @@
 #include "OI.h"
 #include "RobotMap.h"
+
+#include "Commands/AutoDriveTesting.h"
 //Include all commands h files, because they will used to tell what to do when a button is pressed
 //MORE MAY BE ADD, SOME MAY BE DELETED
 //Updated as of 1/27/16 at 5 pm
 #include "Commands/XboxMove.h"
 #include "Commands/AbortReach.h"
 #include "Autonomous/AutoDeliverBall.h"
+#include "Autonomous/AutoDriveCommand.h"
 #include "Commands/AutoLaunch.h"
 #include "Commands/ChargeCompressor.h"
 #include "Commands/DeployHook.h"
@@ -83,6 +86,7 @@ OI::OI()
 	MOHRightBumper	-> WhenPressed(new FeedInFromInner());
 	MOHRightBumper  -> WhenReleased(new FeederStop());
 	
+//	MOHStartButton -> WhenPressed(new AutoDriveTesting());
 
 //	MOHStartButton	-> WhenPressed(new AutoDeliverBall(1.5)); //Commented out, using button to auto drive
 

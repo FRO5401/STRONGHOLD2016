@@ -89,6 +89,7 @@
 
 #include "Autonomous/MoveForwardOnly.h"
 #include "Commands/DoNothing.h"
+#include "Commands/AutoDriveTesting.h"
 
 //2016 Stronghold code
 class Robot: public IterativeRobot
@@ -181,6 +182,7 @@ private:
 //		autoMode->AddObject("SpyBot", new AutonomousSpyBot()); //Restore when command is written, plus need one for each position
 		autoMode->AddObject("Do Nothing", new DoNothing());
 		autoMode->AddObject("Move Forward to Outer Works Only", new MoveForwardOnly());
+		autoMode->AddObject("AutoDriveTesting", new AutoDriveTesting());
 		SmartDashboard::PutData("Autonomous Mode", autoMode);
 		Scheduler::GetInstance()->Run();
 	}
