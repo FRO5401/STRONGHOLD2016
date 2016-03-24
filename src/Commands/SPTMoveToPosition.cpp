@@ -20,10 +20,10 @@ void SPTMoveToPosition::Initialize()
 void SPTMoveToPosition::Execute()
 {
 	if (spt -> ReportAngle() > DesiredAngle + SPTAngleTolerance){
-		spt -> UpAndDown(1, false); //positive value goes down
+		spt -> UpAndDown(1.5, false); //positive value goes down
 		finished = false;
 	} else if (spt ->ReportAngle() < DesiredAngle - SPTAngleTolerance){
-		spt -> UpAndDown(-1, false); //negative value goes up
+		spt -> UpAndDown(-1.5, false); //negative value goes up
 		finished = false;
 	} else {
 		finished = true;

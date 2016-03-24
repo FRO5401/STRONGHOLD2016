@@ -15,7 +15,8 @@ AutonomousLowBar::AutonomousLowBar(int DefensePosition, int GoalPosition, int Lo
 //	AddParallel(new ScimitarRetract) //Command not created and ScimitarRetract is not created
 	AddParallel(new SPTMoveToPosition(-24.0));
 	AddSequential(new AutoDriveCommand(-15.0));
-	AddSequential(new AutoDriveCommand(-100.0));//Formerly -200 //Before Formerly -122.5 //TODO calibrate
+	AddSequential(new WaitCommand(3));
+	AddSequential(new AutoDriveCommand(-125.0));//Formerly -200 //Before Formerly -122.5 //TODO calibrate
 //	AddSequential(new SPTMoveToPosition(90));
 //	AddSequential(new AutoTurnAngleCommand(38));//46.8 but we overshoot
 //	AddSequential(new AutoDeliverBall(2.0));
