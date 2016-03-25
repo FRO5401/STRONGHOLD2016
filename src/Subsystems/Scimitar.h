@@ -26,6 +26,7 @@ private:
 	float MaxPosition;
 	float MinPosition;
 	float WithinFramePos;
+	float OnBumperPos;
 
 	//Limit Switch Variables
 /*	DigitalInput *RightFarLimit;
@@ -41,6 +42,9 @@ public:
 	void Move(double);
 	double ReportLeftPosition();
 	double ReportRightPosition();
+	bool CheckCloseLimit();
+	bool CheckFarLimit();
+	bool CheckLimitSwitches();
 	void ResetEncoders();
 	void Stop();
 };

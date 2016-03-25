@@ -30,6 +30,7 @@ Scimitar::Scimitar() :
 	MaxPosition = 0;
 	MinPosition = 0;
 	WithinFramePos = 0;
+	OnBumperPos = 0;
 
 	SmartDashboard::PutNumber("SCIM Max", MaxPosition);
 	SmartDashboard::PutNumber("SCIM Min", MinPosition);
@@ -54,14 +55,40 @@ void Scimitar::Control(double ScimChange, bool Override)
 	SmartDashboard::PutNumber("SCIM Min", MinPosition);
 	SmartDashboard::PutNumber("SCIM WithinFrame", WithinFramePos);
 
-	if (!Override){
-	//	if (!(RightCloseLimit->Get() && LeftCloseLimit->Get())) //runs if close limits aren't triggered
-	//		if ((ReportLeftPosition() > MinPosition && ReportLeftPosition() < WithinFramePos) && (ReportRightPosition() > MinPosition && ReportRightPosition() < WithinFramePos)) //Keeps us within frame perimeter
+	if (!Override){ //For use during majority of match
+		if (CheckLimitSwitches()){ //runs if neither set of limit switches are hit
+			if ((ReportLeftPosition() > MinPosition && ReportLeftPosition() < WithinFramePos) && (ReportRightPosition() > MinPosition && ReportRightPosition() < WithinFramePos)) //Keeps us within frame perimeter
 				Move(ScimChange);
-	} else {
-	//	if (!((RightFarLimit->Get() && LeftFarLimit->Get()) || (RightCloseLimit->Get() && LeftCloseLimit->Get()))) //runs if neither set of switches are hit
-	//		if ((ReportLeftPosition() > MinPosition && ReportLeftPosition() < MaxPosition) && (ReportRightPosition() > MinPosition && ReportRightPosition() < MaxPosition)) //Keeps us from breaking the scimitar
+		} else {
+			if (CheckCloseLimit()){ //only allow going up
+				if (ScimChange > 0)
+					Move(ScimChange);
+				else
+					Stop();
+			} else if (CheckFarLimit()){ //only allow going down
+				if (ScimChange < 0)
+					Move(ScimChange);
+				else
+					Stop();
+			}
+		}
+	} else { //Used during last 15 seconds of match
+		if (CheckLimitSwitches()){ //runs if neither set of limit switches are hit
+			if ((ReportLeftPosition() > MinPosition && ReportLeftPosition() < MaxPosition) && (ReportRightPosition() > MinPosition && ReportRightPosition() < MaxPosition)) //Keeps us from breaking the scimitar
 				Move(ScimChange);
+		} else {
+			if (CheckCloseLimit()){ //only allow going up
+				if (ScimChange > 0)
+					Move(ScimChange);
+				else
+					Stop();
+			} else if (CheckFarLimit()){ //only allow going down
+				if (ScimChange < 0)
+					Move(ScimChange);
+				else
+					Stop();
+			}
+		}
 	}
 
 	SmartDashboard::PutNumber("ScimitarLeftEnc Distance", ReportLeftPosition());
@@ -83,6 +110,21 @@ double Scimitar::ReportLeftPosition(){
 
 double Scimitar::ReportRightPosition(){
 	return ScimitarRightEnc -> GetDistance();
+}
+
+bool CheckCloseLimit(){
+//	return (RightFarLimit->Get() && LeftFarLimit->Get());
+	return false;
+}
+
+bool CheckFarLimit(){
+//	return (RightFarLimit->Get() && LeftFarLimit->Get());
+	return false;
+}
+
+bool CheckLimitSwitches(){
+//	return !(CheckCloseLimit() || CheckFarLimit());
+	return false;
 }
 
 void Scimitar::ResetEncoders(){
