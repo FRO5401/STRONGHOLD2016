@@ -37,15 +37,15 @@ void AutoDriveCommand::Execute()
 		drift = drivebase -> ReportGyro() - heading;
 		SmartDashboard::PutNumber("Drift", drift);
 			if (DesiredDistance > 0 && (DistanceTraveled < fabs(DesiredDistance) - AutoDistThresh)){ //DesiredDistance is positive, go forward
-				if (drift < -1){ //Currently assumes we always drift left while going forwards
-					drivebase -> Drive(AutoDriveSpeed, AutoDriveSpeed + (kP_Drift * drift));
+				if (drift < -.5){ //Currently assumes we always drift left while going forwards
+					drivebase -> Drive(AutoDriveSpeed, AutoDriveSpeed + (kP_Drift * drift)); //Adjust right motor when driving forwards
 				} else {
 					drivebase -> Drive(AutoDriveSpeed, AutoDriveSpeed);
 				}
 				DoneTraveling = false;
 			} else if (DesiredDistance < 0 && (DistanceTraveled > AutoDistThresh - fabs(DesiredDistance))){ //DesiredDistance is negative, go backward
-				if(drift > 1){ //Currently assumes we always drift right while going backwards //TODO need to find slightly different KP for backwards
-					drivebase -> Drive(-(AutoDriveSpeed + (kP_Drift * drift)), -AutoDriveSpeed);//There is no kp value here because the kp value makes the robot run curved when going backwards
+				if(drift > .5){ //Currently assumes we always drift right while going backwards
+					drivebase -> Drive(-(AutoDriveSpeed + (kP_Drift * drift)), -AutoDriveSpeed);//Adjusts left motor when driving backwards
 				}else{
 					drivebase -> Drive(-AutoDriveSpeed, -AutoDriveSpeed);
 				}
