@@ -20,9 +20,6 @@ private:
 	Encoder *ScimitarRightEnc;
 	Encoder *ScimitarLeftEnc;
 
-	float ScimitarLeftEncDPP;
-	float ScimitarRightEncDPP;
-
 	float MaxPosition;
 	float MinPosition;
 	float WithinFramePos;
@@ -37,9 +34,10 @@ private:
 public:
 	Scimitar();
 	void InitDefaultCommand();
-	void ExtendRetract(double, bool);
 	void Control(double, bool);
 	void Move(double);
+	void MoveRight(double);
+	void MoveLeft(double);
 	double ReportLeftPosition();
 	double ReportRightPosition();
 	bool CheckCloseLimit();

@@ -18,6 +18,7 @@ void ScimitarInOut::Execute()
 	SmartDashboard::PutNumber("MOHRightStickY", Input);
 	bool Override = oi -> GetMOHRightStickButton();
 	scimitar -> Control(Input, Override);
+//	scimitar -> Move(Input * .2);
 }
 
 // Make this return true when this Command no longer needs to run execute()

@@ -96,7 +96,7 @@ const int RightMotor2	= 1;
  *******************/
 
 /************
- * Other Motors
+ * Other Motors (PWM)
  ***********/
 const int SPTShoulderMotor_Channel			= 5;//Current as of 021616 //5
 
@@ -109,8 +109,8 @@ const int HookShoulderMotor_Channel			= 9;
 //Removed Until Further Notice 31816
 //const int ShooterMotor_Channel				= 9;
 
-const int RightScimitar_Channel				= 17; //17
-const int LeftScimitar_Channel				= 10; //18
+const int RightScimitar_Channel				= 8; //10
+const int LeftScimitar_Channel				= 4; //11
 /************
  * End Other Motors
  ***********/
@@ -133,8 +133,8 @@ const int HookShoulderPot_Channel	= 0;	//MUST BE UPDATED
 const int SPTPot_Channel 		= 1;//MUST BE UPDATED SPT potentiometer channel, under Analogs
 
 //Encoder DIO Channels
-const int Enc_Left_A 	= 6; //XXX Should be 6
-const int Enc_Left_B 	= 7; //XXX Should be 7
+const int Enc_Left_A 	= 4; //XXX Should be 6 //not plugged in
+const int Enc_Left_B 	= 5; //XXX Should be 7 //not plugged in
 const int Enc_Right_A 	= 2;
 const int Enc_Right_B 	= 3;
 const int Enc_SPT_Loc_A = 0;
@@ -146,8 +146,8 @@ const int Enc_SPT_Loc_B = 1;
 
 const int Left_Enc_Scimitar_A = 8; //was 7
 const int Left_Enc_Scimitar_B = 9; //was 8
-const int Right_Enc_Scimitar_A = 4;
-const int Right_Enc_Scimitar_B = 5;
+const int Right_Enc_Scimitar_A = 6;
+const int Right_Enc_Scimitar_B = 7;
 
 //LimitSwitch Channels //TODO Make sure channels match the robot
 /*const int RightFarLimit_Channel   = 0;

@@ -11,11 +11,11 @@
 #include "../RobotMap.h"
 #include "Commands/ScimitarInOut.h"
 
-const int ScimitarSpeed	=	0.9;
-const int ScimPrecision =   0.5;
+const double ScimitarSpeed	=	0.9;
+const double ScimPrecision =   0.2;
 
-const float ScimitarRightEncDPP = 1;
-const float ScimitarLeftEncDPP  = 1;
+const double ScimitarRightEncDPP = 7.5 / 162914;
+const double ScimitarLeftEncDPP  = 8.125 / 176036;
 
 //TODO Must temper enc values so that one does not gain on the other
 
@@ -36,6 +36,9 @@ Scimitar::Scimitar() :
 	SmartDashboard::PutNumber("SCIM Min", MinPosition);
 	SmartDashboard::PutNumber("SCIM WithinFrame", WithinFramePos);
 
+	SmartDashboard::PutNumber("ScimitarLeftEnc Distance", ReportLeftPosition());
+	SmartDashboard::PutNumber("ScimitarRightEnc Distance", ReportRightPosition());
+
 /*	RightFarLimit = new DigitalInput(RightFarLimit_Channel);
 	RightCloseLimit = new DigitalInput(RightCloseLimit_Channel);
 	LeftFarLimit = new DigitalInput(LeftFarLimit_Channel);
@@ -55,11 +58,11 @@ void Scimitar::Control(double ScimChange, bool Override)
 	SmartDashboard::PutNumber("SCIM Min", MinPosition);
 	SmartDashboard::PutNumber("SCIM WithinFrame", WithinFramePos);
 
-	if (!Override){ //For use during majority of match
-		if (CheckLimitSwitches()){ //runs if neither set of limit switches are hit
-			if ((ReportLeftPosition() > MinPosition && ReportLeftPosition() < WithinFramePos) && (ReportRightPosition() > MinPosition && ReportRightPosition() < WithinFramePos)) //Keeps us within frame perimeter
-				Move(ScimChange);
-		} else {
+//	if (!Override){ //For use during majority of match
+	//	if (CheckLimitSwitches()){ //runs if neither set of limit switches are hit
+	//		if ((ReportLeftPosition() > MinPosition && ReportLeftPosition() < WithinFramePos) && (ReportRightPosition() > MinPosition && ReportRightPosition() < WithinFramePos)) //Keeps us within frame perimeter
+//				Move(ScimChange * ScimPrecision);
+	/*	} else {
 			if (CheckCloseLimit()){ //only allow going up
 				if (ScimChange > 0)
 					Move(ScimChange);
@@ -71,12 +74,12 @@ void Scimitar::Control(double ScimChange, bool Override)
 				else
 					Stop();
 			}
-		}
-	} else { //Used during last 15 seconds of match
-		if (CheckLimitSwitches()){ //runs if neither set of limit switches are hit
-			if ((ReportLeftPosition() > MinPosition && ReportLeftPosition() < MaxPosition) && (ReportRightPosition() > MinPosition && ReportRightPosition() < MaxPosition)) //Keeps us from breaking the scimitar
-				Move(ScimChange);
-		} else {
+		} */
+//	} else { //Used during last 15 seconds of match
+	//	if (CheckLimitSwitches()){ //runs if neither set of limit switches are hit
+	//		if ((ReportLeftPosition() > MinPosition && ReportLeftPosition() < MaxPosition) && (ReportRightPosition() > MinPosition && ReportRightPosition() < MaxPosition)) //Keeps us from breaking the scimitar
+//				Move(ScimChange * ScimPrecision);
+	/*	} else {
 			if (CheckCloseLimit()){ //only allow going up
 				if (ScimChange > 0)
 					Move(ScimChange);
@@ -88,8 +91,10 @@ void Scimitar::Control(double ScimChange, bool Override)
 				else
 					Stop();
 			}
-		}
-	}
+		} */
+//	}
+	SmartDashboard::PutNumber("ScimChange in Control", ScimChange);
+	Move(ScimChange);
 
 	SmartDashboard::PutNumber("ScimitarLeftEnc Distance", ReportLeftPosition());
 	SmartDashboard::PutNumber("ScimitarRightEnc Distance", ReportRightPosition());
@@ -99,30 +104,42 @@ void Scimitar::Control(double ScimChange, bool Override)
 	SmartDashboard::PutBoolean("LeftFarLimit", LeftFarLimit->Get());*/
 }
 
-void Scimitar::Move(double ScimChange){
+void Scimitar::Move(double ScimChangeValue){
+	ScimChangeValue *= ScimPrecision;
+	SmartDashboard::PutNumber("ScimChangeValue", ScimChangeValue);
+	LeftScimitarExtender -> Set(ScimChangeValue);
+	RightScimitarExtender -> Set(ScimChangeValue);
+}
+
+void Scimitar::MoveLeft(double ScimChange){
 	LeftScimitarExtender -> Set(ScimChange);
+}
+
+void Scimitar::MoveRight(double ScimChange){
 	RightScimitarExtender -> Set(ScimChange);
 }
 
 double Scimitar::ReportLeftPosition(){
+	SmartDashboard::PutNumber("SCIM LeftEnc Raw", ScimitarLeftEnc -> Get());
 	return ScimitarLeftEnc ->GetDistance();
 }
 
 double Scimitar::ReportRightPosition(){
+	SmartDashboard::PutNumber("SCIM RightEnc Raw", ScimitarRightEnc -> Get());
 	return ScimitarRightEnc -> GetDistance();
 }
 
-bool CheckCloseLimit(){
+bool Scimitar::CheckCloseLimit(){
 //	return (RightFarLimit->Get() && LeftFarLimit->Get());
 	return false;
 }
 
-bool CheckFarLimit(){
+bool Scimitar::CheckFarLimit(){
 //	return (RightFarLimit->Get() && LeftFarLimit->Get());
 	return false;
 }
 
-bool CheckLimitSwitches(){
+bool Scimitar::CheckLimitSwitches(){
 //	return !(CheckCloseLimit() || CheckFarLimit());
 	return false;
 }
