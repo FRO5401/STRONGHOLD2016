@@ -17,7 +17,9 @@ XboxMove::XboxMove()
 	//Declares required subsystems
 	Requires(drivebase);
 //	Requires(scimitar);
-
+	drift = 0;
+	heading = drivebase -> ReportGyro();
+	SmartDashboard::PutNumber("Drift kP", kP_Drift);
 	SmartDashboard::PutNumber("Drive Distance:", DesiredDistance);
 }
 
@@ -40,6 +42,8 @@ void XboxMove::Execute()
 	
 	double Right,Left, Sensitivity;
 
+	SmartDashboard::GetNumber("Drift kP", kP_Drift);
+
 	if (Precision) { //Sets drive precision based on RobotMap and Precision Mode
 		Sensitivity	=	Drive_Sensitivity_Precise;
 	} else {
@@ -54,20 +58,32 @@ void XboxMove::Execute()
 				if (Slew > Thresh){	//If Slew is positive (Thumbstick pushed right), go Right, new bracket L2
 					Left = (Throttle - Reverse) * Sensitivity;			//Send Left full power
 					Right = (Throttle - Reverse) * Sensitivity * (1 - Slew);	//Send Right partial power, tempered by how hard the thumbstick is being pushed
+					heading = drivebase -> ReportGyro();
+					drift = 0;
 					} else if (Slew < (-1 * Thresh)){	//If Slew is negative (Thumbstick pushed left), go Left, end bracket L2, new bracket L2 ***020516 KJM - added an else here.  May be unnecessary
 						Left = (Throttle - Reverse) * Sensitivity * (1 + Slew);		//Send Left partial power, tempered by how hard thumbstick is being pushed left
 						Right = (Throttle - Reverse) * Sensitivity; 			//Send Right full power
-							} else //if (Slew < Thresh && Slew > (-1 * Thresh))
-								{
-									Left = (Throttle - Reverse) * Sensitivity;
-									Right = (Throttle - Reverse) * Sensitivity;
-								}//end bracket L2
+						heading = drivebase -> ReportGyro();
+						drift = 0;
+						} else {//if (Slew < Thresh && Slew > (-1 * Thresh))
+							drift = drivebase -> ReportGyro() - heading;
+							if (drift < -.5) { //drifting left
+								Left = ((Throttle - Reverse) * Sensitivity) + (kP_Drift * drift);
+								Right = (Throttle - Reverse) * Sensitivity;
+							} else if (drift > .5) { //drifting
+								Left = (Throttle - Reverse) * Sensitivity;
+								Right = ((Throttle - Reverse) * Sensitivity) + (kP_Drift * drift);
+							} else {
+								Left = (Throttle - Reverse) * Sensitivity;
+								Right = (Throttle - Reverse) * Sensitivity;
+							}
+						}//end bracket L2
 			} else //if (turn)
 				{	//drive turning end bracket L1, new bracket L1
 				if (fabs(Slew) > Thresh){
 				 	Left = SpinSensitivity * Slew;
 				 	Right = SpinSensitivity * Slew * -1;
-				 	}//end bracket L2
+				 }//end bracket L2
  
 			}//end bracket L1
 	//------End block of spin in place code
