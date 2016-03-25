@@ -140,11 +140,14 @@ const int Enc_Right_B 	= 3;
 const int Enc_SPT_Loc_A = 0;
 const int Enc_SPT_Loc_B = 1;
 
-const int Enc_Shooter_A = 4;
-const int Enc_Shooter_B = 5;
+//const int Enc_Shooter_A = 4;
+//const int Enc_Shooter_B = 5;
 //TODO validate these
-const int Enc_Scimitar_A = 8; //was 7
-const int Enc_Scimitar_B = 9; //was 8
+
+const int Left_Enc_Scimitar_A = 8; //was 7
+const int Left_Enc_Scimitar_B = 9; //was 8
+const int Right_Enc_Scimitar_A = 4;
+const int Right_Enc_Scimitar_B = 5;
 
 //LimitSwitch Channels //TODO Make sure channels match the robot
 /*const int RightFarLimit_Channel   = 0;

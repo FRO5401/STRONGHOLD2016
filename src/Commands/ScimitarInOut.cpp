@@ -18,7 +18,6 @@ void ScimitarInOut::Execute()
 	SmartDashboard::PutNumber("MOHRightStickY", Input);
 	bool Override = oi -> GetMOHRightStickButton();
 	scimitar -> Control(Input, Override);
-//	scimitar -> ExtendRetract(Input, true);
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -30,12 +29,12 @@ bool ScimitarInOut::IsFinished()
 // Called once after isFinished returns true
 void ScimitarInOut::End()
 {
-	//scimitar -> Stop();
+	scimitar -> Stop();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void ScimitarInOut::Interrupted()
 {
-	//scimitar -> Stop();
+	scimitar -> Stop();
 }

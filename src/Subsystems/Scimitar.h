@@ -17,7 +17,15 @@ private:
 	// for methods that implement subsystem capabilities
 	Victor *RightScimitarExtender;	//Variable for motor to extend the scimitar to scale the tower
 	Victor *LeftScimitarExtender;
-	Encoder *ScimitarEnc;
+	Encoder *ScimitarRightEnc;
+	Encoder *ScimitarLeftEnc;
+
+	float ScimitarLeftEncDPP;
+	float ScimitarRightEncDPP;
+
+	float MaxPosition;
+	float MinPosition;
+	float WithinFramePos;
 
 	//Limit Switch Variables
 /*	DigitalInput *RightFarLimit;
@@ -31,8 +39,9 @@ public:
 	void ExtendRetract(double, bool);
 	void Control(double, bool);
 	void Move(double);
-	double ReportPosition();
-	void ResetEncoder();
+	double ReportLeftPosition();
+	double ReportRightPosition();
+	void ResetEncoders();
 	void Stop();
 };
 
