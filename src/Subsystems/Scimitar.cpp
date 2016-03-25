@@ -29,7 +29,7 @@ Scimitar::Scimitar() :
 
 	MaxPosition = 0;
 	MinPosition = 0;
-	WithinFramePos = 0;
+	WithinFramePos = 0; //also starting pos
 	OnBumperPos = 0;
 
 	SmartDashboard::PutNumber("SCIM Max", MaxPosition);
@@ -112,10 +112,12 @@ void Scimitar::Move(double ScimChangeValue){
 }
 
 void Scimitar::MoveLeft(double ScimChange){
+	SmartDashboard::PutNumber("LEFT ScimChange", ScimChange);
 	LeftScimitarExtender -> Set(ScimChange);
 }
 
 void Scimitar::MoveRight(double ScimChange){
+	SmartDashboard::PutNumber("RIGHT ScimChange", ScimChange);
 	RightScimitarExtender -> Set(ScimChange);
 }
 
