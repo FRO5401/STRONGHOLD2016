@@ -29,7 +29,7 @@ void HookShoulderUpDown::Execute()
 	} else if (DpadDirection == -1){//Makes the HookShoulder move the HookShoulder down if D-pad pressed down, moves at 1 degree per loop
 		hookshoulder-> UpAndDown(-HookShoulderChangeValue, Override);
 	}
-
+	hookshoulder -> UpAndDown(HookShoulderChangeValue,Override);
 }
 
 // Make this return true when this Command no longer needs to run execute()

@@ -31,6 +31,10 @@ Scimitar::Scimitar() :
 	MinPosition = 0;
 	WithinFramePos = 0; //also starting pos
 	OnBumperPos = 0;
+	ratio = 1;
+	kP_Scimitar = 3400;
+
+	SmartDashboard::PutNumber("SCIM KP", kP_Scimitar);
 
 	SmartDashboard::PutNumber("SCIM Max", MaxPosition);
 	SmartDashboard::PutNumber("SCIM Min", MinPosition);
@@ -54,9 +58,9 @@ void Scimitar::InitDefaultCommand()
 
 void Scimitar::Control(double ScimChange, bool Override)
 {
-	SmartDashboard::PutNumber("SCIM Max", MaxPosition);
-	SmartDashboard::PutNumber("SCIM Min", MinPosition);
-	SmartDashboard::PutNumber("SCIM WithinFrame", WithinFramePos);
+	SmartDashboard::GetNumber("SCIM Max", MaxPosition);
+	SmartDashboard::GetNumber("SCIM Min", MinPosition);
+	SmartDashboard::GetNumber("SCIM WithinFrame", WithinFramePos);
 
 //	if (!Override){ //For use during majority of match
 	//	if (CheckLimitSwitches()){ //runs if neither set of limit switches are hit
@@ -93,6 +97,9 @@ void Scimitar::Control(double ScimChange, bool Override)
 			}
 		} */
 //	}
+
+
+
 	SmartDashboard::PutNumber("ScimChange in Control", ScimChange);
 	Move(ScimChange);
 
@@ -107,8 +114,44 @@ void Scimitar::Control(double ScimChange, bool Override)
 void Scimitar::Move(double ScimChangeValue){
 	ScimChangeValue *= ScimPrecision;
 	SmartDashboard::PutNumber("ScimChangeValue", ScimChangeValue);
+	SmartDashboard::GetNumber("SCIM KP", kP_Scimitar);
+
+	double error = double(ScimitarLeftEnc -> Get() - ScimitarRightEnc-> Get());
+
+	SmartDashboard::PutNumber("Error", error);
+
+	if(error > 0){
+		LeftScimitarExtender -> Set(ScimChangeValue * (error / kP_Scimitar));
+		RightScimitarExtender -> Set(ScimChangeValue);
+	}else if(error < 0){
+		LeftScimitarExtender -> Set(ScimChangeValue);
+		RightScimitarExtender -> Set(ScimChangeValue * (fabs(error) / kP_Scimitar));
+	}else{
+		LeftScimitarExtender -> Set(ScimChangeValue);
+		RightScimitarExtender -> Set(ScimChangeValue);
+	}
+
+/*	if (ScimitarRightEnc->GetDistance() != 0 && ScimitarLeftEnc -> GetDistance() != 0)
+		ratio = 1 - fabs(double(ScimitarRightEnc-> Get()) / double(ScimitarLeftEnc -> Get()));
+	else
+		ratio = 1;
+*/
+	SmartDashboard::PutNumber("RATIO", ratio);
+	SmartDashboard::PutNumber("ScimChangeValue * ratio", ScimChangeValue * ratio);
 	LeftScimitarExtender -> Set(ScimChangeValue);
 	RightScimitarExtender -> Set(ScimChangeValue);
+
+/*	double LeftPosition = ReportLeftPosition();
+	double RightPosition = ReportRightPosition();
+	if (LeftPosition > RightPosition) {
+		LeftScimitarExtender -> Set(-ScimChangeValue);//Needs to change ScimChangeValue to a permanent value, should go down, thus value is POSITIVE
+	} else if (LeftPosition < RightPosition) {
+		LeftScimitarExtender -> Set(ScimChangeValue);//Needs to change ScimChangeValue to a permanent value
+	} else {
+		LeftScimitarExtender -> Set(ScimChangeValue);
+		RightScimitarExtender -> Set(ScimChangeValue);
+	}
+*/
 }
 
 void Scimitar::MoveLeft(double ScimChange){

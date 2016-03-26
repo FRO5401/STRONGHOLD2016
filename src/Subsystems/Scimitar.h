@@ -24,6 +24,8 @@ private:
 	float MinPosition;
 	float WithinFramePos;
 	float OnBumperPos;
+	double ratio;
+	double kP_Scimitar;
 
 	//Limit Switch Variables
 /*	DigitalInput *RightFarLimit;

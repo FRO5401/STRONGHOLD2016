@@ -13,22 +13,22 @@
 //Parameters for Potentiometer and the its PIDcontroller. Easier to edit if you put it here
 
 //Multiplier to get meaningful value. A number can be put here
-const int HookShoulder_Range 	= 0;
+const double HookShoulder_Range 	= 0;
 //Quote "offset added to the scaled value to control the 0 value
-const int HookShoulder_Offset 	= 0;
+const double HookShoulder_Offset 	= 0;
 
 //NO LONGER USED
-const int HookShoulder_Kp 		= 0;//Proportional
-const int HookShoulder_Ki		= 0;//Intergral
-const int HookShoulder_Kd		= 0;//Derivative
+const double HookShoulder_Kp 		= 0;//Proportional
+const double HookShoulder_Ki		= 0;//Intergral
+const double HookShoulder_Kd		= 0;//Derivative
 
-const int HookShoulderMotorMin	= -1;//Min Motor speed
-const int HookShoulderMotorMax	= 1;// Max motor speed
-const int HookShoulderSensitivity = 0.5;
+const double HookShoulderMotorMin	= -1;//Min Motor speed
+const double HookShoulderMotorMax	= 1;// Max motor speed
+const double HookShoulderSensitivity = 0.5;
 
 //The following WILL CHANGE
-const int MaxPosition			= 0;//The maximum position for the hook shoulder
-const int MinPosition			= 0;//the minimum position for the hook shoulder
+const double MaxPosition			= 0;//The maximum position for the hook shoulder
+const double MinPosition			= 0;//the minimum position for the hook shoulder
 
 HookShoulder::HookShoulder() :
 		Subsystem("HookShoulder")
@@ -56,6 +56,7 @@ void HookShoulder::UpAndDown(double HookShoulderChangeValue, bool Override){
  * This is to keep it from going above a certain angle for rules and below a certain angle so it doesn't
  * keep running once it gets into the robot
  */
+	Override = TRUE; //TODO Remove once shoulder is tested and override is ready to test
 	double CurrentPosition = ReportAngle();
 	if(!Override)
 	{
@@ -66,6 +67,7 @@ void HookShoulder::UpAndDown(double HookShoulderChangeValue, bool Override){
 	}
 	//Returns the Angle the HookShoulder is at to the Dashboard
 	SmartDashboard::PutNumber("HookShoulderPot", HookShoulderPot -> Get());
+	HookShoulderMotor -> Set(0);//TODO Make this useful
 }
 
 double HookShoulder::ReportAngle(){
