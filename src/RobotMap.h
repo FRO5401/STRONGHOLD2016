@@ -149,11 +149,11 @@ const int Left_Enc_Scimitar_B = 9; //was 8
 const int Right_Enc_Scimitar_A = 6;
 const int Right_Enc_Scimitar_B = 7;
 
-//LimitSwitch Channels //TODO Make sure channels match the robot
-/*const int RightFarLimit_Channel   = 0;
-const int RightCloseLimit_Channel = 1;
-const int LeftFarLimit_Channel    = 2;
-const int LeftCloseLimit_Channel  = 3;*/
+//LimitSwitch Channels
+const int RightFarLimit_Channel   = 10;
+const int RightCloseLimit_Channel = 11;
+const int LeftFarLimit_Channel    = 13;
+const int LeftCloseLimit_Channel  = 12;
 
 /************
  * End Sensor Channels

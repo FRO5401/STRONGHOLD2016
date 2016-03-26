@@ -6,6 +6,20 @@
 
 class ScimitarInOut: public CommandBase
 {
+private:
+	int LeftEncoderRaw;
+	int RightEncoderRaw;
+	double Left;
+	double Right;
+	double K;
+	double Input;
+	bool Override;
+	int error;
+	bool RightFarLimit_Cmd;
+	bool RightCloseLimit_Cmd;
+	bool LeftFarLimit_Cmd;
+	bool LeftCloseLimit_Cmd;
+
 public:
 	ScimitarInOut();
 	void Initialize();
