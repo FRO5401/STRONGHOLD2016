@@ -1,8 +1,12 @@
 #include "ScimitarInOut.h"
 
+const float Setpoint15Inch = 0; //TODO May need setting
+
 ScimitarInOut::ScimitarInOut()
 {
 	Requires(scimitar);
+	LeftEncoderDist 	= 0;
+	RightEncoderDist	= 0;
 	LeftEncoderRaw 	= 0;
 	RightEncoderRaw	= 0;
 	Left	= 0;
@@ -32,6 +36,8 @@ void ScimitarInOut::Execute()
 {
 	Input		 		= oi	-> ReadMOHRightStickY();
 	Override 		= oi -> GetMOHRightStickButton();
+	LeftEncoderDist 	= scimitar -> ReportLeftPosition();
+	RightEncoderDist	= scimitar -> ReportRightPosition();
 	LeftEncoderRaw 		= scimitar -> ReportLeftRaw();
 	RightEncoderRaw 	= scimitar -> ReportRightRaw();
 	RightFarLimit_Cmd	= scimitar ->ReportRightFarSwitch();
@@ -59,14 +65,16 @@ void ScimitarInOut::Execute()
 			Right = K * Right;
 		}
 	}
-
-	//TODO test code Remove this once the encoder equalization is tested, this allows to move just one side for resetting them to even
-	if(Override){
-		Left = 0;
+//TODO - Not tested 032616
+	//Zero out the change if extension is at 15 inch frame perimeter setpoint
+	if (!Override){
+		if (((RightEncoderDist >= Setpoint15Inch) || (LeftEncoderDist >= Setpoint15Inch)) && ((Left < 0) || (Right < 0))){
+			Left = 0;
+			Right = 0;
+		}
 	}
-	//end test code remove
+
 	scimitar -> Control(Left, Right, Override);
-//	scimitar -> Move(Input * .2);
 }
 
 // Make this return true when this Command no longer needs to run execute()

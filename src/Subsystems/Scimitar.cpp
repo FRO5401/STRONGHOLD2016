@@ -58,47 +58,6 @@ void Scimitar::InitDefaultCommand()
 
 void Scimitar::Control(double LeftScimChange, double RightScimChange, bool Override)
 {
-//	SmartDashboard::GetNumber("SCIM Max", MaxPosition);
-//	SmartDashboard::GetNumber("SCIM Min", MinPosition);
-//	SmartDashboard::GetNumber("SCIM WithinFrame", WithinFramePos);
-
-//	if (!Override){ //For use during majority of match
-	//	if (CheckLimitSwitches()){ //runs if neither set of limit switches are hit
-	//		if ((ReportLeftPosition() > MinPosition && ReportLeftPosition() < WithinFramePos) && (ReportRightPosition() > MinPosition && ReportRightPosition() < WithinFramePos)) //Keeps us within frame perimeter
-//				Move(ScimChange * ScimPrecision);
-	/*	} else {
-			if (CheckCloseLimit()){ //only allow going up
-				if (ScimChange > 0)
-					Move(ScimChange);
-				else
-					Stop();
-			} else if (CheckFarLimit()){ //only allow going down
-				if (ScimChange < 0)
-					Move(ScimChange);
-				else
-					Stop();
-			}
-		} */
-//	} else { //Used during last 15 seconds of match
-	//	if (CheckLimitSwitches()){ //runs if neither set of limit switches are hit
-	//		if ((ReportLeftPosition() > MinPosition && ReportLeftPosition() < MaxPosition) && (ReportRightPosition() > MinPosition && ReportRightPosition() < MaxPosition)) //Keeps us from breaking the scimitar
-//				Move(ScimChange * ScimPrecision);
-	/*	} else {
-			if (CheckCloseLimit()){ //only allow going up
-				if (ScimChange > 0)
-					Move(ScimChange);
-				else
-					Stop();
-			} else if (CheckFarLimit()){ //only allow going down
-				if (ScimChange < 0)
-					Move(ScimChange);
-				else
-					Stop();
-			}
-		} */
-//	}
-
-
 	SmartDashboard::PutNumber("ScimitarLeftEnc Distance", ReportLeftPosition());
 	SmartDashboard::PutNumber("ScimitarRightEnc Distance", ReportRightPosition());
 //	SmartDashboard::PutBoolean("RightCloseLimit", RightCloseLimit->Get());
@@ -124,58 +83,6 @@ void Scimitar::Control(double LeftScimChange, double RightScimChange, bool Overr
 
 }
 
-void Scimitar::Move(double ScimChangeValue){
-/*	ScimChangeValue *= ScimPrecision;
-	SmartDashboard::PutNumber("ScimChangeValue", ScimChangeValue);
-	SmartDashboard::GetNumber("SCIM KP", kP_Scimitar);
-
-	double error = double(ScimitarLeftEnc -> Get() - ScimitarRightEnc-> Get());
-
-	SmartDashboard::PutNumber("Error", error);
-
-	if(error > 0){
-		LeftScimitarExtender -> Set(ScimChangeValue * (error / kP_Scimitar));
-		RightScimitarExtender -> Set(ScimChangeValue);
-	}else if(error < 0){
-		LeftScimitarExtender -> Set(ScimChangeValue);
-		RightScimitarExtender -> Set(ScimChangeValue * (fabs(error) / kP_Scimitar));
-	}else{
-		LeftScimitarExtender -> Set(ScimChangeValue);
-		RightScimitarExtender -> Set(ScimChangeValue);
-	}
-*/
-/*	if (ScimitarRightEnc->GetDistance() != 0 && ScimitarLeftEnc -> GetDistance() != 0)
-		ratio = 1 - fabs(double(ScimitarRightEnc-> Get()) / double(ScimitarLeftEnc -> Get()));
-	else
-		ratio = 1;
-*/
-/*	SmartDashboard::PutNumber("RATIO", ratio);
-	SmartDashboard::PutNumber("ScimChangeValue * ratio", ScimChangeValue * ratio);
-	LeftScimitarExtender -> Set(ScimChangeValue);
-	RightScimitarExtender -> Set(ScimChangeValue);
-*/
-/*	double LeftPosition = ReportLeftPosition();
-	double RightPosition = ReportRightPosition();
-	if (LeftPosition > RightPosition) {
-		LeftScimitarExtender -> Set(-ScimChangeValue);//Needs to change ScimChangeValue to a permanent value, should go down, thus value is POSITIVE
-	} else if (LeftPosition < RightPosition) {
-		LeftScimitarExtender -> Set(ScimChangeValue);//Needs to change ScimChangeValue to a permanent value
-	} else {
-		LeftScimitarExtender -> Set(ScimChangeValue);
-		RightScimitarExtender -> Set(ScimChangeValue);
-	}
-*/
-}
-
-void Scimitar::MoveLeft(double ScimChange){
-	SmartDashboard::PutNumber("LEFT ScimChange", ScimChange);
-	LeftScimitarExtender -> Set(ScimChange);
-}
-
-void Scimitar::MoveRight(double ScimChange){
-	SmartDashboard::PutNumber("RIGHT ScimChange", ScimChange);
-	RightScimitarExtender -> Set(ScimChange);
-}
 
 double Scimitar::ReportLeftPosition(){
 	SmartDashboard::PutNumber("SCIM LeftEnc Dist", ScimitarLeftEnc -> GetDistance());
@@ -197,6 +104,7 @@ double Scimitar::ReportRightRaw(){
 	return ScimitarRightEnc -> Get();
 }
 
+//XXX Switches are all reversed because they default to true and go false when tripped
 bool Scimitar::ReportRightFarSwitch(){
 	SmartDashboard::PutBoolean("Scim R Far Limit", !(RightFarLimit->Get()));
 	return !(RightFarLimit->Get());
@@ -231,5 +139,6 @@ void Scimitar::ResetEncoders(){
 }
 
 void Scimitar::Stop(){
-	Move(0);
+	LeftScimitarExtender -> Set(0);
+	RightScimitarExtender -> Set(0);
 }

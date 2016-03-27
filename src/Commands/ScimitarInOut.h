@@ -7,6 +7,8 @@
 class ScimitarInOut: public CommandBase
 {
 private:
+	float LeftEncoderDist;
+	float RightEncoderDist;
 	int LeftEncoderRaw;
 	int RightEncoderRaw;
 	double Left;

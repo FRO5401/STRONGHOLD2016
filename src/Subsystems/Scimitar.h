@@ -35,9 +35,6 @@ public:
 	Scimitar();
 	void InitDefaultCommand();
 	void Control(double, double, bool);
-	void Move(double);
-	void MoveRight(double);
-	void MoveLeft(double);
 	double ReportLeftPosition();
 	double ReportRightPosition();
 	double ReportLeftRaw();
