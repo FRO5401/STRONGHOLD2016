@@ -18,7 +18,7 @@ private:
 	// for methods that implement subsystem capabilities
 	Victor 			*HookShoulderMotor;
 	Potentiometer	*HookShoulderPot;//Pot refers to potentiometers
-	PIDController	*HookShoulderPID;
+//	PIDController	*HookShoulderPID;
 
 public:
 

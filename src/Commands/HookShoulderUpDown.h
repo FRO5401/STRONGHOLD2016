@@ -8,6 +8,9 @@ class HookShoulderUpDown: public CommandBase
 {
 private:
 	int DpadDirection;
+	bool Override;
+	double CurrentPosition;
+	double HookShoulderMove;
 public:
 	HookShoulderUpDown();
 	void Initialize();

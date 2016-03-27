@@ -18,9 +18,9 @@ const double HookShoulder_Range 	= 0;
 const double HookShoulder_Offset 	= 0;
 
 //NO LONGER USED
-const double HookShoulder_Kp 		= 0;//Proportional
-const double HookShoulder_Ki		= 0;//Intergral
-const double HookShoulder_Kd		= 0;//Derivative
+//const double HookShoulder_Kp 		= 0;//Proportional
+//const double HookShoulder_Ki		= 0;//Intergral
+//const double HookShoulder_Kd		= 0;//Derivative
 
 const double HookShoulderMotorMin	= -1;//Min Motor speed
 const double HookShoulderMotorMax	= 1;// Max motor speed
@@ -56,18 +56,9 @@ void HookShoulder::UpAndDown(double HookShoulderChangeValue, bool Override){
  * This is to keep it from going above a certain angle for rules and below a certain angle so it doesn't
  * keep running once it gets into the robot
  */
-	Override = TRUE; //TODO Remove once shoulder is tested and override is ready to test
-	double CurrentPosition = ReportAngle();
-	if(!Override)
-	{
-		//Zero out the change if angle is at its upper limit and trying to increase, <0 = UP?
-		HookShoulderChangeValue = ((HookShoulderChangeValue < 0) && (CurrentPosition >= MaxPosition)) ? 0 : HookShoulderChangeValue;
-		//Zero out the change if angle is at its lower limit and trying to decrease
-		HookShoulderChangeValue = ((HookShoulderChangeValue > 0) && (CurrentPosition <= MinPosition)) ? 0 : HookShoulderChangeValue;
-	}
-	//Returns the Angle the HookShoulder is at to the Dashboard
 	SmartDashboard::PutNumber("HookShoulderPot", HookShoulderPot -> Get());
-	HookShoulderMotor -> Set(0);//TODO Make this useful
+//	HookShoulderMotor -> Set(HookShoulderChangeValue);//TODO Reinsert when removing below
+	HookShoulderMotor -> Set(0);//TODO Remove when we're sure Dpad direction is passing the right parameters here
 }
 
 double HookShoulder::ReportAngle(){
@@ -78,6 +69,3 @@ double HookShoulder::ReportAngle(){
 void HookShoulder::StopHookShoulder(){
 	HookShoulderMotor -> Set(0);
 }
-
-
-
