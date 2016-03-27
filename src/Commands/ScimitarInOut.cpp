@@ -1,6 +1,8 @@
 #include "ScimitarInOut.h"
 
 const float Setpoint15Inch = 0; //TODO May need setting
+const float Setpoint_NearFull = 0; //TODO Definitely needs resetting
+const float Precision_NearFull = 0.25;
 
 ScimitarInOut::ScimitarInOut()
 {
@@ -72,6 +74,11 @@ void ScimitarInOut::Execute()
 			Left = 0;
 			Right = 0;
 		}
+	}
+//TODO - Not tested 032616
+	if (((RightEncoderDist >= Setpoint_NearFull) || (Setpoint_NearFull >= Setpoint15Inch)) && ((Left < 0) || (Right < 0))){
+		Left = Left * Precision_NearFull;
+		Right = Right * Precision_NearFull;
 	}
 
 	scimitar -> Control(Left, Right, Override);
