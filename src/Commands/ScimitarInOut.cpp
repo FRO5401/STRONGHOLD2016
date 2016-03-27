@@ -1,8 +1,8 @@
 #include "ScimitarInOut.h"
 
 const float Setpoint15Inch = 0; //TODO May need setting
-const float Setpoint_NearFull = 0; //TODO Definitely needs resetting
-const float Precision_NearFull = 0.25;
+const float Setpoint_NearFull = 6; //TODO Definitely needs resetting
+const float Precision_NearFull = 0.25; //0.25 is too slow, motors stall
 
 ScimitarInOut::ScimitarInOut()
 {
@@ -21,10 +21,13 @@ ScimitarInOut::ScimitarInOut()
 	RightCloseLimit_Cmd = FALSE;
 	LeftFarLimit_Cmd = FALSE;
 	LeftCloseLimit_Cmd = FALSE;
-	SmartDashboard::PutBoolean("LeftClose - Cmd", LeftCloseLimit_Cmd);
+//	SmartDashboard::PutBoolean("LeftClose - Cmd", LeftCloseLimit_Cmd);
 //	SmartDashboard::PutNumber("MOHRightStickY", 0);
 //	SmartDashboard::PutNumber("SCIM RightEnc Raw - Cmd", RightEncoderRaw);
 //	SmartDashboard::PutNumber("SCIM LeftEnc Raw - Cmd", LeftEncoderRaw);
+	SmartDashboard::PutNumber("Left motor adjusted- Cmd", Left);
+	SmartDashboard::PutNumber("Left motor limited - Cmd", Left);
+	SmartDashboard::PutBoolean("Extend Override", Override);
 }
 
 // Called just before this Command runs the first time
@@ -37,7 +40,7 @@ void ScimitarInOut::Initialize()
 void ScimitarInOut::Execute()
 {
 	Input		 		= oi	-> ReadMOHRightStickY();
-	Override 		= oi -> GetMOHRightStickButton();
+	Override 			= oi 	-> GetMOHRightStickButton();
 	LeftEncoderDist 	= scimitar -> ReportLeftPosition();
 	RightEncoderDist	= scimitar -> ReportRightPosition();
 	LeftEncoderRaw 		= scimitar -> ReportLeftRaw();
@@ -46,8 +49,8 @@ void ScimitarInOut::Execute()
 	RightCloseLimit_Cmd	= scimitar ->ReportRightCloseSwitch();
 	LeftFarLimit_Cmd	= scimitar ->ReportLeftFarSwitch();
 	LeftCloseLimit_Cmd	= scimitar ->ReportLeftCloseSwitch();
-	error			= LeftEncoderRaw - RightEncoderRaw;
-	SmartDashboard::PutBoolean("LeftClose - Cmd", LeftCloseLimit_Cmd);
+	error				= LeftEncoderRaw - RightEncoderRaw;
+//	SmartDashboard::PutBoolean("LeftClose - Cmd", LeftCloseLimit_Cmd);
 //	SmartDashboard::PutNumber("MOHRightStickY", Input);
 //	SmartDashboard::PutNumber("SCIM RightEnc Raw - Cmd", RightEncoderRaw);
 //	SmartDashboard::PutNumber("SCIM LeftEnc Raw - Cmd", LeftEncoderRaw);
@@ -67,16 +70,22 @@ void ScimitarInOut::Execute()
 			Right = K * Right;
 		}
 	}
-//TODO - Not tested 032616
+	SmartDashboard::PutNumber("Left motor adjusted- Cmd", Left);
 	//Zero out the change if extension is at 15 inch frame perimeter setpoint
 	if (!Override){
 		if (((RightEncoderDist >= Setpoint15Inch) || (LeftEncoderDist >= Setpoint15Inch)) && ((Left < 0) || (Right < 0))){
 			Left = 0;
 			Right = 0;
+			std::cout << "Stop at setpoint" ;
 		}
+	} else {
+		std::cout << "Soft Stop Overridden";
 	}
-//TODO - Not tested 032616
-	if (((RightEncoderDist >= Setpoint_NearFull) || (Setpoint_NearFull >= Setpoint15Inch)) && ((Left < 0) || (Right < 0))){
+	SmartDashboard::PutNumber("Left motor limited - Cmd", Left);
+	SmartDashboard::PutBoolean("Extend Override", Override);
+
+	//Slow down the change if extension is near maximum
+	if (((RightEncoderDist >= Setpoint_NearFull) || (LeftEncoderDist >= Setpoint_NearFull)) && ((Left < 0) || (Right < 0))){
 		Left = Left * Precision_NearFull;
 		Right = Right * Precision_NearFull;
 	}
