@@ -7,7 +7,7 @@
 class HookShoulderUpDown: public CommandBase
 {
 private:
-	int DpadDirection;
+	double YAxisValue;
 	bool Override;
 	double CurrentPosition;
 	double HookShoulderMove;

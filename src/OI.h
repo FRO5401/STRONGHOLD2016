@@ -69,6 +69,7 @@ public:
 	bool GetMOHRightStickButton();
 	bool GetMOHLeftStickButton();
 	bool GetMOHButtonL3();
+	bool GetMOHButtonTriangle();
 };
 
 #endif

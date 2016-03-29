@@ -39,7 +39,7 @@ void ScimitarInOut::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void ScimitarInOut::Execute()
 {
-	Input		 		= oi	-> ReadMOHRightStickY();
+	Input		 		= oi	-> GetMOHPOVState();
 	Override 			= oi 	-> GetMOHRightStickButton();
 	LeftEncoderDist 	= scimitar -> ReportLeftPosition();
 	RightEncoderDist	= scimitar -> ReportRightPosition();

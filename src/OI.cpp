@@ -178,11 +178,11 @@ int OI::GetMOHPOVState(){
 	//Use specific values, not inequalities
 	if (POV == 315 || POV == 45 || POV == 0){
 		std::cout << "POV Up\n";
-		return 1;	//Up
+		return -1;	//Up
 	}
 	else if (POV == 135 || POV == 225 || POV == 180){
 		std::cout << "POV Down\n";
-		return -1; 	//Down
+		return 1; 	//Down
 	}
 	else
 	{
@@ -229,3 +229,6 @@ bool OI::GetMOHButtonL3(){
 	return MedalOfHonorController -> GetRawButton(MOHL3_ID);
 }
 
+bool OI::GetMOHButtonTriangle(){
+	return MedalOfHonorController -> GetRawButton(4);
+}
