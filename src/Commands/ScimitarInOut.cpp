@@ -2,7 +2,7 @@
 
 const float Setpoint15Inch = 0; //TODO May need setting
 const float Setpoint_NearFull = 6; //TODO Definitely needs resetting
-const float Precision_NearFull = 0.25; //0.25 is too slow, motors stall
+const float Precision_NearFull = 0.5; //0.25 is too slow, motors stall
 
 ScimitarInOut::ScimitarInOut()
 {

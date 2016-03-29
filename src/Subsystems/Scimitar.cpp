@@ -12,7 +12,7 @@
 #include "Commands/ScimitarInOut.h"
 
 const double ScimitarSpeed	=	0.9;
-const double ScimPrecision =   0.5;
+const double ScimPrecision =   1;
 
 const double ScimitarRightEncDPP = 0.0000461;//Measured: 7.5 / 162914, value is averaged left/right
 const double ScimitarLeftEncDPP  = 0.0000461;//Measured: 8.125 / 176036, value averaged left/right;

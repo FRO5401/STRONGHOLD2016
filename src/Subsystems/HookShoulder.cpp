@@ -23,8 +23,8 @@ const double HookShoulder_Offset 	= 0;
 //const double HookShoulder_Kd		= 0;//Derivative
 
 const double HookShoulderMotorMin	= -1;//Min Motor speed
-const double HookShoulderMotorMax	= 1;// Max motor speed
-const double HookShoulderSensitivity = 0.5;
+const double HookShoulderMotorMax	= 0.9;// Max motor speed
+//const double HookShoulderSpeed 		= 0.5;
 
 //The following WILL CHANGE
 const double MaxPosition			= 0;//The maximum position for the hook shoulder
@@ -57,8 +57,8 @@ void HookShoulder::UpAndDown(double HookShoulderChangeValue, bool Override){
  * keep running once it gets into the robot
  */
 	SmartDashboard::PutNumber("HookShoulderPot", HookShoulderPot -> Get());
-//	HookShoulderMotor -> Set(HookShoulderChangeValue);//TODO Reinsert when removing below
-	HookShoulderMotor -> Set(0);//TODO Remove when we're sure Dpad direction is passing the right parameters here
+	HookShoulderMotor -> Set(HookShoulderChangeValue * HookShoulderMotorMax);//TODO Reinsert when removing below
+//	HookShoulderMotor -> Set(0);//TODO Remove when we're sure Dpad direction is passing the right parameters here
 }
 
 double HookShoulder::ReportAngle(){

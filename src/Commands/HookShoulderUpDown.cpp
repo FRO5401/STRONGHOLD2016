@@ -1,6 +1,6 @@
 #include "HookShoulderUpDown.h"
 
-const double HookShoulderSpeed = 0.5; //TODO Tune this to a comfortable speed
+const double HookShoulderSpeed = 0.37; //TODO Tune this to a comfortable speed
 const double HookMaxPosition = 0; //TODO Set the angle
 const double HookMinPosition = 0; //TODO Set the angle
 
@@ -23,10 +23,10 @@ void HookShoulderUpDown::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void HookShoulderUpDown::Execute()
 {
-	DpadDirection = oi -> GetMOHPOVState();
-	Override = oi -> GetButtonBack();
-	CurrentPosition = hookshoulder -> ReportAngle();
-
+	DpadDirection 	= oi -> GetMOHPOVState();
+	Override 		= oi -> GetButtonBack();
+	CurrentPosition	= hookshoulder -> ReportAngle();
+/*
 	//If wondering about the numbers for the conditionals, look at GetMOHPOVState()
 	if (DpadDirection == 0){ //Stops the HookShoulder if D-pad is unpressed or pressed in the wrong section
 		HookShoulderMove = 0;
@@ -35,7 +35,9 @@ void HookShoulderUpDown::Execute()
 	} else if (DpadDirection == -1){//Makes the HookShoulder move the HookShoulder down if D-pad pressed down, moves at 1 degree per loop
 		HookShoulderMove = -HookShoulderSpeed;
 	}
-
+*/
+	HookShoulderMove = DpadDirection * HookShoulderSpeed;
+/*
 	if(!Override)
 	{
 		//Zero out the change if angle is at its upper limit and trying to increase, <0 = UP?
@@ -43,11 +45,12 @@ void HookShoulderUpDown::Execute()
 		//Zero out the change if angle is at its lower limit and trying to decrease
 		HookShoulderMove = ((HookShoulderMove > 0) && (CurrentPosition <= HookMinPosition)) ? 0 : HookShoulderMove;
 	}
+*/
 	//Returns the Angle the HookShoulder is at to the Dashboard
 	SmartDashboard::PutNumber("DPadDirection", DpadDirection);
 	SmartDashboard::PutNumber("HookShoulder Input", HookShoulderMove);
 
-//	hookshoulder -> UpAndDown(HookShoulderMove,Override); //TODO Took this out to test the dpad inputs, don't trust those
+	hookshoulder -> UpAndDown(HookShoulderMove, Override); //TODO Took this out to test the dpad inputs, don't trust those
 }
 
 // Make this return true when this Command no longer needs to run execute()
