@@ -52,7 +52,7 @@ void HookShoulder::InitDefaultCommand()
 }
 
 //This function sets the shoulder motor of SPT to a certain direction between up and down
-void HookShoulder::UpAndDown(double HookShoulderChangeValue, bool Override){
+void HookShoulder::UpAndDown(double HookShoulderChangeValue){
 /*Add a constant above, and make this conditional on being within a max/min reading on the Pot.
  * This is to keep it from going above a certain angle for rules and below a certain angle so it doesn't
  * keep running once it gets into the robot

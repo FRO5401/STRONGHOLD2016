@@ -24,7 +24,7 @@ public:
 
 	HookShoulder();
 	void InitDefaultCommand();
-	void UpAndDown(double, bool);
+	void UpAndDown(double);
 	double ReportAngle();
 	void StopHookShoulder();
 //	void MoveToBumperPosition();

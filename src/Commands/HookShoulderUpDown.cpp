@@ -4,6 +4,7 @@ const double HookShoulderSpeed = 0.37; //TODO Tune this to a comfortable speed
 const double HookMaxPosition = 0; //TODO Set the angle
 const double HookMinPosition = 0; //TODO Set the angle
 const double HookStartPosition = 0; //TODO Set the angle
+const float StickAxisThreshold = .1;
 
 HookShoulderUpDown::HookShoulderUpDown()
 {
@@ -37,7 +38,10 @@ void HookShoulderUpDown::Execute()
 		HookShoulderMove = -HookShoulderSpeed;
 	}
 */
-	HookShoulderMove = YAxisValue * HookShoulderSpeed;
+	if (fabs(YAxisValue) > StickAxisThreshold)
+		HookShoulderMove = YAxisValue * HookShoulderSpeed;
+	else
+		HookShoulderMove = 0;
 
 	if(!Override)
 	{
@@ -51,7 +55,7 @@ void HookShoulderUpDown::Execute()
 	SmartDashboard::PutNumber("YAxisValue", YAxisValue);
 	SmartDashboard::PutNumber("HookShoulder Input", HookShoulderMove);
 
-	hookshoulder -> UpAndDown(HookShoulderMove, Override); //TODO Took this out to test the dpad inputs, don't trust those
+	hookshoulder -> UpAndDown(HookShoulderMove); //TODO Took this out to test the dpad inputs, don't trust those
 }
 
 // Make this return true when this Command no longer needs to run execute()
