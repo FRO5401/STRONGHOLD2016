@@ -86,6 +86,7 @@ void DriveBase::Drive(double LeftDriveDesired, double RightDriveDesired)
   SmartDashboard::GetNumber("Initial Gyro Value", initialGyro);
   //SmartDashboard::PutNumber("Gyro Angle", ReportGyro());	//doesn't work for some reason
   SmartDashboard::PutNumber("Gyro GetAngle", MainGyro -> GetAngle());
+  SmartDashboard::PutNumber("Gyro ReportGyro", ReportGyro());
   }
 /*
  * Pneumatic shfting is out of design at this point

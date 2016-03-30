@@ -19,8 +19,9 @@ XboxMove::XboxMove()
 //	Requires(scimitar);
 	drift = 0;
 	heading = drivebase -> ReportGyro();
+	kP_Drift = .1; //TODO Redetermine this number
 	SmartDashboard::PutNumber("Drift kP", kP_Drift);
-	SmartDashboard::PutNumber("Drive Distance:", DesiredDistance);
+	SmartDashboard::PutNumber("Teleop heading", heading);
 }
 
 // Called just before this Command runs the first time
@@ -97,6 +98,8 @@ void XboxMove::Execute()
 		SmartDashboard::PutBoolean("Precision",Precision);
 		SmartDashboard::PutBoolean("Brake",Brake);
 	*/
+	SmartDashboard::PutNumber("Teleop heading", heading);
+
 	drivebase        -> Drive(Left, Right);
 }
 
