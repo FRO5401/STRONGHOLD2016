@@ -26,7 +26,7 @@ void HookShoulderUpDown::Initialize()
 void HookShoulderUpDown::Execute()
 {
 	YAxisValue 	= oi -> ReadMOHRightStickY();
-	Override 		= oi -> GetMOHButtonTriangle();
+	Override 		= oi -> GetMOHRightStickButton();
 	CurrentPosition	= hookshoulder -> ReportAngle();
 /*
 	//If wondering about the numbers for the conditionals, look at GetMOHPOVState()

@@ -17,6 +17,8 @@ const double ScimPrecision =   1;
 const double ScimitarRightEncDPP = 0.0000461;//Measured: 7.5 / 162914, value is averaged left/right
 const double ScimitarLeftEncDPP  = 0.0000461;//Measured: 8.125 / 176036, value averaged left/right;
 
+const double StartingOffset = 0; //TODO Figure out offset from starting position
+
 Scimitar::Scimitar() :
 		Subsystem("Scimitar")
 {
@@ -86,12 +88,12 @@ void Scimitar::Control(double LeftScimChange, double RightScimChange, bool Overr
 
 double Scimitar::ReportLeftPosition(){
 	SmartDashboard::PutNumber("SCIM LeftEnc Dist", ScimitarLeftEnc -> GetDistance());
-	return ScimitarLeftEnc ->GetDistance();
+	return ScimitarLeftEnc ->GetDistance() - StartingOffset;
 }
 
 double Scimitar::ReportRightPosition(){
 	SmartDashboard::PutNumber("SCIM RightEnc Dist", ScimitarRightEnc -> GetDistance());
-	return ScimitarRightEnc -> GetDistance();
+	return ScimitarRightEnc -> GetDistance() - StartingOffset;
 }
 
 double Scimitar::ReportLeftRaw(){

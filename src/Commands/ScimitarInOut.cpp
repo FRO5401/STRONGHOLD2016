@@ -40,7 +40,7 @@ void ScimitarInOut::Initialize()
 void ScimitarInOut::Execute()
 {
 	Input		 		= oi	-> GetMOHPOVState();
-	Override 			= oi 	-> GetMOHRightStickButton();
+	Override 			= oi 	-> GetMOHButtonTriangle();
 	LeftEncoderDist 	= scimitar -> ReportLeftPosition();
 	RightEncoderDist	= scimitar -> ReportRightPosition();
 	LeftEncoderRaw 		= scimitar -> ReportLeftRaw();

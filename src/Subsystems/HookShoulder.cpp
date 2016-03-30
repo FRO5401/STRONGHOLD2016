@@ -13,9 +13,9 @@
 //Parameters for Potentiometer and the its PIDcontroller. Easier to edit if you put it here
 
 //Multiplier to get meaningful value. A number can be put here
-const double HookShoulder_Range 	= 0;
+const double HookShoulder_Range 	= -1800;
 //Quote "offset added to the scaled value to control the 0 value
-const double HookShoulder_Offset 	= 0;
+const double HookShoulder_Offset 	= 899; //90 degrees vertical is 0
 
 //NO LONGER USED
 //const double HookShoulder_Kp 		= 0;//Proportional
