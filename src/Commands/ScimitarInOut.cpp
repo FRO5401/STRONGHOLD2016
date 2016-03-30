@@ -1,7 +1,10 @@
 #include "ScimitarInOut.h"
 
-const float Setpoint15Inch = 0; //TODO May need setting
-const float Setpoint_NearFull = 6; //TODO Definitely needs resetting
+//in inches
+const float Setpoint15Inch_Right = 7.75;
+const float Setpoint15Inch_Left  = 7.625;
+const float Setpoint_NearFull = 9; //TODO Definitely needs resetting
+
 const float Precision_NearFull = 0.5; //0.25 is too slow, motors stall
 const float PressedPrecision = .5;
 
@@ -75,7 +78,7 @@ void ScimitarInOut::Execute()
 	SmartDashboard::PutNumber("Left motor adjusted- Cmd", Left);
 	//Zero out the change if extension is at 15 inch frame perimeter setpoint
 	if (!Override){
-		if (((RightEncoderDist >= Setpoint15Inch) || (LeftEncoderDist >= Setpoint15Inch)) && ((Left < 0) || (Right < 0))){
+		if (((RightEncoderDist >= Setpoint15Inch_Right) || (LeftEncoderDist >= Setpoint15Inch_Left)) && ((Left < 0) || (Right < 0))){ //Enc are not beyond limit and we are extending
 			Left = 0;
 			Right = 0;
 			std::cout << "Stop at setpoint" ;
