@@ -1,5 +1,8 @@
 #include "Autonomous/AutonomousMoat.h"
 
+#include "Autonomous/AutoDriveCommand.h"
+#include "Autonomous/AutoHookScimitarOnBumper.h"
+
 AutonomousMoat::AutonomousMoat(int DefensePosition, int GoalPosition, int LowOrHigh)
 {
 	AddSequential(new AutoHookScimitarOnBumper());

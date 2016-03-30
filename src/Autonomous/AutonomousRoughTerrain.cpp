@@ -1,5 +1,8 @@
 #include "Autonomous/AutonomousRoughTerrain.h"
 
+#include "Autonomous/AutoDriveCommand.h"
+#include "Autonomous/AutoHookScimitarOnBumper.h"
+
 AutonomousRoughTerrain::AutonomousRoughTerrain(int DefensePosition, int GoalPosition, int LowOrHigh)
 {
 	AddSequential(new AutoHookScimitarOnBumper());
