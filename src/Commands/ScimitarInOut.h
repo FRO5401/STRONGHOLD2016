@@ -16,6 +16,7 @@ private:
 	double K;
 	double Input;
 	bool Override;
+	bool SlowScimitar;
 	int error;
 	bool RightFarLimit_Cmd;
 	bool RightCloseLimit_Cmd;

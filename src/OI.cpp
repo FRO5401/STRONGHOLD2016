@@ -232,3 +232,7 @@ bool OI::GetMOHButtonL3(){
 bool OI::GetMOHButtonTriangle(){
 	return MedalOfHonorController -> GetRawButton(4);
 }
+
+bool OI::GetMOHButtonCircle(){
+	return MedalOfHonorController -> GetRawButton(3);
+}

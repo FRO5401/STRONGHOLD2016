@@ -3,6 +3,7 @@
 const float Setpoint15Inch = 0; //TODO May need setting
 const float Setpoint_NearFull = 6; //TODO Definitely needs resetting
 const float Precision_NearFull = 0.5; //0.25 is too slow, motors stall
+const float PressedPrecision = .5;
 
 ScimitarInOut::ScimitarInOut()
 {
@@ -41,6 +42,7 @@ void ScimitarInOut::Execute()
 {
 	Input		 		= oi	-> GetMOHPOVState();
 	Override 			= oi 	-> GetMOHButtonTriangle();
+	SlowScimitar		= oi 	-> GetMOHButtonCircle();
 	LeftEncoderDist 	= scimitar -> ReportLeftPosition();
 	RightEncoderDist	= scimitar -> ReportRightPosition();
 	LeftEncoderRaw 		= scimitar -> ReportLeftRaw();
@@ -88,6 +90,11 @@ void ScimitarInOut::Execute()
 	if (((RightEncoderDist >= Setpoint_NearFull) || (LeftEncoderDist >= Setpoint_NearFull)) && ((Left < 0) || (Right < 0))){
 		Left = Left * Precision_NearFull;
 		Right = Right * Precision_NearFull;
+	}
+	//Slow down Scimitar on manual button press
+	else if (SlowScimitar){
+		Left = Left * PressedPrecision;
+		Right = Right * PressedPrecision;
 	}
 
 	scimitar -> Control(Left, Right, Override);
