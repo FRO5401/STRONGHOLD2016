@@ -5,7 +5,7 @@
 AutoHookScimitarOnBumper::AutoHookScimitarOnBumper()
 {
 	//Not needed as scimitar will start at required position AddSequential(new ScimitarMoveToPosition());
-	AddSequential(new HookShoulderMoveToPosition(0)); //Go down to bumper //TODO Determine correct value
+	AddSequential(new HookShoulderMoveToPosition(5)); //Go down to bumper //TODO Determine correct value
 	AddSequential(new ScimitarMoveToPosition(2.875, 2.4375)); //Retract in to bumper
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());

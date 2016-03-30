@@ -1,5 +1,6 @@
 #include "Autonomous/AutonomousRockWall.h"
 #include "Autonomous/AutoDriveCommand.h"
+#include "Autonomous/AutoHookScimitarOnBumper.h"
 
 #include "Commands/HookShoulderMoveToPosition.h"
 #include "Commands/SPTMoveToPosition.h"
@@ -8,10 +9,8 @@ AutonomousRockWall::AutonomousRockWall(int DefensePosition, int GoalPosition, in
 {
 	//Measurements are based on theoretical calculations, physical test are needed
 	//SPT starts from behind
-	AddParallel(new HookShoulderMoveToPosition(45));//TODO Change Position with calibration, down
-//	AddParallel(new ScimitarRetract) //Command not created and ScimitarRetract is not created
-	AddParallel(new SPTMoveToPosition(192));//TODO edit this to be down to horizontal
-	AddSequential(new AutoDriveCommand(97));//TODO Physically determine distance
+	AddSequential(new AutoHookScimitarOnBumper());
+	AddSequential(new AutoDriveCommand(-97));//TODO Physically determine distance
 
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());

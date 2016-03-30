@@ -3,6 +3,7 @@
 #include "Commands/HookShoulderMoveToPosition.h"
 #include "Commands/SPTMoveToPosition.h"
 
+#include "Autonomous/AutoHookScimitarOnBumper.h"
 #include "Autonomous/AutoTurnAngleCommand.h"
 #include "Autonomous/AutoDeliverBall.h"
 #include "Autonomous/AutoDriveCommand.h"
@@ -11,8 +12,7 @@
 AutonomousLowBar::AutonomousLowBar(int DefensePosition, int GoalPosition, int LowOrHigh)
 {
 	//SPT is in the back
-//	AddParallel(new HookShoulderMoveToPosition(45));//TODO determine actual position, needs to be down to go under Low Bar
-//	AddParallel(new ScimitarRetract) //Command not created and ScimitarRetract is not created
+	AddParallel(new AutoHookScimitarOnBumper());
 	AddParallel(new SPTMoveToPosition(-24.0));
 	AddSequential(new AutoDriveCommand(-15.0));
 	AddSequential(new WaitCommand(3));

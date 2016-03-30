@@ -3,6 +3,7 @@
 #include "Autonomous/AutoDeliverBall.h"
 #include "Autonomous/AutoTurnToAngleCommand.h"
 #include "Autonomous/AutoTurnAngleCommand.h"
+#include "Autonomous/AutoHookScimitarOnBumper.h"
 
 #include "Commands/AutoLaunch.h"
 #include "Commands/FeederStop.h"
@@ -15,8 +16,7 @@
 AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPosition, int LowOrHigh)
 {
 	//SPT must be in the front
-//	AddParallel(new HookShoulderMoveToPosition(45));//TODO change Position, move it down
-//	AddParallel(new ScimitarRetract) //Command not created and ScimitarRetract is not created
+	AddSequential(new AutoHookScimitarOnBumper());
  	AddSequential(new AutoDriveCommand(45)); //Drive to defense //TODO edit
 	AddSequential(new SPTMoveToPosition(-30)); //Move SPT down to prepare to drive over cheval
 	AddParallel(new SPTMoveToPosition(45)); //Move SPT up and out of the way
