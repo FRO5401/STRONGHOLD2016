@@ -57,13 +57,13 @@ void ScimitarInOut::Execute()
 //	SmartDashboard::PutNumber("Error", LeftEncoderRaw);
 	Left = Input;
 	Right = Input;
-	if (Input > 0){
+	if (Input > 0){ //Retract
 		if (error > 0){
 			Right = K * Right;
 		} else if (error < 0 ){
 			Left = K * Left;
 		}
-	} else if (Input < 0){
+	} else if (Input < 0){ //Extend
 		if (error > 0){
 			Left = K * Left;
 		} else if (error < 0 ){

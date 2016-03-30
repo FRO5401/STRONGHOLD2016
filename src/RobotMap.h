@@ -118,8 +118,8 @@ const int LeftScimitar_Channel				= 4; //11
 /************
  * Other Stuff
  ***********/
-const int LightRing_Channel					= 0;
-const int CarriageLights_Channel			= 1;
+const int LightRing_Channel					= 0; //XXX Not in Use
+const int CarriageLights_Channel			= 1; //XXX Not in use
 /************
  * End Other Stuff
  ***********/
@@ -130,7 +130,7 @@ const int CarriageLights_Channel			= 1;
 //Removed Until Further Notice 31816
 //const int ShooterSwitch_Channel 	= 0;			//MUST BE UPDATED
 const int HookShoulderPot_Channel	= 0;	//MUST BE UPDATED
-const int SPTPot_Channel 		= 1;//MUST BE UPDATED SPT potentiometer channel, under Analogs
+const int SPTPot_Channel 		= 1;//MUST BE UPDATED SPT potentiometer channel, under Analogs //XXX No such thing
 
 //Encoder DIO Channels
 const int Enc_Left_A 	= 4; //XXX Should be 6 //not plugged in
@@ -144,8 +144,8 @@ const int Enc_SPT_Loc_B = 1;
 //const int Enc_Shooter_B = 5;
 //TODO validate these
 
-const int Left_Enc_Scimitar_A = 8; //was 7
-const int Left_Enc_Scimitar_B = 9; //was 8
+const int Left_Enc_Scimitar_A = 8;
+const int Left_Enc_Scimitar_B = 9;
 const int Right_Enc_Scimitar_A = 6;
 const int Right_Enc_Scimitar_B = 7;
 

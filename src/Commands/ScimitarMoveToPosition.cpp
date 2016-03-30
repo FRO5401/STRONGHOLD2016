@@ -1,13 +1,16 @@
 #include "ScimitarMoveToPosition.h"
 
-const double DistanceThreshold = .25; //inches
+const double DistanceThreshold = .125; //inches
+const double ScimitarPrecision = .5; //TODO Determine best speed
+const double K = .75;
 
-ScimitarMoveToPosition::ScimitarMoveToPosition(double desired)
+ScimitarMoveToPosition::ScimitarMoveToPosition(double left, double right) //in inches
 {
 	// Use Requires() here to declare subsystem dependencies
 	Requires(scimitar);
 	Finished = true;
-	DesiredPosition = desired;
+	DesiredRight = left;
+	DesiredRight = right;
 }
 
 // Called just before this Command runs the first time
@@ -19,14 +22,39 @@ void ScimitarMoveToPosition::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void ScimitarMoveToPosition::Execute()
 {
-/*	CurrentPosition = (scimitar -> ReportLeftPosition() + scimitar -> ReportRightPosition()) / 2;
-	if (CurrentPosition > DesiredPosition + DistanceThreshold){ //Retract
-		scimitar -> Control(1, 1, false);
-	} else if (CurrentPosition < DesiredPosition - DistanceThreshold){ //Extend
-		scimitar -> Control(-1, -1, false);
+	RightPosition = scimitar -> ReportRightPosition();
+	LeftPosition = scimitar -> ReportLeftPosition();
+
+	LeftEncRaw 		= scimitar -> ReportLeftRaw();
+	RightEncRaw 	= scimitar -> ReportRightRaw();
+	error			= LeftEncRaw - RightEncRaw;
+
+	//Assumes starting position is 0
+	if ((LeftPosition > DesiredLeft + DistanceThreshold) || (RightPosition > DesiredRight + DistanceThreshold)){ //Retract
+		Left = 1;
+		Right = 1;
+
+		if (error > 0){
+			Right = K * Right;
+		} else if (error < 0 ){
+			Left = K * Left;
+		}
+
+		scimitar -> Control(Left * ScimitarPrecision, Right * ScimitarPrecision, false);
+	} else if ((LeftPosition < DesiredLeft - DistanceThreshold) || (RightPosition < DesiredRight - DistanceThreshold)){ //Extend
+		Left = -1;
+		Right = -1;
+
+		if (error > 0){
+			Left = K * Left;
+		} else if (error < 0 ){
+			Right = K * Right;
+		}
+
+		scimitar -> Control(Left * ScimitarPrecision, Right * ScimitarPrecision, false);
 	} else {
 		Finished = true;
-	} */
+	}
 
 }
 
