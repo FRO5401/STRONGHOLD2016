@@ -236,3 +236,7 @@ bool OI::GetMOHButtonTriangle(){
 bool OI::GetMOHButtonCircle(){
 	return MedalOfHonorController -> GetRawButton(3);
 }
+
+bool OI::GetXboxStartButton(){
+	return XboxController -> GetRawButton(8);
+}

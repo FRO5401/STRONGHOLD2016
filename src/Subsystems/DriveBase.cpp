@@ -152,7 +152,12 @@ float DriveBase::ReportGyro()
   	float Angle = (GyroScalar * MainGyro	->	GetAngle());
    	double Time = TimeCount -> Get();
    	float AdjAngle = Angle - (GyroLinearAdj * Time + GyroOffset);//Compensates for gyro creep - basically subtracts out mx+b the linear creep function
-  	return AdjAngle;
+   	std::cout << Time << " , " << Angle << " , " << AdjAngle << "\n";
+   	return AdjAngle;
+}
+
+void DriveBase::CalibrateGyro(){
+	MainGyro	->Calibrate();
 }
 
 float DriveBase::GetEncoderDistance(){

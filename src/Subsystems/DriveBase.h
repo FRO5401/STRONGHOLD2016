@@ -49,6 +49,7 @@ public:
 	void EncoderReset();
 	float ReportGyro();
 	float GetEncoderDistance();
+	void CalibrateGyro();
 };
 
 #endif

@@ -40,6 +40,8 @@ void XboxMove::Execute()
 	bool 	Precision	=	oi	->	GetPrecision();
 	bool 	Brake		=	oi	->	GetBrake();
 	bool 	Turn		= 	oi	->	GetButtonL3();
+	bool 	Calibrate 	= oi -> GetXboxStartButton();
+
 	
 	double Right,Left, Sensitivity;
 
@@ -100,7 +102,11 @@ void XboxMove::Execute()
 	*/
 	SmartDashboard::PutNumber("Teleop heading", heading);
 	SmartDashboard::PutNumber("Teleop Drift", drift);
-
+	if (Calibrate){
+		drivebase -> CalibrateGyro();
+		Left = 0;
+		Right = 0;
+	}
 	drivebase        -> Drive(Left, Right);
 }
 
