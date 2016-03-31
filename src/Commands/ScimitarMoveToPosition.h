@@ -8,8 +8,9 @@ class ScimitarMoveToPosition: public CommandBase
 {
 private:
 	bool Finished;
-	double DesiredRight;
-	double DesiredLeft;
+//	double DesiredRight;
+//	double DesiredLeft;
+	double DesiredDistance;
 	double RightPosition;
 	double LeftPosition;
 	double Left;
@@ -19,7 +20,7 @@ private:
 	double LeftEncRaw;
 
 public:
-	ScimitarMoveToPosition(double, double);
+	ScimitarMoveToPosition(double);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

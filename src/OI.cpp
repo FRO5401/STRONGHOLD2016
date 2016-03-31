@@ -23,6 +23,7 @@
 #include "Commands/PrepareToScale.h"
 #include "Commands/ReachForBar.h"
 #include "Commands/RetractHook.h"
+#include "Commands/ScimitarMoveToPositionZero.h"
 #include "Commands/ShiftScaleToDrive.h"
 #include "Commands/ShooterOverride.h"
 #include "Commands/StopDriveForAutonomous.h"
@@ -83,6 +84,8 @@ OI::OI()
 	MOHRightBumper	-> WhenPressed(new FeedInFromInner());
 	MOHRightBumper  -> WhenReleased(new FeederStop());
 	
+	MOHButtonSquare -> WhenPressed(new ScimitarMoveToPositionZero());
+
 
 //	MOHStartButton	-> WhenPressed(new AutoDeliverBall(1.5)); //Commented out, using button to auto drive
 

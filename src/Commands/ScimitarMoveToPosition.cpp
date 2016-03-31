@@ -4,13 +4,12 @@ const double DistanceThreshold = .125; //inches
 const double ScimitarPrecision = .5; //TODO Determine best speed
 const double K = .75;
 
-ScimitarMoveToPosition::ScimitarMoveToPosition(double left, double right) //in inches
+ScimitarMoveToPosition::ScimitarMoveToPosition(double distance) //in inches
 {
 	// Use Requires() here to declare subsystem dependencies
 	Requires(scimitar);
 	Finished = true;
-	DesiredRight = left;
-	DesiredRight = right;
+	DesiredDistance = distance;
 }
 
 // Called just before this Command runs the first time
@@ -30,7 +29,7 @@ void ScimitarMoveToPosition::Execute()
 	error			= LeftEncRaw - RightEncRaw;
 
 	//Assumes starting position is 0
-	if ((LeftPosition > DesiredLeft + DistanceThreshold) || (RightPosition > DesiredRight + DistanceThreshold)){ //Retract
+	if ((LeftPosition > DesiredDistance + DistanceThreshold) || (RightPosition > DesiredDistance + DistanceThreshold)){ //Retract
 		Left = 1;
 		Right = 1;
 
@@ -41,7 +40,7 @@ void ScimitarMoveToPosition::Execute()
 		}
 
 		scimitar -> Control(Left * ScimitarPrecision, Right * ScimitarPrecision, false);
-	} else if ((LeftPosition < DesiredLeft - DistanceThreshold) || (RightPosition < DesiredRight - DistanceThreshold)){ //Extend
+	} else if ((LeftPosition < DesiredDistance - DistanceThreshold) || (RightPosition < DesiredDistance - DistanceThreshold)){ //Extend
 		Left = -1;
 		Right = -1;
 
