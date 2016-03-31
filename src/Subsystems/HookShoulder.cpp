@@ -15,7 +15,7 @@
 //Multiplier to get meaningful value. A number can be put here
 const double HookShoulder_Range 	= 1800;
 //Quote "offset added to the scaled value to control the 0 value
-const double HookShoulder_Offset 	= -1627; //90 degrees vertical is 0
+const double HookShoulder_Offset 	= -730; //Horizontal is 0
 
 //NO LONGER USED
 //const double HookShoulder_Kp 		= 0;//Proportional
@@ -26,10 +26,10 @@ const double HookShoulderMotorMin	= -1;//Min Motor speed
 const double HookShoulderMotorMax	= 0.9;// Max motor speed
 //const double HookShoulderSpeed 		= 0.5;
 
-//The following WILL CHANGE
-const double MaxPosition			= 180;//The maximum position for the hook shoulder
-const double StartPositon 			= 0;//The starting position to stay inside frame perimeter
-const double MinPosition			= 0;//the minimum position for the hook shoulder
+//The following WILL CHANGE //Degrees
+const double MaxPosition			= 95;//The maximum position for the hook shoulder
+const double StartPositon 			= 60;//The starting position to stay inside frame perimeter
+const double MinPosition			= 5;//the minimum position for the hook shoulder
 
 HookShoulder::HookShoulder() :
 		Subsystem("HookShoulder")
@@ -62,17 +62,20 @@ void HookShoulder::UpAndDown(double HookShoulderChangeValue, bool Override){
 
 		if(ReportAngle() <= MinPosition)
 		{
-			HookShoulderMotor -> Set(0);
+			HookShoulderChangeValue = 0;
+//			HookShoulderMotor -> Set(0);
 		}else if(ReportAngle() >= MaxPosition)
 		{
-			HookShoulderMotor -> Set(0);
+			HookShoulderChangeValue = 0;
+//			HookShoulderMotor -> Set(0);
 		}
 	}
-	else
-	{
+//	else
+//	{
 		HookShoulderMotor -> Set(HookShoulderChangeValue * HookShoulderMotorMax);//TODO Reinsert when removing below
 //		HookShoulderMotor -> Set(0);//TODO Remove when we're sure Dpad direction is passing the right parameters here
-	}
+//	}
+
 }
 
 double HookShoulder::ReportAngle(){

@@ -24,13 +24,13 @@ double SPT_Offset 	= 93.701; //(638.073 - 7.164) is old offset for Pot?SPT?Both?
 
 double SPTMotorMin	= -1;//Min Motor speed
 double SPTMotorMax	= 1;// Max motor speed
-double SPTDistancePerPulseValue = -0.4327;//Angles To Pulse
+double SPTDistancePerPulseValue = -0.3765;//Angles To Pulse
 float SPTMotorSpeed = .9;
 
 float SPTDeliveryPosition 	= 55;//-34.677 from start//TODO needs changing
 float SPTFeederPosition		= -21;//-112.146 from start
 float SPTShootingPosition	= -50;//Position has measured 021716
-double SPTMaxAngle			= 59.024; //Measured 100 degrees  021616 //normally 98
+double SPTMaxAngle			= 85; //Measured 100 degrees  021616 //normally 98
 double SPTMinAngle			= -48;
 double SPTPrecision = 0.5; //Set precision very high while PID and stop points are not defined //was .75
 float SPTAngleTolerance = 2;
@@ -60,6 +60,7 @@ void SPT::InitDefaultCommand()
 {
 	// Set the default command for a subsystem here.
 	SetDefaultCommand(new SPTMove());
+	Reset();
 }
 
 // Put methods for controlling this subsystem

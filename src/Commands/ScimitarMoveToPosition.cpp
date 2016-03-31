@@ -1,7 +1,7 @@
 #include "ScimitarMoveToPosition.h"
 
 const double DistanceThreshold = .125; //inches
-const double ScimitarPrecision = .5; //TODO Determine best speed
+const double ScimitarPrecision = 1; //TODO Determine best speed
 const double K = .75;
 
 ScimitarMoveToPosition::ScimitarMoveToPosition(double distance) //in inches
@@ -40,6 +40,7 @@ void ScimitarMoveToPosition::Execute()
 		}
 
 		scimitar -> Control(Left * ScimitarPrecision, Right * ScimitarPrecision, false);
+		Finished = false;
 	} else if ((LeftPosition < DesiredDistance - DistanceThreshold) || (RightPosition < DesiredDistance - DistanceThreshold)){ //Extend
 		Left = -1;
 		Right = -1;
@@ -51,6 +52,7 @@ void ScimitarMoveToPosition::Execute()
 		}
 
 		scimitar -> Control(Left * ScimitarPrecision, Right * ScimitarPrecision, false);
+		Finished = false;
 	} else {
 		Finished = true;
 	}
@@ -60,10 +62,10 @@ void ScimitarMoveToPosition::Execute()
 // Make this return true when this Command no longer needs to run execute()
 bool ScimitarMoveToPosition::IsFinished()
 {
-	if (scimitar -> ReportAnySwitches())
+	if (scimitar -> ReportAnySwitches()) //checks limit switches
 		return true;
-
-	return Finished;
+	else
+		return Finished;
 }
 
 // Called once after isFinished returns true
@@ -77,4 +79,5 @@ void ScimitarMoveToPosition::End()
 void ScimitarMoveToPosition::Interrupted()
 {
 	scimitar -> Stop();
+	std::cout << "Interrupted Scim\n";
 }

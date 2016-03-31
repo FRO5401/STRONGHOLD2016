@@ -85,9 +85,9 @@ OI::OI()
 	MOHRightBumper	-> WhenPressed(new FeedInFromInner());
 	MOHRightBumper  -> WhenReleased(new FeederStop());
 	
-	MOHButtonSquare -> WhenPressed(new ScimitarMoveToPositionZero());
+//	MOHButtonSquare -> WhenPressed(new ScimitarMoveToPositionZero());
 
-	MOHButtonX 		-> WhenPressed(new ScimitarPrepareToScale());
+//	MOHButtonX 		-> WhenPressed(new ScimitarPrepareToScale());
 
 
 //	MOHStartButton	-> WhenPressed(new AutoDeliverBall(1.5)); //Commented out, using button to auto drive

@@ -1,9 +1,9 @@
 #include "HookShoulderUpDown.h"
 
 const double HookShoulderSpeed = 0.37; //TODO Tune this to a comfortable speed
-const double HookMaxPosition = 0; //TODO Set the angle
-const double HookMinPosition = 0; //TODO Set the angle
-const double HookStartPosition = 0; //TODO Set the angle
+const double HookMaxPosition = 96; //TODO Set the angle
+const double HookMinPosition = 5; //TODO Set the angle
+const double HookStartPosition = 60; //TODO Set the angle
 const float StickAxisThreshold = .1;
 
 HookShoulderUpDown::HookShoulderUpDown()
