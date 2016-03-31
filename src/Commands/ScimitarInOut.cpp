@@ -3,7 +3,7 @@
 //in inches
 const float Setpoint15Inch_Right = 7.75;
 const float Setpoint15Inch_Left  = 7.625;
-const float Setpoint_NearFull = 9; //TODO Definitely needs resetting
+const float Setpoint_NearFull = 24;
 
 const float Precision_NearFull = 0.5; //0.25 is too slow, motors stall
 const float PressedPrecision = .5;

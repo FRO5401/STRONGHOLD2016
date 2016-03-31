@@ -19,7 +19,7 @@ XboxMove::XboxMove()
 //	Requires(scimitar);
 	drift = 0;
 	heading = drivebase -> ReportGyro();
-	kP_Drift = .1; //TODO Redetermine this number
+	kP_Drift = 0; //TODO Redetermine this number
 	SmartDashboard::PutNumber("Drift kP", kP_Drift);
 	SmartDashboard::PutNumber("Teleop heading", heading);
 }
@@ -99,6 +99,7 @@ void XboxMove::Execute()
 		SmartDashboard::PutBoolean("Brake",Brake);
 	*/
 	SmartDashboard::PutNumber("Teleop heading", heading);
+	SmartDashboard::PutNumber("Teleop Drift", drift);
 
 	drivebase        -> Drive(Left, Right);
 }

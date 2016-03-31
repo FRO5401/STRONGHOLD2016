@@ -14,8 +14,8 @@
 const double ScimitarSpeed	=	0.9;
 const double ScimPrecision =   1;
 
-const double ScimitarRightEncDPP = 0.0000461;//Measured: 7.5 / 162914, value is averaged left/right
-const double ScimitarLeftEncDPP  = 0.0000461;//Measured: 8.125 / 176036, value averaged left/right;
+const double ScimitarRightEncDPP = 0.00000989;//Measured: 7.5 / 162914, value is averaged left/right
+const double ScimitarLeftEncDPP  = 0.00000919;//Measured: 8.125 / 176036, value averaged left/right;
 
 const double StartingOffset = 0; //TODO Figure out offset from starting position
 
