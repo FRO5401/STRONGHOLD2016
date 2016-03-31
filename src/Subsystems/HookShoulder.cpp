@@ -52,25 +52,27 @@ void HookShoulder::InitDefaultCommand()
 }
 
 //This function sets the shoulder motor of SPT to a certain direction between up and down
-void HookShoulder::UpAndDown(double HookShoulderChangeValue){
+void HookShoulder::UpAndDown(double HookShoulderChangeValue, bool Override){
 /*Add a constant above, and make this conditional on being within a max/min reading on the Pot.
  * This is to keep it from going above a certain angle for rules and below a certain angle so it doesn't
  * keep running once it gets into the robot
  */
 	SmartDashboard::PutNumber("HookShoulderPot", HookShoulderPot -> Get());
-	if(ReportAngle() <= MinPosition)
-	{
-		HookShoulderMotor -> Set(0);
-	}else if(ReportAngle() >= MaxPosition)
-	{
-		HookShoulderMotor -> Set(0);
+	if (!Override){
+
+		if(ReportAngle() <= MinPosition)
+		{
+			HookShoulderMotor -> Set(0);
+		}else if(ReportAngle() >= MaxPosition)
+		{
+			HookShoulderMotor -> Set(0);
+		}
 	}
 	else
 	{
 		HookShoulderMotor -> Set(HookShoulderChangeValue * HookShoulderMotorMax);//TODO Reinsert when removing below
 //		HookShoulderMotor -> Set(0);//TODO Remove when we're sure Dpad direction is passing the right parameters here
 	}
-
 }
 
 double HookShoulder::ReportAngle(){

@@ -55,7 +55,7 @@ void HookShoulderUpDown::Execute()
 	SmartDashboard::PutNumber("YAxisValue", YAxisValue);
 	SmartDashboard::PutNumber("HookShoulder Input", HookShoulderMove);
 
-	hookshoulder -> UpAndDown(HookShoulderMove); //TODO Took this out to test the dpad inputs, don't trust those
+	hookshoulder -> UpAndDown(HookShoulderMove, Override); //TODO Took this out to test the dpad inputs, don't trust those
 }
 
 // Make this return true when this Command no longer needs to run execute()

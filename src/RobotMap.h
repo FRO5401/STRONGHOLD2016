@@ -127,18 +127,19 @@ const int CarriageLights_Channel			= 1; //XXX Not in use
 /************
  * Sensor Channels
  ***********/
+//Numbers > 9 are on the MoreBoard
 //Removed Until Further Notice 31816
 //const int ShooterSwitch_Channel 	= 0;			//MUST BE UPDATED
-const int HookShoulderPot_Channel	= 0;	//MUST BE UPDATED
+const int HookShoulderPot_Channel	= 0; //Analog
 const int SPTPot_Channel 		= 1;//MUST BE UPDATED SPT potentiometer channel, under Analogs //XXX No such thing
 
 //Encoder DIO Channels
-const int Enc_Left_A 	= 4; //XXX Should be 6 //not plugged in
-const int Enc_Left_B 	= 5; //XXX Should be 7 //not plugged in
+const int Enc_Left_A 	= 0; //XXX Should be 6 //not plugged in
+const int Enc_Left_B 	= 1; //XXX Should be 7 //not plugged in
 const int Enc_Right_A 	= 2;
 const int Enc_Right_B 	= 3;
-const int Enc_SPT_Loc_A = 0;
-const int Enc_SPT_Loc_B = 1;
+const int Enc_SPT_Loc_A = 4;
+const int Enc_SPT_Loc_B = 5;
 
 //const int Enc_Shooter_A = 4;
 //const int Enc_Shooter_B = 5;
