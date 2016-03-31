@@ -29,6 +29,7 @@
 #include "Commands/StopDriveForAutonomous.h"
 #include "Commands/SPTShootingPosition.h"
 #include "Commands/SPTMove.h"
+#include "Commands/ScimitarPrepareToScale.h"
 #include "WPILib.h"
 
 OI::OI()
