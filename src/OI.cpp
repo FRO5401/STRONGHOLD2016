@@ -86,6 +86,8 @@ OI::OI()
 	
 	MOHButtonSquare -> WhenPressed(new ScimitarMoveToPositionZero());
 
+	MOHButtonX 		-> WhenPressed(new ScimitarPrepareToScale());
+
 
 //	MOHStartButton	-> WhenPressed(new AutoDeliverBall(1.5)); //Commented out, using button to auto drive
 
