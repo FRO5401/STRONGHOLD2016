@@ -86,6 +86,7 @@
 #include "Autonomous/AutonomousSallyPort.h"
 #include "Autonomous/AutonomousRockWall.h"
 #include "Autonomous/AutonomousRoughTerrain.h"
+#include "Autonomous/AutoHookScimitarOnBumper.h"
 
 #include "Autonomous/MoveForwardOnly.h"
 #include "Commands/DoNothing.h"
@@ -151,6 +152,7 @@ private:
 //		autoMode->AddObject("SpyBot", new AutonomousSpyBot()); //Restore when command is written, plus need one for each position
 		autoMode->AddObject("Do Nothing", new DoNothing());
 		autoMode->AddObject("Move Forward to Outer Works Only", new MoveForwardOnly());
+		autoMode->AddObject("Hook Scimitar On Bumper", new AutoHookScimitarOnBumper());
 		SmartDashboard::PutData("Autonomous Mode", autoMode);
 
 
