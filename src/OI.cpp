@@ -25,6 +25,7 @@
 #include "Commands/RetractHook.h"
 #include "Commands/ScimitarMoveToPositionZero.h"
 #include "Commands/ScimitarMoveToPosition.h"
+#include "Commands/ScimitarInOut.h"
 #include "Commands/ShiftScaleToDrive.h"
 #include "Commands/ShooterOverride.h"
 #include "Commands/StopDriveForAutonomous.h"
@@ -86,8 +87,9 @@ OI::OI()
 	MOHRightBumper	-> WhenPressed(new FeedInFromInner());
 	MOHRightBumper  -> WhenReleased(new FeederStop());
 	
-//	MOHButtonSquare -> WhenPressed(new ScimitarMoveToPosition(0));//ScimitarMoveToPositionZero());
+	MOHButtonSquare -> WhenPressed(new ScimitarMoveToPositionZero());
 
+//	MOHButtonTriangle -> WhenPressed(new ScimitarInOut());
 //	MOHButtonX 		-> WhenPressed(new ScimitarPrepareToScale());
 
 

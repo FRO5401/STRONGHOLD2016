@@ -131,5 +131,5 @@ void ScimitarInOut::End()
 void ScimitarInOut::Interrupted()
 {
 	std::cout << "Manual Scimitar Extend Command Interrupted\n";
-	scimitar -> Stop();
+	//scimitar -> Stop();
 }

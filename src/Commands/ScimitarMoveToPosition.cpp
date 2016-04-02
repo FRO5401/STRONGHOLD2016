@@ -105,6 +105,6 @@ void ScimitarMoveToPosition::End()
 // subsystems is scheduled to run
 void ScimitarMoveToPosition::Interrupted()
 {
-	scimitar -> Stop();
+//	scimitar -> Stop();
 	std::cout << "Interrupted Scim\n";
 }

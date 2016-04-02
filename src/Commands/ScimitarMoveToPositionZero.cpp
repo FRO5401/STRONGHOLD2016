@@ -1,9 +1,11 @@
 #include "ScimitarMoveToPositionZero.h"
 #include "Commands/ScimitarMoveToPosition.h"
+#include "Commands/ScimitarInOut.h"
 
 ScimitarMoveToPositionZero::ScimitarMoveToPositionZero()
 {
 	AddSequential(new ScimitarMoveToPosition(0));
+//	AddSequential(new ScimitarInOut());
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
