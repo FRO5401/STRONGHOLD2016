@@ -1,6 +1,6 @@
 #include "HookShoulderUpDown.h"
 
-const double HookShoulderSpeed = 0.6; //TODO Tune this to a comfortable speed
+const double HookShoulderSpeed = 0.75; //TODO Tune this to a comfortable speed
 const double HookMaxPosition = 96; //TODO Set the angle
 const double HookMinPosition = 5; //TODO Set the angle
 const double HookStartPosition = 60; //TODO Set the angle
