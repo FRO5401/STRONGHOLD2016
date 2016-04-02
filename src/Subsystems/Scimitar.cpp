@@ -55,7 +55,7 @@ Scimitar::Scimitar() :
 void Scimitar::InitDefaultCommand()
 {
 	SetDefaultCommand(new ScimitarInOut());
-	ResetEncoders();
+//	ResetEncoders();  //KJM Don't do this here
 }
 
 void Scimitar::Control(double LeftScimChange, double RightScimChange, bool Override)
@@ -72,13 +72,13 @@ void Scimitar::Control(double LeftScimChange, double RightScimChange, bool Overr
 	if ((ReportLeftFarSwitch() || ReportRightFarSwitch()) && ((LeftScimChange < 0) || (RightScimChange < 0))){
 		LeftScimChange = 0;
 		RightScimChange = 0;
-		std::cout << "Scimitar Zeroed Out1\n";
+		std::cout << "Scimitar Far Switch tripped\n";
 	}
 	//Zero out the change if extension is at its lower limit and trying to decrease
 	if ((ReportLeftCloseSwitch() || ReportRightCloseSwitch()) && ((LeftScimChange > 0) || (RightScimChange > 0))){
 		LeftScimChange = 0;
 		RightScimChange = 0;
-		std::cout << "Scimitar Zeroed Out2\n";
+		std::cout << "Scimitar Near Swith Tripped\n";
 	}
 	SmartDashboard::PutNumber("Scim L Input - Adj", LeftScimChange);
 	std::cout << "RUNNING SCIMITAR\n";

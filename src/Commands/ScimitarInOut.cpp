@@ -32,17 +32,20 @@ ScimitarInOut::ScimitarInOut()
 	SmartDashboard::PutNumber("Left motor adjusted- Cmd", Left);
 	SmartDashboard::PutNumber("Left motor limited - Cmd", Left);
 	SmartDashboard::PutBoolean("Extend Override", Override);
+	scimitar -> ResetEncoders();
 }
 
 // Called just before this Command runs the first time
 void ScimitarInOut::Initialize()
 {
-	scimitar -> ResetEncoders();
+//	scimitar -> ResetEncoders();//Moving this to the constructor so they don't reset when auto ends and this command resumes
+	std::cout << "Initializing Manual Scimitar Extend\n";
 }
 
 // Called repeatedly when this Command is scheduled to run
 void ScimitarInOut::Execute()
 {
+	std::cout << "Executing Manual Scimitar Extend\n";
 	Input		 		= oi	-> GetMOHPOVState();
 	Override 			= oi 	-> GetMOHButtonTriangle();
 	SlowScimitar		= oi 	-> GetMOHButtonCircle();
@@ -81,7 +84,7 @@ void ScimitarInOut::Execute()
 		if (((RightEncoderDist >= Setpoint15Inch_Right) || (LeftEncoderDist >= Setpoint15Inch_Left)) && ((Left < 0) || (Right < 0))){ //Enc are not beyond limit and we are extending
 			Left = 0;
 			Right = 0;
-			std::cout << "Stop at setpoint" ;
+			std::cout << "Stop at 15 inch setpoint" ;
 		}
 	} else {
 		std::cout << "Soft Stop Overridden";
@@ -93,26 +96,33 @@ void ScimitarInOut::Execute()
 	if (((RightEncoderDist >= Setpoint_NearFull) || (LeftEncoderDist >= Setpoint_NearFull)) && ((Left < 0) || (Right < 0))){
 		Left = Left * Precision_NearFull;
 		Right = Right * Precision_NearFull;
+		std::cout << "Scimitar Approaching full extension\n";
+
 	}
 	//Slow down Scimitar on manual button press
 	else if (SlowScimitar){
 		Left = Left * PressedPrecision;
 		Right = Right * PressedPrecision;
+		std::cout << "Scimitar Precision Speed\n";
+
 	}
 
-	std::cout << "Run ScimitarInOut\n";
+	std::cout << "Run Manual ScimitarInOut\n";
 	scimitar -> Control(Left, Right, Override);
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool ScimitarInOut::IsFinished()
 {
+	std::cout << "Manual Scimitar Extend Check Finish\n";
+
 	return false;
 }
 
 // Called once after isFinished returns true
 void ScimitarInOut::End()
 {
+	std::cout << "Manual Scimitar Extend Command Ended\n";
 	scimitar -> Stop();
 }
 
@@ -120,5 +130,6 @@ void ScimitarInOut::End()
 // subsystems is scheduled to run
 void ScimitarInOut::Interrupted()
 {
+	std::cout << "Manual Scimitar Extend Command Interrupted\n";
 	scimitar -> Stop();
 }
