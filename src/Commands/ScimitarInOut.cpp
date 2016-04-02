@@ -93,14 +93,14 @@ void ScimitarInOut::Execute()
 	SmartDashboard::PutBoolean("Extend Override", Override);
 
 	//Slow down the change if extension is near maximum
-	if (((RightEncoderDist >= Setpoint_NearFull) || (LeftEncoderDist >= Setpoint_NearFull)) && ((Left < 0) || (Right < 0))){
+/*	if (((RightEncoderDist >= Setpoint_NearFull) || (LeftEncoderDist >= Setpoint_NearFull)) && ((Left < 0) || (Right < 0))){
 		Left = Left * Precision_NearFull;
 		Right = Right * Precision_NearFull;
 		std::cout << "Scimitar Approaching full extension\n";
 
 	}
-	//Slow down Scimitar on manual button press
-	else if (SlowScimitar){
+*/	//Slow down Scimitar on manual button press
+	 if (SlowScimitar){
 		Left = Left * PressedPrecision;
 		Right = Right * PressedPrecision;
 		std::cout << "Scimitar Precision Speed\n";
