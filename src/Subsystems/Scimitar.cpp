@@ -72,14 +72,16 @@ void Scimitar::Control(double LeftScimChange, double RightScimChange, bool Overr
 	if ((ReportLeftFarSwitch() || ReportRightFarSwitch()) && ((LeftScimChange < 0) || (RightScimChange < 0))){
 		LeftScimChange = 0;
 		RightScimChange = 0;
+		std::cout << "Scimitar Zeroed Out1\n";
 	}
 	//Zero out the change if extension is at its lower limit and trying to decrease
 	if ((ReportLeftCloseSwitch() || ReportRightCloseSwitch()) && ((LeftScimChange > 0) || (RightScimChange > 0))){
 		LeftScimChange = 0;
 		RightScimChange = 0;
+		std::cout << "Scimitar Zeroed Out2\n";
 	}
 	SmartDashboard::PutNumber("Scim L Input - Adj", LeftScimChange);
-
+	std::cout << "RUNNING SCIMITAR\n";
 	LeftScimitarExtender -> Set(LeftScimChange * ScimPrecision);
 	RightScimitarExtender -> Set(RightScimChange* ScimPrecision);
 

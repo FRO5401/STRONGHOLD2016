@@ -18,6 +18,7 @@ private:
 	double error;
 	double RightEncRaw;
 	double LeftEncRaw;
+	bool Override;
 
 public:
 	ScimitarMoveToPosition(double);

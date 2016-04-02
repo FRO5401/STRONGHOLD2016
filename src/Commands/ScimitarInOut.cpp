@@ -100,6 +100,7 @@ void ScimitarInOut::Execute()
 		Right = Right * PressedPrecision;
 	}
 
+	std::cout << "Run ScimitarInOut\n";
 	scimitar -> Control(Left, Right, Override);
 }
 
