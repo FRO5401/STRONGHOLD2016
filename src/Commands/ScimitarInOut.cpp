@@ -1,8 +1,8 @@
 #include "ScimitarInOut.h"
 
 //in inches
-const float Setpoint15Inch_Right = 7.75;
-const float Setpoint15Inch_Left  = 7.625;
+const float Setpoint15Inch_Right = 0;//7.75;
+const float Setpoint15Inch_Left  = 0;//7.625;
 const float Setpoint_NearFull = 24;
 
 const float Precision_NearFull = 0.5; //0.25 is too slow, motors stall

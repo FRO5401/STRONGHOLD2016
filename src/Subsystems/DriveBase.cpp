@@ -9,8 +9,8 @@
 #include <Commands/XboxMove.h>
 
 const float GyroScalar		= 10; 		//Preliminarily tuned
-const float GyroLinearAdj	= -0.696; 	//Adjusts for Gyro Creep = m
-const float GyroOffset		= -6.1395;	// = b
+const float GyroLinearAdj	= 0;//-0.696; 	//Adjusts for Gyro Creep = m //XXX Zeroed out as gyro creep is not present
+const float GyroOffset		= 0;//-6.1395;	// = b //XXX Zeroed out as gyro creep is not present
 float initialGyro			= 0;
 
 const double AutoDriveSpeed	= 0.5;

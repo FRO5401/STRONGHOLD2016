@@ -29,7 +29,7 @@ const double HookShoulderMotorMax	= 0.9;// Max motor speed
 //The following WILL CHANGE //Degrees
 const double MaxPosition			= 95;//The maximum position for the hook shoulder
 const double StartPositon 			= 60;//The starting position to stay inside frame perimeter
-const double MinPosition			= 5;//the minimum position for the hook shoulder
+const double MinPosition			= -5;//the minimum position for the hook shoulder
 
 HookShoulder::HookShoulder() :
 		Subsystem("HookShoulder")
