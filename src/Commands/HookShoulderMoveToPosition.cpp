@@ -1,6 +1,7 @@
 #include "HookShoulderMoveToPosition.h"
 //This code is pretty much a copy of SPTMoveToPositon for the HookShoulder
-const int HookShoulderAngleTolerance = 0;//TODO adjust this
+const double HookShoulderAngleTolerance = 0;//TODO adjust this
+const double HookShoulderPrecision = .37;
 
 HookShoulderMoveToPosition::HookShoulderMoveToPosition(double angleForHookShoulder)
 {
@@ -20,12 +21,15 @@ void HookShoulderMoveToPosition::Initialize()
 void HookShoulderMoveToPosition::Execute()
 {
 	if (hookshoulder -> ReportAngle() > DesiredAngleHookShoulder + HookShoulderAngleTolerance){
-		hookshoulder -> UpAndDown(1, false);//Position goes down because desired angle is underneath the current angle, positive goes down
+		hookshoulder -> UpAndDown(1.0 * HookShoulderPrecision, false);//Position goes down because desired angle is underneath the current angle, positive goes down
 		finishedHookShoulder = false;
+		std::cout << "Auto Moving HookShoulder Down\n";
 	} else if (hookshoulder ->ReportAngle() < DesiredAngleHookShoulder - HookShoulderAngleTolerance){
-		hookshoulder -> UpAndDown(-1, false); //Position goes up because desired angle is above current angle, negative goes up
+		hookshoulder -> UpAndDown(-1.0 * HookShoulderPrecision, false); //Position goes up because desired angle is above current angle, negative goes up
 		finishedHookShoulder = false;
+		std::cout << "Auto Moving HookShoulder Up\n";
 	} else {
+		std::cout << "STOP AutoHookShoulder\n";
 		finishedHookShoulder = true;
 	}
 }

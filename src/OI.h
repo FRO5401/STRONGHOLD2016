@@ -71,6 +71,7 @@ public:
 	bool GetMOHButtonL3();
 	bool GetMOHButtonTriangle();
 	bool GetMOHButtonCircle();
+	bool GetMOHRightBumper();
 };
 
 #endif

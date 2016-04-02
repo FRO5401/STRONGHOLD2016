@@ -19,6 +19,10 @@ private:
 	double RightEncRaw;
 	double LeftEncRaw;
 	bool Override;
+	bool LeftClose;
+	bool LeftFar;
+	bool RightClose;
+	bool RightFar;
 
 public:
 	ScimitarMoveToPosition(double);

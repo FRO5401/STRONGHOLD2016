@@ -140,19 +140,19 @@ private:
 
 		autoMode = new SendableChooser();
 		//Low Bar CommandGroup is constant because it'll always be in defense position 1 and go in left high goal
-		autoMode->AddDefault("Default-Low Bar", new AutonomousLowBar(1,1,2));
-		autoMode->AddObject("Portcullis", new AutonomousPortcullis(PositionForDefense, PositionForGoal, LowOrHighGoal));
-		autoMode->AddObject("Cheval de Frise", new AutonomousChevalDeFrise(PositionForDefense, PositionForGoal, LowOrHighGoal));
-		autoMode->AddObject("Ramparts", new AutonomousRamparts(PositionForDefense, PositionForGoal, LowOrHighGoal));
-		autoMode->AddObject("Moat", new AutonomousMoat(PositionForDefense, PositionForGoal, LowOrHighGoal));
+//		autoMode->AddDefault("Default-Low Bar", new AutonomousLowBar(1,1,2));
+		autoMode->AddDefault("ONLY Hook Scimitar onto Bumper", new AutoHookScimitarOnBumper());
+		autoMode->AddObject("Do Nothing", new DoNothing());
+//		autoMode->AddObject("Portcullis", new AutonomousPortcullis(PositionForDefense, PositionForGoal, LowOrHighGoal));
+//		autoMode->AddObject("Cheval de Frise", new AutonomousChevalDeFrise(PositionForDefense, PositionForGoal, LowOrHighGoal));/		autoMode->AddObject("Ramparts", new AutonomousRamparts(PositionForDefense, PositionForGoal, LowOrHighGoal));
+//		autoMode->AddObject("Moat", new AutonomousMoat(PositionForDefense, PositionForGoal, LowOrHighGoal));
 //		autoMode->AddObject("Drawbridge", new AutonomousDrawbridge(PositionForDefense, PositionForGoal, LowOrHighGoal));
 //		autoMode->AddObject("Sally Port", new AutonomousSallyPort(PositionForDefense, PositionForGoal, LowOrHighGoal));
-		autoMode->AddObject("Rock Wall", new AutonomousRockWall(PositionForDefense, PositionForGoal, LowOrHighGoal));
-		autoMode->AddObject("Rough Terrain", new AutonomousRoughTerrain(PositionForDefense, PositionForGoal, LowOrHighGoal));
+		autoMode->AddObject("Rock Wall/Rough Terrain (Hook Forwards)", new AutonomousRockWall(PositionForDefense, PositionForGoal, LowOrHighGoal));
+//		autoMode->AddObject("Rough Terrain", new AutonomousRoughTerrain(PositionForDefense, PositionForGoal, LowOrHighGoal));
 //		autoMode->AddObject("SpyBot", new AutonomousSpyBot()); //Restore when command is written, plus need one for each position
-		autoMode->AddObject("Do Nothing", new DoNothing());
-		autoMode->AddObject("Move Forward to Outer Works Only", new MoveForwardOnly());
-		autoMode->AddObject("Hook Scimitar On Bumper", new AutoHookScimitarOnBumper());
+		autoMode->AddObject("Move Forward to Outer Works Only (SPT Forwards)", new MoveForwardOnly());
+//		autoMode->AddObject("Hook Scimitar On Bumper", new AutoHookScimitarOnBumper());
 		SmartDashboard::PutData("Autonomous Mode", autoMode);
 
 

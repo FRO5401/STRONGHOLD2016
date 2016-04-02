@@ -10,7 +10,7 @@ AutonomousRockWall::AutonomousRockWall(int DefensePosition, int GoalPosition, in
 	//Measurements are based on theoretical calculations, physical test are needed
 	//SPT starts from behind
 	AddSequential(new AutoHookScimitarOnBumper());
-	AddSequential(new AutoDriveCommand(-97));//TODO Physically determine distance
+	AddSequential(new AutoDriveCommand(-200));//TODO Physically determine distance
 
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());

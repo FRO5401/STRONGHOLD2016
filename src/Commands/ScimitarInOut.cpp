@@ -47,7 +47,7 @@ void ScimitarInOut::Execute()
 {
 	std::cout << "Executing Manual Scimitar Extend\n";
 	Input		 		= oi	-> GetMOHPOVState();
-	Override 			= oi 	-> GetMOHButtonTriangle();
+	Override 			= oi 	-> GetMOHRightBumper();
 	SlowScimitar		= oi 	-> GetMOHButtonCircle();
 	LeftEncoderDist 	= scimitar -> ReportLeftPosition();
 	RightEncoderDist	= scimitar -> ReportRightPosition();

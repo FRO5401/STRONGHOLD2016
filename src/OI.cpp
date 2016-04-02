@@ -84,8 +84,8 @@ OI::OI()
 	MOHLeftBumper	-> WhenPressed(new FeedOutFromInner());
 	MOHLeftBumper	-> WhenReleased(new FeederStop());
 
-	MOHRightBumper	-> WhenPressed(new FeedInFromInner());
-	MOHRightBumper  -> WhenReleased(new FeederStop());
+//	MOHRightBumper	-> WhenPressed(new FeedInFromInner());
+//	MOHRightBumper  -> WhenReleased(new FeederStop());
 	
 	MOHButtonSquare -> WhenPressed(new ScimitarMoveToPositionZero());
 
@@ -244,4 +244,8 @@ bool OI::GetMOHButtonTriangle(){
 
 bool OI::GetMOHButtonCircle(){
 	return MedalOfHonorController -> GetRawButton(3);
+}
+
+bool OI::GetMOHRightBumper(){
+	return MedalOfHonorController -> GetRawButton(6);
 }

@@ -39,12 +39,19 @@ void ScimitarMoveToPosition::Execute()
 	RightEncRaw 	= scimitar -> ReportRightRaw();
 	error			= LeftEncRaw - RightEncRaw;
 
+	LeftFar = scimitar -> ReportLeftFarSwitch();
+	RightFar = scimitar -> ReportRightFarSwitch();
+	LeftClose = scimitar -> ReportLeftCloseSwitch();
+	RightClose = scimitar -> ReportRightCloseSwitch();
+
 	Override = oi -> GetMOHButtonTriangle();
 	//Assumes starting position is 0
-	if (Override){
+	if (LeftFar || RightFar || LeftClose || RightClose){ //checks limit switches
+		std::cout << "ScimitarMoveToPositon Stopped due to limit switch\n";
+		Finished = true; //KJM changed this to set the flag rather than execute the return
+	} else if (Override){
 		Finished = true;
 		std::cout << "Override Pressed - Auto Move Abort\n";
-
 	} else if ((LeftPosition > DesiredDistance + DistanceThreshold) || (RightPosition > DesiredDistance + DistanceThreshold)){ //Retract
 		Left = 1;
 		Right = 1;
@@ -79,6 +86,7 @@ void ScimitarMoveToPosition::Execute()
 		Finished = true;
 		std::cout << "Done running Scimitar\n";
 	}
+
 	scimitar -> Control(Left * ScimitarPrecision, Right * ScimitarPrecision, false);
 
 }
@@ -86,10 +94,6 @@ void ScimitarMoveToPosition::Execute()
 // Make this return true when this Command no longer needs to run execute()
 bool ScimitarMoveToPosition::IsFinished()
 {
-	if (scimitar -> ReportAnySwitches()){ //checks limit switches
-		std::cout << "ScimitarMoveToPositon Stopped due to limit switch\n";
-		Finished = true; //KJM changed this to set the flag rather than execute the return
-	}
 	std::cout << "ScimitarMoveToPosition Return Checked\n";
 	return Finished;
 }

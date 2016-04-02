@@ -1,6 +1,6 @@
  #include "AutoDriveCommand.h"
 
- const double AutoDriveSpeed	= 0.5;
+ const double AutoDriveSpeed	= 0.75;
  const float DefaultTurnPrecision = 0.5;
  const float AutoDistThresh = 2;
 AutoDriveCommand::AutoDriveCommand(float DistanceInput)
