@@ -86,7 +86,7 @@ OI::OI()
 	MOHRightBumper	-> WhenPressed(new FeedInFromInner());
 	MOHRightBumper  -> WhenReleased(new FeederStop());
 	
-	MOHButtonSquare -> WhenPressed(new ScimitarMoveToPosition(0));//ScimitarMoveToPositionZero());
+//	MOHButtonSquare -> WhenPressed(new ScimitarMoveToPosition(0));//ScimitarMoveToPositionZero());
 
 //	MOHButtonX 		-> WhenPressed(new ScimitarPrepareToScale());
 
