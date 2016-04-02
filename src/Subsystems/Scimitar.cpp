@@ -11,7 +11,7 @@
 #include "../RobotMap.h"
 #include "Commands/ScimitarInOut.h"
 
-const double ScimitarSpeed	=	0.9;
+//const double ScimitarSpeed	=	0.95; //not used
 const double ScimPrecision =   1;
 
 const double ScimitarRightEncDPP = 0.00000989;//Measured: 7.5 / 162914, value is averaged left/right
