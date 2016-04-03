@@ -15,7 +15,7 @@
 //Multiplier to get meaningful value. A number can be put here
 const double HookShoulder_Range 	= 1800;
 //Quote "offset added to the scaled value to control the 0 value
-const double HookShoulder_Offset 	= -847; //Horizontal is 0
+const double HookShoulder_Offset 	= -1024;//-847; //Horizontal is 0
 
 //NO LONGER USED
 //const double HookShoulder_Kp 		= 0;//Proportional
@@ -29,7 +29,7 @@ const double HookShoulderMotorMax	= 0.9;// Max motor speed
 //The following WILL CHANGE //Degrees
 const double MaxPosition			= 95;//The maximum position for the hook shoulder
 const double StartPositon 			= 60;//The starting position to stay inside frame perimeter
-const double MinPosition			= -5;//the minimum position for the hook shoulder
+const double MinPosition			= 10;//the minimum position for the hook shoulder
 
 HookShoulder::HookShoulder() :
 		Subsystem("HookShoulder")

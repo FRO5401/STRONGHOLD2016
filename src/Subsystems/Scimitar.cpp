@@ -14,8 +14,8 @@
 //const double ScimitarSpeed	=	0.95; //not used
 const double ScimPrecision =   1;
 
-const double ScimitarRightEncDPP = 0.0000135;//0.00000989;//Measured: 7.5 / 162914, value is averaged left/right
-const double ScimitarLeftEncDPP  = 0.0000135;//0.00000919;// - 52.7 gear ratio//Measured: 8.125 / 176036, value averaged left/right;
+const double ScimitarRightEncDPP = 0.00001847;//0.00000989;//Measured: 7.5 / 162914, value is averaged left/right
+const double ScimitarLeftEncDPP  = 0.00001847;//0.00000919;// - 52.7 gear ratio//Measured: 8.125 / 176036, value averaged left/right;
 
 const double StartingOffset = 0; //TODO Figure out offset from starting position
 
