@@ -105,6 +105,11 @@ void XboxMove::Execute()
 	SmartDashboard::PutNumber("Teleop Drift", drift);
 
 	drivebase        -> Drive(Left, Right);
+
+	//Comment out during competition
+	if (oi->GetButtonStart() && oi->GetButtonBack())
+		drivebase -> MainGyro -> Calibrate();
+
 }
 
 // Make this return true when this Command no longer needs to run execute()

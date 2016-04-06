@@ -3,7 +3,7 @@
  const double AutoDriveSpeed	= 0.75;
  const float DefaultTurnPrecision = 0.5;
  const float AutoDistThresh = 2;
-AutoDriveCommand::AutoDriveCommand(float DistanceInput)
+AutoDriveCommand::AutoDriveCommand(float DistanceInput) //This will compile after you restart robot code 80% sure
 {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(chassis);
@@ -22,6 +22,8 @@ void AutoDriveCommand::Initialize()
 	drivebase -> EncoderReset();
 	heading = drivebase -> ReportGyro();
 	drift = 0;
+	DoneTraveling = true;
+	DistanceTraveled = 0;
 
 	SmartDashboard::PutNumber("heading", heading);
 }
