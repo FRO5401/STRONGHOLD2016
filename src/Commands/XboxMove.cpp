@@ -43,6 +43,9 @@ void XboxMove::Execute()
 	
 	double Right,Left, Sensitivity;
 
+	if (oi -> GetButtonX())
+		Slew *= -1;
+
 	SmartDashboard::GetNumber("Drift kP", kP_Drift);
 
 	if (Precision) { //Sets drive precision based on RobotMap and Precision Mode
