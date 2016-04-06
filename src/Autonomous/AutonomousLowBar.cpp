@@ -7,6 +7,7 @@
 #include "Autonomous/AutoTurnAngleCommand.h"
 #include "Autonomous/AutoDeliverBall.h"
 #include "Autonomous/AutoDriveCommand.h"
+
 //Includes are for commands that are used in this command group
 
 AutonomousLowBar::AutonomousLowBar(int DefensePosition, int GoalPosition, int LowOrHigh)
@@ -17,6 +18,11 @@ AutonomousLowBar::AutonomousLowBar(int DefensePosition, int GoalPosition, int Lo
 	AddSequential(new AutoDriveCommand(-15.0));
 	AddSequential(new WaitCommand(3));
 	AddSequential(new AutoDriveCommand(-125.0));//Formerly -200 //Before Formerly -122.5 //TODO calibrate
+	//Drive to good distance
+	AddSequential(new AutoTurnToAngleCommand(50));
+	//Drive onto batter (130?) and get SPT into position (check with drive team)
+	AddSequential(new AutoDeliverBall(2.0));
+
 //	AddSequential(new SPTMoveToPosition(90));
 //	AddSequential(new AutoTurnAngleCommand(38));//46.8 but we overshoot
 //	AddSequential(new AutoDeliverBall(2.0));
