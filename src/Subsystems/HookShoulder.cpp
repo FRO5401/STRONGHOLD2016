@@ -8,26 +8,28 @@
 #include "HookShoulder.h"
 #include "../RobotMap.h"
 #include "PIDController.h"
-#include "Commands/ScimitarUpDown.h"
+#include "Commands/HookShoulderUpDown.h"
 
 //Parameters for Potentiometer and the its PIDcontroller. Easier to edit if you put it here
 
 //Multiplier to get meaningful value. A number can be put here
-const int HookShoulder_Range 	= 0;
+const double HookShoulder_Range 	= 1800;
 //Quote "offset added to the scaled value to control the 0 value
-const int HookShoulder_Offset 	= 0;
+const double HookShoulder_Offset 	= -1024;//-847; //Horizontal is 0
 
-const int HookShoulder_Kp 		= 0;//Proportional
-const int HookShoulder_Ki		= 0 ;//Intergral
-const int HookShoulder_Kd		= 0;//Derivative
+//NO LONGER USED
+//const double HookShoulder_Kp 		= 0;//Proportional
+//const double HookShoulder_Ki		= 0;//Intergral
+//const double HookShoulder_Kd		= 0;//Derivative
 
-const int HookShoulderMotorMin	= -1;//Min Motor speed
-const int HookShoulderMotorMax	= 1;// Max motor speed
-const int HookShoulderSensitivity = 0.5;
+const double HookShoulderMotorMin	= -1;//Min Motor speed
+const double HookShoulderMotorMax	= 0.9;// Max motor speed
+//const double HookShoulderSpeed 		= 0.5;
 
-//The following WILL CHANGEs
-const int MaxPosition			= 0;//The maximum position for the hook shoulder
-const int MinPosition			= 0;//the minimum position for the hook shoulder
+//The following WILL CHANGE //Degrees
+const double MaxPosition			= 95;//The maximum position for the hook shoulder
+const double StartPositon 			= 60;//The starting position to stay inside frame perimeter
+const double MinPosition			= 10;//the minimum position for the hook shoulder
 
 HookShoulder::HookShoulder() :
 		Subsystem("HookShoulder")
@@ -35,7 +37,7 @@ HookShoulder::HookShoulder() :
 	HookShoulderMotor = new Victor(HookShoulderMotor_Channel);
 
 	HookShoulderPot = new AnalogPotentiometer(HookShoulderPot_Channel, HookShoulder_Range, HookShoulder_Offset);
-							//		 ^^Channel in RobotMap
+							//		 			^^Channel in RobotMap
 
 	//Format for declaring PIDControllers (Kp value, Ki value, Kd value, the input source, the output source)
 	//Read Control Theory from http://www.chiefdelphi.com/media/papers/1823
@@ -46,23 +48,41 @@ HookShoulder::HookShoulder() :
 void HookShoulder::InitDefaultCommand()
 {
 	// Set the default command for a subsystem here.
-	SetDefaultCommand(new ScimitarUpDown());
+	SetDefaultCommand(new HookShoulderUpDown());
 }
 
 //This function sets the shoulder motor of SPT to a certain direction between up and down
-void HookShoulder::UpAndDown(double HookShoulderChangeValue){
+void HookShoulder::UpAndDown(double HookShoulderChangeValue, bool Override){
 /*Add a constant above, and make this conditional on being within a max/min reading on the Pot.
  * This is to keep it from going above a certain angle for rules and below a certain angle so it doesn't
  * keep running once it gets into the robot
  */
-	double CurrentPosition = ReportAngle();
-	//Zero out the change if angle is at its upper limit and trying to increase
-	HookShoulderChangeValue = ((HookShoulderChangeValue < 0) && (CurrentPosition >= MaxPosition)) ? 0 : HookShoulderChangeValue;
-	//Zero out the change if angle is at its lower limit and trying to decrease
-	HookShoulderChangeValue = ((HookShoulderChangeValue > 0) && (CurrentPosition <= MaxPosition)) ? 0 : HookShoulderChangeValue;
+	SmartDashboard::PutNumber("HookShoulderPot", HookShoulderPot -> Get());
+	if (!Override){
+
+		if(ReportAngle() <= MinPosition)
+		{
+			HookShoulderChangeValue = 0;
+//			HookShoulderMotor -> Set(0);
+		}else if(ReportAngle() >= MaxPosition)
+		{
+			HookShoulderChangeValue = 0;
+//			HookShoulderMotor -> Set(0);
+		}
+	}
+//	else
+//	{
+		HookShoulderMotor -> Set(HookShoulderChangeValue * HookShoulderMotorMax);//TODO Reinsert when removing below
+//		HookShoulderMotor -> Set(0);//TODO Remove when we're sure Dpad direction is passing the right parameters here
+//	}
+
 }
 
 double HookShoulder::ReportAngle(){
 	//Sets the min and max speed the motor of that the SPT has
 	return HookShoulderPot -> Get();
+}
+
+void HookShoulder::StopHookShoulder(){
+	HookShoulderMotor -> Set(0);
 }

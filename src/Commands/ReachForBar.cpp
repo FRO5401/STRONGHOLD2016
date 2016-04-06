@@ -15,7 +15,8 @@ void ReachForBar::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void ReachForBar::Execute()
 {
-	scimitar	->	Extend(true);
+	//TODO Figure out what exactly this should be doing
+	scimitar	->	Stop();
 }
 
 // Make this return true when this Command no longer needs to run execute()

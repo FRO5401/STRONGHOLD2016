@@ -16,18 +16,22 @@
 #include "Commands/FeedOutFromOuter.h"
 #include "Commands/HookBumper.h"
 #include "Commands/HookScale.h"
+#include "Commands/HookShoulderUpDown.h"
 #include "Commands/LaunchSequence.h"
 #include "Commands/LockTarget.h"
 #include "Commands/SPTMoveToPosition.h"
 #include "Commands/PrepareToScale.h"
 #include "Commands/ReachForBar.h"
 #include "Commands/RetractHook.h"
-#include "Commands/ScimitarUpDown.h"
+#include "Commands/ScimitarMoveToPositionZero.h"
+#include "Commands/ScimitarMoveToPosition.h"
+#include "Commands/ScimitarInOut.h"
 #include "Commands/ShiftScaleToDrive.h"
 #include "Commands/ShooterOverride.h"
 #include "Commands/StopDriveForAutonomous.h"
 #include "Commands/SPTShootingPosition.h"
 #include "Commands/SPTMove.h"
+#include "Commands/ScimitarPrepareToScale.h"
 #include "WPILib.h"
 
 OI::OI()
@@ -80,9 +84,14 @@ OI::OI()
 	MOHLeftBumper	-> WhenPressed(new FeedOutFromInner());
 	MOHLeftBumper	-> WhenReleased(new FeederStop());
 
-	MOHRightBumper	-> WhenPressed(new FeedInFromInner());
-	MOHRightBumper  -> WhenReleased(new FeederStop());
+//	MOHRightBumper	-> WhenPressed(new FeedInFromInner());
+//	MOHRightBumper  -> WhenReleased(new FeederStop());
 	
+	MOHButtonSquare -> WhenPressed(new ScimitarMoveToPositionZero());
+
+//	MOHButtonTriangle -> WhenPressed(new ScimitarInOut());
+//	MOHButtonX 		-> WhenPressed(new ScimitarPrepareToScale());
+
 
 //	MOHStartButton	-> WhenPressed(new AutoDeliverBall(1.5)); //Commented out, using button to auto drive
 
@@ -174,17 +183,21 @@ bool OI::GetButtonR3(){
 }
 
 int OI::GetMOHPOVState(){
-	int POV = MedalOfHonorController	->	GetPOV();
-	if (POV == 225 || POV == 180 || POV == 135){
-		std::cout << "DOWN\n";
-		return -1;	//down
+	int POV = MedalOfHonorController	->	GetPOV();//Gets the POV of the D-pad on the MOHController, an unpressed D-pad is -1, otherwise its the angle at which it is pressed
+	//Use specific values, not inequalities
+	if (POV == 315 || POV == 45 || POV == 0){
+		std::cout << "POV Up\n";
+		return -1;	//Up
 	}
-	else if (POV == 315 || POV == 0 || POV == 45){
-		std::cout << "UP\n";
-		return 1; 	//up
+	else if (POV == 135 || POV == 225 || POV == 180){
+		std::cout << "POV Down\n";
+		return 1; 	//Down
 	}
 	else
-		return 0; 	//not pressed/error
+	{
+		return 0; 	//not pressed/error or incorrect section is pressed
+					//Does nothing
+	}
 }
 
 void OI::SendXboxRumble(int j){
@@ -217,7 +230,7 @@ double OI::ReadMOHRightStickY(){
 	return MedalOfHonorController -> GetRawAxis(3);
 }
 
-bool OI::GetMOHRightStickButton(){ //probably not used
+bool OI::GetMOHRightStickButton(){
 	return MedalOfHonorController -> GetRawButton(12);
 }
 
@@ -225,3 +238,14 @@ bool OI::GetMOHButtonL3(){
 	return MedalOfHonorController -> GetRawButton(MOHL3_ID);
 }
 
+bool OI::GetMOHButtonTriangle(){
+	return MedalOfHonorController -> GetRawButton(4);
+}
+
+bool OI::GetMOHButtonCircle(){
+	return MedalOfHonorController -> GetRawButton(3);
+}
+
+bool OI::GetMOHRightBumper(){
+	return MedalOfHonorController -> GetRawButton(6);
+}

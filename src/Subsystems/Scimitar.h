@@ -13,17 +13,39 @@
 class Scimitar: public Subsystem
 {
 private:
-	// It's desirable that everything possible under private except
-	// for methods that implement subsystem capabilities
-	Victor *ScimitarExtender;	//Variable for motor to extend the scimitar to scale the tower
-	Encoder *ScimitarEnc;
+	Victor *RightScimitarExtender;	//Variable for motor to extend the scimitar to scale the tower
+	Victor *LeftScimitarExtender;
+	Encoder *ScimitarRightEnc;
+	Encoder *ScimitarLeftEnc;
+	//Limit Switches
+	DigitalInput *RightFarLimit;
+	DigitalInput *RightCloseLimit;
+	DigitalInput *LeftFarLimit;
+	DigitalInput *LeftCloseLimit;
+
+	float MaxPosition;
+	float MinPosition;
+	float WithinFramePos;
+	float OnBumperPos;
+	double ratio;
+	double kP_Scimitar;
+
 
 public:
 	Scimitar();
 	void InitDefaultCommand();
-	void Extend(double);
-	double ReportPosition();
-	void ResetEncoder();
+	void Control(double, double, bool);
+	double ReportLeftPosition();
+	double ReportRightPosition();
+	double ReportLeftRaw();
+	double ReportRightRaw();
+	bool ReportRightFarSwitch();
+	bool ReportRightCloseSwitch();
+	bool ReportLeftFarSwitch();
+	bool ReportLeftCloseSwitch();
+	bool ReportAnySwitches();
+	void ResetEncoders();
+	void Stop();
 };
 
 #endif

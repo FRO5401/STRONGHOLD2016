@@ -1,7 +1,12 @@
 #include "Autonomous/AutonomousRoughTerrain.h"
 
+#include "Autonomous/AutoDriveCommand.h"
+#include "Autonomous/AutoHookScimitarOnBumper.h"
+
 AutonomousRoughTerrain::AutonomousRoughTerrain(int DefensePosition, int GoalPosition, int LowOrHigh)
 {
+	AddSequential(new AutoHookScimitarOnBumper());
+	AddSequential(new AutoDriveCommand(-140));//TODO Physically determine distance
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());

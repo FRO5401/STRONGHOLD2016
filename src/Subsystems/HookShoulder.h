@@ -18,14 +18,15 @@ private:
 	// for methods that implement subsystem capabilities
 	Victor 			*HookShoulderMotor;
 	Potentiometer	*HookShoulderPot;//Pot refers to potentiometers
-	PIDController	*HookShoulderPID;
+//	PIDController	*HookShoulderPID;
 
 public:
 
 	HookShoulder();
 	void InitDefaultCommand();
-	void UpAndDown(double);
+	void UpAndDown(double, bool);
 	double ReportAngle();
+	void StopHookShoulder();
 //	void MoveToBumperPosition();
 };
 

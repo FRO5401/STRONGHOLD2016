@@ -9,8 +9,8 @@
 #include <Commands/XboxMove.h>
 
 const float GyroScalar		= 10; 		//Preliminarily tuned
-const float GyroLinearAdj	= -0.696; 	//Adjusts for Gyro Creep = m
-const float GyroOffset		= -6.1395;	// = b
+const float GyroLinearAdj	= 0;//-0.696; 	//Adjusts for Gyro Creep = m //XXX Zeroed out as gyro creep is not present
+const float GyroOffset		= 0;//-6.1395;	// = b //XXX Zeroed out as gyro creep is not present
 float initialGyro			= 0;
 
 const double AutoDriveSpeed	= 0.5;
@@ -86,6 +86,7 @@ void DriveBase::Drive(double LeftDriveDesired, double RightDriveDesired)
   SmartDashboard::GetNumber("Initial Gyro Value", initialGyro);
   //SmartDashboard::PutNumber("Gyro Angle", ReportGyro());	//doesn't work for some reason
   SmartDashboard::PutNumber("Gyro GetAngle", MainGyro -> GetAngle());
+  SmartDashboard::PutNumber("Gyro ReportGyro", ReportGyro());
   }
 /*
  * Pneumatic shfting is out of design at this point
@@ -114,10 +115,7 @@ void DriveBase::Stop()
 
 void DriveBase::Reset()
 {
-  	LeftDrive1	-> Set(0);
-  	LeftDrive2	-> Set(0);
-  	RightDrive1	-> Set(0);
-  	RightDrive2	-> Set(0);
+  	Stop();
 
   	TimeCount -> Reset();
   	MainGyro  -> Reset();
@@ -158,5 +156,5 @@ float DriveBase::ReportGyro()
 }
 
 float DriveBase::GetEncoderDistance(){
-	return ((RightEnc -> GetDistance() + LeftEnc -> GetDistance())/2);
+	return ((RightEnc -> GetDistance())); //+ LeftEnc -> GetDistance())/2);
 }

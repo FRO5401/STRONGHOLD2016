@@ -20,17 +20,17 @@
 //Multiplier to get meaningful value. A number can be put here - 0 value is horizontal from front of robot
 double SPT_Range 	= -1376.15; //-1376.15
 //Quote "offset added to the scaled value to control the 0 value
-double SPT_Offset 	= -93.701; //(638.073 - 7.164) is old offset for Pot?SPT?Both?
+double SPT_Offset 	= 93.701; //(638.073 - 7.164) is old offset for Pot?SPT?Both?
 
 double SPTMotorMin	= -1;//Min Motor speed
 double SPTMotorMax	= 1;// Max motor speed
-double SPTDistancePerPulseValue = .3689;
+double SPTDistancePerPulseValue = -0.3765;//Angles To Pulse
 float SPTMotorSpeed = .9;
 
-float SPTDeliveryPosition 	= 55;//-34.677 from start
+float SPTDeliveryPosition 	= 55;//-34.677 from start//TODO needs changing
 float SPTFeederPosition		= -21;//-112.146 from start
 float SPTShootingPosition	= -50;//Position has measured 021716
-double SPTMaxAngle			= 59.024; //Measured 100 degrees  021616 //normally 98
+double SPTMaxAngle			= 85; //Measured 100 degrees  021616 //normally 98
 double SPTMinAngle			= -48;
 double SPTPrecision = 0.5; //Set precision very high while PID and stop points are not defined //was .75
 float SPTAngleTolerance = 2;
@@ -60,6 +60,7 @@ void SPT::InitDefaultCommand()
 {
 	// Set the default command for a subsystem here.
 	SetDefaultCommand(new SPTMove());
+	Reset();
 }
 
 // Put methods for controlling this subsystem
@@ -79,7 +80,7 @@ void SPT::UpAndDown(double ShoulderChangeValue, bool Override){
 	SmartDashboard::PutNumber("SPTUpDown", ShoulderChangeValue);
 	//SmartDashboard::PutNumber("SPTPot", SPTPot ->Get());
 	SmartDashboard::PutNumber("SPTEnc Raw", SPTEnc -> Get());
-	SmartDashboard::PutNumber("SPTEnc", SPTEnc ->GetDistance());
+	SmartDashboard::PutNumber("SPTEnc", ReportAngle());//SPTEnc ->GetDistance());
 }
 
 //This function sets the shoulder motor to a certain speed
@@ -100,7 +101,7 @@ void SPT::Stop(){
 
 float SPT::ReportAngle(){
 //	return SPTPot ->Get(); //Comment this out and uncomment the below to use encoder
-	return (SPTEnc -> GetDistance() - SPT_Offset); //adjusted for offset
+	return (SPT_Offset - (SPTEnc -> GetDistance())); //adjusted for offset
 }
 
 void SPT::Reset()

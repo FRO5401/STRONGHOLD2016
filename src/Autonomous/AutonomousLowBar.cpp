@@ -1,7 +1,9 @@
 #include "Autonomous/AutonomousLowBar.h"
 #include "Commands/AutoLaunch.h"
+#include "Commands/HookShoulderMoveToPosition.h"
 #include "Commands/SPTMoveToPosition.h"
 
+#include "Autonomous/AutoHookScimitarOnBumper.h"
 #include "Autonomous/AutoTurnAngleCommand.h"
 #include "Autonomous/AutoDeliverBall.h"
 #include "Autonomous/AutoDriveCommand.h"
@@ -9,12 +11,15 @@
 
 AutonomousLowBar::AutonomousLowBar(int DefensePosition, int GoalPosition, int LowOrHigh)
 {
-	AddParallel(new SPTMoveToPosition(192));
-	AddSequential(new AutoDriveCommand(-15));
-	AddSequential(new AutoDriveCommand(-200));//Formerly -122.5
-	AddSequential(new SPTMoveToPosition(90));
-	AddSequential(new AutoTurnAngleCommand(38));//46.8 but we overshoot
-	AddSequential(new AutoDeliverBall(2.0));
+	//SPT is in the back
+	AddParallel(new AutoHookScimitarOnBumper());
+	AddParallel(new SPTMoveToPosition(-24.0));
+	AddSequential(new AutoDriveCommand(-15.0));
+	AddSequential(new WaitCommand(3));
+	AddSequential(new AutoDriveCommand(-125.0));//Formerly -200 //Before Formerly -122.5 //TODO calibrate
+//	AddSequential(new SPTMoveToPosition(90));
+//	AddSequential(new AutoTurnAngleCommand(38));//46.8 but we overshoot
+//	AddSequential(new AutoDeliverBall(2.0));
 //	AddSequential(new AutoLaunch());
 
 	// Add Commands here:

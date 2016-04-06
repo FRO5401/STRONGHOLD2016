@@ -1,12 +1,11 @@
-#include "Autonomous/AutonomousMoat.h"
+#include "ScimitarPrepareToScale.h"
+#include "Commands/ScimitarMoveToPosition.h"
+#include "Commands/HookShoulderMoveToPosition.h"
 
-#include "Autonomous/AutoDriveCommand.h"
-#include "Autonomous/AutoHookScimitarOnBumper.h"
-
-AutonomousMoat::AutonomousMoat(int DefensePosition, int GoalPosition, int LowOrHigh)
+ScimitarPrepareToScale::ScimitarPrepareToScale()
 {
-	AddSequential(new AutoHookScimitarOnBumper());
-	AddSequential(new AutoDriveCommand(-105));//TODO Physically determine distance
+	AddSequential(new HookShoulderMoveToPosition(42.18));
+	AddSequential(new ScimitarMoveToPosition(30.5));
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());

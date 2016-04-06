@@ -38,7 +38,6 @@ void CommandBase::init()
 	feeder				= new Feeder();
 	hookshoulder 		= new HookShoulder();
 	offboardcompressor 	= new OffboardCompressor();
-	scale				= new Scale();
 	scimitar			= new Scimitar();
 //	shorthook			= new ShortHook();
 	spt					= new SPT();
@@ -47,5 +46,6 @@ void CommandBase::init()
 
 /*	Removed Until Further Notice 31816
  * 	shooter 			= new Shooter();
+ * 	scale				= new Scale();
  */
 }

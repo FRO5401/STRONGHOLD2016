@@ -1,17 +1,14 @@
-#include "Autonomous/AutonomousRockWall.h"
-#include "Autonomous/AutoDriveCommand.h"
-#include "Autonomous/AutoHookScimitarOnBumper.h"
-
+#include "AutoHookScimitarOnBumper.h"
 #include "Commands/HookShoulderMoveToPosition.h"
-#include "Commands/SPTMoveToPosition.h"
+#include "Commands/ScimitarMoveToPosition.h"
 
-AutonomousRockWall::AutonomousRockWall(int DefensePosition, int GoalPosition, int LowOrHigh)
+AutoHookScimitarOnBumper::AutoHookScimitarOnBumper()
 {
-	//Measurements are based on theoretical calculations, physical test are needed
-	//SPT starts from behind
-	AddSequential(new AutoHookScimitarOnBumper());
-	AddSequential(new AutoDriveCommand(-200));//TODO Physically determine distance
-
+	//Not needed as scimitar will start at required position AddSequential(new ScimitarMoveToPosition());
+	std::cout << "Start AutoHookScimitarOnBumper\n";
+	AddSequential(new HookShoulderMoveToPosition(10));//Go down to bumper //TODO Determine correct value
+	AddSequential(new ScimitarMoveToPosition(-4)); //Probably hits limit switches first //Retract in to bumper //-2.875 is the high value
+	std::cout << "End AutoHookScimitarOnBumper\n";
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
