@@ -12,7 +12,7 @@
 #include "Subsystems/Shooter.h"
 //#include "Subsystems/ShortHook.h"
 #include "Subsystems/SPT.h"
-#include "Subsystems/WateryTart.h"
+//#include "Subsystems/WateryTart.h"
 #include "Subsystems/RelaySys.h"
 #include <string>
 #include "Commands/Command.h"
@@ -46,7 +46,7 @@ public:
 	static Shooter 			*shooter;
 //	static ShortHook 		*shorthook;
 	static SPT 				*spt;
-	static WateryTart 		*waterytart;
+//	static WateryTart 		*waterytart;
 	static RelaySys 	*relaysys;
 };
 

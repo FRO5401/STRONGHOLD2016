@@ -99,9 +99,9 @@ private:
 	 * Camera Info
 	 ************/
 
-	IMAQdxSession RunningSession;
-	Image *frame;
-	IMAQdxError imaqError;
+//	IMAQdxSession RunningSession;
+//	Image *frame;
+//	IMAQdxError imaqError;
 //	USBCamera *targetCam;
 //	CameraServer *server;
 //	int set_bright 	= 1;

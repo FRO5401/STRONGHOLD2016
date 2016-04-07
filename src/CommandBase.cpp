@@ -13,7 +13,7 @@ Scimitar*	CommandBase::scimitar		= NULL;
 Shooter* 	CommandBase::shooter		= NULL;
 //ShortHook*	CommandBase::shorthook		= NULL;
 SPT*		CommandBase::spt		= NULL;
-WateryTart*	CommandBase::waterytart		= NULL;
+//WateryTart*	CommandBase::waterytart		= NULL;
 RelaySys*	CommandBase::relaysys		= NULL;
 
 
@@ -41,7 +41,7 @@ void CommandBase::init()
 	scimitar			= new Scimitar();
 //	shorthook			= new ShortHook();
 	spt					= new SPT();
-	waterytart			= new WateryTart();
+//	waterytart			= new WateryTart();
 	relaysys	= new RelaySys();
 
 /*	Removed Until Further Notice 31816
