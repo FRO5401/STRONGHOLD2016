@@ -8,12 +8,23 @@ SPTMoveToPosition::SPTMoveToPosition(float angle)
 	Requires(spt);
 	finished = true;
 	DesiredAngle = angle;
+	Timeout = 0;
+}
+
+SPTMoveToPosition::SPTMoveToPosition(float angle, float time)
+{
+	// Use Requires() here to declare subsystem dependencies
+	Requires(spt);
+	finished = true;
+	DesiredAngle = angle;
+	Timeout = time;
 }
 
 // Called just before this Command runs the first time
 void SPTMoveToPosition::Initialize()
 {
-	//spt -> Stop();
+	if (Timeout > 0)
+		SetTimeout(Timeout);
 }
 
 // Called repeatedly when this Command is scheduled to run

@@ -9,8 +9,11 @@ class SPTMoveToPosition: public CommandBase
 private:
 	bool finished;
 	float DesiredAngle;
+	float Timeout;
+
 public:
 	SPTMoveToPosition(float);
+	SPTMoveToPosition(float,float);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

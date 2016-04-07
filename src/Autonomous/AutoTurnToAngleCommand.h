@@ -8,8 +8,10 @@ class AutoTurnToAngleCommand: public CommandBase
 {
 public:
 	float AngleToTurn;
+	float Timeout;
 
 	AutoTurnToAngleCommand(float);
+	AutoTurnToAngleCommand(float, float);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
