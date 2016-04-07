@@ -176,13 +176,11 @@ private:
 			DriverStation::ReportError("IMAQdxConfigureGrab error: " + std::to_string((long)imaqError) + "\n");
 		}*/
 //Option 1 code end ==============
-/*
+
 //Option 2 code start ============ This will just display the camera, but is much simpler and may not conflict
 		CameraServer::GetInstance() -> SetQuality(50);
 		CameraServer::GetInstance() -> StartAutomaticCapture("cam0");
 //Option 2 code end ===============
- *
- */
 	}
 	
 	void DisabledPeriodic()
