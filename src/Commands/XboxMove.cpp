@@ -43,7 +43,7 @@ void XboxMove::Execute()
 	
 	double Right,Left, Sensitivity;
 
-	if (oi -> GetButtonX())
+	if (oi -> GetButtonA())
 		Slew *= -1;
 
 	SmartDashboard::GetNumber("Drift kP", kP_Drift);
