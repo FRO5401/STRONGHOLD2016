@@ -11,7 +11,7 @@ HookShoulderMoveToPosition::HookShoulderMoveToPosition(double angleForHookShould
 	DesiredAngleHookShoulder = angleForHookShoulder;
 	Timeout = 0;
 }
-
+/*
 HookShoulderMoveToPosition::HookShoulderMoveToPosition(double angleForHookShoulder, double time)
 {
 	// Use Requires() here to declare subsystem dependencies
@@ -20,7 +20,7 @@ HookShoulderMoveToPosition::HookShoulderMoveToPosition(double angleForHookShould
 	DesiredAngleHookShoulder = angleForHookShoulder;
 	Timeout = time;
 }
-
+*/
 // Called just before this Command runs the first time
 void HookShoulderMoveToPosition::Initialize()
 {

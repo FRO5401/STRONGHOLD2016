@@ -20,7 +20,7 @@ ScimitarMoveToPosition::ScimitarMoveToPosition(double distance) //in inches
 	Override = false;
 	Timeout = 0;
 }
-
+/*
 ScimitarMoveToPosition::ScimitarMoveToPosition(double distance, double time) //in inches
 {
 	// Use Requires() here to declare subsystem dependencies
@@ -38,7 +38,7 @@ ScimitarMoveToPosition::ScimitarMoveToPosition(double distance, double time) //i
 	Timeout = time;
 
 }
-
+*/
 // Called just before this Command runs the first time
 void ScimitarMoveToPosition::Initialize()
 {
