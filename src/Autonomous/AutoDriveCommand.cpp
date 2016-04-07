@@ -16,7 +16,7 @@ AutoDriveCommand::AutoDriveCommand(float DistanceInput) //This will compile afte
 	kP_Drift = .1;
 	Timeout = 0;
 }
-
+/*
 AutoDriveCommand::AutoDriveCommand(float DistanceInput, double time) //This will compile after you restart robot code 80% sure
 {
 	// Use Requires() here to declare subsystem dependencies
@@ -30,7 +30,7 @@ AutoDriveCommand::AutoDriveCommand(float DistanceInput, double time) //This will
 	kP_Drift = .1;
 	Timeout = time;
 }
-
+*/
 // Called just before this Command runs the first time
 void AutoDriveCommand::Initialize()
 {
