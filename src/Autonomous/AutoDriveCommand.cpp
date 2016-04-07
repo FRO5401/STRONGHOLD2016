@@ -14,11 +14,29 @@ AutoDriveCommand::AutoDriveCommand(float DistanceInput) //This will compile afte
 	heading = drivebase -> ReportGyro();
 	drift = 0;
 	kP_Drift = .1;
+	Timeout = 0;
+}
+
+AutoDriveCommand::AutoDriveCommand(float DistanceInput, double time) //This will compile after you restart robot code 80% sure
+{
+	// Use Requires() here to declare subsystem dependencies
+	// eg. Requires(chassis);
+	Requires(drivebase);
+	DesiredDistance = DistanceInput;
+	DoneTraveling = true;
+	DistanceTraveled = 0;
+	heading = drivebase -> ReportGyro();
+	drift = 0;
+	kP_Drift = .1;
+	Timeout = time;
 }
 
 // Called just before this Command runs the first time
 void AutoDriveCommand::Initialize()
 {
+	if (Timeout > 0)
+		SetTimeout(Timeout);
+
 	drivebase -> EncoderReset();
 	heading = drivebase -> ReportGyro();
 	drift = 0;

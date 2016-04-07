@@ -5,6 +5,7 @@
 
 #include "Autonomous/AutoHookScimitarOnBumper.h"
 #include "Autonomous/AutoTurnAngleCommand.h"
+#include "Autonomous/AutoTurnToAngleCommand.h"
 #include "Autonomous/AutoDeliverBall.h"
 #include "Autonomous/AutoDriveCommand.h"
 
@@ -13,7 +14,7 @@
 AutonomousLowBar::AutonomousLowBar(int DefensePosition, int GoalPosition, int LowOrHigh)
 {
 	//SPT is in the back
-	AddParallel(new AutoHookScimitarOnBumper());
+//	AddParallel(new AutoHookScimitarOnBumper()); //Scimitar is not currently on the robot
 	AddParallel(new SPTMoveToPosition(-24.0));
 	AddSequential(new AutoDriveCommand(-15.0));
 	AddSequential(new WaitCommand(3));

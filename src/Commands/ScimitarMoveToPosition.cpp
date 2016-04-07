@@ -18,12 +18,33 @@ ScimitarMoveToPosition::ScimitarMoveToPosition(double distance) //in inches
 	RightEncRaw = 0;
 	LeftEncRaw = 0;
 	Override = false;
+	Timeout = 0;
+}
+
+ScimitarMoveToPosition::ScimitarMoveToPosition(double distance, double time) //in inches
+{
+	// Use Requires() here to declare subsystem dependencies
+	Requires(scimitar);
+	Finished = true;
+	DesiredDistance = distance;
+	Left = 0;
+	Right = 0;
+	RightPosition = 0;
+	LeftPosition = 0;
+	error = 0;
+	RightEncRaw = 0;
+	LeftEncRaw = 0;
+	Override = false;
+	Timeout = time;
 
 }
 
 // Called just before this Command runs the first time
 void ScimitarMoveToPosition::Initialize()
 {
+	if (Timeout > 0)
+		SetTimeout(Timeout);
+
 	std::cout << "Scimitar Move To Position Initializing\n";
 	Finished = false;
 

@@ -13,8 +13,10 @@ public:
 	float heading;
 	float drift;
 	float kP_Drift;
+	double Timeout;
 
 	AutoDriveCommand(float);
+	AutoDriveCommand(float, double);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

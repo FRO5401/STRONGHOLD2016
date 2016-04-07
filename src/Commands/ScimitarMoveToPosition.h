@@ -23,9 +23,11 @@ private:
 	bool LeftFar;
 	bool RightClose;
 	bool RightFar;
+	double Timeout;
 
 public:
 	ScimitarMoveToPosition(double);
+	ScimitarMoveToPosition(double, double);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

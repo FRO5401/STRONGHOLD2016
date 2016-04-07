@@ -9,8 +9,10 @@ class HookShoulderMoveToPosition: public CommandBase
 public:
 	bool finishedHookShoulder;
 	double DesiredAngleHookShoulder;
+	double Timeout;
 
 	HookShoulderMoveToPosition(double);
+	HookShoulderMoveToPosition(double, double);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
