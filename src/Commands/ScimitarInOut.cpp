@@ -45,7 +45,7 @@ void ScimitarInOut::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void ScimitarInOut::Execute()
 {
-	std::cout << "Executing Manual Scimitar Extend\n";
+//	std::cout << "Executing Manual Scimitar Extend\n";
 	Input		 		= oi	-> GetMOHPOVState();
 	Override 			= oi 	-> GetMOHRightBumper();
 	SlowScimitar		= oi 	-> GetMOHButtonCircle();
@@ -107,14 +107,14 @@ void ScimitarInOut::Execute()
 
 	}
 
-	std::cout << "Run Manual ScimitarInOut\n";
+//	std::cout << "Run Manual ScimitarInOut\n";
 	scimitar -> Control(Left, Right, Override);
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool ScimitarInOut::IsFinished()
 {
-	std::cout << "Manual Scimitar Extend Check Finish\n";
+//	std::cout << "Manual Scimitar Extend Check Finish\n";
 
 	return false;
 }
