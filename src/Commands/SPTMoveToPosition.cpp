@@ -11,14 +11,14 @@ SPTMoveToPosition::SPTMoveToPosition(float angle)
 	Timeout = 0;
 }
 
-SPTMoveToPosition::SPTMoveToPosition(float angle, float time)
+/*SPTMoveToPosition::SPTMoveToPosition(float angle, float time)
 {
 	// Use Requires() here to declare subsystem dependencies
 	Requires(spt);
 	finished = true;
 	DesiredAngle = angle;
 	Timeout = time;
-}
+} */
 
 // Called just before this Command runs the first time
 void SPTMoveToPosition::Initialize()

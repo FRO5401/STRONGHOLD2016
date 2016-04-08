@@ -9,14 +9,14 @@ AutoTurnToAngleCommand::AutoTurnToAngleCommand(float AngleInput)
 	Timeout = 0;
 }
 
-AutoTurnToAngleCommand::AutoTurnToAngleCommand(float AngleInput, float time)
+/*AutoTurnToAngleCommand::AutoTurnToAngleCommand(float AngleInput, float time)
 {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(chassis);
 	Requires(drivebase);
 	AngleToTurn = AngleInput;
 	Timeout = time;
-}
+}*/
 
 // Called just before this Command runs the first time
 void AutoTurnToAngleCommand::Initialize()
