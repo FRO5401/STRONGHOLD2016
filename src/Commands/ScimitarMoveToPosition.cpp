@@ -72,7 +72,7 @@ void ScimitarMoveToPosition::Execute()
 		Finished = true; //KJM changed this to set the flag rather than execute the return
 	} else if (Override){
 		Finished = true;
-		std::cout << "Override Pressed - Auto Move Abort\n";
+		std::cout << "Override Pressed - Auto Move Scimitar Abort\n";
 	} else if ((LeftPosition > DesiredDistance + DistanceThreshold) || (RightPosition > DesiredDistance + DistanceThreshold)){ //Retract
 		Left = 1;
 		Right = 1;

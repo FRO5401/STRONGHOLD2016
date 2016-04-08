@@ -58,11 +58,12 @@ void AutoDriveCommand::Execute()
 		SmartDashboard::PutNumber("Drift", drift);
 			if (DesiredDistance > 0 && (DistanceTraveled < fabs(DesiredDistance) - AutoDistThresh)){ //DesiredDistance is positive, go forward
 				if (drift < -.5){ //Currently assumes we always drift left while going forwards
-					drivebase -> Drive(AutoDriveSpeed, AutoDriveSpeed + (kP_Drift * drift)); //Adjust right motor when driving forwards
+					drivebase -> Drive(AutoDriveSpeed, AutoDriveSpeed + (kP_Drift * drift)); //Adjust right motor when driving forward
 				} else {
 					drivebase -> Drive(AutoDriveSpeed, AutoDriveSpeed);
 				}
 				DoneTraveling = false;
+				std::cout << "Auto Driving Forward\n";
 			} else if (DesiredDistance < 0 && (DistanceTraveled > AutoDistThresh - fabs(DesiredDistance))){ //DesiredDistance is negative, go backward
 				if(drift > .5){ //Currently assumes we always drift right while going backwards
 					drivebase -> Drive(-(AutoDriveSpeed + (kP_Drift * drift)), -AutoDriveSpeed);//Adjusts left motor when driving backwards
@@ -70,8 +71,9 @@ void AutoDriveCommand::Execute()
 					drivebase -> Drive(-AutoDriveSpeed, -AutoDriveSpeed);
 				}
 				DoneTraveling = false;
+				std::cout << "Auto Driving Backward\n";
 			} else { //error, exactly 0, or done
-				std::cout << "AutoDriveDistance Error!!!\n";
+				std::cout << "AutoDriveDistance Finished\n";
 				DoneTraveling = true;
 			}
 		DistanceTraveled = (drivebase -> GetEncoderDistance());
