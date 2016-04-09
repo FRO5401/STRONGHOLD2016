@@ -49,3 +49,8 @@ void Feeder::StopFeed(){
 	FeederInnerSlowerMotor -> Set(0);
 }
 
+void Feeder::FeedOutToGoal(){
+	FeedInFromField();
+	FeedOutFromShooter();
+}
+

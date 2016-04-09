@@ -5,7 +5,6 @@
 
 #include "Autonomous/AutoHookScimitarOnBumper.h"
 #include "Autonomous/AutoTurnAngleCommand.h"
-#include "Autonomous/AutoTurnToAngleCommand.h"
 #include "Autonomous/AutoDeliverBall.h"
 #include "Autonomous/AutoDriveCommand.h"
 
@@ -13,16 +12,29 @@
 
 AutonomousLowBar::AutonomousLowBar(int DefensePosition, int GoalPosition, int LowOrHigh)
 {
-	//SPT is in the back
-//	AddParallel(new AutoHookScimitarOnBumper()); //Scimitar is not currently on the robot
+	//SPT is in the front
+	std::cout << "Starting Low Bar Autonomous Mode\n";
+
+	std::cout << "Hooking scimitar onto bumper\n";
+	AddParallel(new AutoHookScimitarOnBumper());
+	std::cout << "Move SPT Down\n";
 	AddParallel(new SPTMoveToPosition(-24.0));
-	AddSequential(new AutoDriveCommand(-15.0));
-	AddSequential(new WaitCommand(3));
-	AddSequential(new AutoDriveCommand(-125.0));//Formerly -200 //Before Formerly -122.5 //TODO calibrate
+	std::cout << "Drive to Defense\n";
+	AddSequential(new AutoDriveCommand(25.0));
+	std::cout << "Drive through defense and further\n";
+	AddSequential(new AutoDriveCommand(166.0));//Formerly -200 //Before Formerly -122.5 //TODO calibrate
 	//Drive to good distance
-	AddSequential(new AutoTurnToAngleCommand(50));
-	//Drive onto batter (130?) and get SPT into position (check with drive team)
+	std::cout << "Turn to goal\n";
+	AddSequential(new AutoTurnAngleCommand(50));
+	std::cout << "Move SPT up a bit to score\n";
+	AddParallel(new SPTMoveToPosition(-20.0));
+	std::cout << "Drive to goal\n";
+	AddSequential(new AutoDriveCommand(98.0));
+	std::cout << "Deliver ball out to goal\n";
 	AddSequential(new AutoDeliverBall(2.0));
+
+	std::cout << "Stopping Low Bar Autonomous Mode\n";
+	//Drive onto batter (130?) and get SPT into position (check with drive team)
 
 //	AddSequential(new SPTMoveToPosition(90));
 //	AddSequential(new AutoTurnAngleCommand(38));//46.8 but we overshoot

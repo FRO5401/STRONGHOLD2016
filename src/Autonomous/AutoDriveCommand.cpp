@@ -1,6 +1,6 @@
  #include "AutoDriveCommand.h"
 
- const double AutoDriveSpeed	= 0.75;
+ const double AutoDriveSpeed	= 0.85; //.4 for inital lowbar
  const float DefaultTurnPrecision = 0.5;
  const float AutoDistThresh = 2;
 AutoDriveCommand::AutoDriveCommand(float DistanceInput) //This will compile after you restart robot code 80% sure
@@ -63,7 +63,7 @@ void AutoDriveCommand::Execute()
 					drivebase -> Drive(AutoDriveSpeed, AutoDriveSpeed);
 				}
 				DoneTraveling = false;
-				std::cout << "Auto Driving Forward\n";
+			//	std::cout << "Auto Driving Forward\n";
 			} else if (DesiredDistance < 0 && (DistanceTraveled > AutoDistThresh - fabs(DesiredDistance))){ //DesiredDistance is negative, go backward
 				if(drift > .5){ //Currently assumes we always drift right while going backwards
 					drivebase -> Drive(-(AutoDriveSpeed + (kP_Drift * drift)), -AutoDriveSpeed);//Adjusts left motor when driving backwards
@@ -71,7 +71,7 @@ void AutoDriveCommand::Execute()
 					drivebase -> Drive(-AutoDriveSpeed, -AutoDriveSpeed);
 				}
 				DoneTraveling = false;
-				std::cout << "Auto Driving Backward\n";
+			//	std::cout << "Auto Driving Backward\n";
 			} else { //error, exactly 0, or done
 				std::cout << "AutoDriveDistance Finished\n";
 				DoneTraveling = true;

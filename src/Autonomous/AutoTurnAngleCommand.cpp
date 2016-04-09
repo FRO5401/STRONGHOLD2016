@@ -36,7 +36,7 @@ void AutoTurnAngleCommand::Execute()
 			drivebase -> Drive(-AutoTurnSpeed * AutoTurnPrecision, AutoTurnSpeed * AutoTurnPrecision);
 			Finished = false;
 		} else { //error or exactly 0
-			std::cout << "AutoTurnAngle Error!!!\n";
+			std::cout << "AutoTurnAngle Finished\n";
 			Finished = true;
 		}
 	CurrentAngle = drivebase -> ReportGyro() - InitAngle;

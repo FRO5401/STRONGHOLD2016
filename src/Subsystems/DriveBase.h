@@ -9,8 +9,6 @@ class DriveBase: public Subsystem
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
-	float DashAutoDistance;
-	float AutoTurnPrecision;
 //	float kP;	//Uncomment to get value from dashboard
 	float kP_Right;			//Uncomment for getting value from dashboard
 	float kP_Left;
@@ -34,7 +32,7 @@ public:
 	//Timer
 	Timer *TimeCount;
 
-	DriverStation *DS_ForDriveBase;
+//	DriverStation *DS_ForDriveBase;
 	DriveBase();
 	void InitDefaultCommand();
 	//Drive has changed

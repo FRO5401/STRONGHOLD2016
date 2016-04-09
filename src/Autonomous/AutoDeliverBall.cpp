@@ -17,7 +17,7 @@ void AutoDeliverBall::Initialize()
 void AutoDeliverBall::Execute()
 {
 
-	feeder -> FeedOutFromShooter();
+	feeder -> FeedOutToGoal();
 	Wait(FeedTime);
 }
 
@@ -38,5 +38,5 @@ void AutoDeliverBall::End()
 // subsystems is scheduled to run
 void AutoDeliverBall::Interrupted()
 {
-
+	feeder -> StopFeed();
 }

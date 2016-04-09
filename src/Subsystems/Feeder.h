@@ -20,6 +20,7 @@ public:
 	void FeedToShooter();
 	void FeedOutFromShooter();
 	void StopFeed();
+	void FeedOutToGoal();
 
 };
 

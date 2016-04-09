@@ -35,7 +35,7 @@ DriveBase::DriveBase() :
 	SmartDashboard::PutNumber("Initial Gyro Value", initialGyro);
 
 	MainGyro	= new ADXRS450_Gyro();
- 	DS_ForDriveBase -> GetInstance();
+ //	DS_ForDriveBase -> GetInstance();
  	TimeCount = new Timer();
  	TimeCount -> Reset();
  	MainGyro  -> Reset();
@@ -149,12 +149,15 @@ if ((RawErr >= 0 && RawErr <=180) || (RawErr >= -360 && RawErr <= -180)) {//Dete
 
 float DriveBase::ReportGyro()
 {
-  	float Angle = (GyroScalar * MainGyro	->	GetAngle());
+	//This adjusts for gyro creep which is current nonexistant
+ /*	float Angle = (GyroScalar * MainGyro	->	GetAngle());
    	double Time = TimeCount -> Get();
    	float AdjAngle = Angle - (GyroLinearAdj * Time + GyroOffset);//Compensates for gyro creep - basically subtracts out mx+b the linear creep function
   	return AdjAngle;
+*/
+	return MainGyro -> GetAngle();
 }
 
 float DriveBase::GetEncoderDistance(){
-	return ((RightEnc -> GetDistance())); //+ LeftEnc -> GetDistance())/2);
+	return ((RightEnc -> GetDistance()));// + LeftEnc -> GetDistance())/2);
 }

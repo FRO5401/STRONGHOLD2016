@@ -30,11 +30,12 @@ void SPTMoveToPosition::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void SPTMoveToPosition::Execute()
 {
+	//Motor values being sent to UpAndDown are being multiplied by a precision of *currently .5 *(4/9/16)
 	if (spt -> ReportAngle() > DesiredAngle + SPTAngleTolerance){
-		spt -> UpAndDown(1.5, false); //positive value goes down
+		spt -> UpAndDown(1.9, false); //positive value goes down
 		finished = false;
 	} else if (spt ->ReportAngle() < DesiredAngle - SPTAngleTolerance){
-		spt -> UpAndDown(-1.5, false); //negative value goes up
+		spt -> UpAndDown(-1.9, false); //negative value goes up
 		finished = false;
 	} else {
 		finished = true;
