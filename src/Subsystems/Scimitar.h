@@ -27,8 +27,8 @@ private:
 	float MinPosition;
 	float WithinFramePos;
 	float OnBumperPos;
-	double ratio;
-	double kP_Scimitar;
+//	double ratio; //not used
+//	double kP_Scimitar; //not used
 
 
 public:

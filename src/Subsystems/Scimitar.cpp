@@ -81,7 +81,7 @@ void Scimitar::Control(double LeftScimChange, double RightScimChange, bool Overr
 		std::cout << "Scimitar Near Swith Tripped\n";
 	}
 	SmartDashboard::PutNumber("Scim L Input - Adj", LeftScimChange);
-	std::cout << "RUNNING SCIMITAR\n";
+//	std::cout << "RUNNING SCIMITAR\n";
 	LeftScimitarExtender -> Set(LeftScimChange * ScimPrecision);
 	RightScimitarExtender -> Set(RightScimChange* ScimPrecision);
 

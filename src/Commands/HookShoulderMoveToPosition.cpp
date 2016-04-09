@@ -1,6 +1,6 @@
 #include "HookShoulderMoveToPosition.h"
 //This code is pretty much a copy of SPTMoveToPositon for the HookShoulder
-const double HookShoulderAngleTolerance = 5;//TODO adjust this
+const double HookShoulderAngleTolerance = 3;//Lower at the moment because hookshoulder is moving slower, was 5 //TODO adjust this
 const double HookShoulderPrecision = .37;
 
 HookShoulderMoveToPosition::HookShoulderMoveToPosition(double angleForHookShoulder)

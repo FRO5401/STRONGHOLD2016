@@ -19,6 +19,10 @@ ScimitarMoveToPosition::ScimitarMoveToPosition(double distance) //in inches
 	LeftEncRaw = 0;
 	Override = false;
 	Timeout = 0;
+	LeftFar = false;
+	LeftClose = false;
+	RightFar = false;
+	RightClose = false;
 }
 /*
 ScimitarMoveToPosition::ScimitarMoveToPosition(double distance, double time) //in inches

@@ -13,9 +13,9 @@
 //Parameters for Potentiometer and the its PIDcontroller. Easier to edit if you put it here
 
 //Multiplier to get meaningful value. A number can be put here
-const double HookShoulder_Range 	= 1800;
+const double HookShoulder_Range 	= -1800; //TODO Switch to Positiive on competiton robot
 //Quote "offset added to the scaled value to control the 0 value
-const double HookShoulder_Offset 	= -1024;//-847; //Horizontal is 0
+const double HookShoulder_Offset 	= 1065; //Competition: -1024;//-847; //Horizontal is 0
 
 //NO LONGER USED
 //const double HookShoulder_Kp 		= 0;//Proportional
