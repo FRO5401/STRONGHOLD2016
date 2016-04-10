@@ -8,6 +8,7 @@ class AutoDriveCommand: public CommandBase
 {
 public:
 	float DesiredDistance;
+	double AutoDriveSpeed;
 	bool DoneTraveling;
 	float DistanceTraveled;
 	float heading;
@@ -15,8 +16,8 @@ public:
 	float kP_Drift;
 	double Timeout;
 
-	AutoDriveCommand(float);
-	AutoDriveCommand(float, double);
+//	AutoDriveCommand(float);
+	AutoDriveCommand(float, double, double);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

@@ -1,20 +1,21 @@
  #include "AutoDriveCommand.h"
 
- const double AutoDriveSpeed	= 0.85; //.4 for inital lowbar
+// const double AutoDriveSpeed	= 0.85; //.4 for inital lowbar
  const float DefaultTurnPrecision = 0.5;
  const float AutoDistThresh = 2;
-AutoDriveCommand::AutoDriveCommand(float DistanceInput) //This will compile after you restart robot code 80% sure
+AutoDriveCommand::AutoDriveCommand(float DistanceInput, double SpeedInput, double time) //This will compile after you restart robot code 80% sure
 {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(chassis);
 	Requires(drivebase);
 	DesiredDistance = DistanceInput;
+	AutoDriveSpeed = SpeedInput;
 	DoneTraveling = true;
 	DistanceTraveled = 0;
 	heading = drivebase -> ReportGyro();
 	drift = 0;
 	kP_Drift = .1;
-	Timeout = 0;
+	Timeout = time;
 }
 /*
 AutoDriveCommand::AutoDriveCommand(float DistanceInput, double time) //This will compile after you restart robot code 80% sure

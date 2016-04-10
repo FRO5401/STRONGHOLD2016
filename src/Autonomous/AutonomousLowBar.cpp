@@ -10,6 +10,9 @@
 
 //Includes are for commands that are used in this command group
 
+const double AutoDriveSpeed	= 0.85; //.4 for inital lowbar
+const double FullSpeed = 0.95;
+
 AutonomousLowBar::AutonomousLowBar(int DefensePosition, int GoalPosition, int LowOrHigh)
 {
 	//SPT is in the front
@@ -20,16 +23,18 @@ AutonomousLowBar::AutonomousLowBar(int DefensePosition, int GoalPosition, int Lo
 	std::cout << "Move SPT Down\n";
 	AddParallel(new SPTMoveToPosition(-24.0));
 	std::cout << "Drive to Defense\n";
-	AddSequential(new AutoDriveCommand(25.0));
+	AddSequential(new AutoDriveCommand(25.0, AutoDriveSpeed, 15));
 	std::cout << "Drive through defense and further\n";
-	AddSequential(new AutoDriveCommand(166.0));//Formerly -200 //Before Formerly -122.5 //TODO calibrate
+	AddSequential(new AutoDriveCommand(166.0, FullSpeed, 15));//Formerly -200 //Before Formerly -122.5 //TODO calibrate
 	//Drive to good distance
 	std::cout << "Turn to goal\n";
 	AddSequential(new AutoTurnAngleCommand(50));
 	std::cout << "Move SPT up a bit to score\n";
-	AddParallel(new SPTMoveToPosition(-20.0));
+	AddParallel(new SPTMoveToPosition(-10.0));
 	std::cout << "Drive to goal\n";
-	AddSequential(new AutoDriveCommand(98.0));
+	AddSequential(new AutoDriveCommand(95.0, FullSpeed, 15));
+	std::cout << "Final Approach to goal\n";
+	AddParallel(new AutoDriveCommand(5.0, 1, 15));
 	std::cout << "Deliver ball out to goal\n";
 	AddSequential(new AutoDeliverBall(2.0));
 

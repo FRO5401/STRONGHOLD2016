@@ -4,10 +4,8 @@
 
 AutoHookScimitarOnBumper::AutoHookScimitarOnBumper()
 {
-	//Not needed as scimitar will start at required position AddSequential(new ScimitarMoveToPosition());
-//	SetTimeout(7);
 	std::cout << "Start AutoHookScimitarOnBumper\n";
-	AddSequential(new HookShoulderMoveToPosition(7));//Go down to bumper //TODO Determine correct value
+	AddSequential(new HookShoulderMoveToPosition(7));//Go down to bumper
 	AddSequential(new ScimitarMoveToPosition(-4)); //Probably hits limit switches first //Retract in to bumper //-2.875 is the high value
 	std::cout << "End AutoHookScimitarOnBumper\n";
 	// Add Commands here:

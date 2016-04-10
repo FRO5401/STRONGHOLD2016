@@ -13,14 +13,16 @@
 #include "Commands/HookShoulderMoveToPosition.h"
 //#include "MoveSPTtoPosition.h"
 
+const double AutoDriveSpeed	= 0.85;
+
 AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPosition, int LowOrHigh)
 {
 	//SPT must be in the front
 	AddSequential(new AutoHookScimitarOnBumper());
- 	AddSequential(new AutoDriveCommand(42)); //Drive to defense //TODO edit
+ 	AddSequential(new AutoDriveCommand(42, AutoDriveSpeed, 15)); //Drive to defense //TODO edit
 	AddSequential(new SPTMoveToPosition(-45)); //Move SPT down to prepare to drive over cheval
 	AddParallel(new SPTMoveToPosition(45)); //Move SPT up and out of the way
-	AddSequential(new AutoDriveCommand(77)); //TODO determine best distance to drive //Drive over cheval.//updated 3/5/16 10:00am
+	AddSequential(new AutoDriveCommand(77, AutoDriveSpeed, 15)); //TODO determine best distance to drive //Drive over cheval.//updated 3/5/16 10:00am
 
 
 

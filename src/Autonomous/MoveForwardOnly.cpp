@@ -1,9 +1,10 @@
 #include "MoveForwardOnly.h"
 #include "Autonomous/AutoDriveCommand.h"
+const double AutoDriveSpeed	= 0.85;
 
 MoveForwardOnly::MoveForwardOnly()
 {
-	AddSequential(new AutoDriveCommand(48));
+	AddSequential(new AutoDriveCommand(48, AutoDriveSpeed, 15));
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());

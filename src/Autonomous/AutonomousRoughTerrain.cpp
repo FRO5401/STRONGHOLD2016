@@ -2,11 +2,12 @@
 
 #include "Autonomous/AutoDriveCommand.h"
 #include "Autonomous/AutoHookScimitarOnBumper.h"
+const double AutoDriveSpeed	= 0.85; //.4 for inital lowbar
 
 AutonomousRoughTerrain::AutonomousRoughTerrain(int DefensePosition, int GoalPosition, int LowOrHigh)
 {
 	AddSequential(new AutoHookScimitarOnBumper());
-	AddSequential(new AutoDriveCommand(-140));//TODO Physically determine distance
+	AddSequential(new AutoDriveCommand(-140, AutoDriveSpeed, 15));//TODO Physically determine distance
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());

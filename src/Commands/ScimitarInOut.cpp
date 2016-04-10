@@ -25,6 +25,7 @@ ScimitarInOut::ScimitarInOut()
 	RightCloseLimit_Cmd = FALSE;
 	LeftFarLimit_Cmd = FALSE;
 	LeftCloseLimit_Cmd = FALSE;
+	SlowScimitar = false;
 //	SmartDashboard::PutBoolean("LeftClose - Cmd", LeftCloseLimit_Cmd);
 //	SmartDashboard::PutNumber("MOHRightStickY", 0);
 //	SmartDashboard::PutNumber("SCIM RightEnc Raw - Cmd", RightEncoderRaw);

@@ -10,6 +10,7 @@ AutoDeliverBall::AutoDeliverBall(float t)
 // Called just before this Command runs the first time
 void AutoDeliverBall::Initialize()
 {
+	SetTimeout(FeedTime);
 
 }
 
@@ -18,13 +19,13 @@ void AutoDeliverBall::Execute()
 {
 
 	feeder -> FeedOutToGoal();
-	Wait(FeedTime);
+//	Wait(FeedTime);
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutoDeliverBall::IsFinished()
 {
-	return true;
+	return false;
 }
 
 // Called once after isFinished returns true
