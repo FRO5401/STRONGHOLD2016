@@ -1,43 +1,43 @@
-#include "AutoDeliverBall.h"
+#include "AutoDeliverBallWarmup.h"
 
-AutoDeliverBall::AutoDeliverBall(float t)
+AutoDeliverBallWarmup::AutoDeliverBallWarmup(float t)
 {
 	// Use Requires() here to declare subsystem dependencies
 	Requires(feeder);
 	FeedTime = t;
+
 }
 
 // Called just before this Command runs the first time
-void AutoDeliverBall::Initialize()
+void AutoDeliverBallWarmup::Initialize()
 {
+
 	SetTimeout(FeedTime);
 
 }
 
 // Called repeatedly when this Command is scheduled to run
-void AutoDeliverBall::Execute()
+void AutoDeliverBallWarmup::Execute()
 {
+	feeder -> FeedInFromField();
 
-	feeder -> FeedOutToGoal(1);
-//	Wait(FeedTime);
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool AutoDeliverBall::IsFinished()
+bool AutoDeliverBallWarmup::IsFinished()
 {
 	return false;
 }
 
 // Called once after isFinished returns true
-void AutoDeliverBall::End()
+void AutoDeliverBallWarmup::End()
 {
-	feeder -> StopFeed();
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void AutoDeliverBall::Interrupted()
+void AutoDeliverBallWarmup::Interrupted()
 {
-	feeder -> StopFeed();
+
 }

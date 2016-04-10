@@ -10,6 +10,8 @@
 
 //Includes are for commands that are used in this command group
 
+const double SlowDriveSpeed = 0.4;
+const double ObstacleSpeed = 0.4;
 const double AutoDriveSpeed	= 0.85; //.4 for inital lowbar
 const double FullSpeed = 0.95;
 
@@ -23,9 +25,11 @@ AutonomousLowBar::AutonomousLowBar(int DefensePosition, int GoalPosition, int Lo
 	std::cout << "Move SPT Down\n";
 	AddParallel(new SPTMoveToPosition(-24.0));
 	std::cout << "Drive to Defense\n";
-	AddSequential(new AutoDriveCommand(25.0, AutoDriveSpeed, 15));
-	std::cout << "Drive through defense and further\n";
-	AddSequential(new AutoDriveCommand(166.0, FullSpeed, 15));//Formerly -200 //Before Formerly -122.5 //TODO calibrate
+	AddSequential(new AutoDriveCommand(25.0, SlowDriveSpeed, 15));
+	std::cout << "Drive through defense\n";
+	AddSequential(new AutoDriveCommand(36.0, ObstacleSpeed, 15));//Formerly -200 //Before Formerly -122.5 //TODO calibrate
+	std::cout << " and further\n";
+	AddSequential(new AutoDriveCommand(130.0, FullSpeed, 15));//Formerly -200 //Before Formerly -122.5 //TODO calibrate
 	//Drive to good distance
 	std::cout << "Turn to goal\n";
 	AddSequential(new AutoTurnAngleCommand(50));

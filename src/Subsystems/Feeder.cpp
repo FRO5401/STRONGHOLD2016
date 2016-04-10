@@ -32,6 +32,10 @@ void Feeder::FeedInFromField(){
 	FeederOuterFasterMotor -> Set(InfeedIn);
 }
 
+void Feeder::FeedInFromField(double MotorSpeed){
+	FeederOuterFasterMotor -> Set(MotorSpeed);
+}
+
 void Feeder::FeedOutToField(){
 	FeederOuterFasterMotor -> Set(-1 * InfeedOut);
 }
@@ -50,7 +54,7 @@ void Feeder::StopFeed(){
 }
 
 void Feeder::FeedOutToGoal(){
-	FeedInFromField();
+	FeedInFromField(1);
 	FeedOutFromShooter();
 }
 

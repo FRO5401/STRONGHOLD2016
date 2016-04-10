@@ -16,6 +16,7 @@ public:
 	Feeder();
 	void InitDefaultCommand();
 	void FeedInFromField();
+	void FeedInFromField(double);
 	void FeedOutToField();
 	void FeedToShooter();
 	void FeedOutFromShooter();
