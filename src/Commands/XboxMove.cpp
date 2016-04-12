@@ -40,11 +40,16 @@ void XboxMove::Execute()
 	bool 	Precision	=	oi	->	GetPrecision();
 	bool 	Brake		=	oi	->	GetBrake();
 	bool 	Turn		= 	oi	->	GetButtonL3();
+	double temp = 0;
 	
 	double Right,Left, Sensitivity;
 
-	if (oi -> GetButtonA())
+	if (oi -> GetButtonA()) {
 		Slew *= -1;
+		temp = Throttle;
+		Throttle = Reverse;
+		Reverse = temp;
+	}
 
 	SmartDashboard::GetNumber("Drift kP", kP_Drift);
 

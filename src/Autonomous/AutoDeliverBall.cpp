@@ -11,15 +11,14 @@ AutoDeliverBall::AutoDeliverBall(float t)
 void AutoDeliverBall::Initialize()
 {
 	SetTimeout(FeedTime);
-
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AutoDeliverBall::Execute()
 {
 
-	feeder -> FeedOutToGoal(1);
-//	Wait(FeedTime);
+	feeder -> FeedOutToGoal();
+	//Wait(FeedTime);
 }
 
 // Make this return true when this Command no longer needs to run execute()
