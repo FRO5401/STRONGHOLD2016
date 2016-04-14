@@ -253,4 +253,4 @@ bool OI::GetMOHRightBumper(){
 bool OI::GetSelectButton(){
 	return MedalOfHonorController -> GetRawButton(9);
 }
-}
+
