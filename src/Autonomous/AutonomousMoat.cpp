@@ -2,12 +2,12 @@
 
 #include "Autonomous/AutoDriveCommand.h"
 #include "Autonomous/AutoHookScimitarOnBumper.h"
-const double AutoDriveSpeed	= 0.95; //.4 for inital lowbar
+const double MoatAutoDriveSpeed	= 0.95; //.4 for inital lowbar
 
 AutonomousMoat::AutonomousMoat(int DefensePosition, int GoalPosition, int LowOrHigh)
 {
 	AddSequential(new AutoHookScimitarOnBumper());
-	AddSequential(new AutoDriveCommand(-200, AutoDriveSpeed, 15));//TODO Physically determine distance
+	AddSequential(new AutoDriveCommand(-200, MoatAutoDriveSpeed, 15));//TODO Physically determine distance
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());

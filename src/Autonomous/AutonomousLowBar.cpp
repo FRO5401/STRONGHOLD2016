@@ -12,7 +12,7 @@
 
 const double SlowDriveSpeed = 0.35;
 const double ObstacleSpeed = 0.4;
-const double AutoDriveSpeed	= 0.65;
+const double LowBarAutoDriveSpeed	= 0.65;
 const double FullSpeed = 0.95;
 
 AutonomousLowBar::AutonomousLowBar(int DefensePosition, int GoalPosition, int LowOrHigh)
@@ -31,7 +31,7 @@ AutonomousLowBar::AutonomousLowBar(int DefensePosition, int GoalPosition, int Lo
 	AddSequential(new AutoDriveCommand(48.0, ObstacleSpeed, 15));//Formerly -200 //Before Formerly -122.5 //TODO calibrate
 
 	std::cout << " and further\n";
-	AddSequential(new AutoDriveCommand(130.0, AutoDriveSpeed, 15));//Formerly -200 //Before Formerly -122.5 //TODO calibrate
+	AddSequential(new AutoDriveCommand(130.0, LowBarAutoDriveSpeed, 15));//Formerly -200 //Before Formerly -122.5 //TODO calibrate
 
 	std::cout << "Turn to goal\n";
 	AddSequential(new AutoTurnAngleCommand(50));

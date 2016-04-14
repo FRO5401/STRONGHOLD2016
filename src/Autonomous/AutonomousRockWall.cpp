@@ -5,14 +5,14 @@
 #include "Commands/HookShoulderMoveToPosition.h"
 #include "Commands/SPTMoveToPosition.h"
 
-const double AutoDriveSpeed	= 0.85; //.4 for inital lowbar
+const double RockWallAutoDriveSpeed	= 0.85; //.4 for inital lowbar
 
 AutonomousRockWall::AutonomousRockWall(int DefensePosition, int GoalPosition, int LowOrHigh)
 {
 	//Measurements are based on theoretical calculations, physical test are needed
 	//SPT starts from behind
 	AddSequential(new AutoHookScimitarOnBumper());
-	AddSequential(new AutoDriveCommand(-200, AutoDriveSpeed, 15));//TODO Physically determine distance
+	AddSequential(new AutoDriveCommand(-200, RockWallAutoDriveSpeed, 15));//TODO Physically determine distance
 
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
