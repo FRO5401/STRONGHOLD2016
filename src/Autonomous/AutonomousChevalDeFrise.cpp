@@ -18,11 +18,11 @@ const double ChevalAutoDriveSpeed	= 0.85;
 AutonomousChevalDeFrise::AutonomousChevalDeFrise(int DefensePosition, int GoalPosition, int LowOrHigh)
 {
 	//SPT must be in the front
-	AddSequential(new AutoHookScimitarOnBumper());
- 	AddSequential(new AutoDriveCommand(42, ChevalAutoDriveSpeed, 15)); //Drive to defense //TODO edit
-	AddSequential(new SPTMoveToPosition(-45)); //Move SPT down to prepare to drive over cheval
-	AddParallel(new SPTMoveToPosition(45)); //Move SPT up and out of the way
-	AddSequential(new AutoDriveCommand(77, ChevalAutoDriveSpeed, 15)); //TODO determine best distance to drive //Drive over cheval.//updated 3/5/16 10:00am
+	AddParallel(new AutoHookScimitarOnBumper());
+	AddSequential(new SPTMoveToPosition(-17)); //Move SPT down to prepare to drive over cheval, does not need to move up
+ 	AddSequential(new AutoDriveCommand(140, ChevalAutoDriveSpeed, 15)); //Drive to defense //TODO edit
+//	AddParallel(new SPTMoveToPosition(45)); //Move SPT up and out of the way//Not Needed
+//	AddSequential(new AutoDriveCommand(77, ChevalAutoDriveSpeed, 15)); //TODO determine best distance to drive //Drive over cheval.//updated 3/5/16 10:00am
 
 
 
