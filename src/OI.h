@@ -72,6 +72,7 @@ public:
 	bool GetMOHButtonTriangle();
 	bool GetMOHButtonCircle();
 	bool GetMOHRightBumper();
+	bool GetSelectButton();
 };
 
 #endif

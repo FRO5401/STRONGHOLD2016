@@ -11,6 +11,7 @@ private:
 	bool Override;
 	double CurrentPosition;
 	double HookShoulderMove;
+	bool Precision;
 public:
 	HookShoulderUpDown();
 	void Initialize();

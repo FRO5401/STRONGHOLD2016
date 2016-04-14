@@ -5,6 +5,7 @@ const double HookMaxPosition = 96; //TODO Set the angle
 const double HookMinPosition = 5; //TODO Set the angle
 const double HookStartPosition = 60; //TODO Set the angle
 const float StickAxisThreshold = .1;
+const double HookPrecision = 0.5;
 
 HookShoulderUpDown::HookShoulderUpDown()
 {
@@ -28,6 +29,7 @@ void HookShoulderUpDown::Execute()
 	YAxisValue 	= oi -> ReadMOHRightStickY();
 	Override 		= oi -> GetMOHRightStickButton();
 	CurrentPosition	= hookshoulder -> ReportAngle();
+	Precision = oi -> GetSelectButton();
 /*
 	//If wondering about the numbers for the conditionals, look at GetMOHPOVState()
 	if (YAxisValue == 0){ //Stops the HookShoulder if D-pad is unpressed or pressed in the wrong section
@@ -51,6 +53,10 @@ void HookShoulderUpDown::Execute()
 		HookShoulderMove = ((HookShoulderMove > 0) && (CurrentPosition <= HookMinPosition)) ? 0 : HookShoulderMove;
 	}
 
+	if(Precision)
+	{
+		HookShoulderMove = HookShoulderMove * HookPrecision;
+	}
 	//Returns the Angle the HookShoulder is at to the Dashboard
 	SmartDashboard::PutNumber("YAxisValue", YAxisValue);
 	SmartDashboard::PutNumber("HookShoulder Input", HookShoulderMove);
