@@ -141,8 +141,8 @@ private:
 		autoMode->AddDefault("ONLY Hook Scimitar onto Bumper", new AutoHookScimitarOnBumper());
 		autoMode->AddObject("Low Bar (SPT Forwards)", new AutonomousLowBar(1,1,2));
 		autoMode->AddObject("Do Nothing", new DoNothing());
-//		autoMode->AddObject("Portcullis", new AutonomousPortcullis(PositionForDefense, PositionForGoal, LowOrHighGoal));
-		autoMode->AddObject("Cheval de Frise (SPT Forwards)", new AutonomousChevalDeFrise(PositionForDefense, PositionForGoal, LowOrHighGoal));
+		autoMode->AddObject("Portcullis (SPT Forwards)", new AutonomousPortcullis(PositionForDefense, PositionForGoal, LowOrHighGoal));
+//		autoMode->AddObject("Cheval de Frise (SPT Forwards)", new AutonomousChevalDeFrise(PositionForDefense, PositionForGoal, LowOrHighGoal));
 //		autoMode->AddObject("Ramparts", new AutonomousRamparts(PositionForDefense, PositionForGoal, LowOrHighGoal));
 		autoMode->AddObject("Rock Wall/Rough Terrain (Hook Forwards)", new AutonomousRockWall(PositionForDefense, PositionForGoal, LowOrHighGoal));
 //		autoMode->AddObject("Rough Terrain", new AutonomousRoughTerrain(PositionForDefense, PositionForGoal, LowOrHighGoal));
