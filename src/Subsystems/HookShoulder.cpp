@@ -15,7 +15,7 @@
 //Multiplier to get meaningful value. A number can be put here
 const double HookShoulder_Range 	= 1600; //TODO Switch to negative on practice robot
 //Quote "offset added to the scaled value to control the 0 value
-const double HookShoulder_Offset 	= -754; //Practice: 986; //Competition: -1024;//-847; //Horizontal is 0
+const double HookShoulder_Offset 	= -803; //Practice: 986; //Competition: -1024;//-847; //Horizontal is 0
 
 //NO LONGER USED
 //const double HookShoulder_Kp 		= 0;//Proportional
