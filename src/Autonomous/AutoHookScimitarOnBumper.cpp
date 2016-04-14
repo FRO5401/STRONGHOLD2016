@@ -5,7 +5,7 @@
 AutoHookScimitarOnBumper::AutoHookScimitarOnBumper()
 {
 	std::cout << "Start AutoHookScimitarOnBumper\n";
-	AddSequential(new HookShoulderMoveToPosition(4));//Go down to bumper
+	AddSequential(new HookShoulderMoveToPosition(7));//Go down to bumper
 	std::cout << "Retracting Scimitar In\n";
 	AddSequential(new ScimitarMoveToPosition(-4)); //Probably hits limit switches first //Retract in to bumper //-2.875 is the high value
 	std::cout << "End AutoHookScimitarOnBumper\n";

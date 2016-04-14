@@ -9,7 +9,7 @@ HookShoulderMoveToPosition::HookShoulderMoveToPosition(double angleForHookShould
 	Requires(hookshoulder);
 	finishedHookShoulder = true;
 	DesiredAngleHookShoulder = angleForHookShoulder;
-	Timeout = 15;
+	Timeout = 2;
 }
 /*
 HookShoulderMoveToPosition::HookShoulderMoveToPosition(double angleForHookShoulder, double time)
