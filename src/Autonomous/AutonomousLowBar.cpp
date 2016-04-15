@@ -39,7 +39,7 @@ AutonomousLowBar::AutonomousLowBar(int DefensePosition, int GoalPosition, int Lo
 	std::cout << "Move SPT up a bit to score\n";
 	AddParallel(new SPTMoveToPosition(-10.0));
 	std::cout << "Drive to goal\n";
-	AddSequential(new AutoDriveCommand(83.0, FullSpeed, 15));
+	AddSequential(new AutoDriveCommand(80.0, FullSpeed, 15));//Was 80.0 inches, minus 3 inches at 041516 at 9:58
 
 	std::cout << "Final Approach to goal\n";
 	AddParallel(new AutoDriveCommand(5.0, 1, 15));
