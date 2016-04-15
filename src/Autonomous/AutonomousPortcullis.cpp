@@ -7,8 +7,8 @@ const double PortcullisAutoDriveSpeed = .85;
 
 AutonomousPortcullis::AutonomousPortcullis(int DefensePosition, int GoalPosition, int LowOrHigh)
 {
-	AddParallel(new AutoHookScimitarOnBumper());
-	AddSequential(new SPTMoveToPosition(-17)); //Move SPT down to prepare to drive over cheval, does not need to move up
+	AddParallel(new SPTMoveToPosition(-17)); //Move SPT down to prepare to drive over cheval, does not need to move up
+	AddSequential(new AutoHookScimitarOnBumper());
 	AddSequential(new AutoDriveCommand(140, PortcullisAutoDriveSpeed, 15)); //Drive to defense //TODO edit
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
