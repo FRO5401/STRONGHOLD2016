@@ -1,6 +1,7 @@
 #include "HookShoulderUpDown.h"
 
-const double HookShoulderSpeed = 0.75; //TODO Tune this to a comfortable speed
+const double HookShoulderUpSpeed = 0.75;
+const double HookShoulderDownSpeed = 0.4;
 const double HookMaxPosition = 96; //TODO Set the angle
 const double HookMinPosition = 5; //TODO Set the angle
 const double HookStartPosition = 60; //TODO Set the angle
@@ -40,9 +41,13 @@ void HookShoulderUpDown::Execute()
 		HookShoulderMove = -HookShoulderSpeed;
 	}
 */
-	if (fabs(YAxisValue) > StickAxisThreshold)
-		HookShoulderMove = YAxisValue * HookShoulderSpeed;
-	else
+	if (fabs(YAxisValue) > StickAxisThreshold){
+		HookShoulderMove = YAxisValue;
+		if (YAxisValue < 0) //negative value, moves up
+			HookShoulderMove *= HookShoulderUpSpeed;
+		else //positive value, moves down
+			HookShoulderMove *= HookShoulderDownSpeed;
+	} else
 		HookShoulderMove = 0;
 
 	if(!Override)
