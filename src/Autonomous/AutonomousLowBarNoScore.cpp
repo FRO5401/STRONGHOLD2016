@@ -31,7 +31,8 @@ AutonomousLowBarNoScore::AutonomousLowBarNoScore()
 	AddSequential(new AutoDriveCommand(48.0, ObstacleSpeed_NoScore, 15));//Formerly -200 //Before Formerly -122.5 //TODO calibrate
 
 	std::cout << " and further\n";
-	AddSequential(new AutoDriveCommand(148.0, LowBarAutoDriveSpeed_NoScore, 15));//Formerly -200 //Before Formerly -122.5 //TODO calibrate
+	AddSequential(new AutoDriveCommand(50.0, LowBarAutoDriveSpeed_NoScore, 15));//Formerly -200 //Before Formerly -122.5 //TODO calibrate
+//	AddSequential(new AutoDriveCommand(148.0, LowBarAutoDriveSpeed_NoScore, 15));//Formerly -200 //Before Formerly -122.5 //TODO calibrate
 /*
 	std::cout << "Turn to goal\n";
 	AddSequential(new AutoTurnAngleCommand(50));
