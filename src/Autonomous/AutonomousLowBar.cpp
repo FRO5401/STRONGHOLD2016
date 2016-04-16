@@ -23,7 +23,7 @@ AutonomousLowBar::AutonomousLowBar(int DefensePosition, int GoalPosition, int Lo
 	std::cout << "Hooking scimitar onto bumper\n";
 	AddParallel(new AutoHookScimitarOnBumper());
 	std::cout << "Move SPT Down\n";
-	AddParallel(new SPTMoveToPosition(-24.0));
+	AddParallel(new SPTMoveToPosition(-24.5));
 	std::cout << "Drive to Defense\n";
 	AddSequential(new AutoDriveCommand(25.0, SlowDriveSpeed, 15));
 
@@ -37,7 +37,7 @@ AutonomousLowBar::AutonomousLowBar(int DefensePosition, int GoalPosition, int Lo
 	AddSequential(new AutoTurnAngleCommand(50));
 
 	std::cout << "Move SPT up a bit to score\n";
-	AddParallel(new SPTMoveToPosition(-10.0));
+	AddParallel(new SPTMoveToPosition(-10.5));
 	std::cout << "Drive to goal\n";
 	AddSequential(new AutoDriveCommand(80.0, FullSpeed, 15));//Was 80.0 inches, minus 3 inches at 041516 at 9:58
 

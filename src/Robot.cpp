@@ -84,6 +84,7 @@
 #include "Autonomous/AutonomousRockWall.h"
 #include "Autonomous/AutonomousRoughTerrain.h"
 #include "Autonomous/AutoHookScimitarOnBumper.h"
+#include "Autonomous/AutonomousLowBarNoScore.h"
 
 #include "Autonomous/MoveForwardOnly.h"
 #include "Commands/DoNothing.h"
@@ -147,6 +148,7 @@ private:
 		autoMode->AddObject("Rock Wall/Rough Terrain (Hook Forwards)", new AutonomousRockWall(PositionForDefense, PositionForGoal, LowOrHighGoal));
 //		autoMode->AddObject("Rough Terrain", new AutonomousRoughTerrain(PositionForDefense, PositionForGoal, LowOrHighGoal));
 		autoMode->AddObject("Move Forward to Outer Works Only (SPT Forwards)", new MoveForwardOnly());
+		autoMode->AddObject("Low Bar with NO Score (SPT Forwards)", new AutonomousLowBarNoScore());
 //		autoMode->AddObject("Hook Scimitar On Bumper", new AutoHookScimitarOnBumper());
 		SmartDashboard::PutData("Autonomous Mode", autoMode);
 

@@ -23,15 +23,15 @@ AutonomousLowBarNoScore::AutonomousLowBarNoScore()
 	std::cout << "Hooking scimitar onto bumper\n";
 	AddParallel(new AutoHookScimitarOnBumper());
 	std::cout << "Move SPT Down\n";
-	AddParallel(new SPTMoveToPosition(-24.0));
-	std::cout << "Drive to Defense\n";
-	AddSequential(new AutoDriveCommand(25.0, SlowDriveSpeed_NoScore, 15));
+	AddParallel(new SPTMoveToPosition(-24.5)); //slop makes it go -3 further
+//	std::cout << "Drive to Defense\n";
+//	AddSequential(new AutoDriveCommand(25.0, SlowDriveSpeed_NoScore, 15));
 
-	std::cout << "Drive through defense\n";
-	AddSequential(new AutoDriveCommand(48.0, ObstacleSpeed_NoScore, 15));//Formerly -200 //Before Formerly -122.5 //TODO calibrate
+//	std::cout << "Drive through defense\n";
+//	AddSequential(new AutoDriveCommand(48.0, ObstacleSpeed_NoScore, 15));//Formerly -200 //Before Formerly -122.5 //TODO calibrate
 
-	std::cout << " and further\n";
-	AddSequential(new AutoDriveCommand(50.0, LowBarAutoDriveSpeed_NoScore, 15));//Formerly -200 //Before Formerly -122.5 //TODO calibrate
+//	std::cout << " and further\n";
+//	AddSequential(new AutoDriveCommand(50.0, LowBarAutoDriveSpeed_NoScore, 15));//Formerly -200 //Before Formerly -122.5 //TODO calibrate
 //	AddSequential(new AutoDriveCommand(148.0, LowBarAutoDriveSpeed_NoScore, 15));//Formerly -200 //Before Formerly -122.5 //TODO calibrate
 /*
 	std::cout << "Turn to goal\n";
