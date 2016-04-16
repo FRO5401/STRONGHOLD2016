@@ -34,7 +34,7 @@ AutonomousLowBar::AutonomousLowBar(int DefensePosition, int GoalPosition, int Lo
 	AddSequential(new AutoDriveCommand(148.0, LowBarAutoDriveSpeed, 15));//Formerly -200 //Before Formerly -122.5 //TODO calibrate
 
 	std::cout << "Turn to goal\n";
-	AddSequential(new AutoTurnAngleCommand(50));
+	AddSequential(new AutoTurnAngleCommand(63));//Formerly 50
 
 	std::cout << "Move SPT up a bit to score\n";
 	AddParallel(new SPTMoveToPosition(-10.5));
