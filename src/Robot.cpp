@@ -85,6 +85,7 @@
 #include "Autonomous/AutonomousRoughTerrain.h"
 #include "Autonomous/AutoHookScimitarOnBumper.h"
 #include "Autonomous/AutonomousLowBarNoScore.h"
+#include "Autonomous/AutonomousRockWallAndTurn.h"
 
 #include "Autonomous/MoveForwardOnly.h"
 #include "Commands/DoNothing.h"
@@ -136,11 +137,11 @@ private:
 		SmartDashboard::GetNumber("Position of the High Goal", 	PositionForGoal);
 		SmartDashboard::GetNumber("Choose High or Low Goal", 	LowOrHighGoal);
 
-		autoMode = new SendableChooser();
+/*		autoMode = new SendableChooser();
 		//Low Bar CommandGroup is constant because it'll always be in defense position 1 and go in left high goal
 //		autoMode->AddDefault("Default-Low Bar", new AutonomousLowBar(1,1,2));
 		autoMode->AddDefault("ONLY Hook Scimitar onto Bumper", new AutoHookScimitarOnBumper());
-		autoMode->AddObject("Low Bar (SPT Forwards)", new AutonomousLowBar(1,1,2));
+		autoMode->AddObject("Low Bar + Score (SPT Forwards)", new AutonomousLowBar(1,1,2));
 		autoMode->AddObject("Do Nothing", new DoNothing());
 		autoMode->AddObject("Portcullis (SPT Forwards)", new AutonomousPortcullis(PositionForDefense, PositionForGoal, LowOrHighGoal));
 //		autoMode->AddObject("Cheval de Frise (SPT Forwards)", new AutonomousChevalDeFrise(PositionForDefense, PositionForGoal, LowOrHighGoal));
@@ -149,9 +150,10 @@ private:
 //		autoMode->AddObject("Rough Terrain", new AutonomousRoughTerrain(PositionForDefense, PositionForGoal, LowOrHighGoal));
 		autoMode->AddObject("Move Forward to Outer Works Only (SPT Forwards)", new MoveForwardOnly());
 		autoMode->AddObject("Low Bar with NO Score (SPT Forwards)", new AutonomousLowBarNoScore());
+		autoMode->AddObject("Rock Wall/Rough Terrain with Turn (Hook Forwards)", new AutonomousRockWallAndTurn());
 //		autoMode->AddObject("Hook Scimitar On Bumper", new AutoHookScimitarOnBumper());
 		SmartDashboard::PutData("Autonomous Mode", autoMode);
-
+*/
 
 //		targetCam = new USBCamera("cam0", true);
 //		targetCam->SetBrightness(set_bright);
