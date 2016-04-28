@@ -9,7 +9,7 @@ const int NotUsed = 0; //for unused parameters of rockwall originally for switch
 AutonomousRockWallAndTurn::AutonomousRockWallAndTurn()
 {
 	AddSequential(new AutonomousRockWall(NotUsed, NotUsed, NotUsed));
-	AddSequential(new AutoDriveCommand(-12,RockWallAndTurnAutoDriveSpeed, 15));
+//	AddSequential(new AutoDriveCommand(-12,RockWallAndTurnAutoDriveSpeed, 15));//Not needed
 	AddSequential(new AutoTurnAngleCommand(180));
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
