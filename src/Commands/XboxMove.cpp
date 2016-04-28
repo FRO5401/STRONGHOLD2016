@@ -112,8 +112,8 @@ void XboxMove::Execute()
 	drivebase        -> Drive(Left, Right);
 
 	//Comment out during competition
-	if (oi->GetButtonStart() && oi->GetButtonBack())
-		drivebase -> MainGyro -> Calibrate();
+//	if (oi->GetButtonStart() && oi->GetButtonBack())
+//		drivebase -> MainGyro -> Calibrate();
 
 }
 

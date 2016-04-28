@@ -137,7 +137,7 @@ private:
 		SmartDashboard::GetNumber("Position of the High Goal", 	PositionForGoal);
 		SmartDashboard::GetNumber("Choose High or Low Goal", 	LowOrHighGoal);
 
-/*		autoMode = new SendableChooser();
+		autoMode = new SendableChooser();
 		//Low Bar CommandGroup is constant because it'll always be in defense position 1 and go in left high goal
 //		autoMode->AddDefault("Default-Low Bar", new AutonomousLowBar(1,1,2));
 		autoMode->AddDefault("ONLY Hook Scimitar onto Bumper", new AutoHookScimitarOnBumper());
@@ -153,7 +153,7 @@ private:
 		autoMode->AddObject("Rock Wall/Rough Terrain with Turn (Hook Forwards)", new AutonomousRockWallAndTurn());
 //		autoMode->AddObject("Hook Scimitar On Bumper", new AutoHookScimitarOnBumper());
 		SmartDashboard::PutData("Autonomous Mode", autoMode);
-*/
+
 
 //		targetCam = new USBCamera("cam0", true);
 //		targetCam->SetBrightness(set_bright);
