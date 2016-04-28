@@ -31,15 +31,15 @@ AutonomousLowBar::AutonomousLowBar(int DefensePosition, int GoalPosition, int Lo
 	AddSequential(new AutoDriveCommand(48.0, ObstacleSpeed, 15));//Formerly -200 //Before Formerly -122.5 //TODO calibrate
 
 	std::cout << " and further\n";
-	AddSequential(new AutoDriveCommand(148.0, LowBarAutoDriveSpeed, 15));//Formerly -200 //Before Formerly -122.5 //TODO calibrate
+	AddSequential(new AutoDriveCommand(166.0, LowBarAutoDriveSpeed, 15));//Formerly -200 //Before Formerly -122.5 //Added 18 inches 4/28/16
 
 	std::cout << "Turn to goal\n";
-	AddSequential(new AutoTurnAngleCommand(60.5));//Formerly 50
+	AddSequential(new AutoTurnAngleCommand(60.5));//Original: 50; Adjusted for Curve: 60.5
 
 	std::cout << "Move SPT up a bit to score\n";
 	AddParallel(new SPTMoveToPosition(-10.5));
 	std::cout << "Drive to goal\n";
-	AddSequential(new AutoDriveCommand(80.0, FullSpeed, 15));//Was 80.0 inches, minus 3 inches at 041516 at 9:58
+	AddSequential(new AutoDriveCommand(80, FullSpeed, 15));//Was 80.0 inches, minus 3 inches at 041516 at 9:58
 
 	std::cout << "Final Approach to goal\n";
 	AddParallel(new AutoDriveCommand(5.0, 1, 15));
