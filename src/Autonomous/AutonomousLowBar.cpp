@@ -34,7 +34,7 @@ AutonomousLowBar::AutonomousLowBar(int DefensePosition, int GoalPosition, int Lo
 	AddSequential(new AutoDriveCommand(166.0, LowBarAutoDriveSpeed, 15));//Formerly -200 //Before Formerly -122.5 //Added 18 inches 4/28/16
 
 	std::cout << "Turn to goal\n";
-	AddSequential(new AutoTurnAngleCommand(60.5));//Original: 50; Adjusted for Curve: 60.5
+	AddSequential(new AutoTurnAngleCommand(57.5));//Original: 50; Adjusted for Curve: 60.5; Adjusted for missing off right to 55
 
 	std::cout << "Move SPT up a bit to score\n";
 	AddParallel(new SPTMoveToPosition(-10.5));
